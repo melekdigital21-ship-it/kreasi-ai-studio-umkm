@@ -90,7 +90,73 @@
             .no-print { display: none !important; }
             #print-report-container { display: block !important; position: static !important; width: 100% !important; }
         }
-    </style>
+    </style><style>
+  @media (max-width: 640px) {
+    /* 1. Ruang napas utama di tepi kanan-kiri layar HP */
+    body {
+      padding-left: 8px !important;
+      padding-right: 8px !important;
+      overflow-x: hidden !important;
+    }
+
+    header, main, section {
+      padding-left: 14px !important;
+      padding-right: 14px !important;
+    }
+
+    /* 2. Rapikan Header Atas agar lencana status & tombol tidak berdempetan */
+    header {
+      padding-top: 16px !important;
+      padding-bottom: 16px !important;
+    }
+
+    header .flex-wrap {
+      gap: 10px !important;
+      margin-top: 12px !important;
+    }
+
+    /* 3. Ubah deretan tombol Isi Template Kategori menjadi Grid 2 Kolom simetris */
+    .flex.flex-wrap {
+      display: grid !important;
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      gap: 10px !important;
+    }
+
+    .flex.flex-wrap button {
+      width: 100% !important;
+      justify-content: center !important;
+      padding: 10px 10px !important;
+      font-size: 12.5px !important;
+      line-height: 1.3 !important;
+      text-align: center !important;
+    }
+
+    /* 4. Longgarkan jarak antar-kolom form Profil Usaha agar nyaman diketik di HP */
+    label {
+      display: block !important;
+      margin-top: 16px !important;
+      margin-bottom: 6px !important;
+      font-size: 12px !important;
+      letter-spacing: 0.04em !important;
+    }
+
+    input, select, textarea {
+      padding: 13px 14px !important;
+      font-size: 15px !important;
+      border-radius: 12px !important;
+    }
+
+    /* 5. Beri jarak antar-kartu & area konten agar tidak terasa sesak */
+    section, .rounded-2xl, .rounded-xl {
+      margin-top: 18px !important;
+    }
+
+    /* 6. Perbesar area sentuh tombol aksi di dalam kartu */
+    button {
+      min-height: 42px !important;
+    }
+  }
+</style>
 </head>
 <body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-200 min-h-screen flex flex-col">
 
@@ -908,9 +974,9 @@
             try {
                 // Melakukan ping ringan ke /api/generate dengan timeout singkat
                 const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 3500);
+                const timeoutId = setTimeout(() => controller.abort(), 15000);
 
-                const res = await fetch("/api/generate", {
+                const res = awaiconst res = await fetch("/api/status", { signal: controller.signal });
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
