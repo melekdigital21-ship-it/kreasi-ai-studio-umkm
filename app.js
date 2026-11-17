@@ -8,7 +8,8 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+const ai = new GoogleGenAI();
+
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.static('public'));
@@ -103,10 +104,18 @@ app.post('/api/generate-image', async (req, res) => {
     res.json({ imageUrl: base64Image });
   } catch (error) {
     console.error('Detail Error Generate Image:', error.message || error);
-    res.status(500).json({ error: error.message || 'Gagal membuat gambar produk.' });
+    const isQuota = String(error.message || '').includes('429') || String(error.message || '').includes('quota');
+res.status(500).json({
+  error: isQuota
+    ? 'Server gambar sedang ramai (batas kuota gratis per menit tercapai). Tunggu 1 menit lalu coba klik lagi!'
+    : (error.message || 'Gagal membuat gambar poster.')
+});
   }
 });
-
+// Rute cek status koneksi server (cepat tanpa menunggu AI)
+app.get('/api/status', (req, res) => {
+  res.json({ status: 'online', text: 'SIAP' });
+});
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Server UMKM Marketing Studio aktif di http://localhost:${PORT}`);
 });
