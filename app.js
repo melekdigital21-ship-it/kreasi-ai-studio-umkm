@@ -1,121 +1,113 @@
+import 'dotenv/config';
 import express from 'express';
-import dotenv from 'dotenv';
 import cors from 'cors';
 import { GoogleGenAI } from '@google/genai';
 
-dotenv.config();
-
 const app = express();
-const PORT = process.env.PORT || 3000;
-
-const ai = new GoogleGenAI();
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 app.use(express.static('public'));
 
-// 1. Rute Generate Teks (Riset, Buat, Jual, Ukur, Prompt Video & Lirik Lagu)
+// 1. Rute Cek Status Server (Cepat, langsung mengubah lencana menjadi hijau)
+app.get('/api/status', (req, res) => {
+  res.json({ status: 'online', text: 'SIAP' });
+});
+
+// 2. Rute Generate Teks (Riset, Buat, Jual, Ukur, Prompt Video & Lirik Jingle)
 app.post('/api/generate', async (req, res) => {
   try {
     const { prompt, systemInstruction } = req.body;
-
     if (!prompt) {
       return res.status(400).json({ error: 'Prompt tidak boleh kosong.' });
     }
 
-    const config = {
-      systemInstruction:
-        systemInstruction ||
-        'Anda adalah konsultan Digital Marketing UMKM berbasis kerangka Riset, Buat, Jual, Ukur. Berikan jawaban dalam Bahasa Indonesia yang praktis, terstruktur, dan mudah dipraktikkan oleh pelaku UMKM.',
-      temperature: 0.7,
-    };
-
-    const modelsToTry = ['gemini-3.1-flash-lite', 'gemini-3.8-flash', 'gemini-2.5-flash-lite'];
+    const models = ['gemini-3.1-flash-lite', 'gemini-2.5-flash'];
     let response = null;
     let lastError = null;
 
-    for (const modelName of modelsToTry) {
+    for (const modelName of models) {
       try {
         response = await ai.models.generateContent({
           model: modelName,
           contents: prompt,
-          config,
+          config: systemInstruction ? { systemInstruction } : undefined,
         });
-        console.log(`Berhasil generate teks menggunakan model: ${modelName}`);
-        break;
+        if (response && response.text) {
+          console.log(`Berhasil generate teks menggunakan model: ${modelName}`);
+          break;
+        }
       } catch (err) {
         lastError = err;
-        console.warn(`Model teks ${modelName} gagal (${err.status || err.message}), mencoba berikutnya...`);
+        console.warn(`Model teks ${modelName} gagal:`, err.message);
       }
     }
 
-    if (!response) {
-      throw lastError;
+    if (!response || !response.text) {
+      throw lastError || new Error('Gagal menghasilkan teks dari Gemini.');
     }
 
     res.json({ result: response.text });
   } catch (error) {
     console.error('Detail Error Gemini API:', error.message || error);
-    res.status(500).json({ error: error.message || 'Gagal memproses permintaan ke Gemini API.' });
+    res.status(500).json({
+      error: error.message || 'Gagal memproses permintaan AI.',
+    });
   }
 });
 
-// 2. Rute Generate Gambar Poster / Foto Produk AI
+// 3. Rute Generate Gambar Poster / Foto Produk AI
 app.post('/api/generate-image', async (req, res) => {
   try {
     const { prompt } = req.body;
-
     if (!prompt) {
       return res.status(400).json({ error: 'Deskripsi gambar tidak boleh kosong.' });
     }
 
-    const imageModelsToTry = ['gemini-2.5-flash-image', 'gemini-3.1-flash-image', 'gemini-3.1-flash-lite-image'];
+    const imageModels = ['gemini-2.5-flash-image', 'gemini-3.1-flash-lite-image'];
     let imagePart = null;
     let lastError = null;
 
-    for (const modelName of imageModelsToTry) {
+    for (const modelName of imageModels) {
       try {
         const response = await ai.models.generateContent({
           model: modelName,
           contents: prompt,
-          config: {
-            responseModalities: ['IMAGE'],
-          },
         });
-
-        const parts = response.candidates?.[0]?.content?.parts || [];
-        imagePart = parts.find((p) => p.inlineData);
-
+        const parts = response?.candidates?.[0]?.content?.parts || [];
+        imagePart = parts.find((p) => p.inlineData && p.inlineData.data);
         if (imagePart) {
           console.log(`Berhasil generate gambar menggunakan model: ${modelName}`);
           break;
         }
       } catch (err) {
         lastError = err;
-        console.warn(`Model gambar ${modelName} gagal (${err.status || err.message}), mencoba berikutnya...`);
+        console.warn(`Model gambar ${modelName} gagal:`, err.message);
       }
     }
 
     if (!imagePart) {
-      throw lastError || new Error('Model tidak mengembalikan data gambar.');
+      throw lastError || new Error('Model gambar tidak mengembalikan visual.');
     }
 
-    const base64Image = `data:${imagePart.inlineData.mimeType};base64,${imagePart.inlineData.data}`;
+    const mimeType = imagePart.inlineData.mimeType || 'image/png';
+    const base64Image = `data:${mimeType};base64,${imagePart.inlineData.data}`;
     res.json({ imageUrl: base64Image });
   } catch (error) {
     console.error('Detail Error Generate Image:', error.message || error);
-    const isQuota = String(error.message || '').includes('429') || String(error.message || '').includes('quota');
-res.status(500).json({
-  error: isQuota
-    ? 'Server gambar sedang ramai (batas kuota gratis per menit tercapai). Tunggu 1 menit lalu coba klik lagi!'
-    : (error.message || 'Gagal membuat gambar poster.')
-});
+    const msg = String(error.message || '');
+    const isQuota = msg.includes('429') || msg.toLowerCase().includes('quota');
+    res.status(500).json({
+      error: isQuota
+        ? 'Server gambar sedang ramai (kuota gratis per menit penuh). Tunggu 1 menit lalu klik lagi!'
+        : msg || 'Gagal membuat gambar poster.',
+    });
   }
 });
-// Rute cek status koneksi server (cepat tanpa menunggu AI)
-app.get('/api/status', (req, res) => {
-  res.json({ status: 'online', text: 'SIAP' });
-});
+
+// 4. Jalankan Server (Port dinamis untuk Railway & lokal)
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server UMKM Marketing Studio aktif di http://localhost:${PORT}`);
+  console.log(`Server UMKM Marketing Studio aktif di port ${PORT}`);
 });
