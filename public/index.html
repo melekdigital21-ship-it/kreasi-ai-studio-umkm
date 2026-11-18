@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AI Digital Marketing Studio — UMKM Edition</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -182,7 +181,26 @@
         </button>
       </div>
     </section>
-
+<!-- Pilihan Cepat Gaya Studio / Model Prompt Gambar -->
+<div class="mb-4">
+  <label class="block text-sm font-semibold text-slate-300 mb-2">🎨 Pilih Template Gaya Studio & Ukuran Poster</label>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-3">
+    <button type="button" onclick="pilihGayaStudio('Dapur Rumah Cerah & Bersih')" class="px-3 py-2 text-xs font-semibold bg-slate-800 hover:bg-emerald-600 text-slate-200 rounded-lg border border-slate-700 transition">☀️ Dapur Cerah</button>
+    <button type="button" onclick="pilihGayaStudio('Studio Minimalis Modern Kayu Estetik')" class="px-3 py-2 text-xs font-semibold bg-slate-800 hover:bg-emerald-600 text-slate-200 rounded-lg border border-slate-700 transition">🪵 Studio Kayu</button>
+    <button type="button" onclick="pilihGayaStudio('Meja Marmar Mewah Pencahayaan Studio Mewah')" class="px-3 py-2 text-xs font-semibold bg-slate-800 hover:bg-emerald-600 text-slate-200 rounded-lg border border-slate-700 transition">✨ Marmar Mewah</button>
+    <button type="button" onclick="pilihGayaStudio('Nuansa Alam Segar Daun Hijau Tropis')" class="px-3 py-2 text-xs font-semibold bg-slate-800 hover:bg-emerald-600 text-slate-200 rounded-lg border border-slate-700 transition">🌿 Alam Tropis</button>
+  </div>
+</div>
+<!-- Pilihan Cepat Prompt Gaya Studio -->
+<div class="mb-4 bg-slate-900/80 p-4 rounded-xl border border-slate-800">
+  <label class="block text-sm font-semibold text-emerald-400 mb-2">🎨 Pilih Cepat Prompt & Gaya Studio Poster</label>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+    <button type="button" onclick="pilihGayaStudio('Dapur Rumah Cerah & Bersih, Natural Sunlight')" class="px-3 py-2 text-xs font-semibold bg-slate-800 hover:bg-emerald-600 text-slate-200 rounded-lg border border-slate-700 transition text-left">☀️ Dapur Cerah</button>
+    <button type="button" onclick="pilihGayaStudio('Studio Minimalis Modern Kayu Estetik')" class="px-3 py-2 text-xs font-semibold bg-slate-800 hover:bg-emerald-600 text-slate-200 rounded-lg border border-slate-700 transition text-left">🪵 Studio Kayu</button>
+    <button type="button" onclick="pilihGayaStudio('Meja Marmar Mewah Pencahayaan Studio Komersial')" class="px-3 py-2 text-xs font-semibold bg-slate-800 hover:bg-emerald-600 text-slate-200 rounded-lg border border-slate-700 transition text-left">✨ Marmar Mewah</button>
+    <button type="button" onclick="pilihGayaStudio('Nuansa Alam Segar Daun Hijau Tropis')" class="px-3 py-2 text-xs font-semibold bg-slate-800 hover:bg-emerald-600 text-slate-200 rounded-lg border border-slate-700 transition text-left">🌿 Alam Tropis</button>
+  </div>
+</div>
     <!-- Studio Visual, Video & Audio -->
     <section class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6 space-y-4">
       <div>
