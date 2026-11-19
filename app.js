@@ -25,7 +25,6 @@ app.post('/api/gemini', async (req, res) => {
     }
 
     if (mode === 'image') {
-      const urlGambar = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent?key=${apiKey}`;
       const imageParts = [{ text: prompt }];
       if (imageBase64) {
         imageParts.push({
@@ -35,29 +34,38 @@ app.post('/api/gemini', async (req, res) => {
           }
         });
       }
-      const response = await fetch(urlGambar, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ parts: imageParts }],
-          generationConfig: {
-            responseModalities: ['IMAGE'],
-            imageConfig: { aspectRatio: '1:1' }
+
+      const imageModels = ['gemini-2.5-flash-image', 'gemini-3.1-flash-image-preview'];
+      let lastError = 'Gagal membuat gambar AI.';
+
+      for (const modelName of imageModels) {
+        const urlGambar = `https://generativelanguage.googleapis.com/v1beta/models/${modelName}:generateContent?key=${apiKey}`;
+        const response = await fetch(urlGambar, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: imageParts }],
+            generationConfig: {
+              responseModalities: ['IMAGE'],
+              imageConfig: { aspectRatio: '1:1' }
+            }
+          })
+        });
+        const data = await response.json();
+        if (response.ok) {
+          const part = data?.candidates?.[0]?.content?.parts?.find((p) => p.inlineData);
+          if (part?.inlineData?.data) {
+            return res.json({
+              base64: part.inlineData.data,
+              mimeType: part.inlineData.mimeType || 'image/png'
+            });
           }
-        })
-      });
-      const data = await response.json();
-      if (!response.ok) {
-        return res.status(response.status).json({ error: data?.error?.message || 'Gagal membuat gambar AI.' });
+        } else {
+          lastError = data?.error?.message || lastError;
+        }
       }
-      const part = data?.candidates?.[0]?.content?.parts?.find((p) => p.inlineData);
-      if (!part) {
-        return res.status(500).json({ error: 'Gambar tidak dikembalikan oleh Gemini API.' });
-      }
-      return res.json({
-        base64: part.inlineData.data,
-        mimeType: part.inlineData.mimeType || 'image/png'
-      });
+
+      return res.status(400).json({ error: lastError });
     }
 
     // Mode Teks (Naskah Video, Copywriting & Promosi)
