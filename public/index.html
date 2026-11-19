@@ -3,621 +3,1365 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AI Digital Marketing Studio — UMKM Edition</title>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <title>Kreasi AI Studio UMKM — Pondasi Digital Marketing Praktis</title>
+  <!-- Google Fonts: Montserrat & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    }
-
-    @media (max-width: 640px) {
-      body {
-        padding-left: 6px;
-        padding-right: 6px;
-        overflow-x: hidden;
-      }
-
-      header, main {
-        padding-left: 14px;
-        padding-right: 14px;
-      }
-
-      .kategori-grid {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 10px;
-      }
-
-      .kategori-grid button {
-        width: 100%;
-        justify-content: center;
-        padding: 10px 8px;
-        font-size: 12.5px;
-        line-height: 1.3;
-        text-align: center;
-      }
-
-      input, select, textarea {
-        padding: 13px 14px;
-        font-size: 15px;
-        border-radius: 12px;
-      }
-
-      button {
-        min-height: 44px;
-      }
-    }
-  </style>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Montserrat', 'sans-serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          colors: {
+            brandPurple: '#9333EA',
+            brandMagenta: '#D946EF',
+          },
+        },
+      },
+    };
+  </script>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen antialiased">
+<body class="bg-slate-950 text-slate-100 min-h-screen antialiased selection:bg-fuchsia-500 selection:text-white font-sans">
+  <!-- Toast Notifikasi Non-Blocking -->
+  <div id="toastNotif" class="fixed bottom-5 right-5 z-50 hidden max-w-sm rounded-2xl bg-slate-900/95 border border-fuchsia-500/40 px-4 py-3 text-xs font-semibold text-fuchsia-100 shadow-2xl backdrop-blur"></div>
 
-  <!-- Header -->
-  <header class="border-b border-slate-800 bg-slate-900/90 sticky top-0 z-30 backdrop-blur">
-    <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-      <div>
-        <h1 class="text-lg sm:text-xl font-bold text-emerald-400 tracking-tight">
-          AI Digital Marketing Studio — UMKM Edition
-        </h1>
-        <p class="text-xs sm:text-sm text-slate-400">
-          Pendamping Digital Marketing Praktis: Riset • Buat • Jual • Ukur
-        </p>
-      </div>
+  <div class="max-w-6xl mx-auto px-4 py-6 space-y-6">
 
-      <div class="flex items-center gap-3 self-start sm:self-auto">
-        <span id="server-status-badge" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium bg-slate-800 border border-slate-700 text-slate-300">
-          <span id="server-status-dot" class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-pulse"></span>
-          <span id="server-status-text">Mengecek Server...</span>
-        </span>
-      </div>
-    </div>
-  </header>
+    <!-- 1. HERO HEADER & 4 PILAR LEGALITAS -->
+    <header class="rounded-3xl border border-fuchsia-500/30 bg-gradient-to-br from-indigo-950 via-purple-950 to-slate-900 p-6 sm:p-8 shadow-2xl">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+        <div class="space-y-3 max-w-2xl">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="inline-flex items-center gap-1.5 rounded-full bg-fuchsia-500/20 border border-fuchsia-400/40 px-3.5 py-1 text-xs font-extrabold uppercase tracking-wider text-fuchsia-200">
+              🚀 Kreasi AI Studio UMKM
+            </span>
+            <span class="inline-flex items-center rounded-full bg-amber-400/15 border border-amber-300/30 px-3 py-1 text-xs font-bold text-amber-200">
+              Pondasi Digital Marketing Praktis
+            </span>
+          </div>
+          <h1 class="font-display text-3xl sm:text-5xl font-black tracking-tight leading-tight text-white">
+            KREASI AI STUDIO <span class="bg-gradient-to-r from-fuchsia-300 via-pink-300 to-amber-200 bg-clip-text text-transparent">UMKM NAIK KELAS</span>
+          </h1>
+          <p class="text-sm sm:text-base text-purple-100/90 font-medium">
+            Kreasi AI Studio UMKM — Pondasi Digital Marketing Praktis: Bangun legalitas produk, riset pasar, buat konten visual AI, eksekusi promo jualan, dan ukur HPP hingga profit bulanan dalam satu alur kerja terpadu.
+          </p>
+        </div>
 
-  <main class="max-w-6xl mx-auto px-4 py-6 space-y-6">
-
-    <!-- Profil Usaha & Template Cepat -->
-    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6 space-y-5 shadow-lg">
-      <div class="space-y-2.5">
-        <span class="text-xs font-semibold uppercase tracking-wider text-emerald-400 block">
-          Isi Template Kategori Cepat:
-        </span>
-        <div class="kategori-grid flex flex-wrap gap-2">
-          <button type="button" onclick="isiTemplate('rumah_tangga')" class="px-3.5 py-2 rounded-xl bg-emerald-950/70 hover:bg-emerald-900 border border-emerald-700/60 text-emerald-200 text-xs sm:text-sm font-medium transition">
-            🧴 Kebutuhan Rumah Tangga
-          </button>
-          <button type="button" onclick="isiTemplate('kuliner')" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs sm:text-sm font-medium transition">
-            🍲 Kuliner / F&amp;B
-          </button>
-          <button type="button" onclick="isiTemplate('fashion')" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs sm:text-sm font-medium transition">
-            👗 Fashion &amp; Kerajinan
-          </button>
-          <button type="button" onclick="isiTemplate('herbal')" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs sm:text-sm font-medium transition">
-            🌿 Kecantikan / Herbal
-          </button>
-          <button type="button" onclick="isiTemplate('jasa')" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs sm:text-sm font-medium transition">
-            🎓 Jasa / Kursus
-          </button>
+        <!-- Ringkasan Cepat Produk Aktif -->
+        <div class="rounded-2xl bg-slate-950/75 border border-white/15 p-4 sm:min-w-[285px] space-y-2.5">
+          <div class="text-[11px] font-extrabold uppercase tracking-wider text-amber-300">📌 Profil Produk Aktif</div>
+          <input id="globalNamaProduk" type="text" value="SAPIRCling Jerigen 1L" oninput="sinkronNamaProduk(this.value)" placeholder="Nama Produk UMKM..." class="w-full rounded-xl bg-slate-900 border border-slate-700 focus:border-fuchsia-400 px-3 py-2 text-xs font-bold text-white outline-none" />
+          <input id="globalTargetPasar" type="text" value="Ibu rumah tangga, warung kelontong & usaha laundry lokal" oninput="perbaruiSemua()" placeholder="Target Pembeli Utama..." class="w-full rounded-xl bg-slate-900 border border-slate-700 focus:border-fuchsia-400 px-3 py-2 text-xs text-slate-200 outline-none" />
         </div>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div class="space-y-1.5">
-          <label for="namaUsaha" class="block text-xs font-semibold uppercase tracking-wider text-slate-400">
-            Nama Usaha / Produk *
-          </label>
-          <input id="namaUsaha" type="text" placeholder="Contoh: Sabun Cuci Piring SAPIRCling" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:border-emerald-500" />
-        </div>
+      <!-- 4 Kartu Pilar Legalitas Utama (Grid 4 Kolom) -->
+      <div id="pilarSection" class="mt-6 pt-5 border-t border-white/15 grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <button type="button" onclick="tampilkanPanduanPilar('NIB (Nomor Induk Berusaha)', 'Identitas resmi usaha yang diterbitkan melalui OSS untuk mempermudah akses perizinan, pembiayaan, dan kemitraan toko/instansi.')" class="group rounded-2xl bg-slate-900/85 hover:bg-fuchsia-950/90 border border-slate-700 hover:border-fuchsia-400 p-3.5 text-left transition">
+          <div class="text-lg">📄</div>
+          <div class="text-xs font-extrabold text-white mt-1">NIB</div>
+          <div class="text-[11px] text-slate-400 group-hover:text-fuchsia-200">Identitas Usaha</div>
+        </button>
+        <button type="button" onclick="tampilkanPanduanPilar('P-IRT (Pangan Industri Rumah Tangga)', 'Sertifikat izin edar pangan olahan skala rumahan agar produk kemasan makin dipercaya ritel dan konsumen.')" class="group rounded-2xl bg-slate-900/85 hover:bg-fuchsia-950/90 border border-slate-700 hover:border-fuchsia-400 p-3.5 text-left transition">
+          <div class="text-lg">🌿</div>
+          <div class="text-xs font-extrabold text-white mt-1">P-IRT</div>
+          <div class="text-[11px] text-slate-400 group-hover:text-fuchsia-200">Izin Pangan</div>
+        </button>
+        <button type="button" onclick="tampilkanPanduanPilar('Sertifikasi Halal', 'Jaminan kehalalan bahan baku dan proses produksi yang memperkuat kepercayaan pasar keluarga dan komunitas lokal.')" class="group rounded-2xl bg-slate-900/85 hover:bg-fuchsia-950/90 border border-slate-700 hover:border-fuchsia-400 p-3.5 text-left transition">
+          <div class="text-lg">☪️</div>
+          <div class="text-xs font-extrabold text-white mt-1">Halal</div>
+          <div class="text-[11px] text-slate-400 group-hover:text-fuchsia-200">Jaminan Aman</div>
+        </button>
+        <button type="button" onclick="tampilkanPanduanPilar('Merek Dagang (DJKI)', 'Lindungi nama produk, logo, dan identitas brand agar tidak ditiru pihak lain saat penjualan mulai ramai.')" class="group rounded-2xl bg-slate-900/85 hover:bg-fuchsia-950/90 border border-slate-700 hover:border-fuchsia-400 p-3.5 text-left transition">
+          <div class="text-lg">™️</div>
+          <div class="text-xs font-extrabold text-white mt-1">Merek</div>
+          <div class="text-[11px] text-slate-400 group-hover:text-fuchsia-200">Proteksi Brand</div>
+        </button>
+      </div>
 
-        <div class="space-y-1.5">
-          <label for="kategoriBisnis" class="block text-xs font-semibold uppercase tracking-wider text-slate-400">
-            Kategori Bisnis
-          </label>
-          <select id="kategoriBisnis" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-slate-100 text-sm focus:outline-none focus:border-emerald-500">
-            <option value="Kebutuhan Rumah Tangga">Kebutuhan Rumah Tangga</option>
-            <option value="Kuliner / F&B">Kuliner / F&amp;B</option>
-            <option value="Fashion & Kerajinan">Fashion &amp; Kerajinan</option>
-            <option value="Kecantikan / Herbal">Kecantikan / Herbal</option>
-            <option value="Jasa / Kursus">Jasa / Kursus</option>
-          </select>
+      <!-- Panel Panduan Pilar Legalitas -->
+      <div id="infoPilarBox" class="mt-4 hidden rounded-2xl bg-slate-950/85 border border-fuchsia-400/35 px-4 py-3 text-xs text-fuchsia-100 flex items-start sm:items-center justify-between gap-3">
+        <div>
+          <span id="infoPilarJudul" class="font-extrabold text-amber-300 uppercase tracking-wide"></span>
+          <span class="mx-1.5 text-slate-500">•</span>
+          <span id="infoPilarText" class="text-slate-200"></span>
         </div>
+        <button type="button" onclick="document.getElementById('infoPilarBox').classList.add('hidden')" class="shrink-0 rounded-lg bg-slate-800 px-2.5 py-1 text-slate-300 hover:text-white font-bold">✕</button>
+      </div>
+    </header>
 
-        <div class="space-y-1.5">
-          <label for="uspProduk" class="block text-xs font-semibold uppercase tracking-wider text-slate-400">
-            Harga &amp; Keunggulan Utama (USP) *
-          </label>
-          <input id="uspProduk" type="text" placeholder="Contoh: Rp20rb/1L, ekstrak lerak alami, lembut di tangan" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:border-emerald-500" />
+    <!-- 2. NAVIGASI INTERAKTIF RUMUS PONDASI DIGITAL MARKETING -->
+    <section aria-label="Rumus Pondasi Digital Marketing" class="rounded-3xl bg-slate-900 border border-slate-800 p-5 sm:p-6 shadow-xl space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div>
+          <span class="text-xs font-extrabold uppercase tracking-wider text-amber-300">Kerangka Kerja Berurutan</span>
+          <h2 class="font-display text-lg sm:text-2xl font-extrabold text-white mt-0.5">
+            Rumus Pondasi Digital Marketing: Riset • Bikin Konten • Jual • Ukur
+          </h2>
         </div>
+        <button type="button" id="btnToggleSemuaModul" onclick="toggleModeSemuaModul()" class="self-start sm:self-auto px-4 py-2 rounded-xl bg-slate-800 hover:bg-fuchsia-600 text-xs font-bold text-slate-100 border border-slate-700 transition">
+          👁️ Tampilkan Semua Modul Sekaligus
+        </button>
+      </div>
 
-        <div class="space-y-1.5">
-          <label for="targetPembeli" class="block text-xs font-semibold uppercase tracking-wider text-slate-400">
-            Target Pembeli *
-          </label>
-          <input id="targetPembeli" type="text" placeholder="Contoh: Ibu rumah tangga, warga Depok & sekitarnya" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:border-emerald-500" />
-        </div>
+      <!-- 4 Tombol Langkah Berurutan -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <button type="button" id="tabBtn-1" onclick="pilihTahap(1)" class="step-btn rounded-2xl border p-4 text-left transition-all duration-200 bg-gradient-to-br from-amber-500/20 to-fuchsia-600/20 border-amber-400 shadow-lg">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-black uppercase tracking-wider text-amber-300">01. RISET</span>
+            <span id="badgeTab-1" class="rounded-full bg-amber-400 text-slate-950 px-2 py-0.5 text-[10px] font-extrabold">AKTIF</span>
+          </div>
+          <div class="font-display text-sm font-extrabold text-white mt-1.5">Kenali Pembeli &amp; USP</div>
+          <p class="text-[11px] text-slate-300 mt-1 leading-relaxed">
+            Petakan kebutuhan calon pembeli, kata kunci pencarian, dan keunggulan unik sebelum promosi.
+          </p>
+        </button>
+
+        <button type="button" id="tabBtn-2" onclick="pilihTahap(2)" class="step-btn rounded-2xl border p-4 text-left transition-all duration-200 bg-slate-950/80 border-slate-800 hover:border-fuchsia-400/60">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-black uppercase tracking-wider text-fuchsia-300">02. BIKIN KONTEN</span>
+            <span id="badgeTab-2" class="hidden rounded-full bg-fuchsia-400 text-slate-950 px-2 py-0.5 text-[10px] font-extrabold">AKTIF</span>
+          </div>
+          <div class="font-display text-sm font-extrabold text-white mt-1.5">Studio Poster &amp; Visual AI</div>
+          <p class="text-[11px] text-slate-400 mt-1 leading-relaxed">
+            Bersihkan latar foto produk otomatis &amp; padukan dengan gaya studio instan siap unggah.
+          </p>
+        </button>
+
+        <button type="button" id="tabBtn-3" onclick="pilihTahap(3)" class="step-btn rounded-2xl border p-4 text-left transition-all duration-200 bg-slate-950/80 border-slate-800 hover:border-emerald-400/60">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-black uppercase tracking-wider text-emerald-300">03. JUAL</span>
+            <span id="badgeTab-3" class="hidden rounded-full bg-emerald-400 text-slate-950 px-2 py-0.5 text-[10px] font-extrabold">AKTIF</span>
+          </div>
+          <div class="font-display text-sm font-extrabold text-white mt-1.5">Promo &amp; Copywriting MSBA</div>
+          <p class="text-[11px] text-slate-400 mt-1 leading-relaxed">
+            Atur harga promo diskon &amp; salin naskah jualan (Hook + 3 Poin + 1 Ajakan) ke WA/medsos.
+          </p>
+        </button>
+
+        <button type="button" id="tabBtn-4" onclick="pilihTahap(4)" class="step-btn rounded-2xl border p-4 text-left transition-all duration-200 bg-slate-950/80 border-slate-800 hover:border-cyan-400/60">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-black uppercase tracking-wider text-cyan-300">04. UKUR</span>
+            <span id="badgeTab-4" class="hidden rounded-full bg-cyan-400 text-slate-950 px-2 py-0.5 text-[10px] font-extrabold">AKTIF</span>
+          </div>
+          <div class="font-display text-sm font-extrabold text-white mt-1.5">Review Konten &amp; Kalkulator</div>
+          <p class="text-[11px] text-slate-400 mt-1 leading-relaxed">
+            Ukur corong audiens (Views → Beli) serta hitung HPP, profit, BEP, dan target bulanan.
+          </p>
+        </button>
       </div>
     </section>
 
-    <!-- Navigasi 4 Pilar -->
-    <section class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-      <button type="button" onclick="pilihPilar('riset')" id="tab-riset" class="pilar-btn p-3.5 rounded-2xl border border-emerald-500 bg-emerald-950/50 text-left transition">
-        <div class="text-xs font-bold text-emerald-400">01 • RISET</div>
-        <div class="text-xs text-slate-300 mt-0.5">Persona &amp; Kata Kunci</div>
-      </button>
-      <button type="button" onclick="pilihPilar('buat')" id="tab-buat" class="pilar-btn p-3.5 rounded-2xl border border-slate-800 bg-slate-900 hover:border-slate-700 text-left transition">
-        <div class="text-xs font-bold text-slate-300">02 • BUAT</div>
-        <div class="text-xs text-slate-400 mt-0.5">Konten &amp; Kalender 7 Hari</div>
-      </button>
-      <button type="button" onclick="pilihPilar('jual')" id="tab-jual" class="pilar-btn p-3.5 rounded-2xl border border-slate-800 bg-slate-900 hover:border-slate-700 text-left transition">
-        <div class="text-xs font-bold text-slate-300">03 • JUAL</div>
-        <div class="text-xs text-slate-400 mt-0.5">WA Closing &amp; Paket Promo</div>
-      </button>
-      <button type="button" onclick="pilihPilar('ukur')" id="tab-ukur" class="pilar-btn p-3.5 rounded-2xl border border-slate-800 bg-slate-900 hover:border-slate-700 text-left transition">
-        <div class="text-xs font-bold text-slate-300">04 • UKUR</div>
-        <div class="text-xs text-slate-400 mt-0.5">Audit Iklan &amp; Evaluasi</div>
-      </button>
-    </section>
-
-    <!-- Area Aksi Pilar -->
-    <section id="panel-pilar" class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6 space-y-4">
-      <div id="pilar-header">
-        <span class="text-xs font-semibold uppercase tracking-wider text-emerald-400">Pilar 01 • Fondasi Riset Pasar</span>
-        <h2 class="text-lg sm:text-xl font-bold text-white mt-1">RISET: Kenali Pembeli, Kata Kunci &amp; Keunggulan Unik</h2>
-        <p class="text-xs sm:text-sm text-slate-400 mt-1">Klik salah satu tombol di bawah untuk menghasilkan strategi siap pakai sesuai profil usahamu.</p>
-      </div>
-
-      <div id="pilar-tombol" class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <button type="button" onclick="jalankanTugas('Riset Buyer Persona UMKM: Siapa mereka, masalah utama sehari-hari, ketakutan, dan alasan kuat membeli produk ini.')" class="p-4 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-700 text-left transition">
-          <div class="font-semibold text-sm text-emerald-400">👥 Buyer Persona UMKM</div>
-          <p class="text-xs text-slate-400 mt-1">Pahami kebutuhan &amp; pemicu emosi calon pembeli.</p>
-        </button>
-        <button type="button" onclick="jalankanTugas('Riset 15 Kata Kunci Pencarian & Hashtag Lokal/Nasional paling dicari calon pembeli di TikTok, Instagram, Shopee, dan WhatsApp.')" class="p-4 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-700 text-left transition">
-          <div class="font-semibold text-sm text-emerald-400"># Kata Kunci &amp; Hashtag</div>
-          <p class="text-xs text-slate-400 mt-1">Temukan kata kunci agar produk mudah dicari.</p>
-        </button>
-        <button type="button" onclick="jalankanTugas('Analisis Keunggulan Unik (USP) & Penawaran Sulit Ditolak dibanding kompetitor biasa di pasaran.')" class="p-4 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-700 text-left transition">
-          <div class="font-semibold text-sm text-emerald-400">💎 Tajamkan USP &amp; Promo</div>
-          <p class="text-xs text-slate-400 mt-1">Buat alasan kenapa pembeli harus pilih produkmu.</p>
+    <!-- =================================================================== -->
+    <!-- MODUL TAHAP 01: RISET PASAR, BUYER PERSONA, KATA KUNCI & USP -->
+    <!-- =================================================================== -->
+    <section id="panelTahap-1" class="modul-tahap rounded-3xl bg-slate-900 border border-amber-400/30 p-5 sm:p-6 shadow-xl space-y-5 transition-all">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-800 pb-4">
+        <div>
+          <span class="text-xs font-extrabold uppercase tracking-wider text-amber-300">Tahap 01 • Fondasi Riset Pasar</span>
+          <h3 class="font-display text-xl sm:text-2xl font-extrabold text-white mt-0.5">🔍 Riset Pembeli, Kata Kunci &amp; Keunggulan Unik (USP)</h3>
+        </div>
+        <button type="button" onclick="pilihTahap(2)" class="self-start sm:self-auto px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-fuchsia-600 hover:from-amber-400 hover:to-fuchsia-500 text-xs font-extrabold text-white shadow-lg transition">
+          Lanjut ke Tahap Berikutnya →
         </button>
       </div>
-    </section>
-    <!-- Pilihan Cepat Prompt Gaya Studio -->
-<div class="mb-4 bg-slate-900/80 p-4 rounded-xl border border-slate-800">
-  <label class="block text-sm font-semibold text-emerald-400 mb-2">🎨 Pilih Cepat Prompt & Gaya Studio Poster</label>
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
-    <button type="button" onclick="pilihGayaStudio('Dapur Rumah Cerah & Bersih, Natural Sunlight')" class="px-3 py-2 text-xs font-semibold bg-slate-800 hover:bg-emerald-600 text-slate-200 rounded-lg border border-slate-700 transition text-left">☀️ Dapur Cerah</button>
-    <button type="button" onclick="pilihGayaStudio('Studio Minimalis Modern Kayu Estetik')" class="px-3 py-2 text-xs font-semibold bg-slate-800 hover:bg-emerald-600 text-slate-200 rounded-lg border border-slate-700 transition text-left">🪵 Studio Kayu</button>
-    <button type="button" onclick="pilihGayaStudio('Meja Marmar Mewah Pencahayaan Studio Komersial')" class="px-3 py-2 text-xs font-semibold bg-slate-800 hover:bg-emerald-600 text-slate-200 rounded-lg border border-slate-700 transition text-left">✨ Marmar Mewah</button>
-    <button type="button" onclick="pilihGayaStudio('Nuansa Alam Segar Daun Hijau Tropis')" class="px-3 py-2 text-xs font-semibold bg-slate-800 hover:bg-emerald-600 text-slate-200 rounded-lg border border-slate-700 transition text-left">🌿 Alam Tropis</button>
-  </div>
-</div>
-<div class="mb-4">
-  <label class="block text-sm font-semibold text-slate-300 mb-2">🎨 Pilih Template Gaya Studio & Ukuran Poster</label>
-  <div class="grid grid-cols-2 md:grid-cols-4 gap-2 mb-3">
-    <button type="button" onclick="pilihGayaStudio('Dapur Rumah Cerah & Bersih')" class="px-3 py-2 text-xs font-semibold bg-slate-800 hover:bg-emerald-600 text-slate-200 rounded-lg border border-slate-700 transition">☀️ Dapur Cerah</button>
-    <button type="button" onclick="pilihGayaStudio('Studio Minimalis Modern Kayu Estetik')" class="px-3 py-2 text-xs font-semibold bg-slate-800 hover:bg-emerald-600 text-slate-200 rounded-lg border border-slate-700 transition">🪵 Studio Kayu</button>
-    <button type="button" onclick="pilihGayaStudio('Meja Marmar Mewah Pencahayaan Studio Mewah')" class="px-3 py-2 text-xs font-semibold bg-slate-800 hover:bg-emerald-600 text-slate-200 rounded-lg border border-slate-700 transition">✨ Marmar Mewah</button>
-    <button type="button" onclick="pilihGayaStudio('Nuansa Alam Segar Daun Hijau Tropis')" class="px-3 py-2 text-xs font-semibold bg-slate-800 hover:bg-emerald-600 text-slate-200 rounded-lg border border-slate-700 transition">🌿 Alam Tropis</button>
-  </div>
-</div>
-    <!-- Studio Visual, Video & Audio -->
-    <section class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6 space-y-4">
-      <div>
-        <span class="text-xs font-semibold uppercase tracking-wider text-amber-400">Studio Visual, Video &amp; Audio UMKM</span>
-        <h2 class="text-lg sm:text-xl font-bold text-white mt-1">Poster Produk, Prompt Video &amp; Jingle Lagu AI</h2>
-        <p class="text-xs sm:text-sm text-slate-400 mt-1">Otomatis membaca Nama Usaha, Harga &amp; USP dari profil di atas.</p>
-      </div>
 
-      <!-- Upload Foto Produk Asli -->
-      <div class="p-3.5 rounded-xl bg-slate-950 border border-dashed border-emerald-600/70 space-y-2.5">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        <!-- Input Profil Riset -->
+        <div class="lg:col-span-5 space-y-3.5">
           <div>
-            <label for="fotoProdukInput" class="block text-xs font-semibold uppercase tracking-wider text-emerald-400">
-              📸 Upload Foto Produk Asli (Opsional — Rekomendasi)
-            </label>
-            <p class="text-xs text-slate-400">
-              Pilih foto produk dari galeri HP/laptop agar foto aslimu tampil di poster iklan.
+            <label for="risetNamaProduk" class="block text-xs font-bold text-slate-300 mb-1.5">Nama Produk yang Diriset</label>
+            <input id="risetNamaProduk" type="text" value="SAPIRCling Jerigen 1L" oninput="sinkronNamaProduk(this.value)" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+          </div>
+          <div>
+            <label for="risetMasalahPelanggan" class="block text-xs font-bold text-slate-300 mb-1.5">Masalah Utama Calon Pembeli</label>
+            <input id="risetMasalahPelanggan" type="text" value="Noda membandel, bau amis, dan boros sabun cuci harian" oninput="buatStrategiRiset()" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+          </div>
+          <div>
+            <label for="risetKeunggulanProduk" class="block text-xs font-bold text-slate-300 mb-1.5">Keunggulan Utama Produkmu</label>
+            <input id="risetKeunggulanProduk" type="text" value="Busa melimpah, wangi segar tahan lama, lembut di tangan & hemat 1 liter" oninput="buatStrategiRiset()" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1">
+            <button type="button" onclick="setFokusRiset('persona')" id="btnRisetPersona" class="px-3 py-2.5 rounded-xl bg-amber-500 text-slate-950 text-xs font-extrabold transition">
+              👥 Buyer Persona
+            </button>
+            <button type="button" onclick="setFokusRiset('keyword')" id="btnRisetKeyword" class="px-3 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition">
+              # Kata Kunci
+            </button>
+            <button type="button" onclick="setFokusRiset('usp')" id="btnRisetUsp" class="px-3 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition">
+              💎 Tajamkan USP
+            </button>
+          </div>
+        </div>
+
+        <!-- Output Strategi Riset Instan -->
+        <div class="lg:col-span-7 rounded-2xl bg-slate-950 border border-slate-800 p-4 sm:p-5 flex flex-col justify-between space-y-3">
+          <div class="flex items-center justify-between">
+            <span id="labelOutputRiset" class="text-xs font-extrabold uppercase tracking-wider text-amber-300">👥 Hasil Pemetaan Buyer Persona UMKM</span>
+            <button type="button" onclick="salinTeksById('outputRisetBox', 'Strategi riset')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-xs font-bold text-slate-200 transition">
+              📋 Salin Hasil Riset
+            </button>
+          </div>
+          <textarea id="outputRisetBox" rows="7" class="w-full rounded-xl bg-slate-900 border border-slate-800 p-3.5 text-xs sm:text-sm text-slate-100 leading-relaxed outline-none"></textarea>
+          <div class="flex items-center justify-between gap-2 pt-1">
+            <span class="text-[11px] text-slate-400">Hasil riset ini otomatis memperkaya teks promosi di Tahap 03 Jual.</span>
+            <button type="button" onclick="pilihTahap(2)" class="shrink-0 px-3.5 py-2 rounded-xl bg-fuchsia-600 hover:bg-fuchsia-500 text-xs font-bold text-white transition">
+              Lanjut ke Tahap Berikutnya →
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- MODUL TAHAP 02: BIKIN KONTEN (STUDIO POSTER & PEMBERSIH LATAR FOTO) -->
+    <!-- =================================================================== -->
+    <section id="panelTahap-2" class="modul-tahap hidden rounded-3xl bg-slate-900 border border-fuchsia-500/35 p-5 sm:p-6 shadow-xl space-y-5 transition-all">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-800 pb-4">
+        <div>
+          <span class="text-xs font-extrabold uppercase tracking-wider text-fuchsia-400">Tahap 02 • Studio Visual &amp; Pembersih Foto Produk</span>
+          <h3 class="font-display text-xl sm:text-2xl font-extrabold text-white mt-0.5">🎨 Pilih Cepat Prompt &amp; Gaya Studio Poster</h3>
+        </div>
+        <button type="button" onclick="pilihTahap(3)" class="self-start sm:self-auto px-4 py-2.5 rounded-xl bg-gradient-to-r from-fuchsia-600 to-emerald-600 hover:from-fuchsia-500 hover:to-emerald-500 text-xs font-extrabold text-white shadow-lg transition">
+          Lanjut ke Tahap Berikutnya →
+        </button>
+      </div>
+
+      <!-- 4 Tombol Pilihan Cepat Gaya Studio -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-2.5">
+        <button type="button" onclick="pilihGayaStudio('Dapur Rumah Cerah & Bersih, Natural Sunlight', 'dapur')" class="px-3.5 py-2.5 text-xs font-bold bg-slate-800 hover:bg-fuchsia-600 text-slate-100 rounded-xl border border-slate-700 transition text-left">
+          ☀️ Dapur Cerah
+        </button>
+        <button type="button" onclick="pilihGayaStudio('Studio Minimalis Modern Kayu Estetik', 'kayu')" class="px-3.5 py-2.5 text-xs font-bold bg-slate-800 hover:bg-fuchsia-600 text-slate-100 rounded-xl border border-slate-700 transition text-left">
+          🪵 Studio Kayu
+        </button>
+        <button type="button" onclick="pilihGayaStudio('Meja Marmar Mewah Pencahayaan Studio Komersial', 'marmar')" class="px-3.5 py-2.5 text-xs font-bold bg-slate-800 hover:bg-fuchsia-600 text-slate-100 rounded-xl border border-slate-700 transition text-left">
+          ✨ Marmar Mewah
+        </button>
+        <button type="button" onclick="pilihGayaStudio('Nuansa Alam Segar Daun Hijau Tropis', 'tropis')" class="px-3.5 py-2.5 text-xs font-bold bg-slate-800 hover:bg-fuchsia-600 text-slate-100 rounded-xl border border-slate-700 transition text-left">
+          🌿 Alam Tropis
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 pt-1">
+        <div class="lg:col-span-6 space-y-3.5">
+          <div>
+            <label for="arahanTambahan" class="block text-xs font-bold text-slate-300 mb-1.5">Arahan Visual / Prompt Latar Poster</label>
+            <input id="arahanTambahan" type="text" value="Dapur Rumah Cerah & Bersih, Natural Sunlight" oninput="perbaruiSemua()" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-fuchsia-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+          </div>
+
+          <div class="p-4 rounded-2xl bg-slate-950 border border-dashed border-slate-700 space-y-2.5">
+            <div class="flex items-center justify-between gap-2">
+              <label for="fotoProdukInput" class="block text-xs font-extrabold text-fuchsia-300">
+                📷 Upload Foto Produk Asli (Latar Polos Otomatis Dihapus)
+              </label>
+              <button type="button" onclick="gunakanSampelProdukDemo()" class="text-[11px] font-bold text-amber-300 hover:text-amber-200 underline">
+                Coba Sampel Botol
+              </button>
+            </div>
+            <input id="fotoProdukInput" type="file" accept="image/*" class="block w-full text-xs text-slate-300 file:mr-3 file:py-2 file:px-3.5 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-fuchsia-600 file:text-white hover:file:bg-fuchsia-500 cursor-pointer" />
+            <p class="text-[11px] text-slate-400 leading-relaxed">
+              Menggunakan fungsi <code class="text-fuchsia-300">bersihkanLatarPolos()</code> berbasis chroma-key 4 sudut agar foto produk asli tampil bersih tanpa kotak putih kaku di atas kanvas poster 1080×1080.
             </p>
           </div>
-          <button type="button" id="btn-hapus-foto" onclick="hapusFotoProduk()" class="hidden px-2.5 py-1 rounded-lg bg-rose-950 border border-rose-700 text-rose-300 text-xs self-start">
-            ✕ Hapus Foto
+
+          <!-- Generator Struktur Konten (Hook + 3 Poin + 1 Ajakan) -->
+          <div class="p-4 rounded-2xl bg-slate-950 border border-fuchsia-500/25 space-y-2.5">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-xs font-extrabold text-amber-300">🧩 Struktur Konten (Hook + 3 Poin + 1 Ajakan)</span>
+              <button type="button" onclick="salinTeksById('strukturKontenBox', 'Struktur konten')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-fuchsia-600 text-[11px] font-bold text-slate-200 transition">
+                📋 Salin
+              </button>
+            </div>
+            <textarea id="strukturKontenBox" rows="5" class="w-full rounded-xl bg-slate-900 border border-slate-800 p-3 text-xs text-slate-100 leading-relaxed outline-none"></textarea>
+          </div>
+
+          <div class="rounded-2xl bg-fuchsia-950/30 border border-fuchsia-500/25 p-3.5 flex items-center justify-between gap-3">
+            <span class="text-xs text-fuchsia-100">Poster &amp; struktur konten siap? Lanjut atur diskon promo &amp; naskah jualan.</span>
+            <button type="button" onclick="pilihTahap(3)" class="shrink-0 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-xs font-bold text-white transition">
+              Lanjut ke Tahap Berikutnya →
+            </button>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6 flex flex-col items-center justify-center rounded-2xl bg-slate-950 border border-slate-800 p-4 space-y-3">
+          <canvas id="posterCanvas" width="1080" height="1080" class="w-full max-w-[340px] aspect-square rounded-xl border border-slate-800 bg-slate-900 shadow-xl"></canvas>
+          <div class="flex flex-wrap items-center justify-center gap-2">
+            <button type="button" onclick="renderPreviewPoster()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-white border border-slate-700 transition">
+              🔄 Perbarui Pratinjau
+            </button>
+            <button type="button" onclick="unduhPosterPng()" class="px-4 py-2 rounded-xl bg-fuchsia-600 hover:bg-fuchsia-500 text-xs font-bold text-white transition">
+              ⬇️ Unduh Poster PNG
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- MODUL TAHAP 03: JUAL (HARGA PROMO, DISKON & COPYWRITING MSBA) -->
+    <!-- =================================================================== -->
+    <section id="panelTahap-3" class="modul-tahap hidden rounded-3xl bg-slate-900 border border-emerald-500/35 p-5 sm:p-6 shadow-xl space-y-5 transition-all">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-800 pb-4">
+        <div>
+          <span class="text-xs font-extrabold uppercase tracking-wider text-emerald-400">Tahap 03 • Eksekusi Penawaran &amp; Copywriting Jualan</span>
+          <h3 class="font-display text-xl sm:text-2xl font-extrabold text-white mt-0.5">💬 Atur Diskon Promo &amp; Generator Caption MSBA</h3>
+        </div>
+        <button type="button" onclick="pilihTahap(4)" class="self-start sm:self-auto px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-xs font-extrabold text-white shadow-lg transition">
+          Lanjut ke Tahap Berikutnya →
+        </button>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+        <!-- Pengaturan Harga Promo & Kanal -->
+        <div class="lg:col-span-5 space-y-3.5">
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label for="jualHargaNormal" class="block text-xs font-bold text-slate-300 mb-1.5">Harga Normal (Rp)</label>
+              <input id="jualHargaNormal" type="number" min="0" value="20000" oninput="sinkronHargaDiskon(this.value, null)" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-emerald-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+            </div>
+            <div>
+              <label for="jualDiskonPromo" class="block text-xs font-bold text-fuchsia-300 mb-1.5">Diskon Promo (%)</label>
+              <input id="jualDiskonPromo" type="number" min="0" max="95" value="10" oninput="sinkronHargaDiskon(null, this.value)" class="w-full rounded-xl bg-slate-950 border border-fuchsia-500/40 focus:border-fuchsia-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+            </div>
+          </div>
+
+          <div class="rounded-2xl bg-slate-950 border border-emerald-500/30 p-3.5 flex items-center justify-between">
+            <div>
+              <div class="text-[11px] font-semibold text-slate-400">Harga Promo Tampil ke Pembeli</div>
+              <div id="jualHargaAkhirText" class="font-display text-xl font-extrabold text-amber-300 mt-0.5">Rp 18.000</div>
+            </div>
+            <button type="button" onclick="kirimPromoKePoster()" class="px-3.5 py-2 rounded-xl bg-fuchsia-600 hover:bg-fuchsia-500 text-xs font-bold text-white transition">
+              🖼️ Terapkan ke Poster
+            </button>
+          </div>
+
+          <div>
+            <span class="block text-xs font-bold text-slate-300 mb-1.5">Pilih Format Naskah Jualan</span>
+            <div class="grid grid-cols-3 gap-2">
+              <button type="button" onclick="setModeCaption('msba')" id="btnModeMsba" class="px-2.5 py-2 rounded-xl bg-emerald-600 text-white text-xs font-extrabold transition">
+                🎯 Copywriting MSBA
+              </button>
+              <button type="button" onclick="setModeCaption('wa')" id="btnModeWa" class="px-2.5 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white text-xs font-bold transition">
+                💬 Follow-Up WA
+              </button>
+              <button type="button" onclick="setModeCaption('sosmed')" id="btnModeSosmed" class="px-2.5 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white text-xs font-bold transition">
+                📱 Caption Medsos
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Output Copywriting Siap Salin -->
+        <div class="lg:col-span-7 rounded-2xl bg-slate-950 border border-slate-800 p-4 sm:p-5 space-y-3">
+          <div class="flex items-center justify-between gap-2">
+            <span id="judulNaskahJualan" class="text-xs font-extrabold uppercase tracking-wider text-emerald-300">✍️ Copywriting MSBA (Masalah • Solusi • Bukti • Ajakan)</span>
+            <button type="button" onclick="salinTeksById('hasilCaptionBox', 'Naskah promosi')" class="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-xs font-extrabold text-white transition">
+              📋 Salin Teks
+            </button>
+          </div>
+          <textarea id="hasilCaptionBox" rows="7" class="w-full rounded-xl bg-slate-900 border border-slate-800 p-3.5 text-xs sm:text-sm text-slate-100 leading-relaxed outline-none"></textarea>
+          <div class="flex items-center justify-between gap-2 pt-1">
+            <span class="text-[11px] text-slate-400">Ukur performa konten &amp; kesehatan profit di Tahap 04 Ukur.</span>
+            <button type="button" onclick="pilihTahap(4)" class="shrink-0 px-3.5 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-xs font-bold text-white transition">
+              Lanjut ke Tahap Berikutnya →
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- MODUL TAHAP 04: UKUR (2 SUBMENU: REVIEW KONTEN & KALKULATOR PRODUKSI) -->
+    <!-- =================================================================== -->
+    <section id="panelTahap-4" class="modul-tahap hidden rounded-3xl bg-slate-900 border border-cyan-500/35 p-5 sm:p-6 shadow-xl space-y-5 transition-all">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-800 pb-4">
+        <div>
+          <span class="text-xs font-extrabold uppercase tracking-wider text-cyan-300">Tahap 04 • Evaluasi Performa Konten &amp; Finansial Produksi</span>
+          <h3 class="font-display text-xl sm:text-2xl font-extrabold text-white mt-0.5">📊 Ukur Corong Audiens (Views → Beli) &amp; Kalkulator Produksi</h3>
+        </div>
+        <button type="button" onclick="pilihTahap(1)" class="self-start sm:self-auto px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-600 to-amber-500 hover:from-cyan-500 hover:to-amber-400 text-xs font-extrabold text-white shadow-lg transition">
+          🔄 Ulang Siklus ke Tahap 01 Riset
+        </button>
+      </div>
+
+      <!-- Navigasi 2 Submenu Tahap 04 Ukur -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-slate-950/90 p-2 rounded-2xl border border-slate-800">
+        <button type="button" id="subTabUkur-review" onclick="pilihSubTabUkur('review')" class="px-4 py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-fuchsia-600 text-white text-xs sm:text-sm font-extrabold text-left sm:text-center shadow-md transition">
+          📊 Review Konten &amp; Corong Audiens (Views → Beli)
+        </button>
+        <button type="button" id="subTabUkur-kalkulator" onclick="pilihSubTabUkur('kalkulator')" class="px-4 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white text-xs sm:text-sm font-bold text-left sm:text-center border border-slate-800 transition">
+          🧮 Kalkulator Produksi (HPP, Omset, Profit, BEP &amp; Target Bulanan)
+        </button>
+      </div>
+
+      <!-- SUB-MENU TAB A: REVIEW KONTEN & CORONG AUDIENS (VIEWS -> BELI) -->
+      <div id="subPanelUkur-review" class="space-y-5">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <!-- Input 4 Metrik Corong Audiens -->
+          <div class="lg:col-span-5 space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-extrabold uppercase tracking-wider text-cyan-300">Input Data Performa Konten</span>
+              <button type="button" onclick="isiContohReviewKonten()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-cyan-600 text-[11px] font-bold text-slate-200 border border-slate-700 transition">
+                ⚡ Contoh Data Konten
+              </button>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3.5">
+              <div>
+                <label for="ukurViews" class="block text-xs font-bold text-slate-300 mb-1">1. Jumlah Tayangan / Views</label>
+                <input id="ukurViews" type="number" min="0" value="2500" oninput="hitungReviewKonten()" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-cyan-400 px-3.5 py-2.5 text-sm font-bold text-white outline-none" />
+              </div>
+              <div>
+                <label for="ukurInteraksi" class="block text-xs font-bold text-slate-300 mb-1">2. Interaksi (Likes, Komentar &amp; Share)</label>
+                <input id="ukurInteraksi" type="number" min="0" value="185" oninput="hitungReviewKonten()" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-fuchsia-400 px-3.5 py-2.5 text-sm font-bold text-white outline-none" />
+              </div>
+              <div>
+                <label for="ukurChatMasuk" class="block text-xs font-bold text-slate-300 mb-1">3. Klik Link / Chat Masuk ke WA</label>
+                <input id="ukurChatMasuk" type="number" min="0" value="48" oninput="hitungReviewKonten()" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 px-3.5 py-2.5 text-sm font-bold text-white outline-none" />
+              </div>
+              <div>
+                <label for="ukurPembeliClosing" class="block text-xs font-bold text-emerald-300 mb-1">4. Jumlah Pembeli / Closing Deal</label>
+                <input id="ukurPembeliClosing" type="number" min="0" value="14" oninput="hitungReviewKonten()" class="w-full rounded-xl bg-slate-950 border border-emerald-500/40 focus:border-emerald-400 px-3.5 py-2.5 text-sm font-bold text-white outline-none" />
+              </div>
+            </div>
+
+            <button type="button" onclick="sinkronPembeliKeKalkulator()" class="w-full px-4 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-xs font-extrabold text-white shadow-lg transition">
+              Gunakan Jumlah Pembeli ke Kalkulator Profit →
+            </button>
+          </div>
+
+          <!-- Visualisasi Corong Konversi (Funnel Bar), Rasio & Diagnosis -->
+          <div class="lg:col-span-7 rounded-2xl bg-slate-950 border border-slate-800 p-4 sm:p-5 space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-extrabold uppercase tracking-wider text-amber-300">📉 Visualisasi Corong Konversi Audiens</span>
+              <span id="badgeSkorCorong" class="rounded-full bg-emerald-500/20 border border-emerald-400/40 px-3 py-0.5 text-[11px] font-extrabold text-emerald-300">
+                Corong Sehat
+              </span>
+            </div>
+
+            <!-- Funnel Bars -->
+            <div class="space-y-2.5">
+              <div>
+                <div class="flex justify-between text-xs font-bold mb-1">
+                  <span class="text-cyan-300">1. Tayangan (Views)</span>
+                  <span id="funnelValViews" class="text-white">2.500 (100%)</span>
+                </div>
+                <div class="h-3 w-full rounded-full bg-slate-900 overflow-hidden">
+                  <div id="funnelBarViews" class="h-full rounded-full bg-cyan-400 transition-all duration-300" style="width: 100%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs font-bold mb-1">
+                  <span class="text-fuchsia-300">2. Interaksi (Like, Komen, Share)</span>
+                  <span id="funnelValInteraksi" class="text-white">185 (7,4%)</span>
+                </div>
+                <div class="h-3 w-full rounded-full bg-slate-900 overflow-hidden">
+                  <div id="funnelBarInteraksi" class="h-full rounded-full bg-fuchsia-500 transition-all duration-300" style="width: 28%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs font-bold mb-1">
+                  <span class="text-amber-300">3. Klik Link / Chat Masuk WA</span>
+                  <span id="funnelValChat" class="text-white">48 (1,9%)</span>
+                </div>
+                <div class="h-3 w-full rounded-full bg-slate-900 overflow-hidden">
+                  <div id="funnelBarChat" class="h-full rounded-full bg-amber-400 transition-all duration-300" style="width: 18%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between text-xs font-bold mb-1">
+                  <span class="text-emerald-300">4. Pembeli / Closing Deal</span>
+                  <span id="funnelValBeli" class="text-white">14 (0,56%)</span>
+                </div>
+                <div class="h-3 w-full rounded-full bg-slate-900 overflow-hidden">
+                  <div id="funnelBarBeli" class="h-full rounded-full bg-emerald-400 transition-all duration-300" style="width: 12%"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4 Kartu Rasio Otomatis -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
+              <div class="rounded-xl bg-slate-900 border border-slate-800 p-3">
+                <div class="text-[10px] font-semibold text-slate-400">Engagement Rate</div>
+                <div id="outEngagementRate" class="font-display text-base font-extrabold text-fuchsia-300 mt-0.5">7,4%</div>
+                <div class="text-[10px] text-slate-500">Interaksi / Views</div>
+              </div>
+              <div class="rounded-xl bg-slate-900 border border-slate-800 p-3">
+                <div class="text-[10px] font-semibold text-slate-400">Chat Rate (CTR)</div>
+                <div id="outChatRate" class="font-display text-base font-extrabold text-amber-300 mt-0.5">1,9%</div>
+                <div class="text-[10px] text-slate-500">Chat WA / Views</div>
+              </div>
+              <div class="rounded-xl bg-slate-900 border border-slate-800 p-3">
+                <div class="text-[10px] font-semibold text-slate-400">Closing Rate</div>
+                <div id="outClosingRate" class="font-display text-base font-extrabold text-emerald-300 mt-0.5">29,2%</div>
+                <div class="text-[10px] text-slate-500">Beli / Chat Masuk</div>
+              </div>
+              <div class="rounded-xl bg-slate-900 border border-slate-800 p-3">
+                <div class="text-[10px] font-semibold text-slate-400">Konversi Total</div>
+                <div id="outKonversiTotal" class="font-display text-base font-extrabold text-cyan-300 mt-0.5">0,56%</div>
+                <div class="text-[10px] text-slate-500">Beli / Views</div>
+              </div>
+            </div>
+
+            <!-- Diagnosis & Rekomendasi Evaluasi Otomatis -->
+            <div class="rounded-xl bg-gradient-to-r from-indigo-950/90 to-purple-950/80 border border-cyan-400/30 p-3.5 space-y-1.5">
+              <div class="text-xs font-extrabold text-amber-300">🩺 Diagnosis &amp; Rekomendasi Evaluasi Otomatis:</div>
+              <p id="teksDiagnosisKonten" class="text-xs text-slate-200 leading-relaxed"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUB-MENU TAB B: KALKULATOR PRODUKSI (HPP, OMSET, PROFIT, BEP & TARGET BULANAN) -->
+      <div id="subPanelUkur-kalkulator" class="hidden space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+          <p class="text-xs text-slate-300">
+            Hitung biaya produksi per batch hingga proyeksi profit bersih bulanan berdasarkan realisasi pembeli.
+          </p>
+          <button type="button" onclick="isiContohProduksi()" class="self-start sm:self-auto px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-fuchsia-600 text-xs font-bold text-slate-100 border border-slate-700 transition">
+            ⚡ Isi Contoh Hitungan
           </button>
         </div>
-        <input id="fotoProdukInput" type="file" accept="image/*" onchange="previewFotoProduk(event)" class="block w-full text-xs text-slate-300 file:mr-3 file:py-2 file:px-3.5 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-emerald-600 file:text-white hover:file:bg-emerald-500 cursor-pointer" />
-        <div id="wadah-preview-upload" class="hidden pt-1">
-          <img id="preview-upload-img" src="" alt="Preview Produk Asli" class="h-28 w-28 object-cover rounded-xl border border-emerald-500/60 shadow" />
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <!-- Form Input Produksi -->
+          <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="namaProdukHpp" class="block text-xs font-bold text-slate-300 mb-1.5">Nama Produk</label>
+              <input id="namaProdukHpp" type="text" value="SAPIRCling Jerigen 1L" oninput="sinkronNamaProduk(this.value)" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-cyan-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+            </div>
+            <div>
+              <label for="jumlahBatch" class="block text-xs font-bold text-slate-300 mb-1.5">Hasil Produksi per Batch (Unit)</label>
+              <input id="jumlahBatch" type="number" min="1" value="50" oninput="perbaruiSemua()" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-cyan-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+            </div>
+            <div>
+              <label for="biayaBahanBaku" class="block text-xs font-bold text-slate-300 mb-1.5">Bahan Baku per Batch (Rp)</label>
+              <input id="biayaBahanBaku" type="number" min="0" value="400000" oninput="perbaruiSemua()" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-cyan-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+            </div>
+            <div>
+              <label for="biayaKemasan" class="block text-xs font-bold text-slate-300 mb-1.5">Kemasan, Botol &amp; Label (Rp)</label>
+              <input id="biayaKemasan" type="number" min="0" value="250000" oninput="perbaruiSemua()" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-cyan-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+            </div>
+            <div>
+              <label for="biayaOperasional" class="block text-xs font-bold text-slate-300 mb-1.5">Tenaga Kerja, Listrik/Gas &amp; Ongkir (Rp)</label>
+              <input id="biayaOperasional" type="number" min="0" value="100000" oninput="perbaruiSemua()" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-cyan-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+            </div>
+            <div>
+              <label for="hargaJualUnit" class="block text-xs font-bold text-slate-300 mb-1.5">Harga Normal per Unit (Rp)</label>
+              <input id="hargaJualUnit" type="number" min="0" value="20000" oninput="sinkronHargaDiskon(this.value, null)" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-cyan-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+            </div>
+            <div>
+              <label for="diskonPromo" class="block text-xs font-bold text-fuchsia-300 mb-1.5">Diskon Promo (%)</label>
+              <input id="diskonPromo" type="number" min="0" max="95" value="10" oninput="sinkronHargaDiskon(null, this.value)" class="w-full rounded-xl bg-slate-950 border border-fuchsia-500/40 focus:border-fuchsia-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+            </div>
+            <div>
+              <label for="targetTerjual" class="block text-xs font-bold text-emerald-300 mb-1.5">Realisasi / Target Terjual per Hari (Unit)</label>
+              <input id="targetTerjual" type="number" min="0" value="25" oninput="perbaruiSemua()" class="w-full rounded-xl bg-slate-950 border border-emerald-500/40 focus:border-emerald-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+            </div>
+            <div class="sm:col-span-2">
+              <label for="hariKerjaBulanan" class="block text-xs font-bold text-cyan-300 mb-1.5">Hari Aktif Jualan per Bulan (Target Bulanan)</label>
+              <input id="hariKerjaBulanan" type="number" min="1" max="31" value="26" oninput="perbaruiSemua()" class="w-full rounded-xl bg-slate-950 border border-cyan-500/35 focus:border-cyan-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+            </div>
+          </div>
+
+          <!-- Panel Hasil Perhitungan Finansial -->
+          <div class="lg:col-span-5 rounded-2xl bg-slate-950 border border-slate-800 p-4 sm:p-5 flex flex-col justify-between space-y-4">
+            <div class="grid grid-cols-2 gap-3">
+              <div class="rounded-xl bg-slate-900 border border-slate-800 p-3.5">
+                <div class="text-[11px] font-semibold text-slate-400">HPP per Unit</div>
+                <div id="outHppUnit" class="font-display text-lg font-extrabold text-amber-300 mt-1">Rp 15.000</div>
+                <div id="outTotalModalBatch" class="text-[11px] text-slate-500 mt-0.5">Modal batch: Rp 750.000</div>
+              </div>
+              <div class="rounded-xl bg-slate-900 border border-slate-800 p-3.5">
+                <div class="text-[11px] font-semibold text-slate-400">Harga Promo &amp; Profit/Unit</div>
+                <div id="outHargaPromo" class="font-display text-lg font-extrabold text-fuchsia-300 mt-1">Rp 18.000</div>
+                <div id="outProfitUnit" class="text-[11px] text-emerald-300 mt-0.5">Profit: Rp 3.000 (16,7%)</div>
+              </div>
+              <div class="rounded-xl bg-slate-900 border border-slate-800 p-3.5">
+                <div class="text-[11px] font-semibold text-slate-400">Omset Target Harian</div>
+                <div id="outOmsetHarian" class="font-display text-lg font-extrabold text-white mt-1">Rp 450.000</div>
+                <div id="outProfitHarian" class="text-[11px] text-emerald-400 mt-0.5">Profit/hari: Rp 75.000</div>
+              </div>
+              <div class="rounded-xl bg-slate-900 border border-slate-800 p-3.5">
+                <div class="text-[11px] font-semibold text-slate-400">BEP per Batch</div>
+                <div id="outBepUnit" class="font-display text-lg font-extrabold text-cyan-300 mt-1">250 unit</div>
+                <div id="outStatusBep" class="text-[11px] text-slate-400 mt-0.5">Balik modal per batch</div>
+              </div>
+            </div>
+
+            <!-- Blok Proyeksi Target Bulanan -->
+            <div class="rounded-xl bg-gradient-to-r from-purple-950/75 to-fuchsia-950/65 border border-fuchsia-400/30 p-3.5 space-y-1.5">
+              <div class="text-[11px] font-extrabold uppercase tracking-wider text-amber-200">📅 Proyeksi Target Bulanan</div>
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-purple-100/80">Target Terjual Bulanan</span>
+                <span id="outTargetBulananUnit" class="font-extrabold text-white">650 unit</span>
+              </div>
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-purple-100/80">Estimasi Omset Bulanan</span>
+                <span id="outOmsetBulanan" class="font-extrabold text-amber-300">Rp 11.700.000</span>
+              </div>
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-purple-100/80">Estimasi Profit Bersih Bulanan</span>
+                <span id="outProfitBulanan" class="font-extrabold text-emerald-300">Rp 1.950.000</span>
+              </div>
+            </div>
+
+            <div class="flex items-center justify-between gap-2 pt-1">
+              <p id="ringkasanProduksi" class="text-xs text-slate-300 leading-snug"></p>
+              <button type="button" onclick="pilihSubTabUkur('review')" class="shrink-0 px-3.5 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-xs font-extrabold text-white transition">
+                ← Review Konten
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-
-      <div class="space-y-1.5">
-        <label for="arahanTambahan" class="block text-xs font-semibold uppercase tracking-wider text-slate-400">
-          Arahan Visual / Nuansa Musik Tambahan (Opsional)
-        </label>
-        <input id="arahanTambahan" type="text" placeholder="Contoh: Botol hijau 1L di meja dapur cerah / Musik dangdut koplo ceria" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-slate-100 placeholder-slate-500 text-sm focus:outline-none focus:border-amber-500" />
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <button type="button" id="btn-buat-gambar" onclick="buatGambarPoster()" class="px-4 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm transition shadow">
-          🖼️ Buat Gambar Poster AI
-        </button>
-        <button type="button" onclick="jalankanTugas('Buatkan Naskah Video Promosi Pendek 15-30 detik (Hook 3 detik pertama, Masalah, Solusi Produk, dan Call To Action) lengkap dengan arahan adegan kamera.')" class="px-4 py-3 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-semibold text-sm transition shadow">
-          🎬 Buat Naskah &amp; Prompt Video
-        </button>
-        <button type="button" onclick="jalankanTugas('Buatkan Lirik Jingle Lagu Promosi UMKM yang catchy, mudah diingat, berima kuat, lengkap dengan tag gaya musik untuk Suno AI.')" class="px-4 py-3 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-semibold text-sm transition shadow">
-          🎵 Buat Jingle &amp; Lirik Lagu
-        </button>
-      </div>
-
-      <!-- Hasil Gambar Poster -->
-      <div id="wadah-gambar" class="hidden pt-3 border-t border-slate-800 space-y-3">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-semibold uppercase tracking-wider text-emerald-400">Hasil Gambar Poster AI:</span>
-          <a id="link-unduh-gambar" href="#" download="poster-umkm.png" class="px-3 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-medium">
-            ⬇️ Unduh Gambar
-          </a>
-        </div>
-        <img id="hasil-gambar" src="" alt="Poster Produk UMKM" class="w-full max-w-md mx-auto rounded-2xl border border-slate-700 shadow-lg" />
       </div>
     </section>
 
-    <!-- Hasil Output Teks AI -->
-    <section id="wadah-hasil" class="bg-slate-900 border border-slate-800 rounded-2xl p-4 sm:p-6 space-y-3">
-      <div class="flex items-center justify-between gap-2">
-        <span class="text-xs font-semibold uppercase tracking-wider text-emerald-400">Hasil Asisten AI UMKM</span>
-        <button type="button" onclick="salinHasil()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs font-medium text-slate-200">
-          📋 Salin Teks
-        </button>
-      </div>
-      <div id="output-teks" class="p-4 rounded-xl bg-slate-950 border border-slate-800 text-sm text-slate-200 whitespace-pre-line leading-relaxed min-h-[140px]">
-        Silakan pilih template kategori atau isi profil usahamu di atas, lalu klik salah satu tombol strategi di Pilar Riset, Buat, Jual, atau Ukur.
-      </div>
-    </section>
-
-  </main>
+    <footer class="rounded-2xl bg-gradient-to-r from-indigo-950 via-purple-950 to-fuchsia-950 border border-fuchsia-500/25 px-5 py-4 text-center text-xs sm:text-sm font-semibold text-purple-100">
+      Kreasi AI Studio UMKM • Pondasi Digital Marketing Praktis: Riset • Bikin Konten • Jual • Ukur
+    </footer>
+  </div>
 
   <script>
-    const templates = {
-      rumah_tangga: {
-        nama: 'Sabun Cuci Piring SAPIRCling',
-        kategori: 'Kebutuhan Rumah Tangga',
-        usp: 'Harga Rp20.000 isi 1 Liter, ekstrak buah lerak alami, aroma nanas segar, lembut di tangan & ramah lingkungan',
-        target: 'Ibu rumah tangga, pelaku usaha warung makan, dan warga Depok & sekitarnya'
-      },
-      kuliner: {
-        nama: 'Ubi Cilembu Madu Lumer',
-        kategori: 'Kuliner / F&B',
-        usp: 'Manis madu alami tanpa gula tambahan, dipanggang fresh setiap hari, hangat siap santap',
-        target: 'Keluarga, pecinta camilan sehat, dan pekerja kantoran'
-      },
-      fashion: {
-        nama: 'Kemeja Linen Kasual Nusantara',
-        kategori: 'Fashion & Kerajinan',
-        usp: 'Bahan katun linen adem menyerap keringat, jahitan butik rapi, harga terjangkau Rp125rb',
-        target: 'Pria & wanita usia 22-45 tahun untuk kerja maupun santai'
-      },
-      herbal: {
-        nama: 'Minuman Rempah Tradisional Mirami',
-        kategori: 'Kecantikan / Herbal',
-        usp: 'Racikan jahe merah, kunyit & rempah pilihan tanpa pengawet, kemasan botol praktis 330ml',
-        target: 'Masyarakat yang menjaga daya tahan tubuh dan kebugaran harian'
-      },
-      jasa: {
-        nama: 'Pelatihan Digital Marketing Praktis UMKM',
-        kategori: 'Jasa / Kursus',
-        usp: 'Belajar langsung praktik 4 Pilar (Riset, Buat, Jual, Ukur) dibantu AI, langsung bisa jualan dari HP',
-        target: 'Pemilik usaha mikro, kecil, dan menengah yang ingin naik kelas digital'
-      }
-    };
+    let tahapAktif = 1;
+    let tampilSemuaModul = false;
+    let fokusRisetAktif = 'persona';
+    let gayaTemaAktif = 'dapur';
+    let modeCaptionAktif = 'msba';
+    let uploadedProductImg = null;
 
-    const dataPilar = {
-      riset: {
-        badge: 'Pilar 01 • Fondasi Riset Pasar',
-        judul: 'RISET: Kenali Pembeli, Kata Kunci & Keunggulan Unik',
-        tombol: [
-          ['👥 Buyer Persona UMKM', 'Pahami kebutuhan & pemicu emosi calon pembeli.', 'Riset Buyer Persona UMKM: Siapa mereka, masalah utama sehari-hari, dan alasan kuat membeli produk ini.'],
-          ['# Kata Kunci & Hashtag', 'Temukan kata kunci agar produk mudah dicari.', 'Riset 15 Kata Kunci Pencarian & Hashtag paling dicari calon pembeli di TikTok, Instagram, Shopee, dan WhatsApp.'],
-          ['💎 Tajamkan USP & Promo', 'Buat alasan kenapa pembeli harus pilih produkmu.', 'Analisis Keunggulan Unik (USP) & Penawaran Sulit Ditolak dibanding produk biasa di pasaran.']
-        ]
-      },
-      buat: {
-        badge: 'Pilar 02 • Produksi Konten Rutin',
-        judul: 'BUAT: Ide Konten & Kalender Posting 7 Hari',
-        tombol: [
-          ['📅 Kalender Konten 7 Hari', 'Jadwal konten harian anti-bingung.', 'Buatkan Kalender Konten Media Sosial 7 Hari lengkap dengan ide visual, hook pembuka, dan caption untuk setiap hari.'],
-          ['📱 5 Ide Konten TikTok / Reels', 'Video singkat yang menarik perhatian.', 'Buatkan 5 Ide Konten Video Singkat TikTok/Reels (edukasi, testimoni, behind the scene, dan promo).'],
-          ['✍️ Caption Jualan & Soft Selling', 'Teks unggahan yang mengundang interaksi.', 'Buatkan 3 variasi Caption Instagram/Facebook (1 edukasi masalah, 1 storytelling produk, 1 hard selling promo).']
-        ]
-      },
-      jual: {
-        badge: 'Pilar 03 • Konversi & Penjualan',
-        judul: 'JUAL: Skrip WhatsApp Closing & Paket Bundling',
-        tombol: [
-          ['💬 Skrip Balas Chat WA', 'Ubah penanya jadi pembeli transfer.', 'Buatkan Skrip Follow-Up & Closing WhatsApp (sapaan ramah, menjawab tanya harga, mengatasi keberatan mahal, hingga ajakan order).'],
-          ['🎁 Ide Paket Bundling', 'Naikkan nilai belanja per pembeli.', 'Buatkan 3 Ide Paket Bundling / Hemat agar pembeli membeli lebih dari 1 produk sekaligus.'],
-          ['📣 Broadcast WA Promo', 'Pesan singkat ke database pelanggan lama.', 'Buatkan 2 template pesan Broadcast WhatsApp yang sopan, tidak terasa spam, dan memicu repeat order.']
-        ]
-      },
-      ukur: {
-        badge: 'Pilar 04 • Evaluasi & Peningkatan',
-        judul: 'UKUR: Audit Konten & Evaluasi Penjualan',
-        tombol: [
-          ['📊 Checklist Evaluasi Mingguan', 'Ukur apa yang berhasil & perlu diperbaiki.', 'Buatkan Checklist Evaluasi Mingguan Digital Marketing UMKM (metrik views, klik WA, dan rasio closing) beserta langkah perbaikannya.'],
-          ['🔍 Perbaiki Konten Sepi Pembeli', 'Solusi jika sudah posting tapi belum laku.', 'Berikan diagnosis dan 5 langkah perbaikan praktis jika konten sudah diposting tetapi masih sepi interaksi dan belum ada yang beli.'],
-          ['🚀 Rencana Scale-Up 30 Hari', 'Langkah membesarkan omzet bulan depan.', 'Buatkan Rencana Aksi 30 Hari untuk meningkatkan repeat order dan memperluas jangkauan pelanggan lokal.']
-        ]
-      }
-    };
+    const formatRupiah = (angka) =>
+      new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        maximumFractionDigits: 0,
+      }).format(Number.isFinite(angka) ? angka : 0);
 
-    function isiTemplate(kode) {
-      const t = templates[kode];
-      if (!t) return;
-      document.getElementById('namaUsaha').value = t.nama;
-      document.getElementById('kategoriBisnis').value = t.kategori;
-      document.getElementById('uspProduk').value = t.usp;
-      document.getElementById('targetPembeli').value = t.target;
+    const formatAngka = (angka) =>
+      new Intl.NumberFormat('id-ID', {
+        maximumFractionDigits: 0,
+      }).format(Number.isFinite(angka) ? angka : 0);
+
+    function tampilkanNotif(pesan) {
+      const toast = document.getElementById('toastNotif');
+      if (!toast) return;
+      toast.textContent = pesan;
+      toast.classList.remove('hidden');
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 3200);
     }
 
-    function pilihPilar(pilar) {
-      document.querySelectorAll('.pilar-btn').forEach((btn) => {
-        btn.className = 'pilar-btn p-3.5 rounded-2xl border border-slate-800 bg-slate-900 hover:border-slate-700 text-left transition';
-        btn.firstElementChild.className = 'text-xs font-bold text-slate-300';
-      });
-      const aktif = document.getElementById('tab-' + pilar);
-      aktif.className = 'pilar-btn p-3.5 rounded-2xl border border-emerald-500 bg-emerald-950/50 text-left transition';
-      aktif.firstElementChild.className = 'text-xs font-bold text-emerald-400';
-
-      const info = dataPilar[pilar];
-      document.getElementById('pilar-header').innerHTML = `
-        <span class="text-xs font-semibold uppercase tracking-wider text-emerald-400">${info.badge}</span>
-        <h2 class="text-lg sm:text-xl font-bold text-white mt-1">${info.judul}</h2>
-        <p class="text-xs sm:text-sm text-slate-400 mt-1">Klik salah satu tombol di bawah untuk menghasilkan strategi siap pakai sesuai profil usahamu.</p>
-      `;
-
-      document.getElementById('pilar-tombol').innerHTML = info.tombol.map((item) => `
-        <button type="button" onclick="jalankanTugas('${item[2]}')" class="p-4 rounded-xl bg-slate-950 hover:bg-slate-800 border border-slate-700 text-left transition">
-          <div class="font-semibold text-sm text-emerald-400">${item[0]}</div>
-          <p class="text-xs text-slate-400 mt-1">${item[1]}</p>
-        </button>
-      `).join('');
+    function tampilkanPanduanPilar(judul, pesan) {
+      const box = document.getElementById('infoPilarBox');
+      const judulEl = document.getElementById('infoPilarJudul');
+      const txtEl = document.getElementById('infoPilarText');
+      if (judulEl) judulEl.textContent = judul;
+      if (txtEl) txtEl.textContent = pesan;
+      box?.classList.remove('hidden');
     }
 
-    function ambilProfil() {
-      const nama = document.getElementById('namaUsaha').value.trim();
-      const kategori = document.getElementById('kategoriBisnis').value;
-      const usp = document.getElementById('uspProduk').value.trim();
-      const target = document.getElementById('targetPembeli').value.trim();
-      const arahan = document.getElementById('arahanTambahan').value.trim();
-
-      if (!nama || !usp) {
-        alert('Isi terlebih dahulu Nama Usaha/Produk dan Harga & Keunggulan Utama (atau klik salah satu tombol Template Kategori di atas).');
-        return null;
-      }
-      return { nama, kategori, usp, target, arahan };
-    }
-
-    async function jalankanTugas(instruksiTugas) {
-      const profil = ambilProfil();
-      if (!profil) return;
-
-      const output = document.getElementById('output-teks');
-      output.textContent = '⏳ Sedang menyusun strategi khusus untuk ' + profil.nama + '...';
-      document.getElementById('wadah-hasil').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-
-      const promptLengkap = `
-Profil Usaha UMKM:
-- Nama Produk/Usaha: ${profil.nama}
-- Kategori: ${profil.kategori}
-- Harga & Keunggulan Utama (USP): ${profil.usp}
-- Target Pembeli: ${profil.target || 'Masyarakat umum & pembeli online'}
-${profil.arahan ? '- Arahan Tambahan: ' + profil.arahan : ''}
-
-Tugas:
-${instruksiTugas}
-
-Gunakan bahasa Indonesia yang praktis, persuasif, mudah dipraktikkan langsung oleh pelaku UMKM, dengan poin-poin yang jelas dan rapi.
-      `.trim();
-
+    function salinTeksById(elementId, label = 'Teks') {
+      const box = document.getElementById(elementId);
+      if (!box) return;
+      box.select();
+      box.setSelectionRange(0, 99999);
       try {
-        const res = await fetch('/api/generate', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ prompt: promptLengkap })
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || 'Gagal terhubung ke server.');
-        output.textContent = data.result;
+        document.execCommand('copy');
+        tampilkanNotif(`${label} berhasil disalin ke clipboard!`);
       } catch (err) {
-        output.textContent = '⚠️ Terjadi kendala: ' + err.message;
+        tampilkanNotif('Silakan blok teks dan tekan Ctrl + C untuk menyalin.');
       }
     }
 
-    let fotoProdukBase64 = null;
+    function pilihTahap(nomor) {
+      tahapAktif = nomor;
+      const activeStyles = {
+        1: 'bg-gradient-to-br from-amber-500/20 to-fuchsia-600/20 border-amber-400 shadow-lg',
+        2: 'bg-gradient-to-br from-fuchsia-500/20 to-purple-600/20 border-fuchsia-400 shadow-lg',
+        3: 'bg-gradient-to-br from-emerald-500/20 to-teal-600/20 border-emerald-400 shadow-lg',
+        4: 'bg-gradient-to-br from-cyan-500/20 to-indigo-600/20 border-cyan-400 shadow-lg',
+      };
 
-    function previewFotoProduk(event) {
-      const file = event.target.files?.[0];
-      if (!file) return;
+      [1, 2, 3, 4].forEach((idx) => {
+        const btn = document.getElementById(`tabBtn-${idx}`);
+        const badge = document.getElementById(`badgeTab-${idx}`);
+        const panel = document.getElementById(`panelTahap-${idx}`);
 
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        const img = new Image();
-        img.onload = function () {
-          // Kompres otomatis ke maksimal 900px agar ringan dikirim dari HP
-          const canvas = document.createElement('canvas');
-          const maxDim = 900;
-          let w = img.width;
-          let h = img.height;
-          if (w > maxDim || h > maxDim) {
-            if (w > h) {
-              h = Math.round((h * maxDim) / w);
-              w = maxDim;
-            } else {
-              w = Math.round((w * maxDim) / h);
-              h = maxDim;
-            }
+        if (btn) {
+          btn.className = idx === nomor
+            ? `step-btn rounded-2xl border p-4 text-left transition-all duration-200 ${activeStyles[idx]}`
+            : 'step-btn rounded-2xl border p-4 text-left transition-all duration-200 bg-slate-950/80 border-slate-800 hover:border-slate-600';
+        }
+        if (badge) {
+          badge.classList.toggle('hidden', idx !== nomor);
+        }
+        if (panel) {
+          if (tampilSemuaModul || idx === nomor) {
+            panel.classList.remove('hidden');
+          } else {
+            panel.classList.add('hidden');
           }
-          canvas.width = w;
-          canvas.height = h;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0, w, h);
+        }
+      });
 
-          fotoProdukBase64 = canvas.toDataURL('image/png');
-          document.getElementById('preview-upload-img').src = fotoProdukBase64;
-          document.getElementById('wadah-preview-upload').classList.remove('hidden');
-          document.getElementById('btn-hapus-foto').classList.remove('hidden');
+      const targetPanel = document.getElementById(`panelTahap-${nomor}`);
+      targetPanel?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function toggleModeSemuaModul() {
+      tampilSemuaModul = !tampilSemuaModul;
+      const btn = document.getElementById('btnToggleSemuaModul');
+      if (btn) {
+        btn.textContent = tampilSemuaModul
+          ? '🎯 Fokus Satu Tahap Saja'
+          : '👁️ Tampilkan Semua Modul Sekaligus';
+      }
+      pilihTahap(tahapAktif);
+      tampilkanNotif(
+        tampilSemuaModul
+          ? 'Menampilkan seluruh 4 modul (Riset, Bikin Konten, Jual, Ukur) sekaligus.'
+          : `Fokus pada Tahap 0${tahapAktif}.`
+      );
+    }
+
+    // Sinkronisasi input lintas tahap
+    function sinkronNamaProduk(nilai) {
+      ['globalNamaProduk', 'risetNamaProduk', 'namaProdukHpp'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el && el.value !== nilai) el.value = nilai;
+      });
+      perbaruiSemua();
+    }
+
+    function sinkronHargaDiskon(hargaBaru, diskonBaru) {
+      if (hargaBaru !== null) {
+        ['jualHargaNormal', 'hargaJualUnit'].forEach((id) => {
+          const el = document.getElementById(id);
+          if (el && el.value !== String(hargaBaru)) el.value = hargaBaru;
+        });
+      }
+      if (diskonBaru !== null) {
+        ['jualDiskonPromo', 'diskonPromo'].forEach((id) => {
+          const el = document.getElementById(id);
+          if (el && el.value !== String(diskonBaru)) el.value = diskonBaru;
+        });
+      }
+      perbaruiSemua();
+    }
+
+    // Tahap 01: Riset
+    function setFokusRiset(mode) {
+      fokusRisetAktif = mode;
+      const styles = {
+        persona: ['btnRisetPersona', 'bg-amber-500 text-slate-950 font-extrabold'],
+        keyword: ['btnRisetKeyword', 'bg-fuchsia-500 text-white font-extrabold'],
+        usp: ['btnRisetUsp', 'bg-cyan-500 text-slate-950 font-extrabold'],
+      };
+      ['persona', 'keyword', 'usp'].forEach((k) => {
+        const btn = document.getElementById(styles[k][0]);
+        if (!btn) return;
+        btn.className = k === mode
+          ? `px-3 py-2.5 rounded-xl ${styles[k][1]} text-xs transition`
+          : 'px-3 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition';
+      });
+      buatStrategiRiset();
+    }
+
+    function buatStrategiRiset() {
+      const nama = document.getElementById('risetNamaProduk')?.value.trim() || 'Produk UMKM';
+      const target = document.getElementById('globalTargetPasar')?.value.trim() || 'Keluarga & pelanggan lokal';
+      const masalah = document.getElementById('risetMasalahPelanggan')?.value.trim() || 'Kebutuhan harian belum terpenuhi secara hemat';
+      const unggul = document.getElementById('risetKeunggulanProduk')?.value.trim() || 'Kualitas terjaga, praktis & harga bersahabat';
+      const labelEl = document.getElementById('labelOutputRiset');
+      const box = document.getElementById('outputRisetBox');
+      if (!box) return;
+
+      if (fokusRisetAktif === 'persona') {
+        if (labelEl) labelEl.textContent = '👥 Hasil Pemetaan Buyer Persona UMKM';
+        box.value =
+`PROFIL CALON PEMBELI UTAMA — ${nama.toUpperCase()}
+• Segmen Utama: ${target}
+• Pemicu Emosi & Masalah: Sering kesal karena ${masalah}.
+• Harapan Pembeli: Ingin solusi yang terbukti ampuh, aman dipakai rutin, dan ramah di anggaran belanja.
+• Kebiasaan Belanja: Suka melihat foto produk yang bersih meyakinkan, harga transparan, dan cepat dilayani lewat WhatsApp.`;
+      } else if (fokusRisetAktif === 'keyword') {
+        if (labelEl) labelEl.textContent = '# Kata Kunci Pencarian & Hashtag Lokal';
+        const slug = nama.replace(/[^a-zA-Z0-9]/g, '');
+        box.value =
+`KATA KUNCI & HASHTAG SIAP PAKAI — ${nama.toUpperCase()}
+• Kata Kunci Utama: jual ${nama.toLowerCase()}, harga ${nama.toLowerCase()} murah, agen ${nama.toLowerCase()} terdekat, paket hemat ${nama.toLowerCase()}.
+• Kata Kunci Solusi: solusi ${masalah.split(',')[0].toLowerCase()}, produk lokal berkualitas.
+• Hashtag Promosi: #${slug || 'ProdukUMKM'} #UMKMNaikKelas #KreasiAIStudioUMKM #ProdukLokalBerkualitas #PromoHematUMKM`;
+      } else {
+        if (labelEl) labelEl.textContent = '💎 Rumusan USP (Unique Selling Proposition)';
+        box.value =
+`KEUNGGULAN UNIK (USP) — ${nama.toUpperCase()}
+"Berbeda dari produk biasa yang bikin boros, ${nama} hadir khusus untuk ${target} dengan keunggulan: ${unggul}."
+
+Kalimat Tagline Siap Pakai:
+✨ "${nama} — Solusi Cerdas Atasi ${masalah.split(',')[0]}, Lebih Hemat & Terpercaya!"`;
+      }
+    }
+
+    // Tahap 02: Studio Visual, Struktur Konten & Pembersih Latar
+    function pilihGayaStudio(gaya, tema = 'dapur') {
+      gayaTemaAktif = tema;
+      const input = document.getElementById('arahanTambahan');
+      if (input) input.value = gaya;
+      perbaruiSemua();
+      tampilkanNotif(`Gaya studio diubah ke: ${gaya}`);
+    }
+
+    function buatStrukturKonten() {
+      const d = ambilDataKalkulator();
+      const unggul = document.getElementById('risetKeunggulanProduk')?.value.trim() || 'Kualitas terjamin & hemat';
+      const masalah = document.getElementById('risetMasalahPelanggan')?.value.trim() || 'kebutuhan harian';
+      const gaya = document.getElementById('arahanTambahan')?.value.trim() || 'Studio Cerah';
+      const box = document.getElementById('strukturKontenBox');
+      if (!box) return;
+
+      const infoDiskon = d.diskon > 0 ? `Promo Hemat ${d.diskon}% jadi ${formatRupiah(d.hargaPromo)}` : `Harga ${formatRupiah(d.hargaPromo)}`;
+      box.value =
+`1. HOOK (3 Detik Pertama):
+"Stop boros! Ini solusi praktis atasi ${masalah.split(',')[0].toLowerCase()} dengan ${d.namaProduk}."
+
+2. TIGA POIN UTAMA:
+• Poin 1: ${unggul}
+• Poin 2: Visual & kemasan bersih (${gaya.split('—')[0].trim()})
+• Poin 3: ${infoDiskon}
+
+3. SATU AJAKAN (CTA):
+"Klik link WhatsApp sekarang & amankan stok promo hari ini!"`;
+    }
+
+    function bersihkanLatarPolos(imgElement) {
+      const c = document.createElement('canvas');
+      c.width = imgElement.width;
+      c.height = imgElement.height;
+      const ctx = c.getContext('2d');
+      ctx.drawImage(imgElement, 0, 0);
+
+      const imgData = ctx.getImageData(0, 0, c.width, c.height);
+      const data = imgData.data;
+
+      const corners = [
+        0,
+        (c.width - 1) * 4,
+        (c.height - 1) * c.width * 4,
+        ((c.height - 1) * c.width + (c.width - 1)) * 4,
+      ];
+      let rBg = 0, gBg = 0, bBg = 0;
+      corners.forEach((idx) => {
+        rBg += data[idx];
+        gBg += data[idx + 1];
+        bBg += data[idx + 2];
+      });
+      rBg /= 4; gBg /= 4; bBg /= 4;
+
+      for (let i = 0; i < data.length; i += 4) {
+        const diff = Math.sqrt(
+          Math.pow(data[i] - rBg, 2) +
+          Math.pow(data[i + 1] - gBg, 2) +
+          Math.pow(data[i + 2] - bBg, 2)
+        );
+        if (diff < 45) {
+          data[i + 3] = 0;
+        } else if (diff < 65) {
+          data[i + 3] = Math.round(((diff - 45) / 20) * 255);
+        }
+      }
+      ctx.putImageData(imgData, 0, 0);
+      return c;
+    }
+
+    function gunakanSampelProdukDemo() {
+      const tempCanvas = document.createElement('canvas');
+      tempCanvas.width = 480;
+      tempCanvas.height = 480;
+      const tctx = tempCanvas.getContext('2d');
+
+      tctx.fillStyle = '#ffffff';
+      tctx.fillRect(0, 0, 480, 480);
+
+      tctx.fillStyle = '#10b981';
+      tctx.beginPath();
+      tctx.roundRect(145, 110, 190, 290, 28);
+      tctx.fill();
+
+      tctx.fillStyle = '#047857';
+      tctx.fillRect(200, 75, 80, 40);
+
+      tctx.fillStyle = '#fef08a';
+      tctx.beginPath();
+      tctx.roundRect(168, 175, 144, 150, 16);
+      tctx.fill();
+
+      tctx.fillStyle = '#1e1b4b';
+      tctx.font = '900 22px Montserrat, sans-serif';
+      tctx.textAlign = 'center';
+      tctx.fillText('SAPIRCling', 240, 235);
+      tctx.font = '700 15px sans-serif';
+      tctx.fillText('JERIGEN 1L', 240, 265);
+      tctx.fillText('BERSIH & WANGI', 240, 292);
+
+      const img = new Image();
+      img.onload = () => {
+        uploadedProductImg = img;
+        renderPreviewPoster();
+        tampilkanNotif('Sampel produk berlatar putih dimuat & latarnya otomatis dibersihkan!');
+      };
+      img.src = tempCanvas.toDataURL('image/png');
+    }
+
+    document.getElementById('fotoProdukInput')?.addEventListener('change', (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const img = new Image();
+        img.onload = () => {
+          uploadedProductImg = img;
+          renderPreviewPoster();
+          tampilkanNotif('Foto produk diunggah & latar polos otomatis dibersihkan!');
         };
-        img.src = e.target.result;
+        img.src = ev.target.result;
       };
       reader.readAsDataURL(file);
+    });
+
+    function gambarLatarTemaStudio(ctx, tema) {
+      const grad = ctx.createLinearGradient(0, 0, 1080, 1080);
+      if (tema === 'dapur') {
+        grad.addColorStop(0, '#1e1b4b');
+        grad.addColorStop(0.55, '#6b21a8');
+        grad.addColorStop(1, '#b45309');
+      } else if (tema === 'kayu') {
+        grad.addColorStop(0, '#271710');
+        grad.addColorStop(0.55, '#581c87');
+        grad.addColorStop(1, '#78350f');
+      } else if (tema === 'marmar') {
+        grad.addColorStop(0, '#0f172a');
+        grad.addColorStop(0.55, '#4c1d95');
+        grad.addColorStop(1, '#9d174d');
+      } else {
+        grad.addColorStop(0, '#064e3b');
+        grad.addColorStop(0.55, '#581c87');
+        grad.addColorStop(1, '#1e1b4b');
+      }
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 1080, 1080);
+
+      const glow = ctx.createRadialGradient(540, 480, 40, 540, 480, 430);
+      glow.addColorStop(0, 'rgba(245, 208, 254, 0.24)');
+      glow.addColorStop(1, 'rgba(245, 208, 254, 0)');
+      ctx.fillStyle = glow;
+      ctx.fillRect(0, 0, 1080, 1080);
+
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.55)';
+      ctx.beginPath();
+      ctx.ellipse(540, 770, 340, 52, 0, 0, Math.PI * 2);
+      ctx.fill();
     }
 
-    function hapusFotoProduk() {
-      fotoProdukBase64 = null;
-      document.getElementById('fotoProdukInput').value = '';
-      document.getElementById('wadah-preview-upload').classList.add('hidden');
-      document.getElementById('btn-hapus-foto').classList.add('hidden');
+    function renderPreviewPoster() {
+      const canvas = document.getElementById('posterCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const d = ambilDataKalkulator();
+      const gaya = document.getElementById('arahanTambahan')?.value.trim() || 'Dapur Rumah Cerah & Bersih, Natural Sunlight';
+
+      gambarLatarTemaStudio(ctx, gayaTemaAktif);
+
+      ctx.fillStyle = '#f5d0fe';
+      ctx.font = '800 28px Montserrat, sans-serif';
+      ctx.fillText('KREASI AI STUDIO UMKM', 64, 84);
+
+      if (d.diskon > 0) {
+        ctx.fillStyle = '#f59e0b';
+        ctx.beginPath();
+        ctx.roundRect(790, 48, 226, 52, 26);
+        ctx.fill();
+        ctx.fillStyle = '#0f172a';
+        ctx.font = '900 24px Montserrat, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(`DISKON ${d.diskon}%`, 903, 82);
+        ctx.textAlign = 'left';
+      }
+
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '900 52px Montserrat, sans-serif';
+      ctx.fillText(d.namaProduk.toUpperCase().slice(0, 26), 64, 156);
+
+      if (uploadedProductImg) {
+        const cleaned = bersihkanLatarPolos(uploadedProductImg);
+        const scale = Math.min(540 / cleaned.width, 520 / cleaned.height);
+        const dw = cleaned.width * scale;
+        const dh = cleaned.height * scale;
+        const dx = (1080 - dw) / 2;
+        const dy = 230;
+
+        ctx.save();
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.55)';
+        ctx.shadowBlur = 32;
+        ctx.shadowOffsetY = 16;
+        ctx.drawImage(cleaned, dx, dy, dw, dh);
+        ctx.restore();
+      } else {
+        ctx.strokeStyle = 'rgba(245, 208, 254, 0.35)';
+        ctx.lineWidth = 3;
+        ctx.setLineDash([12, 10]);
+        ctx.strokeRect(210, 235, 660, 480);
+        ctx.setLineDash([]);
+
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.07)';
+        ctx.fillRect(210, 235, 660, 480);
+
+        ctx.fillStyle = '#f5d0fe';
+        ctx.font = '700 28px "Plus Jakarta Sans", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('Gaya Studio Aktif:', 540, 445);
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '800 30px "Plus Jakarta Sans", sans-serif';
+        ctx.fillText(gaya.slice(0, 42), 540, 495);
+        ctx.fillStyle = '#cbd5e1';
+        ctx.font = '500 22px "Plus Jakarta Sans", sans-serif';
+        ctx.fillText('(Unggah foto produk atau klik "Coba Sampel Botol")', 540, 545);
+        ctx.textAlign = 'left';
+      }
+
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.78)';
+      ctx.beginPath();
+      ctx.roundRect(56, 865, 968, 155, 28);
+      ctx.fill();
+
+      ctx.fillStyle = '#fef08a';
+      ctx.font = '900 44px Montserrat, sans-serif';
+      if (d.hargaPromo > 0) {
+        const label = d.diskon > 0
+          ? `Promo ${formatRupiah(d.hargaPromo)} (Hemat ${d.diskon}%)`
+          : `Harga Spesial: ${formatRupiah(d.hargaPromo)}`;
+        ctx.fillText(label.slice(0, 38), 88, 935);
+      } else {
+        ctx.fillText('Siap Order Sekarang', 88, 935);
+      }
+
+      ctx.fillStyle = '#e9d5ff';
+      ctx.font = '600 24px "Plus Jakarta Sans", sans-serif';
+      const subText = d.diskon > 0
+        ? `Harga Normal ${formatRupiah(d.hargaNormal)} • Stok Terbatas, Pesan Sekarang!`
+        : 'Kualitas Terjamin • Siap Kirim dari Warung ke Rumah Anda';
+      ctx.fillText(subText.slice(0, 62), 88, 985);
     }
 
-    function gabungkanPosterUtuh(bgUrl, productUrl, namaProduk, uspProduk) {
-      return new Promise((resolve) => {
-        const canvas = document.createElement('canvas');
-        canvas.width = 1080;
-        canvas.height = 1080;
-        const ctx = canvas.getContext('2d');
+    function unduhPosterPng() {
+      const canvas = document.getElementById('posterCanvas');
+      if (!canvas) return;
+      const link = document.createElement('a');
+      link.download = 'poster-kreasi-ai-studio-umkm.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      tampilkanNotif('Poster PNG berhasil diunduh!');
+    }
 
-        const bgImg = new Image();
-        bgImg.crossOrigin = 'anonymous';
-        bgImg.onload = function () {
-          ctx.drawImage(bgImg, 0, 0, 1080, 1080);
+    function kirimPromoKePoster() {
+      const d = ambilDataKalkulator();
+      const gaya = document.getElementById('arahanTambahan').value.trim() || 'Dapur Rumah Cerah & Bersih, Natural Sunlight';
+      const bagianDasar = gaya.split('—')[0].trim();
+      const infoHarga = d.diskon > 0
+        ? `Promo Diskon ${d.diskon}% jadi ${formatRupiah(d.hargaPromo)}`
+        : `Harga ${formatRupiah(d.hargaPromo)}`;
+      document.getElementById('arahanTambahan').value = `${bagianDasar} — ${d.namaProduk} ${infoHarga}`;
+      renderPreviewPoster();
+      pilihTahap(2);
+      tampilkanNotif('Promo berhasil diterapkan ke pratinjau poster!');
+    }
 
-          const topGrad = ctx.createLinearGradient(0, 0, 0, 260);
-          topGrad.addColorStop(0, 'rgba(2, 6, 23, 0.85)');
-          topGrad.addColorStop(1, 'rgba(2, 6, 23, 0)');
-          ctx.fillStyle = topGrad;
-          ctx.fillRect(0, 0, 1080, 260);
+    // Tahap 03: Jual & Copywriting MSBA
+    function setModeCaption(mode) {
+      modeCaptionAktif = mode;
+      const judulEl = document.getElementById('judulNaskahJualan');
+      const judulMap = {
+        msba: '✍️ Copywriting MSBA (Masalah • Solusi • Bukti • Ajakan)',
+        wa: '💬 Skrip Follow-Up WA Business (Siap Closing)',
+        sosmed: '📱 Caption Promosi Sosial Media & Katalog',
+      };
+      if (judulEl) judulEl.textContent = judulMap[mode] || judulMap.msba;
 
-          const botGrad = ctx.createLinearGradient(0, 780, 0, 1080);
-          botGrad.addColorStop(0, 'rgba(2, 6, 23, 0)');
-          botGrad.addColorStop(1, 'rgba(2, 6, 23, 0.92)');
-          ctx.fillStyle = botGrad;
-          ctx.fillRect(0, 780, 1080, 300);
-
-          const tulisTeksDanSelesai = () => {
-            ctx.fillStyle = '#34d399';
-            ctx.font = 'bold 46px sans-serif';
-            ctx.textAlign = 'center';
-            ctx.fillText(namaProduk.toUpperCase().slice(0, 34), 540, 95);
-
-            ctx.fillStyle = '#ffffff';
-            ctx.font = '600 30px sans-serif';
-            const baris1 = uspProduk.slice(0, 48);
-            const baris2 = uspProduk.length > 48 ? uspProduk.slice(48, 96) : '';
-            ctx.fillText(baris1, 540, 965);
-            if (baris2) ctx.fillText(baris2, 540, 1010);
-
-            resolve(canvas.toDataURL('image/png'));
-          };
-
-          if (productUrl) {
-            const prodImg = new Image();
-            prodImg.onload = function () {
-              const boxSize = 540;
-              const scale = Math.min(boxSize / prodImg.width, boxSize / prodImg.height);
-              const dw = prodImg.width * scale;
-              const dh = prodImg.height * scale;
-              const dx = (1080 - dw) / 2;
-              const dy = (1080 - dh) / 2 + 10;
-
-              ctx.save();
-              ctx.shadowColor = 'rgba(0, 0, 0, 0.55)';
-              ctx.shadowBlur = 32;
-              ctx.shadowOffsetY = 14;
-              ctx.fillStyle = '#ffffff';
-              ctx.beginPath();
-              ctx.roundRect(dx - 14, dy - 14, dw + 28, dh + 28, 28);
-              ctx.fill();
-              ctx.restore();
-
-              ctx.save();
-              ctx.beginPath();
-              ctx.roundRect(dx, dy, dw, dh, 20);
-              ctx.clip();
-              ctx.drawImage(prodImg, dx, dy, dw, dh);
-              ctx.restore();
-
-              tulisTeksDanSelesai();
-            };
-            prodImg.src = productUrl;
-          } else {
-            tulisTeksDanSelesai();
-          }
-        };
-        bgImg.src = bgUrl;
+      const styles = {
+        msba: ['btnModeMsba', 'bg-emerald-600 text-white font-extrabold'],
+        wa: ['btnModeWa', 'bg-purple-600 text-white font-extrabold'],
+        sosmed: ['btnModeSosmed', 'bg-fuchsia-600 text-white font-extrabold'],
+      };
+      ['msba', 'wa', 'sosmed'].forEach((k) => {
+        const btn = document.getElementById(styles[k][0]);
+        if (!btn) return;
+        btn.className = k === mode
+          ? `px-2.5 py-2 rounded-xl ${styles[k][1]} text-xs transition`
+          : 'px-2.5 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white text-xs font-bold transition';
       });
+      buatCaptionOtomatis();
     }
 
-    async function buatGambarPoster() {
-      const profil = ambilProfil();
-      if (!profil) return;
+    function buatCaptionOtomatis() {
+      const d = ambilDataKalkulator();
+      const unggul = document.getElementById('risetKeunggulanProduk')?.value.trim() || 'Kualitas juara & hemat';
+      const masalah = document.getElementById('risetMasalahPelanggan')?.value.trim() || 'kebutuhan harian';
+      const box = document.getElementById('hasilCaptionBox');
+      if (!box) return;
 
-      const btn = document.getElementById('btn-buat-gambar');
-      const teksAsli = btn.textContent;
-      btn.disabled = true;
-      btn.textContent = '⏳ Meracik Poster Produk...';
+      const infoHarga = d.diskon > 0
+        ? `Harga Normal ${formatRupiah(d.hargaNormal)} → *Harga Promo Diskon ${d.diskon}%: ${formatRupiah(d.hargaPromo)}*`
+        : `*Harga Spesial: ${formatRupiah(d.hargaPromo)}*`;
 
-      const promptGambar = `Commercial advertising product photography for ${profil.nama} (${profil.kategori}), ${profil.arahan || 'clean bright studio podium background, natural lighting, aesthetic commercial look'}`;
+      if (modeCaptionAktif === 'msba') {
+        box.value =
+`[M - MASALAH]
+Sering kewalahan menghadapi ${masalah.split(',')[0].toLowerCase()} di rumah atau tempat usaha?
 
-      try {
-        const res = await fetch('/api/generate-image', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            prompt: promptGambar,
-            productImageBase64: fotoProdukBase64,
-            namaProduk: profil.nama,
-            uspProduk: profil.usp,
-            arahan: profil.arahan,
-          }),
-        });
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || 'Gagal membuat gambar.');
+[S - SOLUSI]
+Gunakan *${d.namaProduk}*! Dirancang praktis dengan keunggulan: ${unggul}.
 
-        const posterFinalUrl = await gabungkanPosterUtuh(
-          data.imageUrl,
-          fotoProdukBase64,
-          profil.nama,
-          profil.usp
-        );
+[B - BUKTI & PENAWARAN]
+✅ Sudah dipercaya pelanggan harian & warung sekitar
+✅ Kemasan rapi, higienis, dan takaran pas
+✅ ${infoHarga}
 
-        document.getElementById('hasil-gambar').src = posterFinalUrl;
-        document.getElementById('link-unduh-gambar').href = posterFinalUrl;
-        document.getElementById('wadah-gambar').classList.remove('hidden');
-        document.getElementById('wadah-gambar').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      } catch (err) {
-        alert('Gagal membuat gambar: ' + err.message);
-      } finally {
-        btn.disabled = false;
-        btn.textContent = teksAsli;
-      }
-    }
-    async function cekStatusServer() {
-      const dot = document.getElementById('server-status-dot');
-      const text = document.getElementById('server-status-text');
-      try {
-        const res = await fetch('/api/status');
-        if (res.ok) {
-          dot.className = 'w-2.5 h-2.5 rounded-full bg-emerald-400';
-          text.textContent = 'Server Gemini Aktif';
-          text.className = 'text-emerald-300 font-semibold';
-        } else {
-          throw new Error('Offline');
-        }
-      } catch (e) {
-        dot.className = 'w-2.5 h-2.5 rounded-full bg-amber-400';
-        text.textContent = 'Mode Offline';
+[A - AJAKAN]
+👉 Balas chat sekarang untuk amankan kuota promo hari ini sebelum kehabisan! 🙏`;
+      } else if (modeCaptionAktif === 'wa') {
+        box.value =
+`Halo Kak! 👋 Terima kasih sudah menghubungi kami.
+Untuk *${d.namaProduk}*, stok hari ini masih tersedia dan siap dikirim ya Kak!
+
+${infoHarga}
+
+✨ Kenapa banyak pelanggan repeat order?
+• ${unggul}
+• Bisa pesan satuan maupun paket hemat usaha/warung
+• Pengiriman cepat & aman sampai tujuan
+
+Mau saya bantu proses berapa unit hari ini, Kak? Cukup balas jumlah & alamat pengiriman ya! 🙏`;
+      } else {
+        box.value =
+`✨ Yang dicari-cari akhirnya hadir! ✨
+Kenalin *${d.namaProduk}*, solusi praktis andalan dari UMKM lokal! 🛍️
+
+${infoHarga}
+Keunggulan utama: ${unggul} 💛
+
+👉 Yuk order sekarang sebelum kuota promo habis! Klik link WhatsApp di bio ya!
+#UMKMNaikKelas #KreasiAIStudioUMKM #ProdukLokal #PromoUMKM`;
       }
     }
 
-    cekStatusServer();
+    // Tahap 04: Submenu Navigasi & Review Konten (Views -> Beli)
+    function pilihSubTabUkur(tab) {
+      const isReview = tab === 'review';
+      const btnReview = document.getElementById('subTabUkur-review');
+      const btnKalk = document.getElementById('subTabUkur-kalkulator');
+      const panelReview = document.getElementById('subPanelUkur-review');
+      const panelKalk = document.getElementById('subPanelUkur-kalkulator');
+
+      if (btnReview) {
+        btnReview.className = isReview
+          ? 'px-4 py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-fuchsia-600 text-white text-xs sm:text-sm font-extrabold text-left sm:text-center shadow-md transition'
+          : 'px-4 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white text-xs sm:text-sm font-bold text-left sm:text-center border border-slate-800 transition';
+      }
+      if (btnKalk) {
+        btnKalk.className = !isReview
+          ? 'px-4 py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-fuchsia-600 text-white text-xs sm:text-sm font-extrabold text-left sm:text-center shadow-md transition'
+          : 'px-4 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white text-xs sm:text-sm font-bold text-left sm:text-center border border-slate-800 transition';
+      }
+
+      panelReview?.classList.toggle('hidden', !isReview);
+      panelKalk?.classList.toggle('hidden', isReview);
+    }
+
+    function hitungReviewKonten() {
+      const views = Math.max(0, Number(document.getElementById('ukurViews')?.value) || 0);
+      const interaksi = Math.max(0, Number(document.getElementById('ukurInteraksi')?.value) || 0);
+      const chatMasuk = Math.max(0, Number(document.getElementById('ukurChatMasuk')?.value) || 0);
+      const pembeli = Math.max(0, Number(document.getElementById('ukurPembeliClosing')?.value) || 0);
+
+      const engagementRate = views > 0 ? (interaksi / views) * 100 : 0;
+      const chatRate = views > 0 ? (chatMasuk / views) * 100 : 0;
+      const closingRate = chatMasuk > 0 ? (pembeli / chatMasuk) * 100 : 0;
+      const konversiTotal = views > 0 ? (pembeli / views) * 100 : 0;
+
+      document.getElementById('funnelValViews').textContent = `${formatAngka(views)} (100%)`;
+      document.getElementById('funnelValInteraksi').textContent = `${formatAngka(interaksi)} (${engagementRate.toFixed(1)}%)`;
+      document.getElementById('funnelValChat').textContent = `${formatAngka(chatMasuk)} (${chatRate.toFixed(1)}%)`;
+      document.getElementById('funnelValBeli').textContent = `${formatAngka(pembeli)} (${konversiTotal.toFixed(2)}%)`;
+
+      document.getElementById('funnelBarViews').style.width = views > 0 ? '100%' : '0%';
+      document.getElementById('funnelBarInteraksi').style.width = views > 0 ? `${Math.min(100, Math.max(6, (interaksi / views) * 100 * 3))}%` : '0%';
+      document.getElementById('funnelBarChat').style.width = views > 0 ? `${Math.min(100, Math.max(5, (chatMasuk / views) * 100 * 6))}%` : '0%';
+      document.getElementById('funnelBarBeli').style.width = views > 0 ? `${Math.min(100, Math.max(4, (pembeli / views) * 100 * 12))}%` : '0%';
+
+      document.getElementById('outEngagementRate').textContent = `${engagementRate.toFixed(1)}%`;
+      document.getElementById('outChatRate').textContent = `${chatRate.toFixed(1)}%`;
+      document.getElementById('outClosingRate').textContent = `${closingRate.toFixed(1)}%`;
+      document.getElementById('outKonversiTotal').textContent = `${konversiTotal.toFixed(2)}%`;
+
+      const badge = document.getElementById('badgeSkorCorong');
+      const diag = document.getElementById('teksDiagnosisKonten');
+      if (!diag || !badge) return;
+
+      if (views === 0) {
+        badge.textContent = 'Menunggu Data';
+        badge.className = 'rounded-full bg-slate-800 border border-slate-700 px-3 py-0.5 text-[11px] font-extrabold text-slate-300';
+        diag.textContent = 'Masukkan jumlah Tayangan (Views), Interaksi, Chat Masuk WA, dan Pembeli untuk melihat analisis otomatis.';
+      } else if (views < 500) {
+        badge.textContent = 'Perlu Perkuat Hook';
+        badge.className = 'rounded-full bg-amber-500/20 border border-amber-400/40 px-3 py-0.5 text-[11px] font-extrabold text-amber-300';
+        diag.textContent = 'Tayangan (Views) masih di bawah 500: Perbaiki Hook 3 detik pertama pada poster/video, gunakan foto produk berlatar bersih di Tahap 02, dan bagikan ulang ke status WA serta grup lokal.';
+      } else if (engagementRate >= 4 && chatRate < 1.2) {
+        badge.textContent = 'Perjelas Ajakan (CTA)';
+        badge.className = 'rounded-full bg-fuchsia-500/20 border border-fuchsia-400/40 px-3 py-0.5 text-[11px] font-extrabold text-fuchsia-300';
+        diag.textContent = `Interaksi sudah bagus (${engagementRate.toFixed(1)}%), tetapi klik/chat WA masih rendah (${chatRate.toFixed(1)}%): Perjelas Ajakan/CTA di akhir konten, cantumkan harga promo diskon yang mencolok, dan permudah akses tombol chat WA.`;
+      } else if (chatMasuk >= 10 && closingRate < 20) {
+        badge.textContent = 'Optimasi Closing WA';
+        badge.className = 'rounded-full bg-rose-500/20 border border-rose-400/40 px-3 py-0.5 text-[11px] font-extrabold text-rose-300';
+        diag.textContent = `Chat masuk cukup ramai (${formatAngka(chatMasuk)} chat), tetapi Closing Rate masih ${closingRate.toFixed(1)}%: Perbaiki skrip balas WA di Tahap 03, kirim foto testimoni pelanggan, atau tawarkan paket hemat bundling agar pembeli segera transfer.`;
+      } else {
+        badge.textContent = 'Corong Konversi Sehat';
+        badge.className = 'rounded-full bg-emerald-500/20 border border-emerald-400/40 px-3 py-0.5 text-[11px] font-extrabold text-emerald-300';
+        diag.textContent = `Performa konten sangat baik! Engagement ${engagementRate.toFixed(1)}%, Chat Rate ${chatRate.toFixed(1)}%, dan Closing Rate ${closingRate.toFixed(1)}% (${formatAngka(pembeli)} pembeli). Pertahankan pola konten ini dan lanjutkan hitung profit bersihnya di Kalkulator Produksi!`;
+      }
+    }
+
+    function isiContohReviewKonten() {
+      document.getElementById('ukurViews').value = 3200;
+      document.getElementById('ukurInteraksi').value = 240;
+      document.getElementById('ukurChatMasuk').value = 62;
+      document.getElementById('ukurPembeliClosing').value = 18;
+      hitungReviewKonten();
+      tampilkanNotif('Contoh data performa konten (3.200 views → 18 pembeli) berhasil dimuat!');
+    }
+
+    function sinkronPembeliKeKalkulator() {
+      const pembeli = Math.max(0, Number(document.getElementById('ukurPembeliClosing')?.value) || 0);
+      const targetInput = document.getElementById('targetTerjual');
+      if (targetInput) {
+        targetInput.value = pembeli;
+      }
+      hitungManajemenProduksi();
+      pilihSubTabUkur('kalkulator');
+      tampilkanNotif(`${formatAngka(pembeli)} pembeli berhasil dikirim ke Kalkulator Profit!`);
+    }
+
+    // Tahap 04: Kalkulator Manajemen Produksi & Finansial
+    function ambilDataKalkulator() {
+      const batch = Math.max(1, Number(document.getElementById('jumlahBatch').value) || 1);
+      const bahan = Math.max(0, Number(document.getElementById('biayaBahanBaku').value) || 0);
+      const kemasan = Math.max(0, Number(document.getElementById('biayaKemasan').value) || 0);
+      const operasional = Math.max(0, Number(document.getElementById('biayaOperasional').value) || 0);
+      const hargaNormal = Math.max(0, Number(document.getElementById('hargaJualUnit').value) || 0);
+      const diskon = Math.min(95, Math.max(0, Number(document.getElementById('diskonPromo').value) || 0));
+      const terjualHari = Math.max(0, Number(document.getElementById('targetTerjual').value) || 0);
+      const hariBulan = Math.max(1, Number(document.getElementById('hariKerjaBulanan').value) || 26);
+      const namaProduk = document.getElementById('namaProdukHpp').value.trim() || 'Produk UMKM Unggulan';
+
+      const totalModalBatch = bahan + kemasan + operasional;
+      const hppUnit = totalModalBatch / batch;
+      const hargaPromo = hargaNormal * (1 - diskon / 100);
+      const profitUnit = hargaPromo - hppUnit;
+      const marginPersen = hargaPromo > 0 ? (profitUnit / hargaPromo) * 100 : 0;
+
+      const omsetHarian = hargaPromo * terjualHari;
+      const profitHarian = profitUnit * terjualHari;
+      const bepUnit = profitUnit > 0 ? Math.ceil(totalModalBatch / profitUnit) : 0;
+
+      const targetBulananUnit = terjualHari * hariBulan;
+      const omsetBulanan = hargaPromo * targetBulananUnit;
+      const profitBulanan = profitUnit * targetBulananUnit;
+
+      return {
+        namaProduk,
+        batch,
+        totalModalBatch,
+        hppUnit,
+        hargaNormal,
+        diskon,
+        hargaPromo,
+        profitUnit,
+        marginPersen,
+        terjualHari,
+        omsetHarian,
+        profitHarian,
+        bepUnit,
+        hariBulan,
+        targetBulananUnit,
+        omsetBulanan,
+        profitBulanan,
+      };
+    }
+
+    function hitungManajemenProduksi() {
+      const d = ambilDataKalkulator();
+
+      const jualHargaEl = document.getElementById('jualHargaAkhirText');
+      if (jualHargaEl) jualHargaEl.textContent = formatRupiah(d.hargaPromo);
+
+      document.getElementById('outHppUnit').textContent = formatRupiah(d.hppUnit);
+      document.getElementById('outTotalModalBatch').textContent = `Modal batch: ${formatRupiah(d.totalModalBatch)}`;
+      document.getElementById('outHargaPromo').textContent = formatRupiah(d.hargaPromo);
+      document.getElementById('outProfitUnit').textContent = `Profit: ${formatRupiah(d.profitUnit)} (${d.marginPersen.toFixed(1)}%)`;
+      document.getElementById('outOmsetHarian').textContent = formatRupiah(d.omsetHarian);
+      document.getElementById('outProfitHarian').textContent = `Profit/hari: ${formatRupiah(d.profitHarian)}`;
+      document.getElementById('outBepUnit').textContent = d.profitUnit > 0 ? `${d.bepUnit} unit` : 'Rugi / Min';
+      document.getElementById('outStatusBep').textContent =
+        d.profitUnit > 0 ? 'Balik modal per batch' : 'Naikkan harga atau kurangi HPP';
+
+      document.getElementById('outTargetBulananUnit').textContent = `${d.targetBulananUnit} unit`;
+      document.getElementById('outOmsetBulanan').textContent = formatRupiah(d.omsetBulanan);
+      document.getElementById('outProfitBulanan').textContent = formatRupiah(d.profitBulanan);
+
+      document.getElementById('ringkasanProduksi').textContent =
+        `${d.namaProduk}: Target ${d.targetBulananUnit} unit/bln → Profit ${formatRupiah(d.profitBulanan)}/bln.`;
+    }
+
+    function isiContohProduksi() {
+      sinkronNamaProduk('SAPIRCling Jerigen 1L');
+      document.getElementById('jumlahBatch').value = 50;
+      document.getElementById('biayaBahanBaku').value = 400000;
+      document.getElementById('biayaKemasan').value = 250000;
+      document.getElementById('biayaOperasional').value = 100000;
+      sinkronHargaDiskon(20000, 10);
+      document.getElementById('targetTerjual').value = 25;
+      document.getElementById('hariKerjaBulanan').value = 26;
+      perbaruiSemua();
+      tampilkanNotif('Contoh hitungan SAPIRCling Jerigen 1L berhasil dimuat!');
+    }
+
+    function perbaruiSemua() {
+      buatStrategiRiset();
+      buatStrukturKonten();
+      hitungManajemenProduksi();
+      renderPreviewPoster();
+      buatCaptionOtomatis();
+      hitungReviewKonten();
+    }
+
+    window.onload = function () {
+      pilihTahap(1);
+      pilihSubTabUkur('review');
+      perbaruiSemua();
+    };
   </script>
 </body>
 </html>
