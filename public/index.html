@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kreasi AI Studio UMKM — Simpel di Input, Luas di Hasil</title>
+  <title>Kreasi AI Studio UMKM — Alumni WUB 2023 • Kecamatan Limo</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -33,7 +33,9 @@
           <div class="inline-flex items-center gap-2 rounded-full border border-indigo-400/30 bg-indigo-500/15 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-indigo-300">
             <span>Kreasi AI Studio UMKM</span>
             <span>•</span>
-            <span>Simpel → Luas Mengena</span>
+            <span>Alumni WUB 2023</span>
+            <span>•</span>
+            <span>Kecamatan Limo</span>
           </div>
           <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white">
             Studio Konten &amp; Strategi UMKM
@@ -374,15 +376,55 @@
           <div class="flex flex-wrap items-center justify-between gap-2">
             <div>
               <h3 class="text-sm sm:text-base font-extrabold text-white">3. Konsep Visual / Poster AI</h3>
-              <p class="text-[11px] text-slate-400">Dibuat otomatis selaras dengan produk Anda saat mode kreatif/lengkap aktif.</p>
+              <p class="text-[11px] text-slate-400">Unggah foto produk agar Gemini AI menghasilkan poster yang selaras dengan produk asli Anda.</p>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <label
+                for="inputUploadFotoProdukPoster"
+                class="cursor-pointer inline-flex items-center gap-1.5 rounded-xl border border-indigo-400/40 bg-indigo-500/15 hover:bg-indigo-500/25 px-3.5 py-2 text-xs font-bold text-indigo-200 transition"
+              >
+                <span>📷</span>
+                <span id="labelUploadFotoProduk">Upload Gambar Produk</span>
+              </label>
+              <input
+                id="inputUploadFotoProdukPoster"
+                type="file"
+                accept="image/*"
+                onchange="handleUploadFotoProdukPoster(event)"
+                class="hidden"
+              />
+              <button
+                type="button"
+                id="btnGenerateGambar"
+                onclick="generatePosterVisual()"
+                class="rounded-xl border border-fuchsia-400/40 bg-fuchsia-500/15 hover:bg-fuchsia-500/25 px-3.5 py-2 text-xs font-bold text-fuchsia-200 transition"
+              >
+                🖼️ Buat Gambar Poster AI
+              </button>
+            </div>
+          </div>
+
+          <!-- Pratinjau Foto Produk yang Diunggah -->
+          <div id="wadahPreviewUploadProduk" class="hidden flex items-center justify-between gap-3 rounded-2xl border border-indigo-400/30 bg-indigo-950/35 px-3.5 py-2.5">
+            <div class="flex items-center gap-3 min-w-0">
+              <img
+                id="previewFotoProdukUploadImg"
+                src=""
+                alt="Foto Produk Diunggah"
+                class="h-12 w-12 rounded-xl object-cover border border-slate-700 bg-slate-900 shrink-0"
+                onerror="this.src='https://placehold.co/96x96/1e293b/e2e8f0?text=Produk'"
+              />
+              <div class="min-w-0">
+                <div id="namaFileFotoProdukUpload" class="text-xs font-bold text-white truncate">Foto produk siap digenerate</div>
+                <div class="text-[11px] text-indigo-200/80">Gemini AI akan menyesuaikan poster berdasarkan foto produk ini.</div>
+              </div>
             </div>
             <button
               type="button"
-              id="btnGenerateGambar"
-              onclick="generatePosterVisual()"
-              class="rounded-xl border border-fuchsia-400/40 bg-fuchsia-500/15 hover:bg-fuchsia-500/25 px-3.5 py-2 text-xs font-bold text-fuchsia-200 transition"
+              onclick="hapusFotoProdukPoster()"
+              class="rounded-xl border border-rose-500/40 bg-rose-950/70 hover:bg-rose-900 px-3 py-1.5 text-[11px] font-bold text-rose-200 shrink-0 transition"
             >
-              🖼️ Buat Gambar Poster AI
+              Hapus
             </button>
           </div>
 
@@ -438,6 +480,8 @@
     let serverApiSiap = false;
     let legalitasTerbukaKode = null;
     let logoMerekDataUrl = '';
+    let fotoProdukPosterBase64 = '';
+    let fotoProdukPosterMimeType = 'image/png';
     let hasilPosterTerakhirSrc = '';
 
     const legalitasAktif = {
@@ -451,280 +495,90 @@
       nib: '',
       pirt: '',
       halal: '',
+      merek: '',
     };
 
-    const DATA_LEGALITAS = {
+    const DATA_LEGALITAS_UMKM = {
       nib: {
-        label: 'NIB',
         judul: 'NIB (Nomor Induk Berusaha)',
-        lembaga: 'OSS RBA • Kementerian Investasi / BKPM',
-        deskripsi: 'Identitas resmi pelaku usaha UMKM agar legalitas dasar usaha tercatat dan memudahkan akses pembiayaan, perizinan lanjutan, serta kemitraan.',
-        syaratLangkah: 'Syarat: KTP, NPWP (jika ada), data usaha. Langkah: Daftar di oss.go.id → pilih skala UMK → isi KBLI & data usaha → terbitkan NIB.',
-        portal: 'https://oss.go.id',
-        placeholder: 'Contoh: 1234567890123',
+        lembaga: 'Kementerian Investasi / BKPM (OSS RBA)',
+        deskripsi: 'Identitas resmi pelaku usaha yang berlaku sekaligus sebagai tanda daftar perusahaan dan akses perizinan lanjutan.',
+        syaratLangkah: 'Siapkan KTP (NIK), alamat usaha, email, dan nomor WA aktif. Daftar gratis di oss.go.id → pilih skala UMK → isi KBLI produk → terbitkan NIB.',
+        labelNomor: 'Nomor NIB (13 Digit - Opsional)',
+        placeholderNomor: 'Contoh: 1209230045678',
+        url: 'https://oss.go.id',
+        singkatan: 'NIB',
       },
       pirt: {
-        label: 'P-IRT',
-        judul: 'P-IRT (Pangan Industri Rumah Tangga)',
-        lembaga: 'Dinas Kesehatan & BPOM',
-        deskripsi: 'Izin edar produk pangan olahan produksi rumahan agar lebih meyakinkan konsumen dan siap masuk ke toko lokal maupun katalog.',
-        syaratLangkah: 'Syarat: NIB aktif & pemenuhan standar keamanan pangan. Langkah: Ajukan melalui oss.go.id / SPP-IRT → ikuti penyuluhan keamanan pangan.',
-        portal: 'https://sppirt.pom.go.id',
-        placeholder: 'Contoh: P-IRT 2053201010456-29',
+        judul: 'SPP-IRT / P-IRT (Pangan Industri Rumah Tangga)',
+        lembaga: 'Dinas Kesehatan Kab/Kota & BPOM',
+        deskripsi: 'Izin edar resmi untuk produk pangan olahan kemasan rumahan agar lebih dipercaya pembeli, toko, dan ritel.',
+        syaratLangkah: 'Wajib memiliki NIB terlebih dahulu, memenuhi standar kebersihan produksi rumahan, dan mencantumkan label kemasan sesuai ketentuan.',
+        labelNomor: 'Nomor P-IRT Produk (Opsional)',
+        placeholderNomor: 'Contoh: P-IRT 2053273010123-28',
+        url: 'https://sppirt.pom.go.id',
+        singkatan: 'P-IRT',
       },
       halal: {
-        label: 'Sertifikasi Halal',
-        lembaga: 'BPJPH • Kementerian Agama',
-        deskripsi: 'Jaminan kehalalan bahan baku dan proses produksi yang meningkatkan kepercayaan pembeli keluarga dan pasar luas.',
-        syaratLangkah: 'Syarat: NIB, daftar bahan & proses produksi. Langkah: Daftar di ptsp.halal.go.id → pilih jalur Self-Declare / Reguler → verifikasi & terbit sertifikat.',
-        portal: 'https://ptsp.halal.go.id',
-        placeholder: 'Contoh: ID32110001234560126',
+        judul: 'Sertifikasi Halal (Reguler / Self-Declare)',
+        lembaga: 'BPJPH Kementerian Agama RI',
+        deskripsi: 'Jaminan kehalalan bahan baku dan proses produksi sehingga produk aman dikonsumsi dan mudah masuk pasar keluarga luas.',
+        syaratLangkah: 'Siapkan NIB aktif, daftar bahan baku bersertifikat halal, dan proses bebas najis. Ajukan melalui ptsp.halal.go.id dengan pendamping PPH.',
+        labelNomor: 'Nomor Sertifikat Halal (Opsional)',
+        placeholderNomor: 'Contoh: ID32110001234560923',
+        url: 'https://ptsp.halal.go.id',
+        singkatan: 'HALAL',
       },
       merek: {
-        label: 'Merek Terdaftar',
-        judul: 'Perlindungan Merek Dagang',
-        lembaga: 'DJKI • Kementerian Hukum',
-        deskripsi: 'Melindungi nama brand dan logo produk UMKM agar identitas usaha aman saat berkembang dan dipromosikan secara luas.',
-        syaratLangkah: 'Syarat: Nama/logo merek & data pemohon. Langkah: Cek ketersediaan merek di PDKI → ajukan permohonan merek resmi melalui DJKI.',
-        portal: 'https://merek.dgip.go.id',
-        placeholder: '',
+        judul: 'Perlindungan Merek Dagang (HAKI)',
+        lembaga: 'DJKI Kementerian Hukum RI',
+        deskripsi: 'Melindungi nama brand dan logo usaha secara hukum agar tidak ditiru atau diklaim pihak lain saat bisnis berkembang.',
+        syaratLangkah: 'Cek ketersediaan nama di pdki-indonesia.dgip.go.id, siapkan etiket/logo merek, dan ajukan pendaftaran di merek.dgip.go.id.',
+        labelNomor: 'Nama / Nomor Merek (Opsional)',
+        placeholderNomor: 'Contoh: DID2025012345',
+        url: 'https://merek.dgip.go.id',
+        singkatan: 'MEREK™',
       },
     };
 
     try {
-      geminiApiKey = localStorage.getItem('kreasi_umkm_gemini_key') || '';
-    } catch (err) {
-      geminiApiKey = '';
-    }
-
-    function togglePanelLegalitas() {
-      const panel = document.getElementById('panelLegalitas');
-      if (!panel) return;
-      panel.classList.toggle('hidden');
-      if (!panel.classList.contains('hidden') && !legalitasTerbukaKode) {
-        pilihDanBukaPanduanLegalitas('nib');
-      }
-    }
-
-    function pilihDanBukaPanduanLegalitas(kode) {
-      if (!(kode in DATA_LEGALITAS)) return;
-      const kotak = document.getElementById('kotakPanduanLegalitas');
-      const samaDanTerbuka = legalitasTerbukaKode === kode && kotak && !kotak.classList.contains('hidden');
-
-      if (samaDanTerbuka) {
-        tutupPanduanLegalitas();
-        return;
-      }
-
-      legalitasTerbukaKode = kode;
-      const info = DATA_LEGALITAS[kode];
-
-      if (kotak) kotak.classList.remove('hidden');
-      const judulEl = document.getElementById('judulPanduanLeg');
-      const lembagaEl = document.getElementById('lembagaPanduanLeg');
-      const descEl = document.getElementById('deskripsiPanduanLeg');
-      const syaratEl = document.getElementById('syaratLangkahPanduanLeg');
-      const linkEl = document.getElementById('linkPortalResmiLeg');
-      const wadahNomor = document.getElementById('wadahNomorLeg');
-      const wadahLogo = document.getElementById('wadahLogoLeg');
-      const inputNomor = document.getElementById('inputNomorLegalitas');
-
-      if (judulEl) judulEl.textContent = info.judul;
-      if (lembagaEl) lembagaEl.textContent = info.lembaga;
-      if (descEl) descEl.textContent = info.deskripsi;
-      if (syaratEl) syaratEl.textContent = info.syaratLangkah;
-      if (linkEl) linkEl.href = info.portal;
-
-      if (kode === 'merek') {
-        wadahNomor?.classList.add('hidden');
-        wadahLogo?.classList.remove('hidden');
-      } else {
-        wadahNomor?.classList.remove('hidden');
-        wadahLogo?.classList.add('hidden');
-        if (inputNomor) {
-          inputNomor.placeholder = info.placeholder;
-          inputNomor.value = nomorLegalitas[kode] || '';
-        }
-      }
-
-      perbaruiTampilanLegalitas();
-    }
-
-    function tutupPanduanLegalitas() {
-      legalitasTerbukaKode = null;
-      document.getElementById('kotakPanduanLegalitas')?.classList.add('hidden');
-      perbaruiTampilanLegalitas();
-    }
-
-    function simpanNomorLegalitas() {
-      if (!legalitasTerbukaKode || legalitasTerbukaKode === 'merek') return;
-      const val = (document.getElementById('inputNomorLegalitas')?.value || '').trim();
-      nomorLegalitas[legalitasTerbukaKode] = val;
-      if (val && !legalitasAktif[legalitasTerbukaKode]) {
-        legalitasAktif[legalitasTerbukaKode] = true;
-      }
-      perbaruiTampilanLegalitas();
-    }
-
-    function handleUploadLogoMerek(event) {
-      const file = event?.target?.files?.[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        logoMerekDataUrl = String(e?.target?.result || '');
-        if (logoMerekDataUrl) {
-          legalitasAktif.merek = true;
-          perbaruiTampilanLegalitas();
-          tampilkanToast('Logo merek berhasil dimuat.');
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-
-    function hapusLogoMerek() {
-      logoMerekDataUrl = '';
-      const inputFile = document.getElementById('inputLogoMerek');
-      if (inputFile) inputFile.value = '';
-      legalitasAktif.merek = false;
-      perbaruiTampilanLegalitas();
-      tampilkanToast('Logo merek dihapus.');
-    }
-
-    function toggleAktifLegalitasTerpilih() {
-      const kode = legalitasTerbukaKode || 'nib';
-      if (!(kode in legalitasAktif)) return;
-      legalitasAktif[kode] = !legalitasAktif[kode];
-      perbaruiTampilanLegalitas();
-      tampilkanToast(
-        legalitasAktif[kode]
-          ? `${DATA_LEGALITAS[kode].label} diaktifkan untuk hasil AI & poster.`
-          : `${DATA_LEGALITAS[kode].label} dinonaktifkan.`
-      );
-    }
-
-    function ambilDaftarLegalitas() {
-      const aktif = Object.keys(legalitasAktif)
-        .filter((k) => legalitasAktif[k])
-        .map((k) => {
-          const dasar = DATA_LEGALITAS[k].label;
-          const no = k !== 'merek' ? nomorLegalitas[k] : '';
-          return no ? `${dasar} (${no})` : dasar;
-        });
-      return aktif.join(', ');
-    }
-
-    function perbaruiTampilanLegalitas() {
-      Object.keys(legalitasAktif).forEach((kode) => {
-        const btn = document.getElementById(`btnLeg-${kode}`);
-        const badge = document.getElementById(`badgeLeg-${kode}`);
-        const isAktif = legalitasAktif[kode];
-        const isDipilih = legalitasTerbukaKode === kode;
-
-        if (btn) {
-          if (isAktif) {
-            btn.className = `rounded-xl border ${isDipilih ? 'border-emerald-300 ring-1 ring-emerald-300/60' : 'border-emerald-400'} bg-emerald-950/75 px-3 py-2 text-left text-xs font-bold text-emerald-100 shadow-sm transition`;
-          } else if (isDipilih) {
-            btn.className = 'rounded-xl border border-indigo-400 bg-indigo-950/60 px-3 py-2 text-left text-xs font-semibold text-indigo-100 transition';
-          } else {
-            btn.className = 'rounded-xl border border-slate-800 bg-slate-900 hover:border-emerald-400/50 px-3 py-2 text-left text-xs font-semibold text-slate-200 transition';
-          }
-        }
-
-        if (badge) {
-          badge.textContent = isAktif ? 'Aktif' : 'Panduan';
-          badge.className = isAktif
-            ? 'rounded-full bg-emerald-500/25 border border-emerald-400/50 px-1.5 py-0.5 text-[9px] font-extrabold text-emerald-200'
-            : 'rounded-full bg-slate-800 px-1.5 py-0.5 text-[9px] font-bold text-slate-400';
-        }
-      });
-
-      const btnToggleAktif = document.getElementById('btnToggleAktifLeg');
-      if (btnToggleAktif && legalitasTerbukaKode) {
-        const sudahAktif = legalitasAktif[legalitasTerbukaKode];
-        btnToggleAktif.textContent = sudahAktif ? '✓ Aktif (Klik untuk Lepas)' : '✅ Tandai Sudah Punya';
-        btnToggleAktif.className = sudahAktif
-          ? 'rounded-xl border border-emerald-400 bg-emerald-950/80 hover:bg-emerald-900/80 px-3 py-2 text-xs font-extrabold text-emerald-200 transition'
-          : 'rounded-xl bg-emerald-600 hover:bg-emerald-500 px-3 py-2 text-xs font-extrabold text-white transition';
-      }
-
-      const previewBox = document.getElementById('previewLogoLegBox');
-      const previewImg = document.getElementById('previewLogoLegImg');
-      const btnHapusLogo = document.getElementById('btnHapusLogoLeg');
-      if (logoMerekDataUrl) {
-        previewBox?.classList.remove('hidden');
-        btnHapusLogo?.classList.remove('hidden');
-        if (previewImg) previewImg.src = logoMerekDataUrl;
-      } else {
-        previewBox?.classList.add('hidden');
-        btnHapusLogo?.classList.add('hidden');
-      }
-
-      const ringkasan = document.getElementById('ringkasanLegalitas');
-      const tombolUtama = document.getElementById('btnTombolLegalitas');
-      const daftar = ambilDaftarLegalitas();
-
-      if (ringkasan) {
-        ringkasan.textContent = daftar ? `Aktif: ${daftar}` : 'Belum ada legalitas dipilih';
-      }
-      if (tombolUtama) {
-        tombolUtama.className = daftar
-          ? 'inline-flex items-center gap-1.5 rounded-xl border border-emerald-400 bg-emerald-600/30 hover:bg-emerald-600/40 px-3 py-2 text-xs font-bold text-emerald-100 transition'
-          : 'inline-flex items-center gap-1.5 rounded-xl border border-emerald-400/40 bg-emerald-500/15 hover:bg-emerald-500/25 px-3 py-2 text-xs font-bold text-emerald-200 transition';
-      }
-
-      const infoPoster = document.getElementById('infoLegalitasPoster');
-      if (infoPoster) {
-        infoPoster.textContent = daftar ? `Badge legalitas pada poster: ${daftar}` : '';
-      }
-      if (hasilPosterTerakhirSrc) {
-        renderKartuPoster(hasilPosterTerakhirSrc);
-      }
-    }
+      geminiApiKey = localStorage.getItem('gemini_api_key_umkm') || '';
+    } catch (e) {}
 
     function tampilkanToast(pesan) {
       const box = document.getElementById('toastBox');
       if (!box) return;
       box.textContent = pesan;
       box.classList.remove('hidden');
-      clearTimeout(window.__toastTimeout);
-      window.__toastTimeout = setTimeout(() => {
+      clearTimeout(window.__toastTimer);
+      window.__toastTimer = setTimeout(() => {
         box.classList.add('hidden');
-      }, 3200);
+      }, 3400);
     }
 
-    function perbaruiIndikatorApi() {
-      const adaKeyLokal = Boolean(geminiApiKey.trim());
-      const aktif = adaKeyLokal || serverApiSiap;
+    function perbaruiStatusApi() {
+      const btn = document.getElementById('btnStatusApi');
       const dot = document.getElementById('dotApi');
       const label = document.getElementById('labelApi');
-      const tandaAktif = document.getElementById('tandaAktifApi');
-      const btn = document.getElementById('btnStatusApi');
+      const tanda = document.getElementById('tandaAktifApi');
+      const keyTerpasang = Boolean(geminiApiKey.trim()) || serverApiSiap;
 
-      if (dot) {
-        dot.className = aktif
-          ? 'h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse shadow-sm shadow-emerald-400'
-          : 'h-2.5 w-2.5 rounded-full bg-amber-400';
-      }
-      if (label) {
-        if (adaKeyLokal) {
-          label.textContent = 'Gemini API Key Aktif';
-        } else if (serverApiSiap) {
-          label.textContent = 'Gemini API Server Aktif';
+      if (btn && dot && label) {
+        if (keyTerpasang) {
+          btn.className = 'self-start sm:self-center inline-flex items-center gap-2 rounded-2xl border-2 border-emerald-400 bg-emerald-950/85 px-4 py-2.5 text-xs font-extrabold text-emerald-100 shadow-lg shadow-emerald-500/25 transition shrink-0';
+          dot.className = 'h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse';
+          label.textContent = geminiApiKey.trim() ? 'Gemini API Key' : 'Server Gemini API';
+          tanda?.classList.remove('hidden');
         } else {
+          btn.className = 'self-start sm:self-center inline-flex items-center gap-2 rounded-2xl border border-amber-400/50 bg-slate-900 px-4 py-2.5 text-xs font-bold text-amber-200 hover:border-amber-300 transition shrink-0';
+          dot.className = 'h-2.5 w-2.5 rounded-full bg-amber-400';
           label.textContent = 'Atur / Cek API Key';
+          tanda?.classList.add('hidden');
         }
-      }
-      if (tandaAktif) {
-        tandaAktif.classList.toggle('hidden', !aktif);
-      }
-      if (btn) {
-        btn.className = aktif
-          ? 'self-start sm:self-center inline-flex items-center gap-2 rounded-2xl border border-emerald-400 bg-emerald-950/65 px-4 py-2.5 text-xs font-bold text-emerald-100 shadow-lg shadow-emerald-500/15 hover:bg-emerald-900/60 transition shrink-0'
-          : 'self-start sm:self-center inline-flex items-center gap-2 rounded-2xl border border-slate-700 bg-slate-900 px-4 py-2.5 text-xs font-bold text-slate-200 hover:border-emerald-400/60 transition shrink-0';
       }
     }
 
-    async function cekKoneksiServerApi() {
+    async function cekStatusServerApi() {
       try {
         const res = await fetch('/api/gemini', {
           method: 'POST',
@@ -732,20 +586,11 @@
           body: JSON.stringify({ prompt: '', mode: 'text' }),
         });
         const data = await res.json().catch(() => ({}));
-        serverApiSiap = res.status === 400 && Boolean(data?.error);
-      } catch (err) {
-        serverApiSiap = false;
-      }
-      perbaruiIndikatorApi();
-    }
-      if (label) {
-        label.textContent = aktif ? 'Gemini API Aktif' : 'Atur / Cek API Key';
-      }
-      if (btn) {
-        btn.className = aktif
-          ? 'self-start sm:self-center inline-flex items-center gap-2 rounded-2xl border border-emerald-400/60 bg-emerald-950/50 px-4 py-2.5 text-xs font-bold text-emerald-200 hover:bg-emerald-900/50 transition shrink-0'
-          : 'self-start sm:self-center inline-flex items-center gap-2 rounded-2xl border border-slate-700 bg-slate-900 px-4 py-2.5 text-xs font-bold text-slate-200 hover:border-emerald-400/60 transition shrink-0';
-      }
+        if (res.status === 400 && data?.error) {
+          serverApiSiap = true;
+        }
+      } catch (e) {}
+      perbaruiStatusApi();
     }
 
     function bukaModalApi() {
@@ -770,28 +615,238 @@
       const val = (document.getElementById('inputApiKey')?.value || '').trim();
       geminiApiKey = val;
       try {
-        localStorage.setItem('kreasi_umkm_gemini_key', val);
-      } catch (err) {}
-      perbaruiIndikatorApi();
+        localStorage.setItem('gemini_api_key_umkm', val);
+      } catch (e) {}
+      perbaruiStatusApi();
       tutupModalApi();
-      tampilkanToast(val ? 'API Key tersimpan dan siap digunakan.' : 'API Key dikosongkan.');
+      tampilkanToast(val ? 'Gemini API Key tersimpan dan siap digunakan!' : 'API Key dikosongkan.');
     }
 
     function hapusApiKey() {
       geminiApiKey = '';
       try {
-        localStorage.removeItem('kreasi_umkm_gemini_key');
-      } catch (err) {}
+        localStorage.removeItem('gemini_api_key_umkm');
+      } catch (e) {}
       const input = document.getElementById('inputApiKey');
       if (input) input.value = '';
-      perbaruiIndikatorApi();
-      tampilkanToast('API Key dihapus.');
+      perbaruiStatusApi();
+      tampilkanToast('API Key dihapus dari browser.');
+    }
+
+    // Fitur Tombol Legalitas (NIB, P-IRT, Halal, Merek)
+    function togglePanelLegalitas() {
+      const panel = document.getElementById('panelLegalitas');
+      if (!panel) return;
+      panel.classList.toggle('hidden');
+    }
+
+    function pilihDanBukaPanduanLegalitas(kode) {
+      legalitasTerbukaKode = kode;
+      const data = DATA_LEGALITAS_UMKM[kode];
+      if (!data) return;
+
+      document.getElementById('panelLegalitas')?.classList.remove('hidden');
+      const kotak = document.getElementById('kotakPanduanLegalitas');
+      const judul = document.getElementById('judulPanduanLeg');
+      const lembaga = document.getElementById('lembagaPanduanLeg');
+      const deskripsi = document.getElementById('deskripsiPanduanLeg');
+      const syarat = document.getElementById('syaratLangkahPanduanLeg');
+      const linkPortal = document.getElementById('linkPortalResmiLeg');
+      const wadahNomor = document.getElementById('wadahNomorLeg');
+      const wadahLogo = document.getElementById('wadahLogoLeg');
+      const labelNomor = document.getElementById('labelNomorLeg');
+      const inputNomor = document.getElementById('inputNomorLegalitas');
+
+      if (judul) judul.textContent = data.judul;
+      if (lembaga) lembaga.textContent = data.lembaga;
+      if (deskripsi) deskripsi.textContent = data.deskripsi;
+      if (syarat) syarat.textContent = data.syaratLangkah;
+      if (linkPortal) linkPortal.href = data.url;
+
+      if (kode === 'merek') {
+        wadahNomor?.classList.add('hidden');
+        wadahLogo?.classList.remove('hidden');
+      } else {
+        wadahNomor?.classList.remove('hidden');
+        wadahLogo?.classList.add('hidden');
+        if (labelNomor) labelNomor.textContent = data.labelNomor;
+        if (inputNomor) {
+          inputNomor.placeholder = data.placeholderNomor;
+          inputNomor.value = nomorLegalitas[kode] || '';
+        }
+      }
+
+      kotak?.classList.remove('hidden');
+      perbaruiTampilanLegalitas();
+    }
+
+    function tutupPanduanLegalitas() {
+      legalitasTerbukaKode = null;
+      document.getElementById('kotakPanduanLegalitas')?.classList.add('hidden');
+      perbaruiTampilanLegalitas();
+    }
+
+    function simpanNomorLegalitas() {
+      if (!legalitasTerbukaKode || legalitasTerbukaKode === 'merek') return;
+      const val = (document.getElementById('inputNomorLegalitas')?.value || '').trim();
+      nomorLegalitas[legalitasTerbukaKode] = val;
+      if (val) {
+        legalitasAktif[legalitasTerbukaKode] = true;
+      }
+      perbaruiTampilanLegalitas();
+    }
+
+    function handleUploadLogoMerek(event) {
+      const file = event?.target?.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        logoMerekDataUrl = String(e?.target?.result || '');
+        legalitasAktif.merek = true;
+        perbaruiTampilanLegalitas();
+        tampilkanToast('Logo merek berhasil diunggah & diaktifkan!');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function hapusLogoMerek() {
+      logoMerekDataUrl = '';
+      const inputFile = document.getElementById('inputLogoMerek');
+      if (inputFile) inputFile.value = '';
+      legalitasAktif.merek = false;
+      perbaruiTampilanLegalitas();
+      tampilkanToast('Logo merek dihapus.');
+    }
+
+    function handleUploadFotoProdukPoster(event) {
+      const file = event?.target?.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const dataUrl = String(e?.target?.result || '');
+        const match = dataUrl.match(/^data:(image\/[a-zA-Z0-9.+-]+);base64,(.+)$/);
+        if (!match) {
+          tampilkanToast('Format gambar tidak didukung.');
+          return;
+        }
+        fotoProdukPosterMimeType = match[1];
+        fotoProdukPosterBase64 = match[2];
+
+        const wadah = document.getElementById('wadahPreviewUploadProduk');
+        const img = document.getElementById('previewFotoProdukUploadImg');
+        const namaEl = document.getElementById('namaFileFotoProdukUpload');
+        const labelBtn = document.getElementById('labelUploadFotoProduk');
+
+        if (img) img.src = dataUrl;
+        if (namaEl) namaEl.textContent = `Foto produk: ${file.name}`;
+        if (labelBtn) labelBtn.textContent = 'Ganti Gambar Produk';
+        wadah?.classList.remove('hidden');
+        tampilkanToast('Gambar produk siap dipakai untuk generate poster AI!');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function hapusFotoProdukPoster() {
+      fotoProdukPosterBase64 = '';
+      fotoProdukPosterMimeType = 'image/png';
+      const input = document.getElementById('inputUploadFotoProdukPoster');
+      const wadah = document.getElementById('wadahPreviewUploadProduk');
+      const labelBtn = document.getElementById('labelUploadFotoProduk');
+      if (input) input.value = '';
+      if (labelBtn) labelBtn.textContent = 'Upload Gambar Produk';
+      wadah?.classList.add('hidden');
+      tampilkanToast('Gambar produk dihapus.');
+    }
+
+    function toggleAktifLegalitasTerpilih() {
+      if (!legalitasTerbukaKode) return;
+      legalitasAktif[legalitasTerbukaKode] = !legalitasAktif[legalitasTerbukaKode];
+      perbaruiTampilanLegalitas();
+      const namaLeg = DATA_LEGALITAS_UMKM[legalitasTerbukaKode].singkatan;
+      tampilkanToast(
+        legalitasAktif[legalitasTerbukaKode]
+          ? `Status ${namaLeg} diaktifkan!`
+          : `Status ${namaLeg} dinonaktifkan.`
+      );
+    }
+
+    function ambilDaftarLegalitasAktif() {
+      const daftar = [];
+      ['nib', 'pirt', 'halal', 'merek'].forEach((k) => {
+        if (legalitasAktif[k]) {
+          const singkatan = DATA_LEGALITAS_UMKM[k].singkatan;
+          const no = k !== 'merek' ? nomorLegalitas[k] : '';
+          daftar.push(no ? `${singkatan} (${no})` : singkatan);
+        }
+      });
+      return daftar;
+    }
+
+    function perbaruiTampilanLegalitas() {
+      ['nib', 'pirt', 'halal', 'merek'].forEach((k) => {
+        const btn = document.getElementById(`btnLeg-${k}`);
+        const badge = document.getElementById(`badgeLeg-${k}`);
+        const aktif = legalitasAktif[k];
+        const sedangDibuka = legalitasTerbukaKode === k;
+        if (btn) {
+          if (aktif) {
+            btn.className = `rounded-xl border ${sedangDibuka ? 'border-amber-300 ring-1 ring-amber-300/60' : 'border-emerald-400'} bg-emerald-500/20 px-3 py-2 text-left text-xs font-bold text-emerald-100 transition`;
+          } else {
+            btn.className = `rounded-xl border ${sedangDibuka ? 'border-emerald-400 bg-slate-800' : 'border-slate-800 bg-slate-900'} hover:border-emerald-400/50 px-3 py-2 text-left text-xs font-semibold text-slate-200 transition`;
+          }
+        }
+        if (badge) {
+          badge.textContent = aktif ? '✓ Aktif' : 'Panduan';
+          badge.className = aktif
+            ? 'rounded-full bg-emerald-500/30 px-1.5 py-0.5 text-[9px] font-extrabold text-emerald-200'
+            : 'rounded-full bg-slate-800 px-1.5 py-0.5 text-[9px] font-bold text-slate-400';
+        }
+      });
+
+      if (legalitasTerbukaKode) {
+        const btnToggle = document.getElementById('btnToggleAktifLeg');
+        const isAktif = legalitasAktif[legalitasTerbukaKode];
+        if (btnToggle) {
+          btnToggle.textContent = isAktif ? '🔄 Batalkan Status Aktif' : '✅ Tandai Sudah Punya';
+          btnToggle.className = isAktif
+            ? 'rounded-xl border border-amber-400/40 bg-slate-800 hover:bg-slate-700 px-3 py-2 text-xs font-extrabold text-amber-200 transition'
+            : 'rounded-xl bg-emerald-600 hover:bg-emerald-500 px-3 py-2 text-xs font-extrabold text-white transition';
+        }
+      }
+
+      const prevLogoBox = document.getElementById('previewLogoLegBox');
+      const prevLogoImg = document.getElementById('previewLogoLegImg');
+      const btnHapusLogo = document.getElementById('btnHapusLogoLeg');
+      if (logoMerekDataUrl) {
+        if (prevLogoImg) prevLogoImg.src = logoMerekDataUrl;
+        prevLogoBox?.classList.remove('hidden');
+        btnHapusLogo?.classList.remove('hidden');
+      } else {
+        prevLogoBox?.classList.add('hidden');
+        btnHapusLogo?.classList.add('hidden');
+      }
+
+      const ringkasan = document.getElementById('ringkasanLegalitas');
+      const infoPoster = document.getElementById('infoLegalitasPoster');
+      const daftar = ambilDaftarLegalitasAktif();
+      if (ringkasan) {
+        ringkasan.textContent = daftar.length > 0
+          ? `Aktif: ${daftar.join(' • ')}`
+          : 'Belum ada legalitas dipilih';
+      }
+      if (infoPoster) {
+        infoPoster.textContent = daftar.length > 0
+          ? `🛡️ Lencana Legalitas Aktif: ${daftar.join(' • ')}`
+          : '';
+      }
+      if (hasilPosterTerakhirSrc) {
+        renderKartuPoster(hasilPosterTerakhirSrc);
+      }
     }
 
     function pilihModeLuas(mode) {
       modeLuasAktif = mode;
-      const modes = ['semua', 'segmen', 'konten', 'kreatif'];
-      modes.forEach((m) => {
+      ['semua', 'segmen', 'konten', 'kreatif'].forEach((m) => {
         const btn = document.getElementById(`mode-${m}`);
         if (!btn) return;
         btn.className = m === mode
@@ -801,147 +856,121 @@
     }
 
     function bersihkanInput() {
-      ['inputProduk', 'inputKeunggulan', 'inputTujuan', 'inputNomorLegalitas', 'inputLogoMerek'].forEach((id) => {
+      ['inputProduk', 'inputKeunggulan', 'inputTujuan'].forEach((id) => {
         const el = document.getElementById(id);
         if (el) el.value = '';
       });
-      logoMerekDataUrl = '';
-      Object.keys(legalitasAktif).forEach((k) => {
-        legalitasAktif[k] = false;
-      });
-      Object.keys(nomorLegalitas).forEach((k) => {
-        nomorLegalitas[k] = '';
-      });
-      perbaruiTampilanLegalitas();
-      tampilkanToast('Kolom input dibersihkan.');
+      tampilkanToast('Kolom input dikosongkan.');
     }
 
-    function bukaLayananLuar(url, nama) {
-      if (teksHasilTerakhir.trim()) {
-        salinTeksKeClipboard(teksHasilTerakhir);
+    function bukaLayananLuar(url, namaLayanan) {
+      if (teksHasilTerakhir) {
+        navigator.clipboard?.writeText(teksHasilTerakhir).catch(() => {});
+        tampilkanToast(`Hasil terakhir disalin! Membuka ${namaLayanan}...`);
+      } else {
+        tampilkanToast(`Membuka ${namaLayanan} di tab baru...`);
       }
       window.open(url, '_blank', 'noopener,noreferrer');
-      tampilkanToast(`Membuka ${nama} (hasil terakhir otomatis disalin jika tersedia).`);
-    }
-
-    function salinTeksKeClipboard(teks) {
-      const temp = document.createElement('textarea');
-      temp.value = teks;
-      temp.style.position = 'fixed';
-      temp.style.opacity = '0';
-      document.body.appendChild(temp);
-      temp.select();
-      try {
-        document.execCommand('copy');
-        return true;
-      } catch (err) {
-        return false;
-      } finally {
-        document.body.removeChild(temp);
-      }
     }
 
     function salinHasil() {
-      if (!teksHasilTerakhir.trim()) {
-        tampilkanToast('Belum ada hasil yang bisa disalin.');
+      if (!teksHasilTerakhir) {
+        tampilkanToast('Belum ada hasil untuk disalin.');
         return;
       }
-      const ok = salinTeksKeClipboard(teksHasilTerakhir);
-      tampilkanToast(ok ? 'Seluruh hasil AI berhasil disalin!' : 'Gagal menyalin otomatis, silakan blok teks.');
+      navigator.clipboard?.writeText(teksHasilTerakhir).then(() => {
+        tampilkanToast('Seluruh hasil perluasan AI berhasil disalin!');
+      }).catch(() => {
+        tampilkanToast('Gagal menyalin otomatis, silakan blok teks dan tekan Ctrl+C.');
+      });
     }
 
-    // Fetch dengan exponential backoff
-    async function panggilGeminiDenganRetry(url, payload, maxRetry = 3) {
+    function escapeHtml(str) {
+      return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+
+    function renderHasilTerstruktur(teksMentah) {
+      const wadah = document.getElementById('wadahHasilTerstruktur');
+      if (!wadah) return;
+
+      const bagian = teksMentah.split(/\n(?=###\s)/g).filter((b) => b.trim());
+      if (bagian.length <= 1) {
+        wadah.innerHTML = `<div class="rounded-2xl border border-slate-800 bg-slate-900 p-4 text-xs sm:text-sm text-slate-100 whitespace-pre-wrap leading-relaxed">${escapeHtml(teksMentah)}</div>`;
+        return;
+      }
+
+      wadah.innerHTML = bagian.map((blok) => {
+        const baris = blok.trim().split('\n');
+        const judul = baris[0].replace(/^###\s*/, '').trim();
+        const isi = baris.slice(1).join('\n').trim();
+        return `
+          <article class="rounded-2xl border border-slate-800 bg-slate-900/95 p-4 space-y-2">
+            <h3 class="text-xs sm:text-sm font-extrabold text-indigo-300">${escapeHtml(judul)}</h3>
+            <div class="text-xs sm:text-sm text-slate-200 whitespace-pre-wrap leading-relaxed">${escapeHtml(isi)}</div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function bangunPromptPerluasan(produk, keunggulan, tujuan, mode) {
+      const targetInfo = tujuan ? tujuan : 'berbagai lapisan masyarakat (rumah tangga, pekerja, anak muda, komunitas, hingga reseller/mitra grosir)';
+      const unggulInfo = keunggulan ? keunggulan : 'kualitas terpercaya, praktis, dan harga bersahabat';
+      const daftarLegal = ambilDaftarLegalitasAktif();
+      const legalInfo = daftarLegal.length > 0
+        ? `Legalitas resmi yang sudah dimiliki: ${daftarLegal.join(', ')} (wajib ditonjolkan untuk meningkatkan kepercayaan pembeli).`
+        : 'Sertakan juga saran singkat peningkatan kepercayaan pembeli.';
+
+      let fokusInstruksi = '';
+      if (mode === 'segmen') {
+        fokusInstruksi = `Fokuskan perluasan ke 5 segmen pembeli yang sangat berbeda (Rumah Tangga, Pekerja/Kantor, Anak Muda/Pelajar, Komunitas/Acara, dan Reseller/Toko) lengkap dengan sudut penawaran dan alasan beli masing-masing.`;
+      } else if (mode === 'konten') {
+        fokusInstruksi = `Fokuskan perluasan ke naskah multi-kanal siap pakai: Skrip Video Pendek 30 detik (Reels/TikTok), Broadcast & Auto-Reply WhatsApp, Caption Instagram/Facebook, dan Deskripsi SEO Marketplace.`;
+      } else if (mode === 'kreatif') {
+        fokusInstruksi = `Fokuskan perluasan ke ide kreatif viral: Lirik Jingle Iklan singkat untuk Suno Musik, 3 ide konsep visual foto/poster, dan 5 Hook kalimat pembuka yang memikat.`;
+      } else {
+        fokusInstruksi = `Pecah menjadi 5 bagian luas agar mengena ke mana saja menggunakan pemisah tepat "### ":
+### 1. Sudut Pandang Multi-Segmen Pembeli (Rumahan, Pekerja, Komunitas & Reseller)
+### 2. Sudut Kebutuhan & Situasi (Harian, Acara Spesial, Hadiah/Oleh-oleh, Stok Hemat)
+### 3. Naskah Promosi Siap Sebar (WhatsApp, Instagram/TikTok & Marketplace)
+### 4. Skrip Video Pendek 30 Detik (Hook, Isi & Ajakan Beli)
+### 5. Ide Jingle Singkat (Siap Suno) & Konsep Poster`;
+      }
+
+      return `Anda adalah konsultan bisnis dan kreatif digital marketing khusus UMKM Indonesia.
+Tugas Anda: Kembangkan input singkat berikut menjadi strategi dan materi promosi yang LUAS, KAYA SUDUT PANDANG, dan MENGENA KE BERBAGAI LAPISAN PASAR.
+
+Data Singkat Produk:
+- Produk: ${produk}
+- Keunggulan Utama: ${unggulInfo}
+- Target/Situasi Awal: ${targetInfo}
+- ${legalInfo}
+
+Instruksi Format:
+${fokusInstruksi}
+
+Gunakan bahasa Indonesia yang natural, hangat, persuasif, mudah dipahami pelaku UMKM, dan langsung siap dipakai jualan tanpa basa-basi pembuka.`;
+    }
+
+    async function panggilGeminiDenganRetry(url, payload, maksCoba = 3) {
       let delay = 1000;
-      for (let attempt = 0; attempt < maxRetry; attempt++) {
+      for (let i = 0; i < maksCoba; i++) {
         const res = await fetch(url, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),
         });
-        if (res.ok || (res.status !== 429 && res.status < 500)) {
-          return res;
+        if (res.ok) return res;
+        if (res.status === 429 || res.status >= 500) {
+          await new Promise((r) => setTimeout(r, delay));
+          delay *= 2;
+          continue;
         }
-        await new Promise((r) => setTimeout(r, delay));
-        delay *= 2;
+        return res;
       }
-      throw new Error('Layanan Gemini sedang sibuk, silakan coba lagi sebentar.');
-    }
-
-    function susunPromptLuas(produk, keunggulan, tujuan, mode) {
-      const konteksTujuan = tujuan || 'berbagai segmen pembeli umum, keluarga, pekerja, hingga reseller/komunitas lokal';
-      const infoLegalitas = ambilDaftarLegalitas();
-      const barisLegalitas = infoLegalitas
-        ? `\nLegalitas / Kredibilitas Produk: "${infoLegalitas}" (sertakan poin kepercayaan legalitas ini secara alami pada materi promosi & kepercayaan pembeli).`
-        : '';
-      const fokusArahan = {
-        semua: 'Buat perluasan seluas mungkin: (1) Multi-Sudut Pembeli (kebutuhan harian, hadiah/acara, dan peluang reseller/grosir), (2) Naskah Video Pendek (Reels/TikTok/Shorts) dengan hook berbeda, (3) Pesan WhatsApp & Katalog Siap Kirim, serta (4) Ide Jingle/Lagu Pendek & Kata Kunci Pencarian.',
-        segmen: 'Fokus memperluas jangkauan ke 4 sudut audiens berbeda (pembeli hemat harian, keluarga/anak, segmen profesional/sibuk, dan reseller/dropshipper) lengkap dengan pendekatan bahasa yang pas untuk masing-masing.',
-        konten: 'Fokus memperluas materi konten multi-format: 3 hook video pendek berbeda, caption media sosial, dan template follow-up chat yang persuasif tanpa terkesan memaksa.',
-        kreatif: 'Fokus memperluas sisi kreatif: lirik jingle/lagu pendek yang mudah diingat untuk Suno/musik, ide konsep visual poster, dan sudut cerita unik produk.',
-      }[mode] || '';
-
-      return `Produk UMKM: "${produk}"
-Keunggulan Utama: "${keunggulan}"
-Target / Situasi: "${konteksTujuan}"${barisLegalitas}
-
-${fokusArahan}
-
-Format output menggunakan judul bagian yang jelas agar mudah dibaca dan disalin per bagian.`;
-    }
-
-    function renderHasilKeLayar(teksMentah) {
-      teksHasilTerakhir = teksMentah.trim();
-      const wadah = document.getElementById('wadahHasilTerstruktur');
-      const status = document.getElementById('statusHasilTeks');
-      if (!wadah) return;
-
-      if (!teksHasilTerakhir) {
-        wadah.innerHTML = `<p class="text-xs text-slate-400">Tidak ada teks yang dikembalikan.</p>`;
-        return;
-      }
-
-      if (status) {
-        status.textContent = `Diperluas otomatis • ${teksHasilTerakhir.length} karakter siap pakai`;
-      }
-
-      // Pisahkan berdasarkan blok/bagian jika ada heading
-      const blokBagian = teksHasilTerakhir
-        .split(/\n(?=(?:#{1,3}\s|\d+[\).\s]|\*\*[^*]+\*\*|\[[^\]]+\]))/)
-        .map((b) => b.trim())
-        .filter(Boolean);
-
-      if (blokBagian.length <= 1) {
-        wadah.innerHTML = `
-          <div class="rounded-2xl border border-slate-800 bg-slate-900/90 p-4 whitespace-pre-line text-xs sm:text-sm text-slate-100 leading-relaxed">${escapeHtml(teksHasilTerakhir)}</div>
-        `;
-        return;
-      }
-
-      wadah.innerHTML = blokBagian
-        .map((blok, idx) => {
-          const baris = blok.split('\n');
-          const judul = baris[0].replace(/^#+\s*|\*\*/g, '').trim();
-          const isi = baris.slice(1).join('\n').trim() || judul;
-          return `
-            <details ${idx === 0 ? 'open' : ''} class="rounded-2xl border border-slate-800 bg-slate-900/90 overflow-hidden">
-              <summary class="cursor-pointer select-none px-4 py-3 text-xs sm:text-sm font-bold text-indigo-200 hover:bg-slate-800/70 transition flex items-center justify-between gap-2">
-                <span>${escapeHtml(judul)}</span>
-                <span class="text-[10px] uppercase tracking-wider text-slate-400">Buka / Tutup</span>
-              </summary>
-              <div class="px-4 pb-4 pt-1 border-t border-slate-800/70 whitespace-pre-line text-xs sm:text-sm text-slate-200 leading-relaxed">${escapeHtml(isi)}</div>
-            </details>
-          `;
-        })
-        .join('');
-    }
-
-    function escapeHtml(str) {
-      return String(str)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;');
+      throw new Error('Server sibuk, coba beberapa saat lagi.');
     }
 
     async function generateLuasDenganGemini() {
@@ -950,145 +979,148 @@ Format output menggunakan judul bagian yang jelas agar mudah dibaca dan disalin 
       const tujuan = (document.getElementById('inputTujuan')?.value || '').trim();
 
       if (!produk) {
-        tampilkanToast('Silakan isi nama atau jenis produk terlebih dahulu.');
+        tampilkanToast('Isi minimal kolom "Nama & Jenis Produk" terlebih dahulu.');
         document.getElementById('inputProduk')?.focus();
         return;
       }
 
       const btn = document.getElementById('btnGenerate');
       const teksBtn = document.getElementById('teksGenerate');
-      const iconBtn = document.getElementById('iconGenerate');
-      const wadah = document.getElementById('wadahHasilTerstruktur');
-
+      const statusTeks = document.getElementById('statusHasilTeks');
       if (btn) btn.disabled = true;
-      if (teksBtn) teksBtn.textContent = 'Sedang Memperluas Ide...';
-      if (iconBtn) iconBtn.textContent = '⏳';
-      if (wadah) {
-        wadah.innerHTML = `
-          <div class="flex items-center justify-center h-52 text-xs sm:text-sm text-indigo-200 animate-pulse">
-            Gemini AI sedang menyusun perluasan sudut pembeli, naskah, dan ide kreatif...
-          </div>
-        `;
-      }
+      if (teksBtn) teksBtn.textContent = 'Sedang Memperluas ke Banyak Sudut...';
+      if (statusTeks) statusTeks.textContent = 'Gemini AI sedang menyusun strategi & konten multi-pasar...';
+
+      const prompt = bangunPromptPerluasan(produk, keunggulan, tujuan, modeLuasAktif);
 
       try {
-        const prompt = susunPromptLuas(
-          produk,
-          keunggulan || 'Kualitas terjaga, praktis, dan bernilai tambah bagi pembeli',
-          tujuan,
-          modeLuasAktif
-        );
+        let hasilTeks = '';
 
-        let teksOut = '';
-        let backendError = '';
-
-        // Prioritaskan jalur server /api/gemini (Railway GEMINI_API_KEY)
+        // 1. Prioritaskan jalur backend server /api/gemini (otomatis memakai GEMINI_API_KEY di Railway)
         try {
           const resServer = await fetch('/api/gemini', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ prompt, mode: 'text' }),
           });
-          const dataServer = await resServer.json().catch(() => ({}));
-          if (resServer.ok && dataServer.text) {
-            teksOut = dataServer.text;
-          } else if (dataServer.error) {
-            backendError = dataServer.error;
+          if (resServer.ok) {
+            serverApiSiap = true;
+            perbaruiStatusApi();
+            const dataServer = await resServer.json();
+            hasilTeks = (dataServer.text || dataServer.result || dataServer.output || '').trim();
           }
-        } catch (netErr) {
-          backendError = '';
-        }
+        } catch (netErr) {}
 
-        // Fallback ke API Key lokal browser jika server tidak mengembalikan hasil
-        if (!teksOut) {
+        // 2. Fallback ke Gemini API langsung dari browser jika user memasukkan API Key lokal
+        if (!hasilTeks) {
           const apiKey = geminiApiKey.trim();
           if (!apiKey) {
-            throw new Error(
-              backendError || 'API Key belum aktif. Isi API Key di tombol "Atur / Cek API Key" atau periksa GEMINI_API_KEY di Railway.'
-            );
+            throw new Error('Server /api/gemini belum merespons dan API Key lokal belum diisi. Silakan klik "Atur API Key" untuk menempelkan key Anda.');
           }
-
           const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${encodeURIComponent(apiKey)}`;
-          const payload = {
+          const response = await panggilGeminiDenganRetry(url, {
             contents: [{ parts: [{ text: prompt }] }],
-            systemInstruction: {
-              parts: [{
-                text: 'Anda adalah asisten kreatif & strategi pertumbuhan UMKM Indonesia. Ubah input singkat menjadi jawaban yang luas, praktis, membumi, dan bisa langsung dipakai ke berbagai segmen pasar serta kanal digital maupun offline.'
-              }]
-            }
-          };
+          });
 
-          const response = await panggilGeminiDenganRetry(url, payload);
-          const result = await response.json();
-
+          const data = await response.json();
           if (!response.ok) {
-            throw new Error(result?.error?.message || 'Gagal memanggil Gemini API. Periksa API Key Anda.');
+            throw new Error(data?.error?.message || 'Gagal terhubung ke Gemini API.');
           }
 
-          teksOut = result?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+          hasilTeks = (data?.candidates?.[0]?.content?.parts?.[0]?.text || '').trim();
         }
 
-        if (!teksOut) {
-          throw new Error('Respons teks kosong dari Gemini API.');
-        }
+        if (!hasilTeks) throw new Error('Respon kosong dari Gemini AI.');
 
-        renderHasilKeLayar(teksOut);
-        tampilkanToast('Hasil luas berhasil dibuat oleh Gemini AI!');
+        teksHasilTerakhir = hasilTeks;
+        renderHasilTerstruktur(hasilTeks);
+        if (statusTeks) statusTeks.textContent = `Selesai diperluas untuk "${produk}" — siap disalin & disebar!`;
+        tampilkanToast('Berhasil! Konten luas multi-sudut siap digunakan.');
 
-        // Jika mode semua atau kreatif, sekalian siapkan visual poster secara otomatis
         if (modeLuasAktif === 'semua' || modeLuasAktif === 'kreatif') {
           generatePosterVisual(true);
         }
       } catch (err) {
+        if (statusTeks) statusTeks.textContent = 'Gagal memproses permintaan.';
+        const wadah = document.getElementById('wadahHasilTerstruktur');
         if (wadah) {
           wadah.innerHTML = `
-            <div class="rounded-2xl border border-rose-500/40 bg-rose-950/30 p-4 text-xs sm:text-sm text-rose-200 space-y-2">
+            <div class="rounded-2xl border border-rose-500/40 bg-rose-950/30 p-4 text-xs text-rose-200 space-y-2">
               <div class="font-bold">Belum dapat terhubung ke Gemini API</div>
               <p>${escapeHtml(err.message)}</p>
-              <button type="button" onclick="bukaModalApi()" class="mt-1 rounded-xl bg-rose-600 hover:bg-rose-500 px-3.5 py-2 text-xs font-bold text-white transition">
-                Atur API Key
-              </button>
+              <button type="button" onclick="bukaModalApi()" class="rounded-xl bg-rose-600 hover:bg-rose-500 px-3 py-1.5 text-xs font-bold text-white">Atur API Key</button>
             </div>
           `;
         }
-        tampilkanToast(err.message);
       } finally {
         if (btn) btn.disabled = false;
         if (teksBtn) teksBtn.textContent = 'Generate Luas dengan Gemini AI';
-        if (iconBtn) iconBtn.textContent = '✨';
       }
+    }
+
+    function renderKartuPoster(imgSrc) {
+      const wadah = document.getElementById('wadahGambarPoster');
+      if (!wadah) return;
+      const daftarLegal = ambilDaftarLegalitasAktif();
+      const badgeLegalHtml = daftarLegal.length > 0
+        ? `<div class="flex flex-wrap gap-1.5 pt-1">${daftarLegal.map((l) => `<span class="rounded-full bg-emerald-500/20 border border-emerald-400/40 px-2.5 py-0.5 text-[10px] font-bold text-emerald-200">✓ ${escapeHtml(l)}</span>`).join('')}</div>`
+        : '';
+      const logoHtml = logoMerekDataUrl
+        ? `<img src="${logoMerekDataUrl}" alt="Logo Merek" class="absolute top-2.5 right-2.5 h-10 w-10 rounded-xl bg-white/95 p-1 object-contain shadow-md border border-slate-200" />`
+        : '';
+
+      wadah.innerHTML = `
+        <div class="relative shrink-0">
+          <img src="${imgSrc}" alt="Poster Produk UMKM" class="w-44 h-44 rounded-2xl object-cover border border-slate-700 shadow-lg" />
+          ${logoHtml}
+        </div>
+        <div class="space-y-2 text-xs text-slate-300">
+          <div class="font-bold text-white">Visual Poster AI Siap Pakai</div>
+          <p class="text-[11px] text-slate-400 leading-relaxed">
+            Gambar ini dibuat khusus sesuai produk Anda. Unduh dan tambahkan teks promo atau harga sesuai kebutuhan kanal jualan.
+          </p>
+          ${badgeLegalHtml}
+          <a href="${imgSrc}" download="poster-umkm-ai.png" class="inline-flex items-center gap-1.5 rounded-xl bg-fuchsia-600 hover:bg-fuchsia-500 px-3.5 py-2 text-xs font-extrabold text-white transition">
+            ⬇️ Unduh Gambar Poster
+          </a>
+        </div>
+      `;
     }
 
     async function generatePosterVisual(senyap = false) {
       const produk = (document.getElementById('inputProduk')?.value || '').trim();
       const keunggulan = (document.getElementById('inputKeunggulan')?.value || '').trim();
-      const wadahImg = document.getElementById('wadahGambarPoster');
-      const btnImg = document.getElementById('btnGenerateGambar');
 
       if (!produk) {
-        if (!senyap) tampilkanToast('Isi nama produk dulu untuk membuat gambar poster.');
+        if (!senyap) tampilkanToast('Isi nama produk terlebih dahulu untuk membuat visual.');
         return;
       }
 
-      if (btnImg) btnImg.disabled = true;
-      if (wadahImg) {
-        wadahImg.innerHTML = `
-          <div class="w-full py-8 text-center text-xs text-fuchsia-200 animate-pulse">
-            Sedang membuat konsep visual poster untuk "${escapeHtml(produk)}"...
-          </div>
-        `;
+      const btn = document.getElementById('btnGenerateGambar');
+      const wadah = document.getElementById('wadahGambarPoster');
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = '⏳ Membuat Visual...';
       }
 
       try {
-        const promptVisual = `Modern clean promotional poster visual for Indonesian UMKM product "${produk}". Highlighting ${keunggulan || 'quality and everyday value'}. Warm inviting studio lighting, clean composition, appealing commercial aesthetic.`;
+        const adaFotoProduk = Boolean(fotoProdukPosterBase64);
+        const promptVisual = adaFotoProduk
+          ? `Create a professional, clean, high-converting commercial promotional poster featuring the exact product shown in the uploaded image for Indonesian UMKM "${produk}". Highlighting ${keunggulan || 'quality and everyday value'}. Keep the product appearance, shape, packaging, and label faithful to the uploaded photo while placing it in an attractive studio setting with warm lighting and appealing layout.`
+          : `Modern clean promotional poster visual for Indonesian UMKM product "${produk}". Highlighting ${keunggulan || 'quality and everyday value'}. Warm inviting studio lighting, clean composition, appealing commercial aesthetic.`;
         let imgSrc = '';
 
         // Prioritaskan jalur server /api/gemini mode image
         try {
+          const payloadServer = { prompt: promptVisual, mode: 'image' };
+          if (adaFotoProduk) {
+            payloadServer.imageBase64 = fotoProdukPosterBase64;
+            payloadServer.imageMimeType = fotoProdukPosterMimeType;
+          }
           const resServerImg = await fetch('/api/gemini', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ prompt: promptVisual, mode: 'image' }),
+            body: JSON.stringify(payloadServer),
           });
           if (resServerImg.ok) {
             const dataServerImg = await resServerImg.json();
@@ -1105,12 +1137,21 @@ Format output menggunakan judul bagian yang jelas agar mudah dibaca dan disalin 
           if (!apiKey) {
             throw new Error('API Key belum aktif untuk membuat gambar poster.');
           }
-          const urlImg = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image:generateContent?key=${encodeURIComponent(apiKey)}`;
+          const urlImg = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent?key=${encodeURIComponent(apiKey)}`;
+          const userParts = [{ text: promptVisual }];
+          if (adaFotoProduk) {
+            userParts.push({
+              inlineData: {
+                mimeType: fotoProdukPosterMimeType,
+                data: fotoProdukPosterBase64,
+              },
+            });
+          }
 
           const response = await panggilGeminiDenganRetry(urlImg, {
             contents: [{
               role: 'user',
-              parts: [{ text: promptVisual }]
+              parts: userParts
             }],
             generationConfig: {
               responseModalities: ['IMAGE'],
@@ -1135,48 +1176,21 @@ Format output menggunakan judul bagian yang jelas agar mudah dibaca dan disalin 
         renderKartuPoster(imgSrc);
         if (!senyap) tampilkanToast('Gambar poster AI berhasil dibuat!');
       } catch (err) {
-        if (wadahImg) {
-          wadahImg.innerHTML = `
-            <div class="w-full rounded-2xl border border-slate-800 bg-slate-900/70 p-4 text-xs text-slate-400">
-              Visual belum tersedia: ${escapeHtml(err.message)}
-            </div>
-          `;
+        if (!senyap && wadah) {
+          wadah.innerHTML = `<div class="text-xs text-rose-300">Gagal membuat visual: ${escapeHtml(err.message)}</div>`;
         }
-        if (!senyap) tampilkanToast(err.message);
       } finally {
-        if (btnImg) btnImg.disabled = false;
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = '🖼️ Buat Gambar Poster AI';
+        }
       }
     }
 
-    function renderKartuPoster(imgSrc) {
-      const wadahImg = document.getElementById('wadahGambarPoster');
-      const produk = (document.getElementById('inputProduk')?.value || '').trim() || 'Produk UMKM';
-      const daftarLegal = ambilDaftarLegalitas();
-      if (!wadahImg || !imgSrc) return;
-
-      wadahImg.innerHTML = `
-        <div class="relative w-44 h-44 shrink-0">
-          <img src="${imgSrc}" alt="Poster AI ${escapeHtml(produk)}" class="w-44 h-44 rounded-2xl object-cover border border-slate-700 shadow-lg" onerror="this.src='https://placehold.co/300x300/1e293b/e2e8f0?text=Poster+AI'" />
-          ${logoMerekDataUrl ? `<img src="${logoMerekDataUrl}" alt="Logo Merek" class="absolute top-2 left-2 h-9 w-9 rounded-lg bg-white/95 p-1 object-contain shadow" onerror="this.style.display='none'" />` : ''}
-        </div>
-        <div class="space-y-2.5 text-xs text-slate-300 flex-1">
-          <div class="font-bold text-white">Poster AI: ${escapeHtml(produk)}</div>
-          ${daftarLegal ? `<div id="infoLegalitasPoster" class="inline-block rounded-lg border border-emerald-400/40 bg-emerald-950/60 px-2.5 py-1 text-[11px] font-bold text-emerald-200">✓ ${escapeHtml(daftarLegal)}</div>` : '<div id="infoLegalitasPoster" class="text-[11px] font-semibold text-emerald-300"></div>'}
-          <p class="text-[11px] text-slate-400 leading-relaxed">
-            Visual siap dipakai untuk katalog, status WhatsApp, media sosial, atau diunduh langsung ke perangkat Anda.
-          </p>
-          <a href="${imgSrc}" download="poster-${produk.toLowerCase().replace(/[^a-z0-9]+/g, '-') || 'umkm'}.png" class="inline-flex items-center gap-1.5 rounded-xl bg-fuchsia-600 hover:bg-fuchsia-500 px-3.5 py-2 text-xs font-bold text-white transition">
-            ⬇️ Unduh Gambar
-          </a>
-        </div>
-      `;
-    }
-
-    window.addEventListener('load', () => {
-      perbaruiIndikatorApi();
-      cekKoneksiServerApi();
+    window.addEventListener('DOMContentLoaded', () => {
+      perbaruiStatusApi();
+      cekStatusServerApi();
       perbaruiTampilanLegalitas();
-      pilihModeLuas('semua');
     });
   </script>
 </body>
