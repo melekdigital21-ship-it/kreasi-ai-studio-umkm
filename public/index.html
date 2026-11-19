@@ -58,8 +58,9 @@
         <div class="rounded-2xl bg-slate-950/75 border border-white/15 p-4 sm:min-w-[295px] space-y-2.5">
           <div class="flex items-center justify-between gap-2">
             <span class="text-[11px] font-extrabold uppercase tracking-wider text-amber-300">📌 Profil Produk Aktif</span>
-            <button type="button" onclick="bukaModalApiKey()" id="badgeStatusApi" class="rounded-full bg-emerald-500/20 border border-emerald-400/40 px-2.5 py-0.5 text-[10px] font-extrabold text-emerald-300 hover:bg-emerald-500/30 transition">
-              🔑 Gemini API Siap
+            <button type="button" onclick="bukaModalApiKey()" id="badgeStatusApi" class="inline-flex items-center gap-1.5 rounded-full bg-slate-800 border border-slate-700 px-2.5 py-1 text-[10px] font-extrabold text-slate-300 hover:border-emerald-400/50 transition">
+              <span id="dotStatusApi" class="h-2 w-2 rounded-full bg-slate-500"></span>
+              <span id="textStatusApi">🔑 API Key</span>
             </button>
           </div>
           <select id="globalKategoriProduk" onchange="sinkronKategoriProduk(this.value)" aria-label="Kategori Produk UMKM" class="w-full rounded-xl bg-slate-900 border border-slate-700 focus:border-fuchsia-400 px-3 py-2 text-xs font-bold text-amber-200 outline-none">
@@ -70,8 +71,8 @@
             <option value="Kerajinan Tangan & Souvenir">🧶 Kategori: Kerajinan Tangan &amp; Souvenir</option>
             <option value="Jasa & Layanan Lokal">🛠️ Kategori: Jasa &amp; Layanan Lokal</option>
           </select>
-          <input id="globalNamaProduk" type="text" value="SAPIRCling Jerigen 1L" oninput="sinkronNamaProduk(this.value)" placeholder="Nama Produk UMKM..." class="w-full rounded-xl bg-slate-900 border border-slate-700 focus:border-fuchsia-400 px-3 py-2 text-xs font-bold text-white outline-none" />
-          <input id="globalTargetPasar" type="text" value="Ibu rumah tangga, warung kelontong & usaha laundry lokal" oninput="perbaruiSemua()" placeholder="Target Pembeli Utama..." class="w-full rounded-xl bg-slate-900 border border-slate-700 focus:border-fuchsia-400 px-3 py-2 text-xs text-slate-200 outline-none" />
+          <input id="globalNamaProduk" type="text" value="" placeholder="Contoh: SAPIRCling Jerigen 1L" oninput="sinkronNamaProduk(this.value)" class="w-full rounded-xl bg-slate-900 border border-slate-700 focus:border-fuchsia-400 px-3 py-2 text-xs font-bold text-white placeholder:text-slate-500 outline-none" />
+          <input id="globalTargetPasar" type="text" value="" placeholder="Contoh: Ibu rumah tangga, warung kelontong & laundry" oninput="perbaruiSemua()" class="w-full rounded-xl bg-slate-900 border border-slate-700 focus:border-fuchsia-400 px-3 py-2 text-xs text-slate-200 placeholder:text-slate-500 outline-none" />
         </div>
       </div>
 
@@ -142,7 +143,7 @@
               🔢 Masukkan Nomor Legalitas Produk (Jika Sudah Memiliki):
             </label>
             <div class="flex flex-col sm:flex-row gap-2">
-              <input id="inputNomorLegalitas" type="text" oninput="simpanNomorLegalitasAktif(this.value)" placeholder="Contoh: 1209230045678" class="flex-1 rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 px-3.5 py-2.5 text-xs font-bold text-white outline-none" />
+              <input id="inputNomorLegalitas" type="text" oninput="simpanNomorLegalitasAktif(this.value)" placeholder="Contoh: 1209230045678" class="flex-1 rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 px-3.5 py-2.5 text-xs font-bold text-white placeholder:text-slate-500 outline-none" />
               <button type="button" onclick="aktifkanDenganDataLegalitas()" class="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-extrabold transition shadow-sm shrink-0">
                 <span>💾</span><span>Simpan &amp; Tampilkan di Poster</span>
               </button>
@@ -277,15 +278,15 @@
           </div>
           <div>
             <label for="risetNamaProduk" class="block text-xs font-bold text-slate-300 mb-1.5">Nama Produk yang Diriset</label>
-            <input id="risetNamaProduk" type="text" value="SAPIRCling Jerigen 1L" oninput="sinkronNamaProduk(this.value)" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+            <input id="risetNamaProduk" type="text" value="" placeholder="Contoh: SAPIRCling Jerigen 1L" oninput="sinkronNamaProduk(this.value)" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 px-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 outline-none" />
           </div>
           <div>
             <label for="risetMasalahPelanggan" class="block text-xs font-bold text-slate-300 mb-1.5">Masalah Utama Calon Pembeli</label>
-            <input id="risetMasalahPelanggan" type="text" value="Noda membandel, bau amis, dan boros sabun cuci harian" oninput="buatStrategiRiset()" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+            <input id="risetMasalahPelanggan" type="text" value="" placeholder="Contoh: Noda membandel & boros sabun cuci harian" oninput="buatStrategiRiset()" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 px-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 outline-none" />
           </div>
           <div>
             <label for="risetKeunggulanProduk" class="block text-xs font-bold text-slate-300 mb-1.5">Keunggulan Utama Produkmu</label>
-            <input id="risetKeunggulanProduk" type="text" value="Busa melimpah, wangi segar tahan lama, lembut di tangan & hemat 1 liter" oninput="buatStrategiRiset()" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+            <input id="risetKeunggulanProduk" type="text" value="" placeholder="Contoh: Busa melimpah, wangi segar & hemat 1 liter" oninput="buatStrategiRiset()" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 px-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 outline-none" />
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1">
@@ -301,7 +302,7 @@
           </div>
         </div>
 
-        <!-- Output Strategi Riset Instan -->
+        <!-- Output Strategi Riset Instan (Kosong sebelum tombol diklik) -->
         <div class="lg:col-span-7 rounded-2xl bg-slate-950 border border-slate-800 p-4 sm:p-5 flex flex-col justify-between space-y-3">
           <div class="flex flex-wrap items-center justify-between gap-2">
             <span id="labelOutputRiset" class="text-xs font-extrabold uppercase tracking-wider text-amber-300">👥 Hasil Pemetaan Buyer Persona UMKM</span>
@@ -309,7 +310,7 @@
               <span>📋</span><span>Salin Hasil Riset</span>
             </button>
           </div>
-          <textarea id="outputRisetBox" rows="7" class="w-full rounded-xl bg-slate-900 border border-slate-800 p-3.5 text-xs sm:text-sm text-slate-100 leading-relaxed outline-none"></textarea>
+          <textarea id="outputRisetBox" rows="7" value="" placeholder="Klik tombol Buyer Persona, Kata Kunci, atau Tajamkan USP untuk menampilkan hasil riset..." class="w-full rounded-xl bg-slate-900 border border-slate-800 p-3.5 text-xs sm:text-sm text-slate-100 placeholder:text-slate-500 leading-relaxed outline-none"></textarea>
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-1">
             <span class="text-[11px] text-slate-400">Hasil riset ini otomatis memperkaya teks promosi di Tahap 03 Jual.</span>
             <button type="button" onclick="pilihTahap(2)" class="self-start sm:self-auto inline-flex items-center justify-center gap-1.5 shrink-0 px-4 py-2 rounded-xl bg-fuchsia-600 hover:bg-fuchsia-500 text-xs font-bold text-white transition">
@@ -348,7 +349,10 @@
           <div>
             <div class="flex flex-wrap items-center gap-2">
               <span class="text-xs font-extrabold uppercase tracking-wider text-amber-300">🪄 Generator Konten, Lirik Lagu &amp; Poster AI Gemini</span>
-              <span class="rounded-full bg-blue-500/20 border border-blue-400/30 px-2.5 py-0.5 text-[10px] font-bold text-blue-200">Terhubung Gemini API &amp; Suno</span>
+              <span id="badgeKoneksiApiTahap2" class="inline-flex items-center gap-1.5 rounded-full bg-slate-900 border border-slate-700 px-2.5 py-0.5 text-[10px] font-bold text-slate-300">
+                <span id="dotKoneksiApiTahap2" class="h-2 w-2 rounded-full bg-slate-500"></span>
+                <span id="textKoneksiApiTahap2">API Key Belum Aktif</span>
+              </span>
             </div>
             <p class="text-xs text-slate-300 mt-1">
               Pilih jenis konten atau <strong class="text-emerald-300">Lirik Lagu Jingle</strong>, lalu klik <strong class="text-blue-200">Generate dengan Gemini AI</strong> atau <strong class="text-emerald-300">Suno Musik</strong> untuk membuat lagu.
@@ -357,8 +361,10 @@
 
           <!-- Tombol Aksi Salin, Lirik Lagu, Suno Musik & Generate AI Gemini -->
           <div class="flex flex-wrap items-center gap-2 shrink-0">
-            <button type="button" onclick="bukaModalApiKey()" class="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-xs font-bold text-slate-200 border border-slate-700 transition">
-              <span>🔑</span><span>API Key</span>
+            <button type="button" id="btnApiKeyTahap2" onclick="bukaModalApiKey()" class="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-xs font-bold text-slate-200 border border-slate-700 transition">
+              <span id="dotBtnApiTahap2" class="h-2 w-2 rounded-full bg-slate-500"></span>
+              <span>🔑</span>
+              <span id="labelBtnApiTahap2">API Key</span>
             </button>
             <button type="button" onclick="pilihJenisPromptAi('lirik')" class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-xs font-extrabold text-emerald-300 border border-emerald-400/40 transition">
               <span>🎤</span><span>Buat Lirik Lagu</span>
@@ -392,10 +398,10 @@
         </div>
 
         <!-- Kotak Isi Prompt / Lirik Lagu Siap Salin -->
-        <textarea id="outputPromptAiBox" rows="5" class="w-full rounded-xl bg-slate-950/95 border border-blue-400/30 focus:border-amber-400 p-3.5 text-xs sm:text-sm text-blue-50 leading-relaxed outline-none"></textarea>
+        <textarea id="outputPromptAiBox" rows="5" placeholder="Draft prompt atau lirik lagu akan tampil di sini..." class="w-full rounded-xl bg-slate-950/95 border border-blue-400/30 focus:border-amber-400 p-3.5 text-xs sm:text-sm text-blue-50 placeholder:text-slate-500 leading-relaxed outline-none"></textarea>
 
-        <!-- Hasil Output Langsung dari Gemini API -->
-        <div id="wadahHasilGemini" class="hidden rounded-xl bg-slate-950 border border-emerald-400/40 p-3.5 space-y-2">
+        <!-- Hasil Output Langsung dari Gemini API (Kosong sebelum digenerate) -->
+        <div id="wadahHasilGemini" class="rounded-xl bg-slate-950 border border-emerald-400/40 p-3.5 space-y-2">
           <div class="flex flex-wrap items-center justify-between gap-2">
             <span class="text-xs font-extrabold text-emerald-300">🤖 Hasil Generate Gemini AI:</span>
             <div class="flex items-center gap-2">
@@ -407,7 +413,7 @@
               </button>
             </div>
           </div>
-          <textarea id="hasilOutputGeminiBox" rows="6" class="w-full rounded-xl bg-slate-900 border border-slate-800 p-3 text-xs sm:text-sm text-slate-100 leading-relaxed outline-none"></textarea>
+          <textarea id="hasilOutputGeminiBox" rows="6" value="" placeholder="Kolom hasil generate masih kosong. Klik 'Generate dengan Gemini AI' untuk membuat hasil..." class="w-full rounded-xl bg-slate-900 border border-slate-800 p-3 text-xs sm:text-sm text-slate-100 placeholder:text-slate-500 leading-relaxed outline-none"></textarea>
         </div>
       </div>
 
@@ -415,7 +421,7 @@
         <div class="lg:col-span-6 space-y-3.5">
           <div>
             <label for="arahanTambahan" class="block text-xs font-bold text-slate-300 mb-1.5">Tagline / Kalimat Sorotan di Poster</label>
-            <input id="arahanTambahan" type="text" value="Kualitas Terjamin • Hemat & Praktis untuk Kebutuhan Harian" oninput="perbaruiSemua()" placeholder="Tulis kalimat promosi singkat untuk poster..." class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-fuchsia-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+            <input id="arahanTambahan" type="text" value="" placeholder="Contoh: Kualitas Terjamin • Hemat & Praktis untuk Kebutuhan Harian" oninput="perbaruiSemua()" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-fuchsia-400 px-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 outline-none" />
           </div>
 
           <div class="p-4 rounded-2xl bg-slate-950 border border-dashed border-slate-700 space-y-2.5">
@@ -441,7 +447,7 @@
                 <span>📋</span><span>Salin Struktur</span>
               </button>
             </div>
-            <textarea id="strukturKontenBox" rows="5" class="w-full rounded-xl bg-slate-900 border border-slate-800 p-3 text-xs text-slate-100 leading-relaxed outline-none"></textarea>
+            <textarea id="strukturKontenBox" rows="5" placeholder="Struktur Hook, 3 Poin Utama, dan 1 Ajakan akan muncul di sini..." class="w-full rounded-xl bg-slate-900 border border-slate-800 p-3 text-xs text-slate-100 placeholder:text-slate-500 leading-relaxed outline-none"></textarea>
           </div>
         </div>
 
@@ -511,29 +517,29 @@
           <div class="grid grid-cols-2 gap-3">
             <div>
               <label for="jualNamaToko" class="block text-xs font-bold text-slate-300 mb-1.5">Nama Toko / Brand</label>
-              <input id="jualNamaToko" type="text" value="Toko Berkah UMKM" oninput="buatCaptionOtomatis()" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-emerald-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+              <input id="jualNamaToko" type="text" value="" placeholder="Contoh: Toko Berkah UMKM" oninput="buatCaptionOtomatis()" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-emerald-400 px-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 outline-none" />
             </div>
             <div>
               <label for="jualNomorWa" class="block text-xs font-bold text-emerald-300 mb-1.5">Nomor WA Business</label>
-              <input id="jualNomorWa" type="text" value="081234567890" oninput="buatCaptionOtomatis()" placeholder="0812..." class="w-full rounded-xl bg-slate-950 border border-emerald-500/40 focus:border-emerald-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+              <input id="jualNomorWa" type="text" value="" placeholder="Contoh: 081234567890" oninput="buatCaptionOtomatis()" class="w-full rounded-xl bg-slate-950 border border-emerald-500/40 focus:border-emerald-400 px-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 outline-none" />
             </div>
           </div>
 
           <div class="grid grid-cols-2 gap-3">
             <div>
               <label for="jualHargaNormal" class="block text-xs font-bold text-slate-300 mb-1.5">Harga Normal (Rp)</label>
-              <input id="jualHargaNormal" type="number" min="0" value="20000" oninput="sinkronHargaDiskon(this.value, null)" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-emerald-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+              <input id="jualHargaNormal" type="number" min="0" value="" placeholder="Contoh: 20000" oninput="sinkronHargaDiskon(this.value, null)" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-emerald-400 px-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 outline-none" />
             </div>
             <div>
               <label for="jualDiskonPromo" class="block text-xs font-bold text-fuchsia-300 mb-1.5">Diskon Promo (%)</label>
-              <input id="jualDiskonPromo" type="number" min="0" max="95" value="10" oninput="sinkronHargaDiskon(null, this.value)" class="w-full rounded-xl bg-slate-950 border border-fuchsia-500/40 focus:border-fuchsia-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+              <input id="jualDiskonPromo" type="number" min="0" max="95" value="" placeholder="Contoh: 10" oninput="sinkronHargaDiskon(null, this.value)" class="w-full rounded-xl bg-slate-950 border border-fuchsia-500/40 focus:border-fuchsia-400 px-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 outline-none" />
             </div>
           </div>
 
           <div class="rounded-2xl bg-slate-950 border border-emerald-500/30 p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
               <div class="text-[11px] font-semibold text-slate-400">Harga Promo Tampil ke Pembeli</div>
-              <div id="jualHargaAkhirText" class="font-display text-xl font-extrabold text-amber-300 mt-0.5">Rp 18.000</div>
+              <div id="jualHargaAkhirText" class="font-display text-xl font-extrabold text-amber-300 mt-0.5">Rp 0</div>
             </div>
             <div class="grid grid-cols-2 sm:flex items-center gap-2">
               <button type="button" onclick="kirimPromoKePoster()" class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-fuchsia-600 hover:bg-fuchsia-500 text-xs font-bold text-white transition">
@@ -572,7 +578,7 @@
               <span>📋</span><span>Salin Teks</span>
             </button>
           </div>
-          <textarea id="hasilCaptionBox" rows="8" class="w-full rounded-xl bg-slate-900 border border-slate-800 p-3.5 text-xs sm:text-sm text-slate-100 leading-relaxed outline-none"></textarea>
+          <textarea id="hasilCaptionBox" rows="8" placeholder="Naskah katalog, template WA Business, caption medsos, atau deskripsi marketplace akan muncul di sini..." class="w-full rounded-xl bg-slate-900 border border-slate-800 p-3.5 text-xs sm:text-sm text-slate-100 placeholder:text-slate-500 leading-relaxed outline-none"></textarea>
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-1">
             <span class="text-[11px] text-slate-400">Ukur performa konten &amp; kesehatan profit di Tahap 04 Ukur.</span>
             <button type="button" onclick="pilihTahap(4)" class="self-start sm:self-auto inline-flex items-center justify-center gap-1.5 shrink-0 px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-xs font-bold text-white transition">
@@ -622,19 +628,19 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3.5">
               <div>
                 <label for="ukurViews" class="block text-xs font-bold text-slate-300 mb-1">1. Jumlah Tayangan / Views</label>
-                <input id="ukurViews" type="number" min="0" value="2500" oninput="hitungReviewKonten()" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-cyan-400 px-3.5 py-2.5 text-sm font-bold text-white outline-none" />
+                <input id="ukurViews" type="number" min="0" value="" placeholder="Contoh: 2500" oninput="hitungReviewKonten()" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-cyan-400 px-3.5 py-2.5 text-sm font-bold text-white placeholder:text-slate-500 outline-none" />
               </div>
               <div>
                 <label for="ukurInteraksi" class="block text-xs font-bold text-slate-300 mb-1">2. Interaksi (Likes, Komentar &amp; Share)</label>
-                <input id="ukurInteraksi" type="number" min="0" value="185" oninput="hitungReviewKonten()" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-fuchsia-400 px-3.5 py-2.5 text-sm font-bold text-white outline-none" />
+                <input id="ukurInteraksi" type="number" min="0" value="" placeholder="Contoh: 185" oninput="hitungReviewKonten()" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-fuchsia-400 px-3.5 py-2.5 text-sm font-bold text-white placeholder:text-slate-500 outline-none" />
               </div>
               <div>
                 <label for="ukurChatMasuk" class="block text-xs font-bold text-slate-300 mb-1">3. Klik Link / Chat Masuk ke WA</label>
-                <input id="ukurChatMasuk" type="number" min="0" value="48" oninput="hitungReviewKonten()" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 px-3.5 py-2.5 text-sm font-bold text-white outline-none" />
+                <input id="ukurChatMasuk" type="number" min="0" value="" placeholder="Contoh: 48" oninput="hitungReviewKonten()" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 px-3.5 py-2.5 text-sm font-bold text-white placeholder:text-slate-500 outline-none" />
               </div>
               <div>
                 <label for="ukurPembeliClosing" class="block text-xs font-bold text-emerald-300 mb-1">4. Jumlah Pembeli / Closing Deal</label>
-                <input id="ukurPembeliClosing" type="number" min="0" value="14" oninput="hitungReviewKonten()" class="w-full rounded-xl bg-slate-950 border border-emerald-500/40 focus:border-emerald-400 px-3.5 py-2.5 text-sm font-bold text-white outline-none" />
+                <input id="ukurPembeliClosing" type="number" min="0" value="" placeholder="Contoh: 14" oninput="hitungReviewKonten()" class="w-full rounded-xl bg-slate-950 border border-emerald-500/40 focus:border-emerald-400 px-3.5 py-2.5 text-sm font-bold text-white placeholder:text-slate-500 outline-none" />
               </div>
             </div>
 
@@ -647,8 +653,8 @@
           <div class="lg:col-span-7 rounded-2xl bg-slate-950 border border-slate-800 p-4 sm:p-5 space-y-4">
             <div class="flex items-center justify-between">
               <span class="text-xs font-extrabold uppercase tracking-wider text-amber-300">📉 Visualisasi Corong Konversi Audiens</span>
-              <span id="badgeSkorCorong" class="rounded-full bg-emerald-500/20 border border-emerald-400/40 px-3 py-0.5 text-[11px] font-extrabold text-emerald-300">
-                Corong Sehat
+              <span id="badgeSkorCorong" class="rounded-full bg-slate-800 border border-slate-700 px-3 py-0.5 text-[11px] font-extrabold text-slate-300">
+                Menunggu Data
               </span>
             </div>
 
@@ -657,40 +663,40 @@
               <div>
                 <div class="flex justify-between text-xs font-bold mb-1">
                   <span class="text-cyan-300">1. Tayangan (Views)</span>
-                  <span id="funnelValViews" class="text-white">2.500 (100%)</span>
+                  <span id="funnelValViews" class="text-white">0 (0%)</span>
                 </div>
                 <div class="h-3 w-full rounded-full bg-slate-900 overflow-hidden">
-                  <div id="funnelBarViews" class="h-full rounded-full bg-cyan-400 transition-all duration-300" style="width: 100%"></div>
+                  <div id="funnelBarViews" class="h-full rounded-full bg-cyan-400 transition-all duration-300" style="width: 0%"></div>
                 </div>
               </div>
 
               <div>
                 <div class="flex justify-between text-xs font-bold mb-1">
                   <span class="text-fuchsia-300">2. Interaksi (Like, Komen, Share)</span>
-                  <span id="funnelValInteraksi" class="text-white">185 (7,4%)</span>
+                  <span id="funnelValInteraksi" class="text-white">0 (0,0%)</span>
                 </div>
                 <div class="h-3 w-full rounded-full bg-slate-900 overflow-hidden">
-                  <div id="funnelBarInteraksi" class="h-full rounded-full bg-fuchsia-500 transition-all duration-300" style="width: 28%"></div>
+                  <div id="funnelBarInteraksi" class="h-full rounded-full bg-fuchsia-500 transition-all duration-300" style="width: 0%"></div>
                 </div>
               </div>
 
               <div>
                 <div class="flex justify-between text-xs font-bold mb-1">
                   <span class="text-amber-300">3. Klik Link / Chat Masuk WA</span>
-                  <span id="funnelValChat" class="text-white">48 (1,9%)</span>
+                  <span id="funnelValChat" class="text-white">0 (0,0%)</span>
                 </div>
                 <div class="h-3 w-full rounded-full bg-slate-900 overflow-hidden">
-                  <div id="funnelBarChat" class="h-full rounded-full bg-amber-400 transition-all duration-300" style="width: 18%"></div>
+                  <div id="funnelBarChat" class="h-full rounded-full bg-amber-400 transition-all duration-300" style="width: 0%"></div>
                 </div>
               </div>
 
               <div>
                 <div class="flex justify-between text-xs font-bold mb-1">
                   <span class="text-emerald-300">4. Pembeli / Closing Deal</span>
-                  <span id="funnelValBeli" class="text-white">14 (0,56%)</span>
+                  <span id="funnelValBeli" class="text-white">0 (0,00%)</span>
                 </div>
                 <div class="h-3 w-full rounded-full bg-slate-900 overflow-hidden">
-                  <div id="funnelBarBeli" class="h-full rounded-full bg-emerald-400 transition-all duration-300" style="width: 12%"></div>
+                  <div id="funnelBarBeli" class="h-full rounded-full bg-emerald-400 transition-all duration-300" style="width: 0%"></div>
                 </div>
               </div>
             </div>
@@ -699,22 +705,22 @@
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-1">
               <div class="rounded-xl bg-slate-900 border border-slate-800 p-3">
                 <div class="text-[10px] font-semibold text-slate-400">Engagement Rate</div>
-                <div id="outEngagementRate" class="font-display text-base font-extrabold text-fuchsia-300 mt-0.5">7,4%</div>
+                <div id="outEngagementRate" class="font-display text-base font-extrabold text-fuchsia-300 mt-0.5">0,0%</div>
                 <div class="text-[10px] text-slate-500">Interaksi / Views</div>
               </div>
               <div class="rounded-xl bg-slate-900 border border-slate-800 p-3">
                 <div class="text-[10px] font-semibold text-slate-400">Chat Rate (CTR)</div>
-                <div id="outChatRate" class="font-display text-base font-extrabold text-amber-300 mt-0.5">1,9%</div>
+                <div id="outChatRate" class="font-display text-base font-extrabold text-amber-300 mt-0.5">0,0%</div>
                 <div class="text-[10px] text-slate-500">Chat WA / Views</div>
               </div>
               <div class="rounded-xl bg-slate-900 border border-slate-800 p-3">
                 <div class="text-[10px] font-semibold text-slate-400">Closing Rate</div>
-                <div id="outClosingRate" class="font-display text-base font-extrabold text-emerald-300 mt-0.5">29,2%</div>
+                <div id="outClosingRate" class="font-display text-base font-extrabold text-emerald-300 mt-0.5">0,0%</div>
                 <div class="text-[10px] text-slate-500">Beli / Chat Masuk</div>
               </div>
               <div class="rounded-xl bg-slate-900 border border-slate-800 p-3">
                 <div class="text-[10px] font-semibold text-slate-400">Konversi Total</div>
-                <div id="outKonversiTotal" class="font-display text-base font-extrabold text-cyan-300 mt-0.5">0,56%</div>
+                <div id="outKonversiTotal" class="font-display text-base font-extrabold text-cyan-300 mt-0.5">0,00%</div>
                 <div class="text-[10px] text-slate-500">Beli / Views</div>
               </div>
             </div>
@@ -744,39 +750,39 @@
           <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label for="namaProdukHpp" class="block text-xs font-bold text-slate-300 mb-1.5">Nama Produk</label>
-              <input id="namaProdukHpp" type="text" value="SAPIRCling Jerigen 1L" oninput="sinkronNamaProduk(this.value)" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-cyan-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+              <input id="namaProdukHpp" type="text" value="" placeholder="Contoh: SAPIRCling Jerigen 1L" oninput="sinkronNamaProduk(this.value)" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-cyan-400 px-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 outline-none" />
             </div>
             <div>
               <label for="jumlahBatch" class="block text-xs font-bold text-slate-300 mb-1.5">Hasil Produksi per Batch (Unit)</label>
-              <input id="jumlahBatch" type="number" min="1" value="50" oninput="perbaruiSemua()" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-cyan-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+              <input id="jumlahBatch" type="number" min="1" value="" placeholder="Contoh: 50" oninput="perbaruiSemua()" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-cyan-400 px-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 outline-none" />
             </div>
             <div>
               <label for="biayaBahanBaku" class="block text-xs font-bold text-slate-300 mb-1.5">Bahan Baku per Batch (Rp)</label>
-              <input id="biayaBahanBaku" type="number" min="0" value="400000" oninput="perbaruiSemua()" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-cyan-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+              <input id="biayaBahanBaku" type="number" min="0" value="" placeholder="Contoh: 400000" oninput="perbaruiSemua()" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-cyan-400 px-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 outline-none" />
             </div>
             <div>
               <label for="biayaKemasan" class="block text-xs font-bold text-slate-300 mb-1.5">Kemasan, Botol &amp; Label (Rp)</label>
-              <input id="biayaKemasan" type="number" min="0" value="250000" oninput="perbaruiSemua()" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-cyan-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+              <input id="biayaKemasan" type="number" min="0" value="" placeholder="Contoh: 250000" oninput="perbaruiSemua()" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-cyan-400 px-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 outline-none" />
             </div>
             <div>
               <label for="biayaOperasional" class="block text-xs font-bold text-slate-300 mb-1.5">Tenaga Kerja, Listrik/Gas &amp; Ongkir (Rp)</label>
-              <input id="biayaOperasional" type="number" min="0" value="100000" oninput="perbaruiSemua()" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-cyan-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+              <input id="biayaOperasional" type="number" min="0" value="" placeholder="Contoh: 100000" oninput="perbaruiSemua()" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-cyan-400 px-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 outline-none" />
             </div>
             <div>
               <label for="hargaJualUnit" class="block text-xs font-bold text-slate-300 mb-1.5">Harga Normal per Unit (Rp)</label>
-              <input id="hargaJualUnit" type="number" min="0" value="20000" oninput="sinkronHargaDiskon(this.value, null)" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-cyan-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+              <input id="hargaJualUnit" type="number" min="0" value="" placeholder="Contoh: 20000" oninput="sinkronHargaDiskon(this.value, null)" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-cyan-400 px-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 outline-none" />
             </div>
             <div>
               <label for="diskonPromo" class="block text-xs font-bold text-fuchsia-300 mb-1.5">Diskon Promo (%)</label>
-              <input id="diskonPromo" type="number" min="0" max="95" value="10" oninput="sinkronHargaDiskon(null, this.value)" class="w-full rounded-xl bg-slate-950 border border-fuchsia-500/40 focus:border-fuchsia-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+              <input id="diskonPromo" type="number" min="0" max="95" value="" placeholder="Contoh: 10" oninput="sinkronHargaDiskon(null, this.value)" class="w-full rounded-xl bg-slate-950 border border-fuchsia-500/40 focus:border-fuchsia-400 px-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 outline-none" />
             </div>
             <div>
               <label for="targetTerjual" class="block text-xs font-bold text-emerald-300 mb-1.5">Realisasi / Target Terjual per Hari (Unit)</label>
-              <input id="targetTerjual" type="number" min="0" value="25" oninput="perbaruiSemua()" class="w-full rounded-xl bg-slate-950 border border-emerald-500/40 focus:border-emerald-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+              <input id="targetTerjual" type="number" min="0" value="" placeholder="Contoh: 25" oninput="perbaruiSemua()" class="w-full rounded-xl bg-slate-950 border border-emerald-500/40 focus:border-emerald-400 px-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 outline-none" />
             </div>
             <div class="sm:col-span-2">
               <label for="hariKerjaBulanan" class="block text-xs font-bold text-cyan-300 mb-1.5">Hari Aktif Jualan per Bulan (Target Bulanan)</label>
-              <input id="hariKerjaBulanan" type="number" min="1" max="31" value="26" oninput="perbaruiSemua()" class="w-full rounded-xl bg-slate-950 border border-cyan-500/35 focus:border-cyan-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+              <input id="hariKerjaBulanan" type="number" min="1" max="31" value="" placeholder="Contoh: 26" oninput="perbaruiSemua()" class="w-full rounded-xl bg-slate-950 border border-cyan-500/35 focus:border-cyan-400 px-3.5 py-2.5 text-sm text-white placeholder:text-slate-500 outline-none" />
             </div>
           </div>
 
@@ -785,23 +791,23 @@
             <div class="grid grid-cols-2 gap-3">
               <div class="rounded-xl bg-slate-900 border border-slate-800 p-3.5">
                 <div class="text-[11px] font-semibold text-slate-400">HPP per Unit</div>
-                <div id="outHppUnit" class="font-display text-lg font-extrabold text-amber-300 mt-1">Rp 15.000</div>
-                <div id="outTotalModalBatch" class="text-[11px] text-slate-500 mt-0.5">Modal batch: Rp 750.000</div>
+                <div id="outHppUnit" class="font-display text-lg font-extrabold text-amber-300 mt-1">Rp 0</div>
+                <div id="outTotalModalBatch" class="text-[11px] text-slate-500 mt-0.5">Modal batch: Rp 0</div>
               </div>
               <div class="rounded-xl bg-slate-900 border border-slate-800 p-3.5">
                 <div class="text-[11px] font-semibold text-slate-400">Harga Promo &amp; Profit/Unit</div>
-                <div id="outHargaPromo" class="font-display text-lg font-extrabold text-fuchsia-300 mt-1">Rp 18.000</div>
-                <div id="outProfitUnit" class="text-[11px] text-emerald-300 mt-0.5">Profit: Rp 3.000 (16,7%)</div>
+                <div id="outHargaPromo" class="font-display text-lg font-extrabold text-fuchsia-300 mt-1">Rp 0</div>
+                <div id="outProfitUnit" class="text-[11px] text-emerald-300 mt-0.5">Profit: Rp 0 (0,0%)</div>
               </div>
               <div class="rounded-xl bg-slate-900 border border-slate-800 p-3.5">
                 <div class="text-[11px] font-semibold text-slate-400">Omset Target Harian</div>
-                <div id="outOmsetHarian" class="font-display text-lg font-extrabold text-white mt-1">Rp 450.000</div>
-                <div id="outProfitHarian" class="text-[11px] text-emerald-400 mt-0.5">Profit/hari: Rp 75.000</div>
+                <div id="outOmsetHarian" class="font-display text-lg font-extrabold text-white mt-1">Rp 0</div>
+                <div id="outProfitHarian" class="text-[11px] text-emerald-400 mt-0.5">Profit/hari: Rp 0</div>
               </div>
               <div class="rounded-xl bg-slate-900 border border-slate-800 p-3.5">
                 <div class="text-[11px] font-semibold text-slate-400">BEP per Batch</div>
-                <div id="outBepUnit" class="font-display text-lg font-extrabold text-cyan-300 mt-1">250 unit</div>
-                <div id="outStatusBep" class="text-[11px] text-slate-400 mt-0.5">Balik modal per batch</div>
+                <div id="outBepUnit" class="font-display text-lg font-extrabold text-cyan-300 mt-1">0 unit</div>
+                <div id="outStatusBep" class="text-[11px] text-slate-400 mt-0.5">Menunggu data</div>
               </div>
             </div>
 
@@ -810,20 +816,20 @@
               <div class="text-[11px] font-extrabold uppercase tracking-wider text-amber-200">📅 Proyeksi Target Bulanan</div>
               <div class="flex items-center justify-between text-xs">
                 <span class="text-purple-100/80">Target Terjual Bulanan</span>
-                <span id="outTargetBulananUnit" class="font-extrabold text-white">650 unit</span>
+                <span id="outTargetBulananUnit" class="font-extrabold text-white">0 unit</span>
               </div>
               <div class="flex items-center justify-between text-xs">
                 <span class="text-purple-100/80">Estimasi Omset Bulanan</span>
-                <span id="outOmsetBulanan" class="font-extrabold text-amber-300">Rp 11.700.000</span>
+                <span id="outOmsetBulanan" class="font-extrabold text-amber-300">Rp 0</span>
               </div>
               <div class="flex items-center justify-between text-xs">
                 <span class="text-purple-100/80">Estimasi Profit Bersih Bulanan</span>
-                <span id="outProfitBulanan" class="font-extrabold text-emerald-300">Rp 1.950.000</span>
+                <span id="outProfitBulanan" class="font-extrabold text-emerald-300">Rp 0</span>
               </div>
             </div>
 
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-1">
-              <p id="ringkasanProduksi" class="text-xs text-slate-300 leading-snug"></p>
+              <p id="ringkasanProduksi" class="text-xs text-slate-300 leading-snug">Isi data produksi untuk melihat proyeksi target bulanan.</p>
               <button type="button" onclick="pilihSubTabUkur('review')" class="self-start sm:self-auto inline-flex items-center justify-center gap-1.5 shrink-0 px-3.5 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-xs font-extrabold text-white transition">
                 <span>←</span><span>Review Konten</span>
               </button>
@@ -860,12 +866,14 @@
     let tahapAktif = 1;
     let tampilSemuaModul = false;
     let fokusRisetAktif = 'persona';
+    let risetSudahDipicu = false;
     let jenisPromptAiAktif = 'video';
     let modeCaptionAktif = 'katalog';
     let uploadedProductImg = null;
     let uploadedLogoMerekImg = null;
     let generatedAiBgImg = null;
     let pilarDipilihAktif = 'nib';
+    let serverApiAktif = false;
     let customGeminiApiKey = '';
     try {
       customGeminiApiKey = localStorage.getItem('gemini_api_key_umkm') || '';
@@ -887,88 +895,46 @@
 
     const PRESET_KATEGORI_UMKM = {
       'Produk Rumah Tangga & Sabun': {
-        nama: 'SAPIRCling Jerigen 1L',
-        target: 'Ibu rumah tangga, warung kelontong & usaha laundry lokal',
-        masalah: 'Noda membandel, bau amis, dan boros sabun cuci harian',
-        unggul: 'Busa melimpah, wangi segar tahan lama, lembut di tangan & hemat 1 liter',
-        batch: 50,
-        bahan: 400000,
-        kemasan: 250000,
-        operasional: 100000,
-        harga: 20000,
-        diskon: 10,
-        terjual: 25,
-        gaya: 'Kualitas Terjamin • Hemat & Praktis untuk Kebutuhan Harian',
+        placeholderNama: 'Contoh: SAPIRCling Jerigen 1L',
+        placeholderTarget: 'Contoh: Ibu rumah tangga, warung kelontong & usaha laundry lokal',
+        placeholderMasalah: 'Contoh: Noda membandel, bau amis, dan boros sabun cuci harian',
+        placeholderUnggul: 'Contoh: Busa melimpah, wangi segar tahan lama, lembut di tangan & hemat 1 liter',
+        placeholderGaya: 'Contoh: Kualitas Terjamin • Hemat & Praktis untuk Kebutuhan Harian',
       },
       'Makanan & Minuman (Kuliner)': {
-        nama: 'Keripik Pisang Lumer Cokelat 150gr',
-        target: 'Pecinta camilan, anak muda, keluarga & reseller oleh-oleh',
-        masalah: 'Camilan cepat melempem, cokelat kurang terasa & kemasan mudah sobek',
-        unggul: 'Pisang kepok pilihan renyah, cokelat premium melimpah & kemasan standing pouch ziplock',
-        batch: 60,
-        bahan: 420000,
-        kemasan: 180000,
-        operasional: 120000,
-        harga: 18000,
-        diskon: 10,
-        terjual: 30,
-        gaya: 'Renyah Lumer di Mulut • Camilan Favorit Keluarga & Oleh-Oleh',
+        placeholderNama: 'Contoh: Keripik Pisang Lumer Cokelat 150gr',
+        placeholderTarget: 'Contoh: Pecinta camilan, anak muda, keluarga & reseller oleh-oleh',
+        placeholderMasalah: 'Contoh: Camilan cepat melempem, cokelat kurang terasa & kemasan mudah sobek',
+        placeholderUnggul: 'Contoh: Pisang kepok pilihan renyah, cokelat premium melimpah & kemasan pouch ziplock',
+        placeholderGaya: 'Contoh: Renyah Lumer di Mulut • Camilan Favorit Keluarga & Oleh-Oleh',
       },
       'Fashion, Hijab & Aksesoris': {
-        nama: 'Hijab Voal Premium Laser Cut',
-        target: 'Wanita karir, mahasiswi, ibu muda & komunitas pengajian',
-        masalah: 'Bahan hijab panas, licin susah dibentuk & tepi jahitan mudah berudul',
-        unggul: 'Bahan voal ultrafine adem tegak di dahi, finishing laser cut rapi & warna elegan',
-        batch: 40,
-        bahan: 880000,
-        kemasan: 120000,
-        operasional: 160000,
-        harga: 45000,
-        diskon: 15,
-        terjual: 15,
-        gaya: 'Adem Tegak di Dahi • Tampil Anggun & Nyaman Seharian',
+        placeholderNama: 'Contoh: Hijab Voal Premium Laser Cut',
+        placeholderTarget: 'Contoh: Wanita karir, mahasiswi, ibu muda & komunitas pengajian',
+        placeholderMasalah: 'Contoh: Bahan hijab panas, licin susah dibentuk & tepi jahitan mudah berudul',
+        placeholderUnggul: 'Contoh: Bahan voal ultrafine adem tegak di dahi, finishing laser cut rapi & warna elegan',
+        placeholderGaya: 'Contoh: Adem Tegak di Dahi • Tampil Anggun & Nyaman Seharian',
       },
       'Kosmetik, Herbal & Skincare': {
-        nama: 'Sabun Herbal Daun Bidara & Madu',
-        target: 'Keluarga peduli kesehatan kulit, remaja & pengguna skincare alami',
-        masalah: 'Kulit kering, gatal ringan & khawatir bahan kimia keras pada sabun biasa',
-        unggul: 'Ekstrak daun bidara & madu murni alami, lembut melembapkan kulit & aroma menenangkan',
-        batch: 80,
-        bahan: 560000,
-        kemasan: 240000,
-        operasional: 160000,
-        harga: 22000,
-        diskon: 10,
-        terjual: 20,
-        gaya: 'Bahan Alami Pilihan • Lembut & Menyegarkan Kulit Keluarga',
+        placeholderNama: 'Contoh: Sabun Herbal Daun Bidara & Madu',
+        placeholderTarget: 'Contoh: Keluarga peduli kesehatan kulit, remaja & pengguna skincare alami',
+        placeholderMasalah: 'Contoh: Kulit kering, gatal ringan & khawatir bahan kimia keras pada sabun biasa',
+        placeholderUnggul: 'Contoh: Ekstrak daun bidara & madu murni alami, lembut melembapkan kulit & aroma menenangkan',
+        placeholderGaya: 'Contoh: Bahan Alami Pilihan • Lembut & Menyegarkan Kulit Keluarga',
       },
       'Kerajinan Tangan & Souvenir': {
-        nama: 'Tas Anyaman Pandan Etnik Custom',
-        target: 'Panitia acara/seminar, pembeli kado unik & pecinta produk handmade',
-        masalah: 'Souvenir pasaran membosankan, kurang awet & sulit pesan nama custom',
-        unggul: 'Anyaman pengrajin lokal rapi, kuat menopang beban & gratis label nama acara',
-        batch: 30,
-        bahan: 600000,
-        kemasan: 90000,
-        operasional: 210000,
-        harga: 50000,
-        diskon: 10,
-        terjual: 10,
-        gaya: 'Karya Pengrajin Lokal • Bisa Custom Nama untuk Acara Spesial',
+        placeholderNama: 'Contoh: Tas Anyaman Pandan Etnik Custom',
+        placeholderTarget: 'Contoh: Panitia acara/seminar, pembeli kado unik & pecinta produk handmade',
+        placeholderMasalah: 'Contoh: Souvenir pasaran membosankan, kurang awet & sulit pesan nama custom',
+        placeholderUnggul: 'Contoh: Anyaman pengrajin lokal rapi, kuat menopang beban & gratis label nama acara',
+        placeholderGaya: 'Contoh: Karya Pengrajin Lokal • Bisa Custom Nama untuk Acara Spesial',
       },
       'Jasa & Layanan Lokal': {
-        nama: 'Paket Cuci Kiloan Express Setrika Uap 5 Kg',
-        target: 'Karyawan, keluarga sibuk, anak kos & warga sekitar kecamatan',
-        masalah: 'Pakaian menumpuk saat musim hujan, bau apek & hasil setrika kurang rapi',
-        unggul: 'Selesai 1 hari, setrika uap licin rapi, parfum tahan lama & gratis antar-jemput lokal',
-        batch: 40,
-        bahan: 240000,
-        kemasan: 80000,
-        operasional: 280000,
-        harga: 25000,
-        diskon: 10,
-        terjual: 18,
-        gaya: 'Selesai Cepat & Wangi Rapi • Gratis Antar Jemput Sekitar',
+        placeholderNama: 'Contoh: Paket Cuci Kiloan Express Setrika Uap 5 Kg',
+        placeholderTarget: 'Contoh: Karyawan, keluarga sibuk, anak kos & warga sekitar kecamatan',
+        placeholderMasalah: 'Contoh: Pakaian menumpuk saat musim hujan, bau apek & hasil setrika kurang rapi',
+        placeholderUnggul: 'Contoh: Selesai 1 hari, setrika uap licin rapi, parfum tahan lama & gratis antar-jemput lokal',
+        placeholderGaya: 'Contoh: Selesai Cepat & Wangi Rapi • Gratis Antar Jemput Sekitar',
       },
     };
 
@@ -1045,6 +1011,10 @@
     function salinTeksById(elementId, label = 'Teks') {
       const box = document.getElementById(elementId);
       if (!box) return;
+      if (!box.value.trim()) {
+        tampilkanNotif(`${label} masih kosong.`);
+        return;
+      }
       box.select();
       box.setSelectionRange(0, 99999);
       try {
@@ -1225,8 +1195,8 @@
 
         if (btn) {
           btn.className = idx === nomor
-            ? `step-btn rounded-2xl border p-4 text-left transition-all duration-200 ${activeStyles[idx]}`
-            : 'step-btn rounded-2xl border p-4 text-left transition-all duration-200 bg-slate-950/80 border-slate-800 hover:border-slate-600';
+            ? `step-btn flex flex-col justify-between h-full rounded-2xl border p-4 text-left transition-all duration-200 ${activeStyles[idx]}`
+            : 'step-btn flex flex-col justify-between h-full rounded-2xl border p-4 text-left transition-all duration-200 bg-slate-950/80 border-slate-800 hover:border-slate-600';
         }
         if (badge) badge.classList.toggle('hidden', idx !== nomor);
         if (panel) {
@@ -1252,41 +1222,22 @@
       pilihTahap(tahapAktif);
     }
 
-    function terapkanPresetKategori(nilai, tampilkanPesan = true) {
+    function terapkanPlaceholderKategori(nilai) {
       const preset = PRESET_KATEGORI_UMKM[nilai];
       if (!preset) return;
 
       ['globalNamaProduk', 'risetNamaProduk', 'namaProdukHpp'].forEach((id) => {
         const el = document.getElementById(id);
-        if (el) el.value = preset.nama;
+        if (el) el.placeholder = preset.placeholderNama;
       });
       const targetEl = document.getElementById('globalTargetPasar');
-      if (targetEl) targetEl.value = preset.target;
+      if (targetEl) targetEl.placeholder = preset.placeholderTarget;
       const masalahEl = document.getElementById('risetMasalahPelanggan');
-      if (masalahEl) masalahEl.value = preset.masalah;
+      if (masalahEl) masalahEl.placeholder = preset.placeholderMasalah;
       const unggulEl = document.getElementById('risetKeunggulanProduk');
-      if (unggulEl) unggulEl.value = preset.unggul;
-
-      document.getElementById('jumlahBatch').value = preset.batch;
-      document.getElementById('biayaBahanBaku').value = preset.bahan;
-      document.getElementById('biayaKemasan').value = preset.kemasan;
-      document.getElementById('biayaOperasional').value = preset.operasional;
-      ['jualHargaNormal', 'hargaJualUnit'].forEach((id) => {
-        const el = document.getElementById(id);
-        if (el) el.value = preset.harga;
-      });
-      ['jualDiskonPromo', 'diskonPromo'].forEach((id) => {
-        const el = document.getElementById(id);
-        if (el) el.value = preset.diskon;
-      });
-      document.getElementById('targetTerjual').value = preset.terjual;
+      if (unggulEl) unggulEl.placeholder = preset.placeholderUnggul;
       const arahanEl = document.getElementById('arahanTambahan');
-      if (arahanEl) arahanEl.value = preset.gaya;
-
-      perbaruiSemua();
-      if (tampilkanPesan) {
-        tampilkanNotif(`Contoh kategori "${nilai}" dimuat (${preset.nama})!`);
-      }
+      if (arahanEl) arahanEl.placeholder = preset.placeholderGaya;
     }
 
     function sinkronKategoriProduk(nilai) {
@@ -1294,7 +1245,9 @@
         const el = document.getElementById(id);
         if (el && el.value !== nilai) el.value = nilai;
       });
-      terapkanPresetKategori(nilai, true);
+      terapkanPlaceholderKategori(nilai);
+      perbaruiSemua();
+      tampilkanNotif(`Placeholder contoh disesuaikan untuk kategori "${nilai}".`);
     }
 
     function sinkronNamaProduk(nilai) {
@@ -1321,9 +1274,10 @@
       perbaruiSemua();
     }
 
-    // 3. Tahap 01: Riset Pasar
+    // 3. Tahap 01: Riset Pasar (Kosong sebelum salah satu dari 3 tombol diklik)
     function setFokusRiset(mode) {
       fokusRisetAktif = mode;
+      risetSudahDipicu = true;
       const styles = {
         persona: ['btnRisetPersona', 'bg-amber-500 text-slate-950 font-extrabold'],
         keyword: ['btnRisetKeyword', 'bg-fuchsia-500 text-white font-extrabold'],
@@ -1348,6 +1302,11 @@
       const labelEl = document.getElementById('labelOutputRiset');
       const box = document.getElementById('outputRisetBox');
       if (!box) return;
+
+      if (!risetSudahDipicu) {
+        box.value = '';
+        return;
+      }
 
       if (fokusRisetAktif === 'persona') {
         if (labelEl) labelEl.textContent = '👥 Hasil Pemetaan Buyer Persona UMKM';
@@ -1775,7 +1734,7 @@ Yuk order ${d.namaProduk} sekarang juga!`;
       } catch (e) {}
       perbaruiBadgeApiKey();
       tutupModalApiKey();
-      tampilkanNotif(val ? 'Gemini API Key berhasil disimpan!' : 'Menggunakan mode API server otomatis.');
+      tampilkanNotif(val ? 'Gemini API Key aktif & ditandai hijau!' : 'API Key lokal dikosongkan.');
     }
 
     function hapusGeminiApiKey() {
@@ -1790,15 +1749,79 @@ Yuk order ${d.namaProduk} sekarang juga!`;
     }
 
     function perbaruiBadgeApiKey() {
+      const isAktif = Boolean(customGeminiApiKey) || serverApiAktif;
       const badge = document.getElementById('badgeStatusApi');
-      if (!badge) return;
-      if (customGeminiApiKey) {
-        badge.textContent = '🔑 API Key Lokal Aktif';
-        badge.className = 'rounded-full bg-emerald-500/25 border border-emerald-400/50 px-2.5 py-0.5 text-[10px] font-extrabold text-emerald-200 transition';
-      } else {
-        badge.textContent = '🔑 Gemini API Siap';
-        badge.className = 'rounded-full bg-emerald-500/20 border border-emerald-400/40 px-2.5 py-0.5 text-[10px] font-extrabold text-emerald-300 hover:bg-emerald-500/30 transition';
+      const dot = document.getElementById('dotStatusApi');
+      const txt = document.getElementById('textStatusApi');
+
+      const btn2 = document.getElementById('btnApiKeyTahap2');
+      const dot2 = document.getElementById('dotBtnApiTahap2');
+      const lbl2 = document.getElementById('labelBtnApiTahap2');
+
+      const badge2 = document.getElementById('badgeKoneksiApiTahap2');
+      const dotK2 = document.getElementById('dotKoneksiApiTahap2');
+      const txtK2 = document.getElementById('textKoneksiApiTahap2');
+
+      const labelStatus = customGeminiApiKey
+        ? 'API Key Aktif'
+        : (serverApiAktif ? 'API Server Aktif' : 'API Key');
+
+      if (badge) {
+        badge.className = isAktif
+          ? 'inline-flex items-center gap-1.5 rounded-full bg-emerald-500/20 border border-emerald-400 px-2.5 py-1 text-[10px] font-extrabold text-emerald-200 shadow-sm shadow-emerald-500/20 transition'
+          : 'inline-flex items-center gap-1.5 rounded-full bg-slate-800 border border-slate-700 px-2.5 py-1 text-[10px] font-extrabold text-slate-300 hover:border-emerald-400/50 transition';
       }
+      if (dot) {
+        dot.className = isAktif
+          ? 'h-2 w-2 rounded-full bg-emerald-400 animate-pulse'
+          : 'h-2 w-2 rounded-full bg-slate-500';
+      }
+      if (txt) txt.textContent = labelStatus;
+
+      if (btn2) {
+        btn2.className = isAktif
+          ? 'inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-emerald-950/80 hover:bg-emerald-900/80 text-xs font-extrabold text-emerald-200 border border-emerald-400 shadow-sm shadow-emerald-500/20 transition'
+          : 'inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-xs font-bold text-slate-200 border border-slate-700 transition';
+      }
+      if (dot2) {
+        dot2.className = isAktif
+          ? 'h-2 w-2 rounded-full bg-emerald-400 animate-pulse'
+          : 'h-2 w-2 rounded-full bg-slate-500';
+      }
+      if (lbl2) lbl2.textContent = labelStatus;
+
+      if (badge2) {
+        badge2.className = isAktif
+          ? 'inline-flex items-center gap-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/60 px-2.5 py-0.5 text-[10px] font-extrabold text-emerald-200'
+          : 'inline-flex items-center gap-1.5 rounded-full bg-slate-900 border border-slate-700 px-2.5 py-0.5 text-[10px] font-bold text-slate-300';
+      }
+      if (dotK2) {
+        dotK2.className = isAktif
+          ? 'h-2 w-2 rounded-full bg-emerald-400 animate-pulse'
+          : 'h-2 w-2 rounded-full bg-slate-500';
+      }
+      if (txtK2) {
+        txtK2.textContent = isAktif ? '● Gemini API Aktif' : 'API Key Belum Aktif';
+      }
+    }
+
+    async function cekKoneksiServerApi() {
+      try {
+        const res = await fetch('/api/gemini', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: '', mode: 'text' })
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.status === 400 && data?.error) {
+          serverApiAktif = true;
+        } else {
+          serverApiAktif = false;
+        }
+      } catch (e) {
+        serverApiAktif = false;
+      }
+      perbaruiBadgeApiKey();
     }
 
     async function fetchDenganRetry(url, options, maksPercobaan = 3) {
@@ -1845,6 +1868,8 @@ Yuk order ${d.namaProduk} sekarang juga!`;
               })
             });
             if (resBackendImg.ok) {
+              serverApiAktif = true;
+              perbaruiBadgeApiKey();
               const dataBackendImg = await resBackendImg.json();
               if (dataBackendImg.imageUrl) {
                 imageDataUrl = dataBackendImg.imageUrl;
@@ -1900,6 +1925,8 @@ Yuk order ${d.namaProduk} sekarang juga!`;
               body: JSON.stringify({ prompt: promptKirim, mode: 'text' })
             });
             if (resBackend.ok) {
+              serverApiAktif = true;
+              perbaruiBadgeApiKey();
               const dataBackend = await resBackend.json();
               hasilTeks = dataBackend.text || dataBackend.result || dataBackend.output || '';
             }
@@ -1927,10 +1954,8 @@ Yuk order ${d.namaProduk} sekarang juga!`;
 
           if (!hasilTeks) throw new Error('Respon teks kosong dari Gemini AI.');
 
-          const wadah = document.getElementById('wadahHasilGemini');
           const outBox = document.getElementById('hasilOutputGeminiBox');
           if (outBox) outBox.value = hasilTeks.trim();
-          wadah?.classList.remove('hidden');
           tampilkanNotif(
             jenisPromptAiAktif === 'lirik'
               ? 'Lirik lagu jingle berhasil dibuat oleh Gemini AI!'
@@ -2111,7 +2136,7 @@ Silakan langsung klik Beli Sekarang atau chat admin untuk pembelian grosir/resel
       const closingRate = chatMasuk > 0 ? (pembeli / chatMasuk) * 100 : 0;
       const konversiTotal = views > 0 ? (pembeli / views) * 100 : 0;
 
-      document.getElementById('funnelValViews').textContent = `${formatAngka(views)} (100%)`;
+      document.getElementById('funnelValViews').textContent = `${formatAngka(views)} (${views > 0 ? '100%' : '0%'})`;
       document.getElementById('funnelValInteraksi').textContent = `${formatAngka(interaksi)} (${engagementRate.toFixed(1)}%)`;
       document.getElementById('funnelValChat').textContent = `${formatAngka(chatMasuk)} (${chatRate.toFixed(1)}%)`;
       document.getElementById('funnelValBeli').textContent = `${formatAngka(pembeli)} (${konversiTotal.toFixed(2)}%)`;
@@ -2130,7 +2155,7 @@ Silakan langsung klik Beli Sekarang atau chat admin untuk pembelian grosir/resel
       const diag = document.getElementById('teksDiagnosisKonten');
       if (!diag || !badge) return;
 
-      if (views === 0) {
+      if (views === 0 && interaksi === 0 && chatMasuk === 0 && pembeli === 0) {
         badge.textContent = 'Menunggu Data';
         badge.className = 'rounded-full bg-slate-800 border border-slate-700 px-3 py-0.5 text-[11px] font-extrabold text-slate-300';
         diag.textContent = 'Masukkan jumlah Tayangan (Views), Interaksi, Chat Masuk WA, dan Pembeli untuk melihat analisis otomatis.';
@@ -2242,8 +2267,16 @@ Silakan langsung klik Beli Sekarang atau chat admin untuk pembelian grosir/resel
     }
 
     function isiContohProduksi() {
-      const katAktif = document.getElementById('globalKategoriProduk')?.value || 'Produk Rumah Tangga & Sabun';
-      terapkanPresetKategori(katAktif, true);
+      sinkronNamaProduk('SAPIRCling Jerigen 1L');
+      document.getElementById('jumlahBatch').value = 50;
+      document.getElementById('biayaBahanBaku').value = 400000;
+      document.getElementById('biayaKemasan').value = 250000;
+      document.getElementById('biayaOperasional').value = 100000;
+      sinkronHargaDiskon(20000, 10);
+      document.getElementById('targetTerjual').value = 25;
+      document.getElementById('hariKerjaBulanan').value = 26;
+      perbaruiSemua();
+      tampilkanNotif('Contoh hitungan SAPIRCling Jerigen 1L dimuat!');
     }
 
     function perbaruiSemua() {
@@ -2257,7 +2290,12 @@ Silakan langsung klik Beli Sekarang atau chat admin untuk pembelian grosir/resel
     }
 
     window.onload = function () {
+      const hasilBox = document.getElementById('hasilOutputGeminiBox');
+      if (hasilBox) hasilBox.value = '';
+      const risetBox = document.getElementById('outputRisetBox');
+      if (risetBox) risetBox.value = '';
       perbaruiBadgeApiKey();
+      cekKoneksiServerApi();
       pilihTahap(1);
       pilihSubTabUkur('review');
       pilihKanalJualanAktif('katalog');
