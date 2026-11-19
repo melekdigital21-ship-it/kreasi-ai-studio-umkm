@@ -267,12 +267,12 @@
           <div>
             <label for="risetKategoriProduk" class="block text-xs font-bold text-amber-300 mb-1.5">Kategori Produk UMKM</label>
             <select id="risetKategoriProduk" onchange="sinkronKategoriProduk(this.value)" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 px-3.5 py-2.5 text-sm font-semibold text-white outline-none">
-              <option value="Produk Rumah Tangga & Sabun">🧼 Produk Rumah Tangga &amp; Sabun</option>
-              <option value="Makanan & Minuman (Kuliner)">🍱 Makanan &amp; Minuman (Kuliner)</option>
-              <option value="Fashion, Hijab & Aksesoris">👗 Fashion, Hijab &amp; Aksesoris</option>
-              <option value="Kosmetik, Herbal & Skincare">✨ Kosmetik, Herbal &amp; Skincare</option>
-              <option value="Kerajinan Tangan & Souvenir">🧶 Kerajinan Tangan &amp; Souvenir</option>
-              <option value="Jasa & Layanan Lokal">🛠️ Jasa &amp; Layanan Lokal</option>
+              <option value="Produk Rumah Tangga & Sabun">🧼 Kategori: Produk Rumah Tangga &amp; Sabun</option>
+              <option value="Makanan & Minuman (Kuliner)">🍱 Kategori: Makanan &amp; Minuman (Kuliner)</option>
+              <option value="Fashion, Hijab & Aksesoris">👗 Kategori: Fashion, Hijab &amp; Aksesoris</option>
+              <option value="Kosmetik, Herbal & Skincare">✨ Kategori: Kosmetik, Herbal &amp; Skincare</option>
+              <option value="Kerajinan Tangan & Souvenir">🧶 Kategori: Kerajinan Tangan &amp; Souvenir</option>
+              <option value="Jasa & Layanan Lokal">🛠️ Kategori: Jasa &amp; Layanan Lokal</option>
             </select>
           </div>
           <div>
@@ -330,8 +330,8 @@
           <h3 class="font-display text-xl sm:text-2xl font-extrabold text-white mt-0.5">🎨 Studio Poster Produk &amp; Generator Prompt AI</h3>
         </div>
         <div class="flex flex-wrap items-center gap-2">
-          <button type="button" onclick="fokusKePembuatPrompt()" class="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-fuchsia-600 to-indigo-600 hover:from-amber-400 hover:to-indigo-500 text-xs font-extrabold text-white shadow-lg border border-fuchsia-400/40 transition">
-            <span>✨</span><span>Buat Prompt AI</span>
+          <button type="button" onclick="bukaAiGeminiDenganPrompt('video')" class="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-fuchsia-600 to-indigo-600 hover:from-amber-400 hover:to-indigo-500 text-xs font-extrabold text-white shadow-lg border border-fuchsia-400/40 transition">
+            <span>✨</span><span>AI Gemini</span>
           </button>
           <button type="button" onclick="pilihTahap(3)" class="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-gradient-to-r from-fuchsia-600 to-emerald-600 hover:from-fuchsia-500 hover:to-emerald-500 text-xs font-extrabold text-white shadow-lg transition">
             <span>Lanjut ke Tahap Berikutnya</span><span>→</span>
@@ -1543,7 +1543,6 @@ Kalimat Tagline Siap Pakai:
       ctx.font = '900 50px Montserrat, sans-serif';
       ctx.fillText(d.namaProduk.toUpperCase().slice(0, 22), 64, 152);
 
-      // Lencana Nomor Legalitas di Poster
       const lencana = ambilDaftarLencanaAktif();
       if (lencana.length > 0) {
         ctx.fillStyle = '#10b981';
@@ -1585,7 +1584,6 @@ Kalimat Tagline Siap Pakai:
         ctx.textAlign = 'left';
       }
 
-      // Kartu Harga Promo & Tagline di Bawah Poster
       ctx.fillStyle = 'rgba(15, 23, 42, 0.82)';
       ctx.beginPath();
       ctx.roundRect(56, 865, 968, 155, 28);
@@ -1631,13 +1629,19 @@ Kalimat Tagline Siap Pakai:
       tampilkanNotif('Promo berhasil diterapkan ke pratinjau poster!');
     }
 
-    function fokusKePembuatPrompt() {
+    function bukaAiGeminiDenganPrompt(jenis = 'video') {
+      pilihJenisPromptAi(jenis);
       buatPromptAiOtomatis();
-      const panel = document.getElementById('panelPembuatPrompt');
       const box = document.getElementById('outputPromptAiBox');
-      panel?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      box?.focus();
-      tampilkanNotif('Pembuat Prompt AI siap digunakan!');
+      if (box) {
+        box.select();
+        box.setSelectionRange(0, 99999);
+        try {
+          document.execCommand('copy');
+        } catch (e) {}
+      }
+      window.open('https://gemini.google.com/app', '_blank', 'noopener,noreferrer');
+      tampilkanNotif('Prompt konten video disalin! Membuka AI Gemini — tekan Ctrl + V untuk menempel.');
     }
 
     function pilihJenisPromptAi(jenis) {
@@ -1767,7 +1771,6 @@ Kalimat Tagline Siap Pakai:
         if (jenisPromptAiAktif === 'poster') {
           let imageDataUrl = '';
 
-          // 1. Panggil backend server (/api/gemini) di Railway terlebih dahulu
           try {
             const resBackendImg = await fetch('/api/gemini', {
               method: 'POST',
@@ -1787,9 +1790,8 @@ Kalimat Tagline Siap Pakai:
             }
           } catch (e) {}
 
-          // 2. Fallback langsung ke Gemini Image API jika dijalankan lokal di VS Code
           if (!imageDataUrl) {
-            const urlGambar = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image:generateContent?key=${apiKey}`;
+            const urlGambar = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent?key=${apiKey}`;
             const payloadImg = {
               contents: [{
                 role: 'user',
@@ -1822,7 +1824,6 @@ Kalimat Tagline Siap Pakai:
           };
           img.src = imageDataUrl;
         } else {
-          // 1. Panggil endpoint backend server (/api/gemini) yang memakai GEMINI_API_KEY di Railway
           let hasilTeks = '';
           try {
             const resBackend = await fetch('/api/gemini', {
@@ -1836,7 +1837,6 @@ Kalimat Tagline Siap Pakai:
             }
           } catch (e) {}
 
-          // 2. Fallback langsung ke Gemini API jika dijalankan secara lokal di VS Code
           if (!hasilTeks) {
             const urlTeks = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
             const payloadTeks = {
