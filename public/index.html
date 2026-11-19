@@ -56,7 +56,12 @@
 
         <!-- Ringkasan Cepat Produk Aktif -->
         <div class="rounded-2xl bg-slate-950/75 border border-white/15 p-4 sm:min-w-[295px] space-y-2.5">
-          <div class="text-[11px] font-extrabold uppercase tracking-wider text-amber-300">📌 Profil Produk Aktif</div>
+          <div class="flex items-center justify-between gap-2">
+            <span class="text-[11px] font-extrabold uppercase tracking-wider text-amber-300">📌 Profil Produk Aktif</span>
+            <button type="button" onclick="bukaModalApiKey()" id="badgeStatusApi" class="rounded-full bg-emerald-500/20 border border-emerald-400/40 px-2.5 py-0.5 text-[10px] font-extrabold text-emerald-300 hover:bg-emerald-500/30 transition">
+              🔑 Gemini API Siap
+            </button>
+          </div>
           <select id="globalKategoriProduk" onchange="sinkronKategoriProduk(this.value)" aria-label="Kategori Produk UMKM" class="w-full rounded-xl bg-slate-900 border border-slate-700 focus:border-fuchsia-400 px-3 py-2 text-xs font-bold text-amber-200 outline-none">
             <option value="Produk Rumah Tangga & Sabun">🧼 Kategori: Produk Rumah Tangga &amp; Sabun</option>
             <option value="Makanan & Minuman (Kuliner)">🍱 Kategori: Makanan &amp; Minuman (Kuliner)</option>
@@ -137,9 +142,9 @@
               🔢 Masukkan Nomor Legalitas Produk (Jika Sudah Memiliki):
             </label>
             <div class="flex flex-col sm:flex-row gap-2">
-              <input id="inputNomorLegalitas" type="text" oninput="simpanNomorLegalitasAktif(this.value)" placeholder="Contoh: 1209230045678" class="flex-1 rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 px-3.5 py-2 text-xs font-bold text-white outline-none" />
-              <button type="button" onclick="aktifkanDenganDataLegalitas()" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-extrabold transition">
-                💾 Simpan &amp; Tampilkan di Poster
+              <input id="inputNomorLegalitas" type="text" oninput="simpanNomorLegalitasAktif(this.value)" placeholder="Contoh: 1209230045678" class="flex-1 rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 px-3.5 py-2.5 text-xs font-bold text-white outline-none" />
+              <button type="button" onclick="aktifkanDenganDataLegalitas()" class="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-extrabold transition shadow-sm shrink-0">
+                <span>💾</span><span>Simpan &amp; Tampilkan di Poster</span>
               </button>
             </div>
           </div>
@@ -152,19 +157,19 @@
               <input id="inputLogoMerek" type="file" accept="image/*" class="block w-full text-xs text-slate-300 file:mr-3 file:py-2 file:px-3.5 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-amber-500 file:text-slate-950 hover:file:bg-amber-400 cursor-pointer" />
               <div id="previewLogoMerekBox" class="hidden shrink-0 flex items-center gap-2 rounded-xl bg-slate-950 border border-slate-700 px-2.5 py-1.5">
                 <img id="previewLogoMerekImg" src="" alt="Preview Logo Merek" class="h-8 w-8 rounded object-contain bg-white p-0.5" />
-                <button type="button" onclick="hapusLogoMerek()" class="text-[11px] font-bold text-rose-400 hover:text-rose-300">Hapus</button>
+                <button type="button" onclick="hapusLogoMerek()" class="inline-flex items-center justify-center px-2 py-1 rounded-lg bg-rose-500/15 hover:bg-rose-500/25 text-[11px] font-bold text-rose-300 transition">Hapus</button>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-1">
           <div class="flex flex-wrap items-center gap-2">
-            <button type="button" id="btnToggleStatusPilar" onclick="toggleStatusPilarAktif()" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-xs font-extrabold text-white transition">
+            <button type="button" id="btnToggleStatusPilar" onclick="toggleStatusPilarAktif()" class="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-xs font-extrabold text-white transition shadow-sm">
               ✅ Tandai Sudah Punya (Tampilkan di Poster &amp; Copywriting)
             </button>
-            <a id="linkPortalPilar" href="https://oss.go.id" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-fuchsia-600 text-xs font-bold text-slate-100 border border-slate-700 transition">
-              🌐 Buka Portal Resmi →
+            <a id="linkPortalPilar" href="https://oss.go.id" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-fuchsia-600 text-xs font-bold text-slate-100 border border-slate-700 transition">
+              <span>🌐</span><span>Buka Portal Resmi →</span>
             </a>
           </div>
           <span id="ringkasanLencanaAktif" class="text-[11px] text-amber-200 font-semibold"></span>
@@ -181,53 +186,61 @@
             Rumus Pondasi Digital Marketing: Riset • Bikin Konten • Jual • Ukur
           </h2>
         </div>
-        <button type="button" id="btnToggleSemuaModul" onclick="toggleModeSemuaModul()" class="self-start sm:self-auto px-4 py-2 rounded-xl bg-slate-800 hover:bg-fuchsia-600 text-xs font-bold text-slate-100 border border-slate-700 transition">
+        <button type="button" id="btnToggleSemuaModul" onclick="toggleModeSemuaModul()" class="self-start sm:self-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-fuchsia-600 text-xs font-bold text-slate-100 border border-slate-700 transition shrink-0">
           👁️ Tampilkan Semua Modul Sekaligus
         </button>
       </div>
 
       <!-- 4 Tombol Langkah Berurutan -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-        <button type="button" id="tabBtn-1" onclick="pilihTahap(1)" class="step-btn rounded-2xl border p-4 text-left transition-all duration-200 bg-gradient-to-br from-amber-500/20 to-fuchsia-600/20 border-amber-400 shadow-lg">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-black uppercase tracking-wider text-amber-300">01. RISET</span>
-            <span id="badgeTab-1" class="rounded-full bg-amber-400 text-slate-950 px-2 py-0.5 text-[10px] font-extrabold">AKTIF</span>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 items-stretch">
+        <button type="button" id="tabBtn-1" onclick="pilihTahap(1)" class="step-btn flex flex-col justify-between h-full rounded-2xl border p-4 text-left transition-all duration-200 bg-gradient-to-br from-amber-500/20 to-fuchsia-600/20 border-amber-400 shadow-lg">
+          <div>
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-xs font-black uppercase tracking-wider text-amber-300">01. RISET</span>
+              <span id="badgeTab-1" class="rounded-full bg-amber-400 text-slate-950 px-2.5 py-0.5 text-[10px] font-extrabold">AKTIF</span>
+            </div>
+            <div class="font-display text-sm font-extrabold text-white mt-1.5">Kenali Pembeli &amp; USP</div>
           </div>
-          <div class="font-display text-sm font-extrabold text-white mt-1.5">Kenali Pembeli &amp; USP</div>
-          <p class="text-[11px] text-slate-300 mt-1 leading-relaxed">
+          <p class="text-[11px] text-slate-300 mt-1.5 leading-relaxed">
             Petakan kebutuhan calon pembeli, kata kunci pencarian, dan keunggulan unik sebelum promosi.
           </p>
         </button>
 
-        <button type="button" id="tabBtn-2" onclick="pilihTahap(2)" class="step-btn rounded-2xl border p-4 text-left transition-all duration-200 bg-slate-950/80 border-slate-800 hover:border-fuchsia-400/60">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-black uppercase tracking-wider text-fuchsia-300">02. BIKIN KONTEN</span>
-            <span id="badgeTab-2" class="hidden rounded-full bg-fuchsia-400 text-slate-950 px-2 py-0.5 text-[10px] font-extrabold">AKTIF</span>
+        <button type="button" id="tabBtn-2" onclick="pilihTahap(2)" class="step-btn flex flex-col justify-between h-full rounded-2xl border p-4 text-left transition-all duration-200 bg-slate-950/80 border-slate-800 hover:border-fuchsia-400/60">
+          <div>
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-xs font-black uppercase tracking-wider text-fuchsia-300">02. BIKIN KONTEN</span>
+              <span id="badgeTab-2" class="hidden rounded-full bg-fuchsia-400 text-slate-950 px-2.5 py-0.5 text-[10px] font-extrabold">AKTIF</span>
+            </div>
+            <div class="font-display text-sm font-extrabold text-white mt-1.5">Studio Poster &amp; AI Gemini</div>
           </div>
-          <div class="font-display text-sm font-extrabold text-white mt-1.5">Studio Poster &amp; AI Gemini</div>
-          <p class="text-[11px] text-slate-400 mt-1 leading-relaxed">
+          <p class="text-[11px] text-slate-400 mt-1.5 leading-relaxed">
             Bersihkan latar foto produk otomatis &amp; buat materi poster visual siap unggah.
           </p>
         </button>
 
-        <button type="button" id="tabBtn-3" onclick="pilihTahap(3)" class="step-btn rounded-2xl border p-4 text-left transition-all duration-200 bg-slate-950/80 border-slate-800 hover:border-emerald-400/60">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-black uppercase tracking-wider text-emerald-300">03. JUAL</span>
-            <span id="badgeTab-3" class="hidden rounded-full bg-emerald-400 text-slate-950 px-2 py-0.5 text-[10px] font-extrabold">AKTIF</span>
+        <button type="button" id="tabBtn-3" onclick="pilihTahap(3)" class="step-btn flex flex-col justify-between h-full rounded-2xl border p-4 text-left transition-all duration-200 bg-slate-950/80 border-slate-800 hover:border-emerald-400/60">
+          <div>
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-xs font-black uppercase tracking-wider text-emerald-300">03. JUAL</span>
+              <span id="badgeTab-3" class="hidden rounded-full bg-emerald-400 text-slate-950 px-2.5 py-0.5 text-[10px] font-extrabold">AKTIF</span>
+            </div>
+            <div class="font-display text-sm font-extrabold text-white mt-1.5">Promo, Katalog &amp; Kanal</div>
           </div>
-          <div class="font-display text-sm font-extrabold text-white mt-1.5">Promo, Katalog &amp; Kanal</div>
-          <p class="text-[11px] text-slate-400 mt-1 leading-relaxed">
+          <p class="text-[11px] text-slate-400 mt-1.5 leading-relaxed">
             Atur harga promo diskon, katalog, WA Business, medsos, dan marketplace.
           </p>
         </button>
 
-        <button type="button" id="tabBtn-4" onclick="pilihTahap(4)" class="step-btn rounded-2xl border p-4 text-left transition-all duration-200 bg-slate-950/80 border-slate-800 hover:border-cyan-400/60">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-black uppercase tracking-wider text-cyan-300">04. UKUR</span>
-            <span id="badgeTab-4" class="hidden rounded-full bg-cyan-400 text-slate-950 px-2 py-0.5 text-[10px] font-extrabold">AKTIF</span>
+        <button type="button" id="tabBtn-4" onclick="pilihTahap(4)" class="step-btn flex flex-col justify-between h-full rounded-2xl border p-4 text-left transition-all duration-200 bg-slate-950/80 border-slate-800 hover:border-cyan-400/60">
+          <div>
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-xs font-black uppercase tracking-wider text-cyan-300">04. UKUR</span>
+              <span id="badgeTab-4" class="hidden rounded-full bg-cyan-400 text-slate-950 px-2.5 py-0.5 text-[10px] font-extrabold">AKTIF</span>
+            </div>
+            <div class="font-display text-sm font-extrabold text-white mt-1.5">Review Konten &amp; Kalkulator</div>
           </div>
-          <div class="font-display text-sm font-extrabold text-white mt-1.5">Review Konten &amp; Kalkulator</div>
-          <p class="text-[11px] text-slate-400 mt-1 leading-relaxed">
+          <p class="text-[11px] text-slate-400 mt-1.5 leading-relaxed">
             Ukur corong audiens (Views → Beli) serta hitung HPP, profit, BEP, dan target bulanan.
           </p>
         </button>
@@ -243,8 +256,8 @@
           <span class="text-xs font-extrabold uppercase tracking-wider text-amber-300">Tahap 01 • Fondasi Riset Pasar</span>
           <h3 class="font-display text-xl sm:text-2xl font-extrabold text-white mt-0.5">🔍 Riset Pembeli, Kata Kunci &amp; Keunggulan Unik (USP)</h3>
         </div>
-        <button type="button" onclick="pilihTahap(2)" class="self-start sm:self-auto px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-fuchsia-600 hover:from-amber-400 hover:to-fuchsia-500 text-xs font-extrabold text-white shadow-lg transition">
-          Lanjut ke Tahap Berikutnya →
+        <button type="button" onclick="pilihTahap(2)" class="self-start sm:self-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-fuchsia-600 hover:from-amber-400 hover:to-fuchsia-500 text-xs font-extrabold text-white shadow-lg transition shrink-0">
+          <span>Lanjut ke Tahap Berikutnya</span><span>→</span>
         </button>
       </div>
 
@@ -276,31 +289,31 @@
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1">
-            <button type="button" onclick="setFokusRiset('persona')" id="btnRisetPersona" class="px-3 py-2.5 rounded-xl bg-amber-500 text-slate-950 text-xs font-extrabold transition">
-              👥 Buyer Persona
+            <button type="button" onclick="setFokusRiset('persona')" id="btnRisetPersona" class="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-amber-500 text-slate-950 text-xs font-extrabold transition">
+              <span>👥</span><span>Buyer Persona</span>
             </button>
-            <button type="button" onclick="setFokusRiset('keyword')" id="btnRisetKeyword" class="px-3 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition">
-              # Kata Kunci
+            <button type="button" onclick="setFokusRiset('keyword')" id="btnRisetKeyword" class="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition">
+              <span>#</span><span>Kata Kunci</span>
             </button>
-            <button type="button" onclick="setFokusRiset('usp')" id="btnRisetUsp" class="px-3 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition">
-              💎 Tajamkan USP
+            <button type="button" onclick="setFokusRiset('usp')" id="btnRisetUsp" class="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition">
+              <span>💎</span><span>Tajamkan USP</span>
             </button>
           </div>
         </div>
 
         <!-- Output Strategi Riset Instan -->
         <div class="lg:col-span-7 rounded-2xl bg-slate-950 border border-slate-800 p-4 sm:p-5 flex flex-col justify-between space-y-3">
-          <div class="flex items-center justify-between">
+          <div class="flex flex-wrap items-center justify-between gap-2">
             <span id="labelOutputRiset" class="text-xs font-extrabold uppercase tracking-wider text-amber-300">👥 Hasil Pemetaan Buyer Persona UMKM</span>
-            <button type="button" onclick="salinTeksById('outputRisetBox', 'Strategi riset')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-xs font-bold text-slate-200 transition">
-              📋 Salin Hasil Riset
+            <button type="button" onclick="salinTeksById('outputRisetBox', 'Strategi riset')" class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-amber-500 hover:text-slate-950 text-xs font-bold text-slate-200 transition">
+              <span>📋</span><span>Salin Hasil Riset</span>
             </button>
           </div>
           <textarea id="outputRisetBox" rows="7" class="w-full rounded-xl bg-slate-900 border border-slate-800 p-3.5 text-xs sm:text-sm text-slate-100 leading-relaxed outline-none"></textarea>
-          <div class="flex items-center justify-between gap-2 pt-1">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-1">
             <span class="text-[11px] text-slate-400">Hasil riset ini otomatis memperkaya teks promosi di Tahap 03 Jual.</span>
-            <button type="button" onclick="pilihTahap(2)" class="shrink-0 px-3.5 py-2 rounded-xl bg-fuchsia-600 hover:bg-fuchsia-500 text-xs font-bold text-white transition">
-              Lanjut ke Tahap Berikutnya →
+            <button type="button" onclick="pilihTahap(2)" class="self-start sm:self-auto inline-flex items-center justify-center gap-1.5 shrink-0 px-4 py-2 rounded-xl bg-fuchsia-600 hover:bg-fuchsia-500 text-xs font-bold text-white transition">
+              <span>Lanjut ke Tahap Berikutnya</span><span>→</span>
             </button>
           </div>
         </div>
@@ -317,11 +330,11 @@
           <h3 class="font-display text-xl sm:text-2xl font-extrabold text-white mt-0.5">🎨 Studio Poster Produk &amp; Generator Prompt AI</h3>
         </div>
         <div class="flex flex-wrap items-center gap-2">
-          <button type="button" onclick="fokusKePembuatPrompt()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-fuchsia-600 to-indigo-600 hover:from-amber-400 hover:to-indigo-500 text-xs font-extrabold text-white shadow-lg border border-fuchsia-400/40 transition">
-            ✨ Buat Prompt AI
+          <button type="button" onclick="fokusKePembuatPrompt()" class="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-fuchsia-600 to-indigo-600 hover:from-amber-400 hover:to-indigo-500 text-xs font-extrabold text-white shadow-lg border border-fuchsia-400/40 transition">
+            <span>✨</span><span>Buat Prompt AI</span>
           </button>
-          <button type="button" onclick="pilihTahap(3)" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-fuchsia-600 to-emerald-600 hover:from-fuchsia-500 hover:to-emerald-500 text-xs font-extrabold text-white shadow-lg transition">
-            Lanjut ke Tahap Berikutnya →
+          <button type="button" onclick="pilihTahap(3)" class="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-gradient-to-r from-fuchsia-600 to-emerald-600 hover:from-fuchsia-500 hover:to-emerald-500 text-xs font-extrabold text-white shadow-lg transition">
+            <span>Lanjut ke Tahap Berikutnya</span><span>→</span>
           </button>
         </div>
       </div>
@@ -331,40 +344,54 @@
         <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
           <div>
             <div class="flex flex-wrap items-center gap-2">
-              <span class="text-xs font-extrabold uppercase tracking-wider text-amber-300">🪄 Fitur Pembuatan Prompt Siap Pakai</span>
-              <span class="rounded-full bg-blue-500/20 border border-blue-400/30 px-2.5 py-0.5 text-[10px] font-bold text-blue-200">Otomatis dari Profil Produk &amp; Riset</span>
+              <span class="text-xs font-extrabold uppercase tracking-wider text-amber-300">🪄 Generator Konten &amp; Poster AI Gemini</span>
+              <span class="rounded-full bg-blue-500/20 border border-blue-400/30 px-2.5 py-0.5 text-[10px] font-bold text-blue-200">Terhubung Langsung Gemini API</span>
             </div>
             <p class="text-xs text-slate-300 mt-1">
-              Pilih jenis konten yang ingin dibuat, salin isi prompt di bawah, lalu klik tombol <strong class="text-blue-200">AI Gemini (Buat Konten)</strong> di samping kanan.
+              Pilih jenis konten, lalu klik <strong class="text-blue-200">Generate dengan Gemini AI</strong> untuk membuat naskah atau gambar latar studio langsung di halaman ini.
             </p>
           </div>
 
-          <!-- Tombol Aksi Salin Prompt & AI Gemini (Buat Konten) Bersebelahan -->
+          <!-- Tombol Aksi Salin Prompt, Atur API Key & Generate AI Gemini -->
           <div class="flex flex-wrap items-center gap-2 shrink-0">
-            <button type="button" onclick="salinTeksById('outputPromptAiBox', 'Prompt AI')" class="px-3.5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-xs font-extrabold text-amber-300 border border-amber-400/40 transition">
-              📋 Salin Isi Prompt
+            <button type="button" onclick="bukaModalApiKey()" class="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-xs font-bold text-slate-200 border border-slate-700 transition">
+              <span>🔑</span><span>API Key</span>
             </button>
-            <button type="button" onclick="bukaAiGeminiKonten()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-fuchsia-600 hover:from-blue-500 hover:to-fuchsia-500 text-xs font-extrabold text-white shadow-lg border border-blue-300/40 transition">
-              ✨ AI Gemini (Buat Konten) →
+            <button type="button" onclick="salinTeksById('outputPromptAiBox', 'Prompt AI')" class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-xs font-extrabold text-amber-300 border border-amber-400/40 transition">
+              <span>📋</span><span>Salin Prompt</span>
+            </button>
+            <button type="button" id="btnGenerateGemini" onclick="jalankanGeminiAiLangsung()" class="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-fuchsia-600 hover:from-blue-500 hover:to-fuchsia-500 text-xs font-extrabold text-white shadow-lg border border-blue-300/40 transition">
+              <span>✨</span><span>Generate dengan Gemini AI</span>
             </button>
           </div>
         </div>
 
         <!-- Pilihan Preset Jenis Prompt -->
-        <div class="flex flex-wrap items-center gap-2">
-          <button type="button" id="btnJenisPrompt-video" onclick="pilihJenisPromptAi('video')" class="px-3 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-extrabold transition">
-            🎬 Video Reels / TikTok
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+          <button type="button" id="btnJenisPrompt-video" onclick="pilihJenisPromptAi('video')" class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-blue-600 text-white text-xs font-extrabold transition">
+            <span>🎬</span><span>Naskah Video Reels / TikTok</span>
           </button>
-          <button type="button" id="btnJenisPrompt-poster" onclick="pilihJenisPromptAi('poster')" class="px-3 py-1.5 rounded-lg bg-slate-900/90 hover:bg-slate-800 text-slate-300 text-xs font-bold border border-slate-700 transition">
-            🖼️ Desain Poster &amp; Foto Produk
+          <button type="button" id="btnJenisPrompt-poster" onclick="pilihJenisPromptAi('poster')" class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-300 text-xs font-bold border border-slate-700 transition">
+            <span>🖼️</span><span>Gambar Poster AI (Kanvas)</span>
           </button>
-          <button type="button" id="btnJenisPrompt-jualan" onclick="pilihJenisPromptAi('jualan')" class="px-3 py-1.5 rounded-lg bg-slate-900/90 hover:bg-slate-800 text-slate-300 text-xs font-bold border border-slate-700 transition">
-            ✍️ Naskah Jualan &amp; Promo
+          <button type="button" id="btnJenisPrompt-jualan" onclick="pilihJenisPromptAi('jualan')" class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-300 text-xs font-bold border border-slate-700 transition">
+            <span>✍️</span><span>Naskah Jualan &amp; Promo</span>
           </button>
         </div>
 
         <!-- Kotak Isi Prompt Siap Salin -->
-        <textarea id="outputPromptAiBox" rows="5" class="w-full rounded-xl bg-slate-950/95 border border-blue-400/30 focus:border-amber-400 p-3.5 text-xs sm:text-sm text-blue-50 leading-relaxed outline-none"></textarea>
+        <textarea id="outputPromptAiBox" rows="4" class="w-full rounded-xl bg-slate-950/95 border border-blue-400/30 focus:border-amber-400 p-3.5 text-xs sm:text-sm text-blue-50 leading-relaxed outline-none"></textarea>
+
+        <!-- Hasil Output Langsung dari Gemini API -->
+        <div id="wadahHasilGemini" class="hidden rounded-xl bg-slate-950 border border-emerald-400/40 p-3.5 space-y-2">
+          <div class="flex items-center justify-between gap-2">
+            <span class="text-xs font-extrabold text-emerald-300">🤖 Hasil Generate Gemini AI:</span>
+            <button type="button" onclick="salinTeksById('hasilOutputGeminiBox', 'Hasil Gemini AI')" class="inline-flex items-center gap-1 px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-[11px] font-extrabold text-white transition">
+              <span>📋</span><span>Salin Hasil AI</span>
+            </button>
+          </div>
+          <textarea id="hasilOutputGeminiBox" rows="6" class="w-full rounded-xl bg-slate-900 border border-slate-800 p-3 text-xs sm:text-sm text-slate-100 leading-relaxed outline-none"></textarea>
+        </div>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
@@ -375,12 +402,12 @@
           </div>
 
           <div class="p-4 rounded-2xl bg-slate-950 border border-dashed border-slate-700 space-y-2.5">
-            <div class="flex items-center justify-between gap-2">
+            <div class="flex flex-wrap items-center justify-between gap-2">
               <label for="fotoProdukInput" class="block text-xs font-extrabold text-fuchsia-300">
                 📷 Upload Foto Produk Asli (Latar Polos Otomatis Dihapus)
               </label>
-              <button type="button" onclick="gunakanSampelProdukDemo()" class="text-[11px] font-bold text-amber-300 hover:text-amber-200 underline">
-                Coba Sampel Botol
+              <button type="button" onclick="gunakanSampelProdukDemo()" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 border border-amber-400/30 text-[11px] font-bold text-amber-300 transition">
+                <span>🧴</span><span>Coba Sampel Botol</span>
               </button>
             </div>
             <input id="fotoProdukInput" type="file" accept="image/*" class="block w-full text-xs text-slate-300 file:mr-3 file:py-2 file:px-3.5 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-fuchsia-600 file:text-white hover:file:bg-fuchsia-500 cursor-pointer" />
@@ -391,24 +418,24 @@
 
           <!-- Generator Struktur Konten (Hook + 3 Poin + 1 Ajakan) -->
           <div class="p-4 rounded-2xl bg-slate-950 border border-fuchsia-500/25 space-y-2.5">
-            <div class="flex items-center justify-between gap-2">
+            <div class="flex flex-wrap items-center justify-between gap-2">
               <span class="text-xs font-extrabold text-amber-300">🧩 Struktur Konten (Hook + 3 Poin + 1 Ajakan)</span>
-              <button type="button" onclick="salinTeksById('strukturKontenBox', 'Struktur konten')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-fuchsia-600 text-[11px] font-bold text-slate-200 transition">
-                📋 Salin
+              <button type="button" onclick="salinTeksById('strukturKontenBox', 'Struktur konten')" class="inline-flex items-center justify-center gap-1 px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-fuchsia-600 text-[11px] font-bold text-slate-200 transition">
+                <span>📋</span><span>Salin Struktur</span>
               </button>
             </div>
             <textarea id="strukturKontenBox" rows="5" class="w-full rounded-xl bg-slate-900 border border-slate-800 p-3 text-xs text-slate-100 leading-relaxed outline-none"></textarea>
           </div>
         </div>
 
-        <div class="lg:col-span-6 flex flex-col items-center justify-center rounded-2xl bg-slate-950 border border-slate-800 p-4 space-y-3">
+        <div class="lg:col-span-6 flex flex-col items-center justify-center rounded-2xl bg-slate-950 border border-slate-800 p-4 space-y-3.5">
           <canvas id="posterCanvas" width="1080" height="1080" class="w-full max-w-[350px] aspect-square rounded-xl border border-slate-800 bg-slate-900 shadow-xl"></canvas>
-          <div class="flex flex-wrap items-center justify-center gap-2">
-            <button type="button" onclick="renderPreviewPoster()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-white border border-slate-700 transition">
-              🔄 Perbarui Pratinjau
+          <div class="grid grid-cols-2 gap-2.5 w-full max-w-[350px]">
+            <button type="button" onclick="renderPreviewPoster()" class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-white border border-slate-700 transition">
+              <span>🔄</span><span>Perbarui Pratinjau</span>
             </button>
-            <button type="button" onclick="unduhPosterPng()" class="px-4 py-2 rounded-xl bg-fuchsia-600 hover:bg-fuchsia-500 text-xs font-bold text-white transition">
-              ⬇️ Unduh Poster PNG
+            <button type="button" onclick="unduhPosterPng()" class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-fuchsia-600 hover:bg-fuchsia-500 text-xs font-extrabold text-white shadow-md transition">
+              <span>⬇️</span><span>Unduh Poster PNG</span>
             </button>
           </div>
         </div>
@@ -424,38 +451,57 @@
           <span class="text-xs font-extrabold uppercase tracking-wider text-emerald-400">Tahap 03 • Eksekusi Penawaran &amp; Kanal Penjualan</span>
           <h3 class="font-display text-xl sm:text-2xl font-extrabold text-white mt-0.5">💬 Atur Diskon Promo, Katalog, WA Business, Medsos &amp; Marketplace</h3>
         </div>
-        <button type="button" onclick="pilihTahap(4)" class="self-start sm:self-auto px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-xs font-extrabold text-white shadow-lg transition">
-          Lanjut ke Tahap Berikutnya →
+        <button type="button" onclick="pilihTahap(4)" class="self-start sm:self-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-xs font-extrabold text-white shadow-lg transition shrink-0">
+          <span>Lanjut ke Tahap Berikutnya</span><span>→</span>
         </button>
       </div>
 
       <!-- 4 Tombol Kanal Penjualan & Etalase Utama -->
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
-        <button type="button" id="btnKanal-katalog" onclick="pilihKanalJualanAktif('katalog')" class="rounded-2xl border border-purple-400 bg-purple-950/75 p-3.5 text-left transition shadow-md">
-          <div class="text-lg">📖</div>
-          <div class="text-xs font-extrabold text-purple-200 mt-1">Bikin Katalog</div>
-          <div class="text-[11px] text-purple-100/75">Etalase Harga &amp; Paket</div>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 items-stretch">
+        <button type="button" id="btnKanal-katalog" onclick="pilihKanalJualanAktif('katalog')" class="flex flex-col justify-between h-full rounded-2xl border border-purple-400 bg-purple-950/75 p-3.5 text-left transition shadow-md">
+          <div>
+            <div class="text-lg">📖</div>
+            <div class="text-xs font-extrabold text-purple-200 mt-1">Bikin Katalog</div>
+          </div>
+          <div class="text-[11px] text-purple-100/75 mt-1">Etalase Harga &amp; Paket</div>
         </button>
-        <button type="button" id="btnKanal-wa" onclick="pilihKanalJualanAktif('wa')" class="rounded-2xl border border-slate-800 bg-slate-950/85 hover:border-emerald-400/60 p-3.5 text-left transition">
-          <div class="text-lg">💬</div>
-          <div class="text-xs font-extrabold text-emerald-300 mt-1">WA Business</div>
-          <div class="text-[11px] text-slate-400">Link Chat &amp; Auto-Reply</div>
+        <button type="button" id="btnKanal-wa" onclick="pilihKanalJualanAktif('wa')" class="flex flex-col justify-between h-full rounded-2xl border border-slate-800 bg-slate-950/85 hover:border-emerald-400/60 p-3.5 text-left transition">
+          <div>
+            <div class="text-lg">💬</div>
+            <div class="text-xs font-extrabold text-emerald-300 mt-1">WA Business</div>
+          </div>
+          <div class="text-[11px] text-slate-400 mt-1">Link Chat &amp; Auto-Reply</div>
         </button>
-        <button type="button" id="btnKanal-medsos" onclick="pilihKanalJualanAktif('medsos')" class="rounded-2xl border border-slate-800 bg-slate-950/85 hover:border-fuchsia-400/60 p-3.5 text-left transition">
-          <div class="text-lg">📱</div>
-          <div class="text-xs font-extrabold text-fuchsia-300 mt-1">Media Sosial</div>
-          <div class="text-[11px] text-slate-400">IG, TikTok &amp; Facebook</div>
+        <button type="button" id="btnKanal-medsos" onclick="pilihKanalJualanAktif('medsos')" class="flex flex-col justify-between h-full rounded-2xl border border-slate-800 bg-slate-950/85 hover:border-fuchsia-400/60 p-3.5 text-left transition">
+          <div>
+            <div class="text-lg">📱</div>
+            <div class="text-xs font-extrabold text-fuchsia-300 mt-1">Media Sosial</div>
+          </div>
+          <div class="text-[11px] text-slate-400 mt-1">IG, TikTok &amp; Facebook</div>
         </button>
-        <button type="button" id="btnKanal-marketplace" onclick="pilihKanalJualanAktif('marketplace')" class="rounded-2xl border border-slate-800 bg-slate-950/85 hover:border-amber-400/60 p-3.5 text-left transition">
-          <div class="text-lg">🛒</div>
-          <div class="text-xs font-extrabold text-amber-300 mt-1">Marketplace</div>
-          <div class="text-[11px] text-slate-400">Shopee, Tokopedia &amp; TikTok Shop</div>
+        <button type="button" id="btnKanal-marketplace" onclick="pilihKanalJualanAktif('marketplace')" class="flex flex-col justify-between h-full rounded-2xl border border-slate-800 bg-slate-950/85 hover:border-amber-400/60 p-3.5 text-left transition">
+          <div>
+            <div class="text-lg">🛒</div>
+            <div class="text-xs font-extrabold text-amber-300 mt-1">Marketplace</div>
+          </div>
+          <div class="text-[11px] text-slate-400 mt-1">Shopee, Tokopedia &amp; TikTok Shop</div>
         </button>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
-        <!-- Pengaturan Harga Promo & Kanal -->
+        <!-- Pengaturan Harga Promo, Toko & WA Business -->
         <div class="lg:col-span-5 space-y-3.5">
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label for="jualNamaToko" class="block text-xs font-bold text-slate-300 mb-1.5">Nama Toko / Brand</label>
+              <input id="jualNamaToko" type="text" value="Toko Berkah UMKM" oninput="buatCaptionOtomatis()" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-emerald-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+            </div>
+            <div>
+              <label for="jualNomorWa" class="block text-xs font-bold text-emerald-300 mb-1.5">Nomor WA Business</label>
+              <input id="jualNomorWa" type="text" value="081234567890" oninput="buatCaptionOtomatis()" placeholder="0812..." class="w-full rounded-xl bg-slate-950 border border-emerald-500/40 focus:border-emerald-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+            </div>
+          </div>
+
           <div class="grid grid-cols-2 gap-3">
             <div>
               <label for="jualHargaNormal" class="block text-xs font-bold text-slate-300 mb-1.5">Harga Normal (Rp)</label>
@@ -467,47 +513,35 @@
             </div>
           </div>
 
-          <!-- Nomor WA & Link Toko untuk WA Business / Katalog -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <div>
-              <label for="jualNomorWa" class="block text-xs font-bold text-emerald-300 mb-1.5">Nomor WA Business</label>
-              <input id="jualNomorWa" type="text" value="6281234567890" oninput="buatCaptionOtomatis()" placeholder="62812..." class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-emerald-400 px-3.5 py-2 text-xs font-bold text-white outline-none" />
-            </div>
-            <div>
-              <label for="jualNamaToko" class="block text-xs font-bold text-purple-300 mb-1.5">Nama Toko / Katalog</label>
-              <input id="jualNamaToko" type="text" value="Toko Berkah UMKM" oninput="buatCaptionOtomatis()" placeholder="Nama Toko..." class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-purple-400 px-3.5 py-2 text-xs font-bold text-white outline-none" />
-            </div>
-          </div>
-
-          <div class="rounded-2xl bg-slate-950 border border-emerald-500/30 p-3.5 flex items-center justify-between gap-2">
+          <div class="rounded-2xl bg-slate-950 border border-emerald-500/30 p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
               <div class="text-[11px] font-semibold text-slate-400">Harga Promo Tampil ke Pembeli</div>
               <div id="jualHargaAkhirText" class="font-display text-xl font-extrabold text-amber-300 mt-0.5">Rp 18.000</div>
             </div>
-            <div class="flex flex-wrap gap-2">
-              <button type="button" onclick="kirimPromoKePoster()" class="px-3 py-2 rounded-xl bg-fuchsia-600 hover:bg-fuchsia-500 text-xs font-bold text-white transition">
-                🖼️ Ke Poster
+            <div class="grid grid-cols-2 sm:flex items-center gap-2">
+              <button type="button" onclick="kirimPromoKePoster()" class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-fuchsia-600 hover:bg-fuchsia-500 text-xs font-bold text-white transition">
+                <span>🖼️</span><span>Ke Poster</span>
               </button>
-              <a id="btnBukaLinkWaLangsung" href="https://wa.me/6281234567890" target="_blank" rel="noopener noreferrer" class="px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-xs font-bold text-white transition">
-                💬 Tes Link WA
+              <a id="btnBukaLinkWaLangsung" href="https://wa.me/6281234567890" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-xs font-bold text-white transition">
+                <span>💬</span><span>Tes Link WA</span>
               </a>
             </div>
           </div>
 
           <div>
             <span class="block text-xs font-bold text-slate-300 mb-1.5">Pilih Format Naskah Jualan</span>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-              <button type="button" onclick="pilihKanalJualanAktif('katalog')" id="btnModeKatalog" class="px-2.5 py-2 rounded-xl bg-purple-600 text-white text-xs font-extrabold transition">
-                📖 Katalog
+            <div class="grid grid-cols-2 gap-2">
+              <button type="button" onclick="pilihKanalJualanAktif('katalog')" id="btnModeKatalog" class="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-purple-600 text-white text-xs font-extrabold transition">
+                <span>📖</span><span>Katalog</span>
               </button>
-              <button type="button" onclick="pilihKanalJualanAktif('wa')" id="btnModeWa" class="px-2.5 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white text-xs font-bold transition">
-                💬 WA Business
+              <button type="button" onclick="pilihKanalJualanAktif('wa')" id="btnModeWa" class="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-slate-800 text-slate-300 hover:text-white text-xs font-bold transition">
+                <span>💬</span><span>WA Business</span>
               </button>
-              <button type="button" onclick="pilihKanalJualanAktif('medsos')" id="btnModeSosmed" class="px-2.5 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white text-xs font-bold transition">
-                📱 Medsos
+              <button type="button" onclick="pilihKanalJualanAktif('medsos')" id="btnModeSosmed" class="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-slate-800 text-slate-300 hover:text-white text-xs font-bold transition">
+                <span>📱</span><span>Medsos</span>
               </button>
-              <button type="button" onclick="pilihKanalJualanAktif('marketplace')" id="btnModeMarketplace" class="px-2.5 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white text-xs font-bold transition">
-                🛒 Marketplace
+              <button type="button" onclick="pilihKanalJualanAktif('marketplace')" id="btnModeMarketplace" class="inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-slate-800 text-slate-300 hover:text-white text-xs font-bold transition">
+                <span>🛒</span><span>Marketplace</span>
               </button>
             </div>
           </div>
@@ -515,17 +549,17 @@
 
         <!-- Output Copywriting & Katalog Siap Salin -->
         <div class="lg:col-span-7 rounded-2xl bg-slate-950 border border-slate-800 p-4 sm:p-5 space-y-3">
-          <div class="flex items-center justify-between gap-2">
+          <div class="flex flex-wrap items-center justify-between gap-2">
             <span id="judulNaskahJualan" class="text-xs font-extrabold uppercase tracking-wider text-purple-300">📖 Etalase Katalog Produk &amp; Paket Hemat</span>
-            <button type="button" onclick="salinTeksById('hasilCaptionBox', 'Materi jualan & katalog')" class="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-xs font-extrabold text-white transition">
-              📋 Salin Teks
+            <button type="button" onclick="salinTeksById('hasilCaptionBox', 'Materi jualan & katalog')" class="inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-xs font-extrabold text-white transition">
+              <span>📋</span><span>Salin Teks</span>
             </button>
           </div>
           <textarea id="hasilCaptionBox" rows="8" class="w-full rounded-xl bg-slate-900 border border-slate-800 p-3.5 text-xs sm:text-sm text-slate-100 leading-relaxed outline-none"></textarea>
-          <div class="flex items-center justify-between gap-2 pt-1">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-1">
             <span class="text-[11px] text-slate-400">Ukur performa konten &amp; kesehatan profit di Tahap 04 Ukur.</span>
-            <button type="button" onclick="pilihTahap(4)" class="shrink-0 px-3.5 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-xs font-bold text-white transition">
-              Lanjut ke Tahap Berikutnya →
+            <button type="button" onclick="pilihTahap(4)" class="self-start sm:self-auto inline-flex items-center justify-center gap-1.5 shrink-0 px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-xs font-bold text-white transition">
+              <span>Lanjut ke Tahap Berikutnya</span><span>→</span>
             </button>
           </div>
         </div>
@@ -541,18 +575,18 @@
           <span class="text-xs font-extrabold uppercase tracking-wider text-cyan-300">Tahap 04 • Evaluasi Performa Konten &amp; Finansial Produksi</span>
           <h3 class="font-display text-xl sm:text-2xl font-extrabold text-white mt-0.5">📊 Ukur Corong Audiens (Views → Beli) &amp; Kalkulator Produksi</h3>
         </div>
-        <button type="button" onclick="pilihTahap(1)" class="self-start sm:self-auto px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-600 to-amber-500 hover:from-cyan-500 hover:to-amber-400 text-xs font-extrabold text-white shadow-lg transition">
-          🔄 Ulang Siklus ke Tahap 01 Riset
+        <button type="button" onclick="pilihTahap(1)" class="self-start sm:self-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-600 to-amber-500 hover:from-cyan-500 hover:to-amber-400 text-xs font-extrabold text-white shadow-lg transition shrink-0">
+          <span>🔄</span><span>Ulang Siklus ke Tahap 01 Riset</span>
         </button>
       </div>
 
       <!-- Navigasi 2 Submenu Tahap 04 Ukur -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-slate-950/90 p-2 rounded-2xl border border-slate-800">
-        <button type="button" id="subTabUkur-review" onclick="pilihSubTabUkur('review')" class="px-4 py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-fuchsia-600 text-white text-xs sm:text-sm font-extrabold text-left sm:text-center shadow-md transition">
-          📊 Review Konten &amp; Corong Audiens (Views → Beli)
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-slate-950/90 p-2 rounded-2xl border border-slate-800 items-stretch">
+        <button type="button" id="subTabUkur-review" onclick="pilihSubTabUkur('review')" class="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-fuchsia-600 text-white text-xs sm:text-sm font-extrabold text-center shadow-md transition">
+          <span>📊</span><span>Review Konten &amp; Corong Audiens (Views → Beli)</span>
         </button>
-        <button type="button" id="subTabUkur-kalkulator" onclick="pilihSubTabUkur('kalkulator')" class="px-4 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white text-xs sm:text-sm font-bold text-left sm:text-center border border-slate-800 transition">
-          🧮 Kalkulator Produksi (HPP, Omset, Profit, BEP &amp; Target Bulanan)
+        <button type="button" id="subTabUkur-kalkulator" onclick="pilihSubTabUkur('kalkulator')" class="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white text-xs sm:text-sm font-bold text-center border border-slate-800 transition">
+          <span>🧮</span><span>Kalkulator Produksi (HPP, Omset, Profit &amp; Target)</span>
         </button>
       </div>
 
@@ -561,10 +595,10 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <!-- Input 4 Metrik Corong Audiens -->
           <div class="lg:col-span-5 space-y-4">
-            <div class="flex items-center justify-between">
+            <div class="flex flex-wrap items-center justify-between gap-2">
               <span class="text-xs font-extrabold uppercase tracking-wider text-cyan-300">Input Data Performa Konten</span>
-              <button type="button" onclick="isiContohReviewKonten()" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-cyan-600 text-[11px] font-bold text-slate-200 border border-slate-700 transition">
-                ⚡ Contoh Data Konten
+              <button type="button" onclick="isiContohReviewKonten()" class="inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-cyan-600 text-[11px] font-bold text-slate-200 border border-slate-700 transition">
+                <span>⚡</span><span>Contoh Data Konten</span>
               </button>
             </div>
 
@@ -587,8 +621,8 @@
               </div>
             </div>
 
-            <button type="button" onclick="sinkronPembeliKeKalkulator()" class="w-full px-4 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-xs font-extrabold text-white shadow-lg transition">
-              Gunakan Jumlah Pembeli ke Kalkulator Profit →
+            <button type="button" onclick="sinkronPembeliKeKalkulator()" class="w-full inline-flex items-center justify-center gap-1.5 px-4 py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-xs font-extrabold text-white shadow-lg transition">
+              <span>Gunakan Jumlah Pembeli ke Kalkulator Profit</span><span>→</span>
             </button>
           </div>
 
@@ -683,8 +717,8 @@
           <p class="text-xs text-slate-300">
             Hitung biaya produksi per batch hingga proyeksi profit bersih bulanan berdasarkan realisasi pembeli.
           </p>
-          <button type="button" onclick="isiContohProduksi()" class="self-start sm:self-auto px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-fuchsia-600 text-xs font-bold text-slate-100 border border-slate-700 transition">
-            ⚡ Isi Contoh Hitungan
+          <button type="button" onclick="isiContohProduksi()" class="self-start sm:self-auto inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-fuchsia-600 text-xs font-bold text-slate-100 border border-slate-700 transition shrink-0">
+            <span>⚡</span><span>Isi Contoh Hitungan</span>
           </button>
         </div>
 
@@ -771,10 +805,10 @@
               </div>
             </div>
 
-            <div class="flex items-center justify-between gap-2 pt-1">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pt-1">
               <p id="ringkasanProduksi" class="text-xs text-slate-300 leading-snug"></p>
-              <button type="button" onclick="pilihSubTabUkur('review')" class="shrink-0 px-3.5 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-xs font-extrabold text-white transition">
-                ← Review Konten
+              <button type="button" onclick="pilihSubTabUkur('review')" class="self-start sm:self-auto inline-flex items-center justify-center gap-1.5 shrink-0 px-3.5 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-xs font-extrabold text-white transition">
+                <span>←</span><span>Review Konten</span>
               </button>
             </div>
           </div>
@@ -787,6 +821,24 @@
     </footer>
   </div>
 
+  <!-- Modal Pengaturan API Key Gemini (Untuk Pemakaian di VS Code / Localhost) -->
+  <div id="modalApiKey" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
+    <div class="w-full max-w-md rounded-3xl bg-slate-900 border border-fuchsia-500/40 p-5 sm:p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between">
+        <h4 class="font-display text-base font-extrabold text-white">🔑 Pengaturan Gemini API Key</h4>
+        <button type="button" onclick="tutupModalApiKey()" class="rounded-lg bg-slate-800 px-2.5 py-1 text-xs font-bold text-slate-300 hover:text-white">✕</button>
+      </div>
+      <p class="text-xs text-slate-300 leading-relaxed">
+        Jika dijalankan langsung di <strong class="text-amber-300">VS Code / Browser Lokal</strong>, masukkan Gemini API Key gratis Anda dari <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer" class="text-fuchsia-300 underline font-bold">Google AI Studio</a>. (Di Railway, biarkan kosong karena memakai <code>GEMINI_API_KEY</code> dari server).
+      </p>
+      <input id="inputGeminiApiKey" type="password" placeholder="Tempel AIzaSy... di sini" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-fuchsia-400 px-3.5 py-2.5 text-xs font-mono text-white outline-none" />
+      <div class="flex items-center justify-end gap-2">
+        <button type="button" onclick="hapusGeminiApiKey()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-rose-600/80 text-xs font-bold text-slate-200 transition">Hapus Key</button>
+        <button type="button" onclick="simpanGeminiApiKey()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-fuchsia-600 to-indigo-600 hover:from-fuchsia-500 hover:to-indigo-500 text-xs font-extrabold text-white transition">Simpan &amp; Hubungkan</button>
+      </div>
+    </div>
+  </div>
+
   <script>
     let tahapAktif = 1;
     let tampilSemuaModul = false;
@@ -795,7 +847,12 @@
     let modeCaptionAktif = 'katalog';
     let uploadedProductImg = null;
     let uploadedLogoMerekImg = null;
+    let generatedAiBgImg = null;
     let pilarDipilihAktif = 'nib';
+    let customGeminiApiKey = '';
+    try {
+      customGeminiApiKey = localStorage.getItem('gemini_api_key_umkm') || '';
+    } catch (e) {}
 
     const STATUS_LEGALITAS_UMKM = {
       nib: false,
@@ -1259,8 +1316,8 @@
         const btn = document.getElementById(styles[k][0]);
         if (!btn) return;
         btn.className = k === mode
-          ? `px-3 py-2.5 rounded-xl ${styles[k][1]} text-xs transition`
-          : 'px-3 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition';
+          ? `inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl ${styles[k][1]} text-xs transition`
+          : 'inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold transition';
       });
       buatStrategiRiset();
     }
@@ -1421,6 +1478,13 @@ Kalimat Tagline Siap Pakai:
     });
 
     function gambarLatarStudioBersih(ctx) {
+      if (generatedAiBgImg) {
+        ctx.drawImage(generatedAiBgImg, 0, 0, 1080, 1080);
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.28)';
+        ctx.fillRect(0, 0, 1080, 1080);
+        return;
+      }
+
       const grad = ctx.createLinearGradient(0, 0, 1080, 1080);
       grad.addColorStop(0, '#1e1b4b');
       grad.addColorStop(0.55, '#581c87');
@@ -1512,18 +1576,16 @@ Kalimat Tagline Siap Pakai:
         ctx.fillRect(210, 235, 660, 480);
 
         ctx.fillStyle = '#f5d0fe';
-        ctx.font = '700 26px "Plus Jakarta Sans", sans-serif';
+        ctx.font = '700 28px "Plus Jakarta Sans", sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText('Sorotan Poster Produk:', 540, 445);
-        ctx.fillStyle = '#ffffff';
-        ctx.font = '800 28px "Plus Jakarta Sans", sans-serif';
-        ctx.fillText(gaya.slice(0, 44), 540, 495);
+        ctx.fillText('Pratinjau Poster Visual UMKM', 540, 455);
         ctx.fillStyle = '#cbd5e1';
         ctx.font = '500 22px "Plus Jakarta Sans", sans-serif';
-        ctx.fillText('(Unggah foto produk atau klik "Coba Sampel Botol")', 540, 545);
+        ctx.fillText('Unggah foto produk atau klik "Coba Sampel Botol"', 540, 505);
         ctx.textAlign = 'left';
       }
 
+      // Kartu Harga Promo & Tagline di Bawah Poster
       ctx.fillStyle = 'rgba(15, 23, 42, 0.82)';
       ctx.beginPath();
       ctx.roundRect(56, 865, 968, 155, 28);
@@ -1541,11 +1603,8 @@ Kalimat Tagline Siap Pakai:
       }
 
       ctx.fillStyle = '#e9d5ff';
-      ctx.font = '600 23px "Plus Jakarta Sans", sans-serif';
-      const subText = d.diskon > 0
-        ? `Harga Normal ${formatRupiah(d.hargaNormal)} • ${gaya.split('—')[0].trim()}`
-        : gaya.slice(0, 62);
-      ctx.fillText(subText.slice(0, 64), 88, 985);
+      ctx.font = '600 24px "Plus Jakarta Sans", sans-serif';
+      ctx.fillText(gaya.slice(0, 62), 88, 985);
     }
 
     function unduhPosterPng() {
@@ -1560,12 +1619,13 @@ Kalimat Tagline Siap Pakai:
 
     function kirimPromoKePoster() {
       const d = ambilDataKalkulator();
-      const gaya = document.getElementById('arahanTambahan').value.trim() || 'Kualitas Terjamin • Hemat & Praktis';
-      const bagianDasar = gaya.split('—')[0].trim();
+      const taglineSaatIni = document.getElementById('arahanTambahan')?.value.trim() || 'Kualitas Terjamin • Hemat & Praktis';
+      const bagianDasar = taglineSaatIni.split('—')[0].trim();
       const infoHarga = d.diskon > 0
         ? `Promo Diskon ${d.diskon}% jadi ${formatRupiah(d.hargaPromo)}`
         : `Harga ${formatRupiah(d.hargaPromo)}`;
-      document.getElementById('arahanTambahan').value = `${bagianDasar} — ${d.namaProduk} ${infoHarga}`;
+      const inputArahan = document.getElementById('arahanTambahan');
+      if (inputArahan) inputArahan.value = `${bagianDasar} — ${d.namaProduk} ${infoHarga}`;
       renderPreviewPoster();
       pilihTahap(2);
       tampilkanNotif('Promo berhasil diterapkan ke pratinjau poster!');
@@ -1575,91 +1635,245 @@ Kalimat Tagline Siap Pakai:
       buatPromptAiOtomatis();
       const panel = document.getElementById('panelPembuatPrompt');
       const box = document.getElementById('outputPromptAiBox');
-      if (panel) {
-        panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        panel.classList.add('ring-2', 'ring-amber-400');
-        setTimeout(() => panel.classList.remove('ring-2', 'ring-amber-400'), 1800);
-      }
-      if (box) box.focus();
-      tampilkanNotif('Panel pembuat prompt siap! Silakan salin isi prompt & klik AI Gemini (Buat Konten).');
+      panel?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      box?.focus();
+      tampilkanNotif('Pembuat Prompt AI siap digunakan!');
     }
 
     function pilihJenisPromptAi(jenis) {
       jenisPromptAiAktif = jenis;
+      const mapBtn = {
+        video: 'btnJenisPrompt-video',
+        poster: 'btnJenisPrompt-poster',
+        jualan: 'btnJenisPrompt-jualan',
+      };
       ['video', 'poster', 'jualan'].forEach((k) => {
-        const btn = document.getElementById(`btnJenisPrompt-${k}`);
+        const btn = document.getElementById(mapBtn[k]);
         if (!btn) return;
         btn.className = k === jenis
-          ? 'px-3 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-extrabold transition'
-          : 'px-3 py-1.5 rounded-lg bg-slate-900/90 hover:bg-slate-800 text-slate-300 text-xs font-bold border border-slate-700 transition';
+          ? 'inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-blue-600 text-white text-xs font-extrabold transition'
+          : 'inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-300 text-xs font-bold border border-slate-700 transition';
       });
       buatPromptAiOtomatis();
     }
 
     function buatPromptAiOtomatis() {
+      const d = ambilDataKalkulator();
+      const kategori = document.getElementById('globalKategoriProduk')?.value || 'Produk UMKM';
+      const target = document.getElementById('globalTargetPasar')?.value.trim() || 'Keluarga & pelanggan lokal';
+      const masalah = document.getElementById('risetMasalahPelanggan')?.value.trim() || 'kebutuhan harian';
+      const unggul = document.getElementById('risetKeunggulanProduk')?.value.trim() || 'kualitas terjamin & hemat';
+      const lencana = ambilDaftarLencanaAktif();
+      const infoLegal = lencana.length > 0 ? `Legalitas tercantum: ${lencana.join(', ')}.` : '';
+      const infoHarga = d.diskon > 0
+        ? `Harga normal ${formatRupiah(d.hargaNormal)} diskon ${d.diskon}% menjadi ${formatRupiah(d.hargaPromo)}.`
+        : `Harga ${formatRupiah(d.hargaPromo)}.`;
+
       const box = document.getElementById('outputPromptAiBox');
       if (!box) return;
 
-      const d = ambilDataKalkulator();
-      const kategori = document.getElementById('globalKategoriProduk')?.value || 'Produk UMKM';
-      const target = document.getElementById('globalTargetPasar')?.value.trim() || 'Pelanggan lokal';
-      const masalah = document.getElementById('risetMasalahPelanggan')?.value.trim() || 'kebutuhan harian';
-      const unggul = document.getElementById('risetKeunggulanProduk')?.value.trim() || 'Kualitas terbaik & harga hemat';
-      const tagline = document.getElementById('arahanTambahan')?.value.trim() || 'Kualitas Terjamin & Hemat';
-      const lencana = ambilDaftarLencanaAktif();
-      const infoLegal = lencana.length > 0 ? `- Legalitas Resmi: ${lencana.join(', ')}\n` : '';
-      const infoHarga = d.diskon > 0
-        ? `Promo Diskon ${d.diskon}% jadi ${formatRupiah(d.hargaPromo)} (Normal ${formatRupiah(d.hargaNormal)})`
-        : formatRupiah(d.hargaPromo);
-
       if (jenisPromptAiAktif === 'video') {
-        box.value =
-`Buatkan naskah video pendek (Reels / TikTok / YouTube Shorts) berdurasi 15-30 detik untuk promosi produk UMKM:
-- Nama Produk: ${d.namaProduk} (${kategori})
-- Target Pembeli: ${target}
-- Masalah yang Diselesaikan: ${masalah}
-- Keunggulan Utama: ${unggul}
-- Penawaran Harga: ${infoHarga}
-${infoLegal}Format wajib:
-1. Hook 3 detik pertama yang bikin orang berhenti scroll
-2. Isi konten (tunjukkan masalah + 3 keunggulan utama produk)
-3. Kalimat ajakan (CTA) mengarahkan klik link WhatsApp sekarang.`;
+        box.value = `Buatkan naskah video promosi pendek 30 detik (Reels/TikTok) untuk produk UMKM "${d.namaProduk}" (${kategori}). Target pembeli: ${target}. Masalah yang diatasi: ${masalah}. Keunggulan produk: ${unggul}. ${infoHarga} ${infoLegal} Susun dengan struktur: Hook 3 detik pertama yang menarik perhatian, 3 poin utama manfaat produk, dan 1 ajakan jelas untuk order via WhatsApp.`;
       } else if (jenisPromptAiAktif === 'poster') {
-        box.value =
-`Buatkan konsep desain visual & prompt gambar iklan produk profesional untuk katalog/poster promosi UMKM:
-- Produk Utama: ${d.namaProduk} (${kategori})
-- Target Audiens: ${target}
-- Tagline Poster: "${tagline}"
-- Keunggulan Produk: ${unggul}
-- Info Promo: ${infoHarga}
-${infoLegal}Tolong berikan:
-1. Deskripsi komposisi latar belakang studio yang bersih, pencahayaan komersial cerah, dan menonjolkan kemasan produk
-2. Susunan teks headline utama, sub-headline, dan lencana promo agar mudah dibaca di layar HP.`;
+        box.value = `Commercial studio product photography background for "${d.namaProduk}" (${kategori}), clean aesthetic table surface, warm natural lighting, soft bokeh depth of field, vibrant modern UMKM branding mood, high resolution 1:1 square composition, no text or watermark.`;
       } else {
-        box.value =
-`Buatkan 3 variasi materi copywriting jualan siap posting (WhatsApp Story, Instagram Feed, dan Marketplace) untuk produk UMKM:
-- Nama Produk: ${d.namaProduk} (${kategori})
-- Target Pembeli: ${target}
-- Masalah Pelanggan: ${masalah}
-- Solusi & Keunggulan: ${unggul}
-- Harga Penawaran: ${infoHarga}
-${infoLegal}Gunakan gaya bahasa ramah, meyakinkan, tidak kaku, dengan struktur: Hook + 3 Poin Utama + 1 Ajakan Order via WhatsApp.`;
+        box.value = `Buatkan 3 variasi copywriting jualan (untuk status WhatsApp, caption Instagram, dan deskripsi katalog) menggunakan rumus MSBA (Masalah, Solusi, Bukti, Ajakan) untuk produk "${d.namaProduk}" (${kategori}). Target pembeli: ${target}. Masalah: ${masalah}. Keunggulan: ${unggul}. ${infoHarga} ${infoLegal}`;
       }
     }
 
-    function bukaAiGeminiKonten() {
-      const box = document.getElementById('outputPromptAiBox');
-      if (box) {
-        if (!box.value.trim()) buatPromptAiOtomatis();
-        box.select();
-        box.setSelectionRange(0, 99999);
-        try {
-          document.execCommand('copy');
-        } catch (e) {}
+    function bukaModalApiKey() {
+      const modal = document.getElementById('modalApiKey');
+      const input = document.getElementById('inputGeminiApiKey');
+      if (input) input.value = customGeminiApiKey;
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+    }
+
+    function tutupModalApiKey() {
+      const modal = document.getElementById('modalApiKey');
+      if (modal) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+    }
+
+    function simpanGeminiApiKey() {
+      const val = (document.getElementById('inputGeminiApiKey')?.value || '').trim();
+      customGeminiApiKey = val;
+      try {
+        localStorage.setItem('gemini_api_key_umkm', val);
+      } catch (e) {}
+      perbaruiBadgeApiKey();
+      tutupModalApiKey();
+      tampilkanNotif(val ? 'Gemini API Key berhasil disimpan!' : 'Menggunakan mode API server otomatis.');
+    }
+
+    function hapusGeminiApiKey() {
+      customGeminiApiKey = '';
+      try {
+        localStorage.removeItem('gemini_api_key_umkm');
+      } catch (e) {}
+      const input = document.getElementById('inputGeminiApiKey');
+      if (input) input.value = '';
+      perbaruiBadgeApiKey();
+      tampilkanNotif('API Key lokal dihapus.');
+    }
+
+    function perbaruiBadgeApiKey() {
+      const badge = document.getElementById('badgeStatusApi');
+      if (!badge) return;
+      if (customGeminiApiKey) {
+        badge.textContent = '🔑 API Key Lokal Aktif';
+        badge.className = 'rounded-full bg-emerald-500/25 border border-emerald-400/50 px-2.5 py-0.5 text-[10px] font-extrabold text-emerald-200 transition';
+      } else {
+        badge.textContent = '🔑 Gemini API Siap';
+        badge.className = 'rounded-full bg-emerald-500/20 border border-emerald-400/40 px-2.5 py-0.5 text-[10px] font-extrabold text-emerald-300 hover:bg-emerald-500/30 transition';
+      }
+    }
+
+    async function fetchDenganRetry(url, options, maksPercobaan = 3) {
+      let jeda = 1000;
+      for (let i = 0; i < maksPercobaan; i++) {
+        const res = await fetch(url, options);
+        if (res.ok) return res;
+        if (res.status === 429 || res.status >= 500) {
+          await new Promise((r) => setTimeout(r, jeda));
+          jeda *= 2;
+          continue;
+        }
+        return res;
+      }
+      throw new Error('Server sibuk, silakan coba beberapa saat lagi.');
+    }
+
+    async function jalankanGeminiAiLangsung() {
+      const promptBox = document.getElementById('outputPromptAiBox');
+      if (promptBox && !promptBox.value.trim()) buatPromptAiOtomatis();
+      const promptTeks = promptBox ? promptBox.value.trim() : '';
+      if (!promptTeks) return;
+
+      const btn = document.getElementById('btnGenerateGemini');
+      const teksAsli = btn ? btn.innerHTML : '';
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span>⏳</span><span>Sedang Memproses AI...</span>';
       }
 
-      tampilkanNotif('Isi prompt otomatis disalin! Membuka AI Gemini (Buat Konten)...');
-      window.open('https://gemini.google.com/app', '_blank', 'noopener,noreferrer');
+      const apiKey = customGeminiApiKey || '';
+
+      try {
+        if (jenisPromptAiAktif === 'poster') {
+          let imageDataUrl = '';
+
+          // 1. Panggil backend server (/api/gemini) di Railway terlebih dahulu
+          try {
+            const resBackendImg = await fetch('/api/gemini', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                prompt: `Create a clean commercial studio product background without text: ${promptTeks}`,
+                mode: 'image'
+              })
+            });
+            if (resBackendImg.ok) {
+              const dataBackendImg = await resBackendImg.json();
+              if (dataBackendImg.imageUrl) {
+                imageDataUrl = dataBackendImg.imageUrl;
+              } else if (dataBackendImg.base64) {
+                imageDataUrl = `data:${dataBackendImg.mimeType || 'image/png'};base64,${dataBackendImg.base64}`;
+              }
+            }
+          } catch (e) {}
+
+          // 2. Fallback langsung ke Gemini Image API jika dijalankan lokal di VS Code
+          if (!imageDataUrl) {
+            const urlGambar = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image:generateContent?key=${apiKey}`;
+            const payloadImg = {
+              contents: [{
+                role: 'user',
+                parts: [{ text: `Create a clean commercial studio product background without text: ${promptTeks}` }]
+              }],
+              generationConfig: {
+                responseModalities: ['IMAGE'],
+                imageConfig: { aspectRatio: '1:1' }
+              }
+            };
+            const response = await fetchDenganRetry(urlGambar, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payloadImg)
+            });
+            const result = await response.json();
+            if (!response.ok) {
+              throw new Error(result?.error?.message || 'Gagal memanggil Gemini Image API.');
+            }
+            const part = result?.candidates?.[0]?.content?.parts?.find((p) => p.inlineData);
+            if (!part) throw new Error('Gambar tidak dikembalikan oleh model.');
+            imageDataUrl = `data:${part.inlineData.mimeType};base64,${part.inlineData.data}`;
+          }
+
+          const img = new Image();
+          img.onload = () => {
+            generatedAiBgImg = img;
+            renderPreviewPoster();
+            tampilkanNotif('Latar poster visual AI berhasil dibuat & diterapkan ke kanvas!');
+          };
+          img.src = imageDataUrl;
+        } else {
+          // 1. Panggil endpoint backend server (/api/gemini) yang memakai GEMINI_API_KEY di Railway
+          let hasilTeks = '';
+          try {
+            const resBackend = await fetch('/api/gemini', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ prompt: promptTeks, mode: 'text' })
+            });
+            if (resBackend.ok) {
+              const dataBackend = await resBackend.json();
+              hasilTeks = dataBackend.text || dataBackend.result || dataBackend.output || '';
+            }
+          } catch (e) {}
+
+          // 2. Fallback langsung ke Gemini API jika dijalankan secara lokal di VS Code
+          if (!hasilTeks) {
+            const urlTeks = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
+            const payloadTeks = {
+              contents: [{ parts: [{ text: promptTeks }] }],
+              systemInstruction: {
+                parts: [{ text: 'Anda adalah pakar digital marketing UMKM Indonesia. Berikan hasil naskah yang praktis, persuasif, terstruktur rapi, dan siap langsung dipakai jualan.' }]
+              }
+            };
+            const response = await fetchDenganRetry(urlTeks, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payloadTeks)
+            });
+            const result = await response.json();
+            if (!response.ok) {
+              throw new Error(result?.error?.message || 'Gagal terhubung ke server /api/gemini maupun API Key lokal.');
+            }
+            hasilTeks = result?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+          }
+
+          if (!hasilTeks) throw new Error('Respon teks kosong dari Gemini AI.');
+
+          const wadah = document.getElementById('wadahHasilGemini');
+          const outBox = document.getElementById('hasilOutputGeminiBox');
+          if (outBox) outBox.value = hasilTeks.trim();
+          wadah?.classList.remove('hidden');
+          tampilkanNotif('Konten berhasil dibuat langsung oleh Gemini AI!');
+        }
+      } catch (err) {
+        tampilkanNotif(`Info API: ${err.message}`);
+        if (!customGeminiApiKey) bukaModalApiKey();
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = teksAsli;
+        }
+      }
     }
 
     // 5. Tahap 03: Kanal Jualan (Katalog, WA Business, Medsos, Marketplace)
@@ -1691,14 +1905,14 @@ ${infoLegal}Gunakan gaya bahasa ramah, meyakinkan, tidak kaku, dengan struktur: 
         const card = document.getElementById(`btnKanal-${k}`);
         if (card) {
           card.className = k === kanal
-            ? `rounded-2xl border p-3.5 text-left transition ${cardMap[k]}`
-            : 'rounded-2xl border border-slate-800 bg-slate-950/85 hover:border-slate-600 p-3.5 text-left transition';
+            ? `flex flex-col justify-between h-full rounded-2xl border p-3.5 text-left transition ${cardMap[k]}`
+            : 'flex flex-col justify-between h-full rounded-2xl border border-slate-800 bg-slate-950/85 hover:border-slate-600 p-3.5 text-left transition';
         }
         const btn = document.getElementById(btnMap[k][0]);
         if (btn) {
           btn.className = k === kanal
-            ? `px-2.5 py-2 rounded-xl ${btnMap[k][1]} text-xs transition`
-            : 'px-2.5 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white text-xs font-bold transition';
+            ? `inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl ${btnMap[k][1]} text-xs transition`
+            : 'inline-flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl bg-slate-800 text-slate-300 hover:text-white text-xs font-bold transition';
         }
       });
 
@@ -1801,13 +2015,13 @@ Silakan langsung klik Beli Sekarang atau chat admin untuk pembelian grosir/resel
 
       if (btnReview) {
         btnReview.className = isReview
-          ? 'px-4 py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-fuchsia-600 text-white text-xs sm:text-sm font-extrabold text-left sm:text-center shadow-md transition'
-          : 'px-4 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white text-xs sm:text-sm font-bold text-left sm:text-center border border-slate-800 transition';
+          ? 'inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-fuchsia-600 text-white text-xs sm:text-sm font-extrabold text-center shadow-md transition'
+          : 'inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white text-xs sm:text-sm font-bold text-center border border-slate-800 transition';
       }
       if (btnKalk) {
         btnKalk.className = !isReview
-          ? 'px-4 py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-fuchsia-600 text-white text-xs sm:text-sm font-extrabold text-left sm:text-center shadow-md transition'
-          : 'px-4 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white text-xs sm:text-sm font-bold text-left sm:text-center border border-slate-800 transition';
+          ? 'inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-fuchsia-600 text-white text-xs sm:text-sm font-extrabold text-center shadow-md transition'
+          : 'inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white text-xs sm:text-sm font-bold text-center border border-slate-800 transition';
       }
 
       panelReview?.classList.toggle('hidden', !isReview);
@@ -1971,6 +2185,7 @@ Silakan langsung klik Beli Sekarang atau chat admin untuk pembelian grosir/resel
     }
 
     window.onload = function () {
+      perbaruiBadgeApiKey();
       pilihTahap(1);
       pilihSubTabUkur('review');
       pilihKanalJualanAktif('katalog');
