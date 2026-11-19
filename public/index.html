@@ -55,8 +55,16 @@
         </div>
 
         <!-- Ringkasan Cepat Produk Aktif -->
-        <div class="rounded-2xl bg-slate-950/75 border border-white/15 p-4 sm:min-w-[285px] space-y-2.5">
+        <div class="rounded-2xl bg-slate-950/75 border border-white/15 p-4 sm:min-w-[295px] space-y-2.5">
           <div class="text-[11px] font-extrabold uppercase tracking-wider text-amber-300">📌 Profil Produk Aktif</div>
+          <select id="globalKategoriProduk" onchange="sinkronKategoriProduk(this.value)" aria-label="Kategori Produk UMKM" class="w-full rounded-xl bg-slate-900 border border-slate-700 focus:border-fuchsia-400 px-3 py-2 text-xs font-bold text-amber-200 outline-none">
+            <option value="Produk Rumah Tangga & Sabun">🧼 Kategori: Produk Rumah Tangga &amp; Sabun</option>
+            <option value="Makanan & Minuman (Kuliner)">🍱 Kategori: Makanan &amp; Minuman (Kuliner)</option>
+            <option value="Fashion, Hijab & Aksesoris">👗 Kategori: Fashion, Hijab &amp; Aksesoris</option>
+            <option value="Kosmetik, Herbal & Skincare">✨ Kategori: Kosmetik, Herbal &amp; Skincare</option>
+            <option value="Kerajinan Tangan & Souvenir">🧶 Kategori: Kerajinan Tangan &amp; Souvenir</option>
+            <option value="Jasa & Layanan Lokal">🛠️ Kategori: Jasa &amp; Layanan Lokal</option>
+          </select>
           <input id="globalNamaProduk" type="text" value="SAPIRCling Jerigen 1L" oninput="sinkronNamaProduk(this.value)" placeholder="Nama Produk UMKM..." class="w-full rounded-xl bg-slate-900 border border-slate-700 focus:border-fuchsia-400 px-3 py-2 text-xs font-bold text-white outline-none" />
           <input id="globalTargetPasar" type="text" value="Ibu rumah tangga, warung kelontong & usaha laundry lokal" oninput="perbaruiSemua()" placeholder="Target Pembeli Utama..." class="w-full rounded-xl bg-slate-900 border border-slate-700 focus:border-fuchsia-400 px-3 py-2 text-xs text-slate-200 outline-none" />
         </div>
@@ -64,36 +72,103 @@
 
       <!-- 4 Kartu Pilar Legalitas Utama (Grid 4 Kolom) -->
       <div id="pilarSection" class="mt-6 pt-5 border-t border-white/15 grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <button type="button" onclick="tampilkanPanduanPilar('NIB (Nomor Induk Berusaha)', 'Identitas resmi usaha yang diterbitkan melalui OSS untuk mempermudah akses perizinan, pembiayaan, dan kemitraan toko/instansi.')" class="group rounded-2xl bg-slate-900/85 hover:bg-fuchsia-950/90 border border-slate-700 hover:border-fuchsia-400 p-3.5 text-left transition">
-          <div class="text-lg">📄</div>
-          <div class="text-xs font-extrabold text-white mt-1">NIB</div>
-          <div class="text-[11px] text-slate-400 group-hover:text-fuchsia-200">Identitas Usaha</div>
+        <button type="button" id="cardPilar-nib" onclick="bukaDetailPilar('nib')" class="group rounded-2xl bg-slate-900/85 hover:bg-fuchsia-950/90 border border-slate-700 hover:border-fuchsia-400 p-3.5 text-left transition">
+          <div class="flex items-center justify-between">
+            <span class="text-lg">📄</span>
+            <span id="statusBadge-nib" class="rounded-full bg-slate-800 px-2 py-0.5 text-[10px] font-bold text-slate-300">Cek Panduan</span>
+          </div>
+          <div class="text-xs font-extrabold text-white mt-1.5">NIB</div>
+          <div class="text-[11px] text-slate-400 group-hover:text-fuchsia-200">Identitas Usaha (OSS)</div>
         </button>
-        <button type="button" onclick="tampilkanPanduanPilar('P-IRT (Pangan Industri Rumah Tangga)', 'Sertifikat izin edar pangan olahan skala rumahan agar produk kemasan makin dipercaya ritel dan konsumen.')" class="group rounded-2xl bg-slate-900/85 hover:bg-fuchsia-950/90 border border-slate-700 hover:border-fuchsia-400 p-3.5 text-left transition">
-          <div class="text-lg">🌿</div>
-          <div class="text-xs font-extrabold text-white mt-1">P-IRT</div>
-          <div class="text-[11px] text-slate-400 group-hover:text-fuchsia-200">Izin Pangan</div>
+        <button type="button" id="cardPilar-pirt" onclick="bukaDetailPilar('pirt')" class="group rounded-2xl bg-slate-900/85 hover:bg-fuchsia-950/90 border border-slate-700 hover:border-fuchsia-400 p-3.5 text-left transition">
+          <div class="flex items-center justify-between">
+            <span class="text-lg">🌿</span>
+            <span id="statusBadge-pirt" class="rounded-full bg-slate-800 px-2 py-0.5 text-[10px] font-bold text-slate-300">Cek Panduan</span>
+          </div>
+          <div class="text-xs font-extrabold text-white mt-1.5">P-IRT</div>
+          <div class="text-[11px] text-slate-400 group-hover:text-fuchsia-200">Izin Edar Pangan</div>
         </button>
-        <button type="button" onclick="tampilkanPanduanPilar('Sertifikasi Halal', 'Jaminan kehalalan bahan baku dan proses produksi yang memperkuat kepercayaan pasar keluarga dan komunitas lokal.')" class="group rounded-2xl bg-slate-900/85 hover:bg-fuchsia-950/90 border border-slate-700 hover:border-fuchsia-400 p-3.5 text-left transition">
-          <div class="text-lg">☪️</div>
-          <div class="text-xs font-extrabold text-white mt-1">Halal</div>
-          <div class="text-[11px] text-slate-400 group-hover:text-fuchsia-200">Jaminan Aman</div>
+        <button type="button" id="cardPilar-halal" onclick="bukaDetailPilar('halal')" class="group rounded-2xl bg-slate-900/85 hover:bg-fuchsia-950/90 border border-slate-700 hover:border-fuchsia-400 p-3.5 text-left transition">
+          <div class="flex items-center justify-between">
+            <span class="text-lg">☪️</span>
+            <span id="statusBadge-halal" class="rounded-full bg-slate-800 px-2 py-0.5 text-[10px] font-bold text-slate-300">Cek Panduan</span>
+          </div>
+          <div class="text-xs font-extrabold text-white mt-1.5">Halal</div>
+          <div class="text-[11px] text-slate-400 group-hover:text-fuchsia-200">Sertifikasi BPJPH</div>
         </button>
-        <button type="button" onclick="tampilkanPanduanPilar('Merek Dagang (DJKI)', 'Lindungi nama produk, logo, dan identitas brand agar tidak ditiru pihak lain saat penjualan mulai ramai.')" class="group rounded-2xl bg-slate-900/85 hover:bg-fuchsia-950/90 border border-slate-700 hover:border-fuchsia-400 p-3.5 text-left transition">
-          <div class="text-lg">™️</div>
-          <div class="text-xs font-extrabold text-white mt-1">Merek</div>
-          <div class="text-[11px] text-slate-400 group-hover:text-fuchsia-200">Proteksi Brand</div>
+        <button type="button" id="cardPilar-merek" onclick="bukaDetailPilar('merek')" class="group rounded-2xl bg-slate-900/85 hover:bg-fuchsia-950/90 border border-slate-700 hover:border-fuchsia-400 p-3.5 text-left transition">
+          <div class="flex items-center justify-between">
+            <span class="text-lg">™️</span>
+            <span id="statusBadge-merek" class="rounded-full bg-slate-800 px-2 py-0.5 text-[10px] font-bold text-slate-300">Cek Panduan</span>
+          </div>
+          <div class="text-xs font-extrabold text-white mt-1.5">Merek</div>
+          <div class="text-[11px] text-slate-400 group-hover:text-fuchsia-200">Proteksi Brand DJKI</div>
         </button>
       </div>
 
-      <!-- Panel Panduan Pilar Legalitas -->
-      <div id="infoPilarBox" class="mt-4 hidden rounded-2xl bg-slate-950/85 border border-fuchsia-400/35 px-4 py-3 text-xs text-fuchsia-100 flex items-start sm:items-center justify-between gap-3">
-        <div>
-          <span id="infoPilarJudul" class="font-extrabold text-amber-300 uppercase tracking-wide"></span>
-          <span class="mx-1.5 text-slate-500">•</span>
-          <span id="infoPilarText" class="text-slate-200"></span>
+      <!-- Panel Panduan & Aksi Interaktif Pilar Legalitas -->
+      <div id="infoPilarBox" class="mt-4 hidden rounded-2xl bg-slate-950/90 border border-fuchsia-400/40 p-4 text-xs text-fuchsia-100 space-y-3 shadow-xl">
+        <div class="flex items-start justify-between gap-3">
+          <div class="space-y-1">
+            <div class="flex flex-wrap items-center gap-2">
+              <span id="infoPilarJudul" class="font-display text-sm font-extrabold text-amber-300 uppercase tracking-wide"></span>
+              <span id="infoPilarLembaga" class="rounded-full bg-fuchsia-500/20 border border-fuchsia-400/30 px-2.5 py-0.5 text-[10px] font-bold text-fuchsia-200"></span>
+            </div>
+            <p id="infoPilarText" class="text-slate-200 leading-relaxed"></p>
+          </div>
+          <button type="button" onclick="document.getElementById('infoPilarBox').classList.add('hidden')" class="shrink-0 rounded-lg bg-slate-800 px-2.5 py-1 text-slate-300 hover:text-white font-bold">✕</button>
         </div>
-        <button type="button" onclick="document.getElementById('infoPilarBox').classList.add('hidden')" class="shrink-0 rounded-lg bg-slate-800 px-2.5 py-1 text-slate-300 hover:text-white font-bold">✕</button>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 bg-slate-900/90 rounded-xl p-3 border border-slate-800">
+          <div>
+            <div class="font-extrabold text-emerald-300 mb-1">📋 Syarat Utama:</div>
+            <p id="infoPilarSyarat" class="text-[11px] text-slate-300 leading-relaxed"></p>
+          </div>
+          <div>
+            <div class="font-extrabold text-cyan-300 mb-1">🚀 Langkah Pengurusan Praktis:</div>
+            <p id="infoPilarLangkah" class="text-[11px] text-slate-300 leading-relaxed"></p>
+          </div>
+        </div>
+
+        <!-- Ruang Input Nomor Legalitas (NIB/P-IRT/Halal) & Upload Logo (Merek) -->
+        <div class="rounded-xl bg-slate-900 border border-amber-400/30 p-3.5 space-y-2.5">
+          <div id="wadahInputNomorLegalitas" class="space-y-1.5">
+            <label for="inputNomorLegalitas" id="labelInputNomorLegalitas" class="block text-xs font-extrabold text-amber-300">
+              🔢 Masukkan Nomor Legalitas Produk (Jika Sudah Memiliki):
+            </label>
+            <div class="flex flex-col sm:flex-row gap-2">
+              <input id="inputNomorLegalitas" type="text" oninput="simpanNomorLegalitasAktif(this.value)" placeholder="Contoh: 1209230045678" class="flex-1 rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 px-3.5 py-2 text-xs font-bold text-white outline-none" />
+              <button type="button" onclick="aktifkanDenganDataLegalitas()" class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-extrabold transition">
+                💾 Simpan &amp; Tampilkan di Poster
+              </button>
+            </div>
+          </div>
+
+          <div id="wadahUploadLogoMerek" class="hidden space-y-2">
+            <label for="inputLogoMerek" class="block text-xs font-extrabold text-amber-300">
+              ™️ Upload Gambar Logo Merek Produk (Otomatis Ditampilkan di Poster):
+            </label>
+            <div class="flex flex-col sm:flex-row sm:items-center gap-3">
+              <input id="inputLogoMerek" type="file" accept="image/*" class="block w-full text-xs text-slate-300 file:mr-3 file:py-2 file:px-3.5 file:rounded-lg file:border-0 file:text-xs file:font-bold file:bg-amber-500 file:text-slate-950 hover:file:bg-amber-400 cursor-pointer" />
+              <div id="previewLogoMerekBox" class="hidden shrink-0 flex items-center gap-2 rounded-xl bg-slate-950 border border-slate-700 px-2.5 py-1.5">
+                <img id="previewLogoMerekImg" src="" alt="Preview Logo Merek" class="h-8 w-8 rounded object-contain bg-white p-0.5" />
+                <button type="button" onclick="hapusLogoMerek()" class="text-[11px] font-bold text-rose-400 hover:text-rose-300">Hapus</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
+          <div class="flex flex-wrap items-center gap-2">
+            <button type="button" id="btnToggleStatusPilar" onclick="toggleStatusPilarAktif()" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-xs font-extrabold text-white transition">
+              ✅ Tandai Sudah Punya (Tampilkan di Poster &amp; Copywriting)
+            </button>
+            <a id="linkPortalPilar" href="https://oss.go.id" target="_blank" rel="noopener noreferrer" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-fuchsia-600 text-xs font-bold text-slate-100 border border-slate-700 transition">
+              🌐 Buka Portal Resmi →
+            </a>
+          </div>
+          <span id="ringkasanLencanaAktif" class="text-[11px] text-amber-200 font-semibold"></span>
+        </div>
       </div>
     </header>
 
@@ -129,9 +204,9 @@
             <span class="text-xs font-black uppercase tracking-wider text-fuchsia-300">02. BIKIN KONTEN</span>
             <span id="badgeTab-2" class="hidden rounded-full bg-fuchsia-400 text-slate-950 px-2 py-0.5 text-[10px] font-extrabold">AKTIF</span>
           </div>
-          <div class="font-display text-sm font-extrabold text-white mt-1.5">Studio Poster &amp; Visual AI</div>
+          <div class="font-display text-sm font-extrabold text-white mt-1.5">Studio Poster &amp; AI Gemini</div>
           <p class="text-[11px] text-slate-400 mt-1 leading-relaxed">
-            Bersihkan latar foto produk otomatis &amp; padukan dengan gaya studio instan siap unggah.
+            Bersihkan latar foto produk otomatis &amp; buat materi poster visual siap unggah.
           </p>
         </button>
 
@@ -140,9 +215,9 @@
             <span class="text-xs font-black uppercase tracking-wider text-emerald-300">03. JUAL</span>
             <span id="badgeTab-3" class="hidden rounded-full bg-emerald-400 text-slate-950 px-2 py-0.5 text-[10px] font-extrabold">AKTIF</span>
           </div>
-          <div class="font-display text-sm font-extrabold text-white mt-1.5">Promo &amp; Copywriting MSBA</div>
+          <div class="font-display text-sm font-extrabold text-white mt-1.5">Promo, Katalog &amp; Kanal</div>
           <p class="text-[11px] text-slate-400 mt-1 leading-relaxed">
-            Atur harga promo diskon &amp; salin naskah jualan (Hook + 3 Poin + 1 Ajakan) ke WA/medsos.
+            Atur harga promo diskon, katalog, WA Business, medsos, dan marketplace.
           </p>
         </button>
 
@@ -176,6 +251,17 @@
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
         <!-- Input Profil Riset -->
         <div class="lg:col-span-5 space-y-3.5">
+          <div>
+            <label for="risetKategoriProduk" class="block text-xs font-bold text-amber-300 mb-1.5">Kategori Produk UMKM</label>
+            <select id="risetKategoriProduk" onchange="sinkronKategoriProduk(this.value)" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 px-3.5 py-2.5 text-sm font-semibold text-white outline-none">
+              <option value="Produk Rumah Tangga & Sabun">🧼 Produk Rumah Tangga &amp; Sabun</option>
+              <option value="Makanan & Minuman (Kuliner)">🍱 Makanan &amp; Minuman (Kuliner)</option>
+              <option value="Fashion, Hijab & Aksesoris">👗 Fashion, Hijab &amp; Aksesoris</option>
+              <option value="Kosmetik, Herbal & Skincare">✨ Kosmetik, Herbal &amp; Skincare</option>
+              <option value="Kerajinan Tangan & Souvenir">🧶 Kerajinan Tangan &amp; Souvenir</option>
+              <option value="Jasa & Layanan Lokal">🛠️ Jasa &amp; Layanan Lokal</option>
+            </select>
+          </div>
           <div>
             <label for="risetNamaProduk" class="block text-xs font-bold text-slate-300 mb-1.5">Nama Produk yang Diriset</label>
             <input id="risetNamaProduk" type="text" value="SAPIRCling Jerigen 1L" oninput="sinkronNamaProduk(this.value)" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-amber-400 px-3.5 py-2.5 text-sm text-white outline-none" />
@@ -227,35 +313,65 @@
     <section id="panelTahap-2" class="modul-tahap hidden rounded-3xl bg-slate-900 border border-fuchsia-500/35 p-5 sm:p-6 shadow-xl space-y-5 transition-all">
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-800 pb-4">
         <div>
-          <span class="text-xs font-extrabold uppercase tracking-wider text-fuchsia-400">Tahap 02 • Studio Visual &amp; Pembersih Foto Produk</span>
-          <h3 class="font-display text-xl sm:text-2xl font-extrabold text-white mt-0.5">🎨 Pilih Cepat Prompt &amp; Gaya Studio Poster</h3>
+          <span class="text-xs font-extrabold uppercase tracking-wider text-fuchsia-400">Tahap 02 • Studio Visual, Pembuat Prompt &amp; Pembersih Foto Produk</span>
+          <h3 class="font-display text-xl sm:text-2xl font-extrabold text-white mt-0.5">🎨 Studio Poster Produk &amp; Generator Prompt AI</h3>
         </div>
-        <button type="button" onclick="pilihTahap(3)" class="self-start sm:self-auto px-4 py-2.5 rounded-xl bg-gradient-to-r from-fuchsia-600 to-emerald-600 hover:from-fuchsia-500 hover:to-emerald-500 text-xs font-extrabold text-white shadow-lg transition">
-          Lanjut ke Tahap Berikutnya →
-        </button>
+        <div class="flex flex-wrap items-center gap-2">
+          <button type="button" onclick="fokusKePembuatPrompt()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-fuchsia-600 to-indigo-600 hover:from-amber-400 hover:to-indigo-500 text-xs font-extrabold text-white shadow-lg border border-fuchsia-400/40 transition">
+            ✨ Buat Prompt AI
+          </button>
+          <button type="button" onclick="pilihTahap(3)" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-fuchsia-600 to-emerald-600 hover:from-fuchsia-500 hover:to-emerald-500 text-xs font-extrabold text-white shadow-lg transition">
+            Lanjut ke Tahap Berikutnya →
+          </button>
+        </div>
       </div>
 
-      <!-- 4 Tombol Pilihan Cepat Gaya Studio -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-2.5">
-        <button type="button" onclick="pilihGayaStudio('Dapur Rumah Cerah & Bersih, Natural Sunlight', 'dapur')" class="px-3.5 py-2.5 text-xs font-bold bg-slate-800 hover:bg-fuchsia-600 text-slate-100 rounded-xl border border-slate-700 transition text-left">
-          ☀️ Dapur Cerah
-        </button>
-        <button type="button" onclick="pilihGayaStudio('Studio Minimalis Modern Kayu Estetik', 'kayu')" class="px-3.5 py-2.5 text-xs font-bold bg-slate-800 hover:bg-fuchsia-600 text-slate-100 rounded-xl border border-slate-700 transition text-left">
-          🪵 Studio Kayu
-        </button>
-        <button type="button" onclick="pilihGayaStudio('Meja Marmar Mewah Pencahayaan Studio Komersial', 'marmar')" class="px-3.5 py-2.5 text-xs font-bold bg-slate-800 hover:bg-fuchsia-600 text-slate-100 rounded-xl border border-slate-700 transition text-left">
-          ✨ Marmar Mewah
-        </button>
-        <button type="button" onclick="pilihGayaStudio('Nuansa Alam Segar Daun Hijau Tropis', 'tropis')" class="px-3.5 py-2.5 text-xs font-bold bg-slate-800 hover:bg-fuchsia-600 text-slate-100 rounded-xl border border-slate-700 transition text-left">
-          🌿 Alam Tropis
-        </button>
+      <!-- Panel Fitur Pembuatan Prompt Otomatis & Tombol AI Gemini (Buat Konten) di Sisinya -->
+      <div id="panelPembuatPrompt" class="rounded-2xl bg-gradient-to-br from-blue-950/90 via-indigo-950/90 to-purple-950/90 border border-blue-400/40 p-4 sm:p-5 space-y-3.5 shadow-lg">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3">
+          <div>
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="text-xs font-extrabold uppercase tracking-wider text-amber-300">🪄 Fitur Pembuatan Prompt Siap Pakai</span>
+              <span class="rounded-full bg-blue-500/20 border border-blue-400/30 px-2.5 py-0.5 text-[10px] font-bold text-blue-200">Otomatis dari Profil Produk &amp; Riset</span>
+            </div>
+            <p class="text-xs text-slate-300 mt-1">
+              Pilih jenis konten yang ingin dibuat, salin isi prompt di bawah, lalu klik tombol <strong class="text-blue-200">AI Gemini (Buat Konten)</strong> di samping kanan.
+            </p>
+          </div>
+
+          <!-- Tombol Aksi Salin Prompt & AI Gemini (Buat Konten) Bersebelahan -->
+          <div class="flex flex-wrap items-center gap-2 shrink-0">
+            <button type="button" onclick="salinTeksById('outputPromptAiBox', 'Prompt AI')" class="px-3.5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-xs font-extrabold text-amber-300 border border-amber-400/40 transition">
+              📋 Salin Isi Prompt
+            </button>
+            <button type="button" onclick="bukaAiGeminiKonten()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-fuchsia-600 hover:from-blue-500 hover:to-fuchsia-500 text-xs font-extrabold text-white shadow-lg border border-blue-300/40 transition">
+              ✨ AI Gemini (Buat Konten) →
+            </button>
+          </div>
+        </div>
+
+        <!-- Pilihan Preset Jenis Prompt -->
+        <div class="flex flex-wrap items-center gap-2">
+          <button type="button" id="btnJenisPrompt-video" onclick="pilihJenisPromptAi('video')" class="px-3 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-extrabold transition">
+            🎬 Video Reels / TikTok
+          </button>
+          <button type="button" id="btnJenisPrompt-poster" onclick="pilihJenisPromptAi('poster')" class="px-3 py-1.5 rounded-lg bg-slate-900/90 hover:bg-slate-800 text-slate-300 text-xs font-bold border border-slate-700 transition">
+            🖼️ Desain Poster &amp; Foto Produk
+          </button>
+          <button type="button" id="btnJenisPrompt-jualan" onclick="pilihJenisPromptAi('jualan')" class="px-3 py-1.5 rounded-lg bg-slate-900/90 hover:bg-slate-800 text-slate-300 text-xs font-bold border border-slate-700 transition">
+            ✍️ Naskah Jualan &amp; Promo
+          </button>
+        </div>
+
+        <!-- Kotak Isi Prompt Siap Salin -->
+        <textarea id="outputPromptAiBox" rows="5" class="w-full rounded-xl bg-slate-950/95 border border-blue-400/30 focus:border-amber-400 p-3.5 text-xs sm:text-sm text-blue-50 leading-relaxed outline-none"></textarea>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 pt-1">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
         <div class="lg:col-span-6 space-y-3.5">
           <div>
-            <label for="arahanTambahan" class="block text-xs font-bold text-slate-300 mb-1.5">Arahan Visual / Prompt Latar Poster</label>
-            <input id="arahanTambahan" type="text" value="Dapur Rumah Cerah & Bersih, Natural Sunlight" oninput="perbaruiSemua()" class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-fuchsia-400 px-3.5 py-2.5 text-sm text-white outline-none" />
+            <label for="arahanTambahan" class="block text-xs font-bold text-slate-300 mb-1.5">Tagline / Kalimat Sorotan di Poster</label>
+            <input id="arahanTambahan" type="text" value="Kualitas Terjamin • Hemat & Praktis untuk Kebutuhan Harian" oninput="perbaruiSemua()" placeholder="Tulis kalimat promosi singkat untuk poster..." class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-fuchsia-400 px-3.5 py-2.5 text-sm text-white outline-none" />
           </div>
 
           <div class="p-4 rounded-2xl bg-slate-950 border border-dashed border-slate-700 space-y-2.5">
@@ -283,17 +399,10 @@
             </div>
             <textarea id="strukturKontenBox" rows="5" class="w-full rounded-xl bg-slate-900 border border-slate-800 p-3 text-xs text-slate-100 leading-relaxed outline-none"></textarea>
           </div>
-
-          <div class="rounded-2xl bg-fuchsia-950/30 border border-fuchsia-500/25 p-3.5 flex items-center justify-between gap-3">
-            <span class="text-xs text-fuchsia-100">Poster &amp; struktur konten siap? Lanjut atur diskon promo &amp; naskah jualan.</span>
-            <button type="button" onclick="pilihTahap(3)" class="shrink-0 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-xs font-bold text-white transition">
-              Lanjut ke Tahap Berikutnya →
-            </button>
-          </div>
         </div>
 
         <div class="lg:col-span-6 flex flex-col items-center justify-center rounded-2xl bg-slate-950 border border-slate-800 p-4 space-y-3">
-          <canvas id="posterCanvas" width="1080" height="1080" class="w-full max-w-[340px] aspect-square rounded-xl border border-slate-800 bg-slate-900 shadow-xl"></canvas>
+          <canvas id="posterCanvas" width="1080" height="1080" class="w-full max-w-[350px] aspect-square rounded-xl border border-slate-800 bg-slate-900 shadow-xl"></canvas>
           <div class="flex flex-wrap items-center justify-center gap-2">
             <button type="button" onclick="renderPreviewPoster()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-white border border-slate-700 transition">
               🔄 Perbarui Pratinjau
@@ -307,16 +416,40 @@
     </section>
 
     <!-- =================================================================== -->
-    <!-- MODUL TAHAP 03: JUAL (HARGA PROMO, DISKON & COPYWRITING MSBA) -->
+    <!-- MODUL TAHAP 03: JUAL (HARGA PROMO, KANAL JUALAN & COPYWRITING MSBA) -->
     <!-- =================================================================== -->
     <section id="panelTahap-3" class="modul-tahap hidden rounded-3xl bg-slate-900 border border-emerald-500/35 p-5 sm:p-6 shadow-xl space-y-5 transition-all">
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-800 pb-4">
         <div>
-          <span class="text-xs font-extrabold uppercase tracking-wider text-emerald-400">Tahap 03 • Eksekusi Penawaran &amp; Copywriting Jualan</span>
-          <h3 class="font-display text-xl sm:text-2xl font-extrabold text-white mt-0.5">💬 Atur Diskon Promo &amp; Generator Caption MSBA</h3>
+          <span class="text-xs font-extrabold uppercase tracking-wider text-emerald-400">Tahap 03 • Eksekusi Penawaran &amp; Kanal Penjualan</span>
+          <h3 class="font-display text-xl sm:text-2xl font-extrabold text-white mt-0.5">💬 Atur Diskon Promo, Katalog, WA Business, Medsos &amp; Marketplace</h3>
         </div>
         <button type="button" onclick="pilihTahap(4)" class="self-start sm:self-auto px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-500 hover:to-cyan-500 text-xs font-extrabold text-white shadow-lg transition">
           Lanjut ke Tahap Berikutnya →
+        </button>
+      </div>
+
+      <!-- 4 Tombol Kanal Penjualan & Etalase Utama -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+        <button type="button" id="btnKanal-katalog" onclick="pilihKanalJualanAktif('katalog')" class="rounded-2xl border border-purple-400 bg-purple-950/75 p-3.5 text-left transition shadow-md">
+          <div class="text-lg">📖</div>
+          <div class="text-xs font-extrabold text-purple-200 mt-1">Bikin Katalog</div>
+          <div class="text-[11px] text-purple-100/75">Etalase Harga &amp; Paket</div>
+        </button>
+        <button type="button" id="btnKanal-wa" onclick="pilihKanalJualanAktif('wa')" class="rounded-2xl border border-slate-800 bg-slate-950/85 hover:border-emerald-400/60 p-3.5 text-left transition">
+          <div class="text-lg">💬</div>
+          <div class="text-xs font-extrabold text-emerald-300 mt-1">WA Business</div>
+          <div class="text-[11px] text-slate-400">Link Chat &amp; Auto-Reply</div>
+        </button>
+        <button type="button" id="btnKanal-medsos" onclick="pilihKanalJualanAktif('medsos')" class="rounded-2xl border border-slate-800 bg-slate-950/85 hover:border-fuchsia-400/60 p-3.5 text-left transition">
+          <div class="text-lg">📱</div>
+          <div class="text-xs font-extrabold text-fuchsia-300 mt-1">Media Sosial</div>
+          <div class="text-[11px] text-slate-400">IG, TikTok &amp; Facebook</div>
+        </button>
+        <button type="button" id="btnKanal-marketplace" onclick="pilihKanalJualanAktif('marketplace')" class="rounded-2xl border border-slate-800 bg-slate-950/85 hover:border-amber-400/60 p-3.5 text-left transition">
+          <div class="text-lg">🛒</div>
+          <div class="text-xs font-extrabold text-amber-300 mt-1">Marketplace</div>
+          <div class="text-[11px] text-slate-400">Shopee, Tokopedia &amp; TikTok Shop</div>
         </button>
       </div>
 
@@ -334,41 +467,61 @@
             </div>
           </div>
 
-          <div class="rounded-2xl bg-slate-950 border border-emerald-500/30 p-3.5 flex items-center justify-between">
+          <!-- Nomor WA & Link Toko untuk WA Business / Katalog -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label for="jualNomorWa" class="block text-xs font-bold text-emerald-300 mb-1.5">Nomor WA Business</label>
+              <input id="jualNomorWa" type="text" value="6281234567890" oninput="buatCaptionOtomatis()" placeholder="62812..." class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-emerald-400 px-3.5 py-2 text-xs font-bold text-white outline-none" />
+            </div>
+            <div>
+              <label for="jualNamaToko" class="block text-xs font-bold text-purple-300 mb-1.5">Nama Toko / Katalog</label>
+              <input id="jualNamaToko" type="text" value="Toko Berkah UMKM" oninput="buatCaptionOtomatis()" placeholder="Nama Toko..." class="w-full rounded-xl bg-slate-950 border border-slate-700 focus:border-purple-400 px-3.5 py-2 text-xs font-bold text-white outline-none" />
+            </div>
+          </div>
+
+          <div class="rounded-2xl bg-slate-950 border border-emerald-500/30 p-3.5 flex items-center justify-between gap-2">
             <div>
               <div class="text-[11px] font-semibold text-slate-400">Harga Promo Tampil ke Pembeli</div>
               <div id="jualHargaAkhirText" class="font-display text-xl font-extrabold text-amber-300 mt-0.5">Rp 18.000</div>
             </div>
-            <button type="button" onclick="kirimPromoKePoster()" class="px-3.5 py-2 rounded-xl bg-fuchsia-600 hover:bg-fuchsia-500 text-xs font-bold text-white transition">
-              🖼️ Terapkan ke Poster
-            </button>
+            <div class="flex flex-wrap gap-2">
+              <button type="button" onclick="kirimPromoKePoster()" class="px-3 py-2 rounded-xl bg-fuchsia-600 hover:bg-fuchsia-500 text-xs font-bold text-white transition">
+                🖼️ Ke Poster
+              </button>
+              <a id="btnBukaLinkWaLangsung" href="https://wa.me/6281234567890" target="_blank" rel="noopener noreferrer" class="px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-xs font-bold text-white transition">
+                💬 Tes Link WA
+              </a>
+            </div>
           </div>
 
           <div>
             <span class="block text-xs font-bold text-slate-300 mb-1.5">Pilih Format Naskah Jualan</span>
-            <div class="grid grid-cols-3 gap-2">
-              <button type="button" onclick="setModeCaption('msba')" id="btnModeMsba" class="px-2.5 py-2 rounded-xl bg-emerald-600 text-white text-xs font-extrabold transition">
-                🎯 Copywriting MSBA
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              <button type="button" onclick="pilihKanalJualanAktif('katalog')" id="btnModeKatalog" class="px-2.5 py-2 rounded-xl bg-purple-600 text-white text-xs font-extrabold transition">
+                📖 Katalog
               </button>
-              <button type="button" onclick="setModeCaption('wa')" id="btnModeWa" class="px-2.5 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white text-xs font-bold transition">
-                💬 Follow-Up WA
+              <button type="button" onclick="pilihKanalJualanAktif('wa')" id="btnModeWa" class="px-2.5 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white text-xs font-bold transition">
+                💬 WA Business
               </button>
-              <button type="button" onclick="setModeCaption('sosmed')" id="btnModeSosmed" class="px-2.5 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white text-xs font-bold transition">
-                📱 Caption Medsos
+              <button type="button" onclick="pilihKanalJualanAktif('medsos')" id="btnModeSosmed" class="px-2.5 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white text-xs font-bold transition">
+                📱 Medsos
+              </button>
+              <button type="button" onclick="pilihKanalJualanAktif('marketplace')" id="btnModeMarketplace" class="px-2.5 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white text-xs font-bold transition">
+                🛒 Marketplace
               </button>
             </div>
           </div>
         </div>
 
-        <!-- Output Copywriting Siap Salin -->
+        <!-- Output Copywriting & Katalog Siap Salin -->
         <div class="lg:col-span-7 rounded-2xl bg-slate-950 border border-slate-800 p-4 sm:p-5 space-y-3">
           <div class="flex items-center justify-between gap-2">
-            <span id="judulNaskahJualan" class="text-xs font-extrabold uppercase tracking-wider text-emerald-300">✍️ Copywriting MSBA (Masalah • Solusi • Bukti • Ajakan)</span>
-            <button type="button" onclick="salinTeksById('hasilCaptionBox', 'Naskah promosi')" class="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-xs font-extrabold text-white transition">
+            <span id="judulNaskahJualan" class="text-xs font-extrabold uppercase tracking-wider text-purple-300">📖 Etalase Katalog Produk &amp; Paket Hemat</span>
+            <button type="button" onclick="salinTeksById('hasilCaptionBox', 'Materi jualan & katalog')" class="px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-xs font-extrabold text-white transition">
               📋 Salin Teks
             </button>
           </div>
-          <textarea id="hasilCaptionBox" rows="7" class="w-full rounded-xl bg-slate-900 border border-slate-800 p-3.5 text-xs sm:text-sm text-slate-100 leading-relaxed outline-none"></textarea>
+          <textarea id="hasilCaptionBox" rows="8" class="w-full rounded-xl bg-slate-900 border border-slate-800 p-3.5 text-xs sm:text-sm text-slate-100 leading-relaxed outline-none"></textarea>
           <div class="flex items-center justify-between gap-2 pt-1">
             <span class="text-[11px] text-slate-400">Ukur performa konten &amp; kesehatan profit di Tahap 04 Ukur.</span>
             <button type="button" onclick="pilihTahap(4)" class="shrink-0 px-3.5 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-xs font-bold text-white transition">
@@ -638,9 +791,159 @@
     let tahapAktif = 1;
     let tampilSemuaModul = false;
     let fokusRisetAktif = 'persona';
-    let gayaTemaAktif = 'dapur';
-    let modeCaptionAktif = 'msba';
+    let jenisPromptAiAktif = 'video';
+    let modeCaptionAktif = 'katalog';
     let uploadedProductImg = null;
+    let uploadedLogoMerekImg = null;
+    let pilarDipilihAktif = 'nib';
+
+    const STATUS_LEGALITAS_UMKM = {
+      nib: false,
+      pirt: false,
+      halal: false,
+      merek: false,
+    };
+
+    const DATA_INPUT_LEGALITAS = {
+      nib: '',
+      pirt: '',
+      halal: '',
+      merekLogoDataUrl: '',
+    };
+
+    const PRESET_KATEGORI_UMKM = {
+      'Produk Rumah Tangga & Sabun': {
+        nama: 'SAPIRCling Jerigen 1L',
+        target: 'Ibu rumah tangga, warung kelontong & usaha laundry lokal',
+        masalah: 'Noda membandel, bau amis, dan boros sabun cuci harian',
+        unggul: 'Busa melimpah, wangi segar tahan lama, lembut di tangan & hemat 1 liter',
+        batch: 50,
+        bahan: 400000,
+        kemasan: 250000,
+        operasional: 100000,
+        harga: 20000,
+        diskon: 10,
+        terjual: 25,
+        gaya: 'Kualitas Terjamin • Hemat & Praktis untuk Kebutuhan Harian',
+      },
+      'Makanan & Minuman (Kuliner)': {
+        nama: 'Keripik Pisang Lumer Cokelat 150gr',
+        target: 'Pecinta camilan, anak muda, keluarga & reseller oleh-oleh',
+        masalah: 'Camilan cepat melempem, cokelat kurang terasa & kemasan mudah sobek',
+        unggul: 'Pisang kepok pilihan renyah, cokelat premium melimpah & kemasan standing pouch ziplock',
+        batch: 60,
+        bahan: 420000,
+        kemasan: 180000,
+        operasional: 120000,
+        harga: 18000,
+        diskon: 10,
+        terjual: 30,
+        gaya: 'Renyah Lumer di Mulut • Camilan Favorit Keluarga & Oleh-Oleh',
+      },
+      'Fashion, Hijab & Aksesoris': {
+        nama: 'Hijab Voal Premium Laser Cut',
+        target: 'Wanita karir, mahasiswi, ibu muda & komunitas pengajian',
+        masalah: 'Bahan hijab panas, licin susah dibentuk & tepi jahitan mudah berudul',
+        unggul: 'Bahan voal ultrafine adem tegak di dahi, finishing laser cut rapi & warna elegan',
+        batch: 40,
+        bahan: 880000,
+        kemasan: 120000,
+        operasional: 160000,
+        harga: 45000,
+        diskon: 15,
+        terjual: 15,
+        gaya: 'Adem Tegak di Dahi • Tampil Anggun & Nyaman Seharian',
+      },
+      'Kosmetik, Herbal & Skincare': {
+        nama: 'Sabun Herbal Daun Bidara & Madu',
+        target: 'Keluarga peduli kesehatan kulit, remaja & pengguna skincare alami',
+        masalah: 'Kulit kering, gatal ringan & khawatir bahan kimia keras pada sabun biasa',
+        unggul: 'Ekstrak daun bidara & madu murni alami, lembut melembapkan kulit & aroma menenangkan',
+        batch: 80,
+        bahan: 560000,
+        kemasan: 240000,
+        operasional: 160000,
+        harga: 22000,
+        diskon: 10,
+        terjual: 20,
+        gaya: 'Bahan Alami Pilihan • Lembut & Menyegarkan Kulit Keluarga',
+      },
+      'Kerajinan Tangan & Souvenir': {
+        nama: 'Tas Anyaman Pandan Etnik Custom',
+        target: 'Panitia acara/seminar, pembeli kado unik & pecinta produk handmade',
+        masalah: 'Souvenir pasaran membosankan, kurang awet & sulit pesan nama custom',
+        unggul: 'Anyaman pengrajin lokal rapi, kuat menopang beban & gratis label nama acara',
+        batch: 30,
+        bahan: 600000,
+        kemasan: 90000,
+        operasional: 210000,
+        harga: 50000,
+        diskon: 10,
+        terjual: 10,
+        gaya: 'Karya Pengrajin Lokal • Bisa Custom Nama untuk Acara Spesial',
+      },
+      'Jasa & Layanan Lokal': {
+        nama: 'Paket Cuci Kiloan Express Setrika Uap 5 Kg',
+        target: 'Karyawan, keluarga sibuk, anak kos & warga sekitar kecamatan',
+        masalah: 'Pakaian menumpuk saat musim hujan, bau apek & hasil setrika kurang rapi',
+        unggul: 'Selesai 1 hari, setrika uap licin rapi, parfum tahan lama & gratis antar-jemput lokal',
+        batch: 40,
+        bahan: 240000,
+        kemasan: 80000,
+        operasional: 280000,
+        harga: 25000,
+        diskon: 10,
+        terjual: 18,
+        gaya: 'Selesai Cepat & Wangi Rapi • Gratis Antar Jemput Sekitar',
+      },
+    };
+
+    const DATA_PANDUAN_LEGALITAS = {
+      nib: {
+        judul: 'NIB (Nomor Induk Berusaha)',
+        lembaga: 'Kementerian Investasi / BKPM (OSS RBA)',
+        deskripsi: 'Identitas resmi pelaku usaha yang berlaku sekaligus sebagai Tanda Daftar Perusahaan (TDP) dan akses pengurusan izin lanjutan.',
+        syarat: 'KTP Elektronik (NIK), NPWP pribadi/usaha (jika ada), alamat usaha, email aktif, dan nomor WhatsApp.',
+        langkah: '1. Daftar akun di oss.go.id → 2. Pilih skala usaha UMK → 3. Isi data produk & KBLI → 4. Terbitkan NIB gratis dalam hitungan menit.',
+        url: 'https://oss.go.id',
+        labelInput: '🔢 Masukkan Nomor NIB Produk/Usaha (13 Digit):',
+        placeholderInput: 'Contoh: 1209230045678',
+        labelLencana: 'NIB',
+      },
+      pirt: {
+        judul: 'SPP-IRT / P-IRT (Pangan Industri Rumah Tangga)',
+        lembaga: 'Dinas Kesehatan Kab/Kota & BPOM',
+        deskripsi: 'Izin edar resmi untuk produk pangan olahan kemasan skala rumah tangga agar aman dipasarkan di toko dan ritel.',
+        syarat: 'Sudah memiliki NIB, memenuhi standar sanitasi produksi rumahan, serta rancangan label kemasan sesuai ketentuan.',
+        langkah: '1. Login ke oss.go.id → 2. Ajukan PB-UMKU SPP-IRT → 3. Lengkapi komitmen penyuluhan keamanan pangan → 4. Cetak nomor P-IRT di label.',
+        url: 'https://sppirt.pom.go.id',
+        labelInput: '🔢 Masukkan Nomor P-IRT Produk:',
+        placeholderInput: 'Contoh: P-IRT 2053273010123-28',
+        labelLencana: 'P-IRT',
+      },
+      halal: {
+        judul: 'Sertifikasi Halal (Reguler / Self-Declare)',
+        lembaga: 'BPJPH Kementerian Agama RI',
+        deskripsi: 'Jaminan kehalalan bahan baku dan proses produksi yang meningkatkan kepercayaan konsumen keluarga secara signifikan.',
+        syarat: 'NIB aktif, daftar bahan baku bersertifikat halal, proses produksi bebas najis, serta pendampingan PPH (untuk jalur Sehati).',
+        langkah: '1. Buat akun di ptsp.halal.go.id → 2. Pilih jalur Self-Declare / Reguler → 3. Verifikasi Pendamping Proses Produk Halal → 4. Terbit Sertifikat Halal.',
+        url: 'https://ptsp.halal.go.id',
+        labelInput: '🔢 Masukkan Nomor Sertifikat Halal (ID Halal):',
+        placeholderInput: 'Contoh: ID32110001234560923',
+        labelLencana: 'HALAL',
+      },
+      merek: {
+        judul: 'Perlindungan Merek Dagang (HAKI)',
+        lembaga: 'DJKI Kementerian Hukum RI',
+        deskripsi: 'Melindungi nama brand dan logo produk secara hukum agar tidak ditiru atau diklaim pihak lain saat usaha berkembang.',
+        syarat: 'Etiket/logo merek jelas, surat rekomendasi UMKM binaan (untuk tarif khusus UMKM), dan pengecekan ketersediaan nama di PDKI.',
+        langkah: '1. Cek nama merek di pdki-indonesia.dgip.go.id → 2. Daftar akun merek.dgip.go.id → 3. Unggah logo & surat UMKM → 4. Ajukan permohonan merek.',
+        url: 'https://merek.dgip.go.id',
+        labelInput: '™️ Nama / Nomor Permohonan Merek:',
+        placeholderInput: 'Contoh: DID2025012345',
+        labelLencana: 'MEREK™',
+      },
+    };
 
     const formatRupiah = (angka) =>
       new Intl.NumberFormat('id-ID', {
@@ -665,15 +968,6 @@
       }, 3200);
     }
 
-    function tampilkanPanduanPilar(judul, pesan) {
-      const box = document.getElementById('infoPilarBox');
-      const judulEl = document.getElementById('infoPilarJudul');
-      const txtEl = document.getElementById('infoPilarText');
-      if (judulEl) judulEl.textContent = judul;
-      if (txtEl) txtEl.textContent = pesan;
-      box?.classList.remove('hidden');
-    }
-
     function salinTeksById(elementId, label = 'Teks') {
       const box = document.getElementById(elementId);
       if (!box) return;
@@ -687,6 +981,160 @@
       }
     }
 
+    // 1. Logika Pilar Legalitas (NIB, P-IRT, Halal, Merek + Nomor & Upload Logo)
+    function bukaDetailPilar(kode) {
+      pilarDipilihAktif = kode;
+      const data = DATA_PANDUAN_LEGALITAS[kode];
+      if (!data) return;
+
+      document.getElementById('infoPilarJudul').textContent = data.judul;
+      document.getElementById('infoPilarLembaga').textContent = data.lembaga;
+      document.getElementById('infoPilarText').textContent = data.deskripsi;
+      document.getElementById('infoPilarSyarat').textContent = data.syarat;
+      document.getElementById('infoPilarLangkah').textContent = data.langkah;
+
+      const linkEl = document.getElementById('linkPortalPilar');
+      if (linkEl) linkEl.href = data.url;
+
+      const wadahNomor = document.getElementById('wadahInputNomorLegalitas');
+      const wadahLogo = document.getElementById('wadahUploadLogoMerek');
+      const labelNomor = document.getElementById('labelInputNomorLegalitas');
+      const inputNomor = document.getElementById('inputNomorLegalitas');
+
+      if (kode === 'merek') {
+        wadahNomor?.classList.add('hidden');
+        wadahLogo?.classList.remove('hidden');
+      } else {
+        wadahNomor?.classList.remove('hidden');
+        wadahLogo?.classList.add('hidden');
+        if (labelNomor) labelNomor.textContent = data.labelInput;
+        if (inputNomor) {
+          inputNomor.placeholder = data.placeholderInput;
+          inputNomor.value = DATA_INPUT_LEGALITAS[kode] || '';
+        }
+      }
+
+      perbaruiTampilanStatusPilar();
+      document.getElementById('infoPilarBox')?.classList.remove('hidden');
+    }
+
+    function simpanNomorLegalitasAktif(nilai) {
+      if (pilarDipilihAktif && pilarDipilihAktif !== 'merek') {
+        DATA_INPUT_LEGALITAS[pilarDipilihAktif] = nilai.trim();
+        perbaruiTampilanStatusPilar();
+        perbaruiSemua();
+      }
+    }
+
+    function aktifkanDenganDataLegalitas() {
+      STATUS_LEGALITAS_UMKM[pilarDipilihAktif] = true;
+      perbaruiTampilanStatusPilar();
+      perbaruiSemua();
+      tampilkanNotif('Nomor legalitas disimpan & ditampilkan pada lencana poster!');
+    }
+
+    document.getElementById('inputLogoMerek')?.addEventListener('change', (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        const img = new Image();
+        img.onload = () => {
+          uploadedLogoMerekImg = img;
+          DATA_INPUT_LEGALITAS.merekLogoDataUrl = ev.target.result;
+          STATUS_LEGALITAS_UMKM.merek = true;
+          const prevBox = document.getElementById('previewLogoMerekBox');
+          const prevImg = document.getElementById('previewLogoMerekImg');
+          if (prevImg) prevImg.src = ev.target.result;
+          prevBox?.classList.remove('hidden');
+          perbaruiTampilanStatusPilar();
+          perbaruiSemua();
+          tampilkanNotif('Logo Merek berhasil diunggah & ditempel ke poster!');
+        };
+        img.src = ev.target.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    function hapusLogoMerek() {
+      uploadedLogoMerekImg = null;
+      DATA_INPUT_LEGALITAS.merekLogoDataUrl = '';
+      STATUS_LEGALITAS_UMKM.merek = false;
+      const inputLogo = document.getElementById('inputLogoMerek');
+      if (inputLogo) inputLogo.value = '';
+      document.getElementById('previewLogoMerekBox')?.classList.add('hidden');
+      perbaruiTampilanStatusPilar();
+      perbaruiSemua();
+      tampilkanNotif('Logo Merek dihapus.');
+    }
+
+    function toggleStatusPilarAktif() {
+      STATUS_LEGALITAS_UMKM[pilarDipilihAktif] = !STATUS_LEGALITAS_UMKM[pilarDipilihAktif];
+      perbaruiTampilanStatusPilar();
+      perbaruiSemua();
+      const aktif = STATUS_LEGALITAS_UMKM[pilarDipilihAktif];
+      tampilkanNotif(
+        aktif
+          ? `Lencana ${DATA_PANDUAN_LEGALITAS[pilarDipilihAktif].labelLencana} aktif di Poster & Copywriting!`
+          : `Lencana ${DATA_PANDUAN_LEGALITAS[pilarDipilihAktif].labelLencana} dinonaktifkan.`
+      );
+    }
+
+    function ambilDaftarLencanaAktif() {
+      const hasil = [];
+      ['nib', 'pirt', 'halal', 'merek'].forEach((k) => {
+        if (STATUS_LEGALITAS_UMKM[k]) {
+          const label = DATA_PANDUAN_LEGALITAS[k].labelLencana;
+          const nomor = k !== 'merek' ? DATA_INPUT_LEGALITAS[k] : '';
+          hasil.push(nomor ? `${label}: ${nomor}` : label);
+        }
+      });
+      return hasil;
+    }
+
+    function perbaruiTampilanStatusPilar() {
+      ['nib', 'pirt', 'halal', 'merek'].forEach((k) => {
+        const card = document.getElementById(`cardPilar-${k}`);
+        const badge = document.getElementById(`statusBadge-${k}`);
+        const aktif = STATUS_LEGALITAS_UMKM[k];
+        if (card) {
+          card.className = aktif
+            ? 'group rounded-2xl bg-emerald-950/75 hover:bg-emerald-900/85 border border-emerald-400 p-3.5 text-left transition shadow-md'
+            : 'group rounded-2xl bg-slate-900/85 hover:bg-fuchsia-950/90 border border-slate-700 hover:border-fuchsia-400 p-3.5 text-left transition';
+        }
+        if (badge) {
+          if (aktif) {
+            const no = k !== 'merek' && DATA_INPUT_LEGALITAS[k] ? ` • ${DATA_INPUT_LEGALITAS[k].slice(0, 12)}` : '';
+            badge.textContent = `✅ Sudah Ada${no}`;
+            badge.className = 'rounded-full bg-emerald-500/25 border border-emerald-400/40 px-2 py-0.5 text-[10px] font-extrabold text-emerald-200';
+          } else {
+            badge.textContent = 'Cek Panduan';
+            badge.className = 'rounded-full bg-slate-800 px-2 py-0.5 text-[10px] font-bold text-slate-300';
+          }
+        }
+      });
+
+      const btnToggle = document.getElementById('btnToggleStatusPilar');
+      const isAktif = STATUS_LEGALITAS_UMKM[pilarDipilihAktif];
+      if (btnToggle) {
+        btnToggle.textContent = isAktif
+          ? '🔄 Batalkan Status Sudah Punya'
+          : '✅ Tandai Sudah Punya (Tampilkan di Poster & Copywriting)';
+        btnToggle.className = isAktif
+          ? 'px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-extrabold text-amber-300 border border-amber-400/40 transition'
+          : 'px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-xs font-extrabold text-white transition';
+      }
+
+      const ringkasanEl = document.getElementById('ringkasanLencanaAktif');
+      const daftar = ambilDaftarLencanaAktif();
+      if (ringkasanEl) {
+        ringkasanEl.textContent = daftar.length > 0
+          ? `Lencana aktif: ${daftar.join(' • ')}`
+          : 'Belum ada lencana legalitas yang diaktifkan.';
+      }
+    }
+
+    // 2. Navigasi 4 Tahap & Sinkronisasi Kategori / Profil Produk
     function pilihTahap(nomor) {
       tahapAktif = nomor;
       const activeStyles = {
@@ -706,9 +1154,7 @@
             ? `step-btn rounded-2xl border p-4 text-left transition-all duration-200 ${activeStyles[idx]}`
             : 'step-btn rounded-2xl border p-4 text-left transition-all duration-200 bg-slate-950/80 border-slate-800 hover:border-slate-600';
         }
-        if (badge) {
-          badge.classList.toggle('hidden', idx !== nomor);
-        }
+        if (badge) badge.classList.toggle('hidden', idx !== nomor);
         if (panel) {
           if (tampilSemuaModul || idx === nomor) {
             panel.classList.remove('hidden');
@@ -718,8 +1164,7 @@
         }
       });
 
-      const targetPanel = document.getElementById(`panelTahap-${nomor}`);
-      targetPanel?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      document.getElementById(`panelTahap-${nomor}`)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
     function toggleModeSemuaModul() {
@@ -731,14 +1176,53 @@
           : '👁️ Tampilkan Semua Modul Sekaligus';
       }
       pilihTahap(tahapAktif);
-      tampilkanNotif(
-        tampilSemuaModul
-          ? 'Menampilkan seluruh 4 modul (Riset, Bikin Konten, Jual, Ukur) sekaligus.'
-          : `Fokus pada Tahap 0${tahapAktif}.`
-      );
     }
 
-    // Sinkronisasi input lintas tahap
+    function terapkanPresetKategori(nilai, tampilkanPesan = true) {
+      const preset = PRESET_KATEGORI_UMKM[nilai];
+      if (!preset) return;
+
+      ['globalNamaProduk', 'risetNamaProduk', 'namaProdukHpp'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.value = preset.nama;
+      });
+      const targetEl = document.getElementById('globalTargetPasar');
+      if (targetEl) targetEl.value = preset.target;
+      const masalahEl = document.getElementById('risetMasalahPelanggan');
+      if (masalahEl) masalahEl.value = preset.masalah;
+      const unggulEl = document.getElementById('risetKeunggulanProduk');
+      if (unggulEl) unggulEl.value = preset.unggul;
+
+      document.getElementById('jumlahBatch').value = preset.batch;
+      document.getElementById('biayaBahanBaku').value = preset.bahan;
+      document.getElementById('biayaKemasan').value = preset.kemasan;
+      document.getElementById('biayaOperasional').value = preset.operasional;
+      ['jualHargaNormal', 'hargaJualUnit'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.value = preset.harga;
+      });
+      ['jualDiskonPromo', 'diskonPromo'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.value = preset.diskon;
+      });
+      document.getElementById('targetTerjual').value = preset.terjual;
+      const arahanEl = document.getElementById('arahanTambahan');
+      if (arahanEl) arahanEl.value = preset.gaya;
+
+      perbaruiSemua();
+      if (tampilkanPesan) {
+        tampilkanNotif(`Contoh kategori "${nilai}" dimuat (${preset.nama})!`);
+      }
+    }
+
+    function sinkronKategoriProduk(nilai) {
+      ['globalKategoriProduk', 'risetKategoriProduk'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el && el.value !== nilai) el.value = nilai;
+      });
+      terapkanPresetKategori(nilai, true);
+    }
+
     function sinkronNamaProduk(nilai) {
       ['globalNamaProduk', 'risetNamaProduk', 'namaProdukHpp'].forEach((id) => {
         const el = document.getElementById(id);
@@ -763,7 +1247,7 @@
       perbaruiSemua();
     }
 
-    // Tahap 01: Riset
+    // 3. Tahap 01: Riset Pasar
     function setFokusRiset(mode) {
       fokusRisetAktif = mode;
       const styles = {
@@ -782,6 +1266,7 @@
     }
 
     function buatStrategiRiset() {
+      const kategori = document.getElementById('risetKategoriProduk')?.value || 'Produk UMKM';
       const nama = document.getElementById('risetNamaProduk')?.value.trim() || 'Produk UMKM';
       const target = document.getElementById('globalTargetPasar')?.value.trim() || 'Keluarga & pelanggan lokal';
       const masalah = document.getElementById('risetMasalahPelanggan')?.value.trim() || 'Kebutuhan harian belum terpenuhi secara hemat';
@@ -793,7 +1278,7 @@
       if (fokusRisetAktif === 'persona') {
         if (labelEl) labelEl.textContent = '👥 Hasil Pemetaan Buyer Persona UMKM';
         box.value =
-`PROFIL CALON PEMBELI UTAMA — ${nama.toUpperCase()}
+`PROFIL CALON PEMBELI UTAMA — ${nama.toUpperCase()} (${kategori})
 • Segmen Utama: ${target}
 • Pemicu Emosi & Masalah: Sering kesal karena ${masalah}.
 • Harapan Pembeli: Ingin solusi yang terbukti ampuh, aman dipakai rutin, dan ramah di anggaran belanja.
@@ -804,7 +1289,7 @@
         box.value =
 `KATA KUNCI & HASHTAG SIAP PAKAI — ${nama.toUpperCase()}
 • Kata Kunci Utama: jual ${nama.toLowerCase()}, harga ${nama.toLowerCase()} murah, agen ${nama.toLowerCase()} terdekat, paket hemat ${nama.toLowerCase()}.
-• Kata Kunci Solusi: solusi ${masalah.split(',')[0].toLowerCase()}, produk lokal berkualitas.
+• Kata Kunci Solusi: solusi ${masalah.split(',')[0].toLowerCase()}, ${kategori.toLowerCase()} berkualitas.
 • Hashtag Promosi: #${slug || 'ProdukUMKM'} #UMKMNaikKelas #KreasiAIStudioUMKM #ProdukLokalBerkualitas #PromoHematUMKM`;
       } else {
         if (labelEl) labelEl.textContent = '💎 Rumusan USP (Unique Selling Proposition)';
@@ -817,20 +1302,12 @@ Kalimat Tagline Siap Pakai:
       }
     }
 
-    // Tahap 02: Studio Visual, Struktur Konten & Pembersih Latar
-    function pilihGayaStudio(gaya, tema = 'dapur') {
-      gayaTemaAktif = tema;
-      const input = document.getElementById('arahanTambahan');
-      if (input) input.value = gaya;
-      perbaruiSemua();
-      tampilkanNotif(`Gaya studio diubah ke: ${gaya}`);
-    }
-
+    // 4. Tahap 02: Studio Visual, Struktur Konten & Pembersih Latar
     function buatStrukturKonten() {
       const d = ambilDataKalkulator();
       const unggul = document.getElementById('risetKeunggulanProduk')?.value.trim() || 'Kualitas terjamin & hemat';
       const masalah = document.getElementById('risetMasalahPelanggan')?.value.trim() || 'kebutuhan harian';
-      const gaya = document.getElementById('arahanTambahan')?.value.trim() || 'Studio Cerah';
+      const gaya = document.getElementById('arahanTambahan')?.value.trim() || 'Kualitas Terjamin & Hemat';
       const box = document.getElementById('strukturKontenBox');
       if (!box) return;
 
@@ -841,7 +1318,7 @@ Kalimat Tagline Siap Pakai:
 
 2. TIGA POIN UTAMA:
 • Poin 1: ${unggul}
-• Poin 2: Visual & kemasan bersih (${gaya.split('—')[0].trim()})
+• Poin 2: ${gaya.split('—')[0].trim()}
 • Poin 3: ${infoDiskon}
 
 3. SATU AJAKAN (CTA):
@@ -943,29 +1420,15 @@ Kalimat Tagline Siap Pakai:
       reader.readAsDataURL(file);
     });
 
-    function gambarLatarTemaStudio(ctx, tema) {
+    function gambarLatarStudioBersih(ctx) {
       const grad = ctx.createLinearGradient(0, 0, 1080, 1080);
-      if (tema === 'dapur') {
-        grad.addColorStop(0, '#1e1b4b');
-        grad.addColorStop(0.55, '#6b21a8');
-        grad.addColorStop(1, '#b45309');
-      } else if (tema === 'kayu') {
-        grad.addColorStop(0, '#271710');
-        grad.addColorStop(0.55, '#581c87');
-        grad.addColorStop(1, '#78350f');
-      } else if (tema === 'marmar') {
-        grad.addColorStop(0, '#0f172a');
-        grad.addColorStop(0.55, '#4c1d95');
-        grad.addColorStop(1, '#9d174d');
-      } else {
-        grad.addColorStop(0, '#064e3b');
-        grad.addColorStop(0.55, '#581c87');
-        grad.addColorStop(1, '#1e1b4b');
-      }
+      grad.addColorStop(0, '#1e1b4b');
+      grad.addColorStop(0.55, '#581c87');
+      grad.addColorStop(1, '#86198f');
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, 1080, 1080);
 
-      const glow = ctx.createRadialGradient(540, 480, 40, 540, 480, 430);
+      const glow = ctx.createRadialGradient(540, 480, 40, 540, 480, 440);
       glow.addColorStop(0, 'rgba(245, 208, 254, 0.24)');
       glow.addColorStop(1, 'rgba(245, 208, 254, 0)');
       ctx.fillStyle = glow;
@@ -982,13 +1445,23 @@ Kalimat Tagline Siap Pakai:
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
       const d = ambilDataKalkulator();
-      const gaya = document.getElementById('arahanTambahan')?.value.trim() || 'Dapur Rumah Cerah & Bersih, Natural Sunlight';
+      const gaya = document.getElementById('arahanTambahan')?.value.trim() || 'Kualitas Terjamin • Hemat & Praktis untuk Kebutuhan Harian';
 
-      gambarLatarTemaStudio(ctx, gayaTemaAktif);
+      gambarLatarStudioBersih(ctx);
 
       ctx.fillStyle = '#f5d0fe';
       ctx.font = '800 28px Montserrat, sans-serif';
       ctx.fillText('KREASI AI STUDIO UMKM', 64, 84);
+
+      if (uploadedLogoMerekImg) {
+        ctx.save();
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.roundRect(660, 42, 108, 108, 20);
+        ctx.fill();
+        ctx.drawImage(uploadedLogoMerekImg, 670, 52, 88, 88);
+        ctx.restore();
+      }
 
       if (d.diskon > 0) {
         ctx.fillStyle = '#f59e0b';
@@ -1003,16 +1476,24 @@ Kalimat Tagline Siap Pakai:
       }
 
       ctx.fillStyle = '#ffffff';
-      ctx.font = '900 52px Montserrat, sans-serif';
-      ctx.fillText(d.namaProduk.toUpperCase().slice(0, 26), 64, 156);
+      ctx.font = '900 50px Montserrat, sans-serif';
+      ctx.fillText(d.namaProduk.toUpperCase().slice(0, 22), 64, 152);
+
+      // Lencana Nomor Legalitas di Poster
+      const lencana = ambilDaftarLencanaAktif();
+      if (lencana.length > 0) {
+        ctx.fillStyle = '#10b981';
+        ctx.font = '800 21px "Plus Jakarta Sans", sans-serif';
+        ctx.fillText(`✅ ${lencana.join('  •  ').slice(0, 62)}`, 64, 192);
+      }
 
       if (uploadedProductImg) {
         const cleaned = bersihkanLatarPolos(uploadedProductImg);
-        const scale = Math.min(540 / cleaned.width, 520 / cleaned.height);
+        const scale = Math.min(540 / cleaned.width, 510 / cleaned.height);
         const dw = cleaned.width * scale;
         const dh = cleaned.height * scale;
         const dx = (1080 - dw) / 2;
-        const dy = 230;
+        const dy = 235;
 
         ctx.save();
         ctx.shadowColor = 'rgba(0, 0, 0, 0.55)';
@@ -1031,19 +1512,19 @@ Kalimat Tagline Siap Pakai:
         ctx.fillRect(210, 235, 660, 480);
 
         ctx.fillStyle = '#f5d0fe';
-        ctx.font = '700 28px "Plus Jakarta Sans", sans-serif';
+        ctx.font = '700 26px "Plus Jakarta Sans", sans-serif';
         ctx.textAlign = 'center';
-        ctx.fillText('Gaya Studio Aktif:', 540, 445);
+        ctx.fillText('Sorotan Poster Produk:', 540, 445);
         ctx.fillStyle = '#ffffff';
-        ctx.font = '800 30px "Plus Jakarta Sans", sans-serif';
-        ctx.fillText(gaya.slice(0, 42), 540, 495);
+        ctx.font = '800 28px "Plus Jakarta Sans", sans-serif';
+        ctx.fillText(gaya.slice(0, 44), 540, 495);
         ctx.fillStyle = '#cbd5e1';
         ctx.font = '500 22px "Plus Jakarta Sans", sans-serif';
         ctx.fillText('(Unggah foto produk atau klik "Coba Sampel Botol")', 540, 545);
         ctx.textAlign = 'left';
       }
 
-      ctx.fillStyle = 'rgba(15, 23, 42, 0.78)';
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.82)';
       ctx.beginPath();
       ctx.roundRect(56, 865, 968, 155, 28);
       ctx.fill();
@@ -1060,11 +1541,11 @@ Kalimat Tagline Siap Pakai:
       }
 
       ctx.fillStyle = '#e9d5ff';
-      ctx.font = '600 24px "Plus Jakarta Sans", sans-serif';
+      ctx.font = '600 23px "Plus Jakarta Sans", sans-serif';
       const subText = d.diskon > 0
-        ? `Harga Normal ${formatRupiah(d.hargaNormal)} • Stok Terbatas, Pesan Sekarang!`
-        : 'Kualitas Terjamin • Siap Kirim dari Warung ke Rumah Anda';
-      ctx.fillText(subText.slice(0, 62), 88, 985);
+        ? `Harga Normal ${formatRupiah(d.hargaNormal)} • ${gaya.split('—')[0].trim()}`
+        : gaya.slice(0, 62);
+      ctx.fillText(subText.slice(0, 64), 88, 985);
     }
 
     function unduhPosterPng() {
@@ -1079,7 +1560,7 @@ Kalimat Tagline Siap Pakai:
 
     function kirimPromoKePoster() {
       const d = ambilDataKalkulator();
-      const gaya = document.getElementById('arahanTambahan').value.trim() || 'Dapur Rumah Cerah & Bersih, Natural Sunlight';
+      const gaya = document.getElementById('arahanTambahan').value.trim() || 'Kualitas Terjamin • Hemat & Praktis';
       const bagianDasar = gaya.split('—')[0].trim();
       const infoHarga = d.diskon > 0
         ? `Promo Diskon ${d.diskon}% jadi ${formatRupiah(d.hargaPromo)}`
@@ -1090,29 +1571,137 @@ Kalimat Tagline Siap Pakai:
       tampilkanNotif('Promo berhasil diterapkan ke pratinjau poster!');
     }
 
-    // Tahap 03: Jual & Copywriting MSBA
-    function setModeCaption(mode) {
-      modeCaptionAktif = mode;
+    function fokusKePembuatPrompt() {
+      buatPromptAiOtomatis();
+      const panel = document.getElementById('panelPembuatPrompt');
+      const box = document.getElementById('outputPromptAiBox');
+      if (panel) {
+        panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        panel.classList.add('ring-2', 'ring-amber-400');
+        setTimeout(() => panel.classList.remove('ring-2', 'ring-amber-400'), 1800);
+      }
+      if (box) box.focus();
+      tampilkanNotif('Panel pembuat prompt siap! Silakan salin isi prompt & klik AI Gemini (Buat Konten).');
+    }
+
+    function pilihJenisPromptAi(jenis) {
+      jenisPromptAiAktif = jenis;
+      ['video', 'poster', 'jualan'].forEach((k) => {
+        const btn = document.getElementById(`btnJenisPrompt-${k}`);
+        if (!btn) return;
+        btn.className = k === jenis
+          ? 'px-3 py-1.5 rounded-lg bg-blue-600 text-white text-xs font-extrabold transition'
+          : 'px-3 py-1.5 rounded-lg bg-slate-900/90 hover:bg-slate-800 text-slate-300 text-xs font-bold border border-slate-700 transition';
+      });
+      buatPromptAiOtomatis();
+    }
+
+    function buatPromptAiOtomatis() {
+      const box = document.getElementById('outputPromptAiBox');
+      if (!box) return;
+
+      const d = ambilDataKalkulator();
+      const kategori = document.getElementById('globalKategoriProduk')?.value || 'Produk UMKM';
+      const target = document.getElementById('globalTargetPasar')?.value.trim() || 'Pelanggan lokal';
+      const masalah = document.getElementById('risetMasalahPelanggan')?.value.trim() || 'kebutuhan harian';
+      const unggul = document.getElementById('risetKeunggulanProduk')?.value.trim() || 'Kualitas terbaik & harga hemat';
+      const tagline = document.getElementById('arahanTambahan')?.value.trim() || 'Kualitas Terjamin & Hemat';
+      const lencana = ambilDaftarLencanaAktif();
+      const infoLegal = lencana.length > 0 ? `- Legalitas Resmi: ${lencana.join(', ')}\n` : '';
+      const infoHarga = d.diskon > 0
+        ? `Promo Diskon ${d.diskon}% jadi ${formatRupiah(d.hargaPromo)} (Normal ${formatRupiah(d.hargaNormal)})`
+        : formatRupiah(d.hargaPromo);
+
+      if (jenisPromptAiAktif === 'video') {
+        box.value =
+`Buatkan naskah video pendek (Reels / TikTok / YouTube Shorts) berdurasi 15-30 detik untuk promosi produk UMKM:
+- Nama Produk: ${d.namaProduk} (${kategori})
+- Target Pembeli: ${target}
+- Masalah yang Diselesaikan: ${masalah}
+- Keunggulan Utama: ${unggul}
+- Penawaran Harga: ${infoHarga}
+${infoLegal}Format wajib:
+1. Hook 3 detik pertama yang bikin orang berhenti scroll
+2. Isi konten (tunjukkan masalah + 3 keunggulan utama produk)
+3. Kalimat ajakan (CTA) mengarahkan klik link WhatsApp sekarang.`;
+      } else if (jenisPromptAiAktif === 'poster') {
+        box.value =
+`Buatkan konsep desain visual & prompt gambar iklan produk profesional untuk katalog/poster promosi UMKM:
+- Produk Utama: ${d.namaProduk} (${kategori})
+- Target Audiens: ${target}
+- Tagline Poster: "${tagline}"
+- Keunggulan Produk: ${unggul}
+- Info Promo: ${infoHarga}
+${infoLegal}Tolong berikan:
+1. Deskripsi komposisi latar belakang studio yang bersih, pencahayaan komersial cerah, dan menonjolkan kemasan produk
+2. Susunan teks headline utama, sub-headline, dan lencana promo agar mudah dibaca di layar HP.`;
+      } else {
+        box.value =
+`Buatkan 3 variasi materi copywriting jualan siap posting (WhatsApp Story, Instagram Feed, dan Marketplace) untuk produk UMKM:
+- Nama Produk: ${d.namaProduk} (${kategori})
+- Target Pembeli: ${target}
+- Masalah Pelanggan: ${masalah}
+- Solusi & Keunggulan: ${unggul}
+- Harga Penawaran: ${infoHarga}
+${infoLegal}Gunakan gaya bahasa ramah, meyakinkan, tidak kaku, dengan struktur: Hook + 3 Poin Utama + 1 Ajakan Order via WhatsApp.`;
+      }
+    }
+
+    function bukaAiGeminiKonten() {
+      const box = document.getElementById('outputPromptAiBox');
+      if (box) {
+        if (!box.value.trim()) buatPromptAiOtomatis();
+        box.select();
+        box.setSelectionRange(0, 99999);
+        try {
+          document.execCommand('copy');
+        } catch (e) {}
+      }
+
+      tampilkanNotif('Isi prompt otomatis disalin! Membuka AI Gemini (Buat Konten)...');
+      window.open('https://gemini.google.com/app', '_blank', 'noopener,noreferrer');
+    }
+
+    // 5. Tahap 03: Kanal Jualan (Katalog, WA Business, Medsos, Marketplace)
+    function pilihKanalJualanAktif(kanal) {
+      modeCaptionAktif = kanal;
       const judulEl = document.getElementById('judulNaskahJualan');
       const judulMap = {
-        msba: '✍️ Copywriting MSBA (Masalah • Solusi • Bukti • Ajakan)',
-        wa: '💬 Skrip Follow-Up WA Business (Siap Closing)',
-        sosmed: '📱 Caption Promosi Sosial Media & Katalog',
+        katalog: '📖 Etalase Katalog Produk & Paket Hemat',
+        wa: '💬 Profil & Auto-Reply WA Business (Siap Closing)',
+        medsos: '📱 Caption Promosi Media Sosial (IG, TikTok & Facebook)',
+        marketplace: '🛒 Judul SEO & Deskripsi Marketplace (Shopee & Tokopedia)',
       };
-      if (judulEl) judulEl.textContent = judulMap[mode] || judulMap.msba;
+      if (judulEl) judulEl.textContent = judulMap[kanal] || judulMap.katalog;
 
-      const styles = {
-        msba: ['btnModeMsba', 'bg-emerald-600 text-white font-extrabold'],
-        wa: ['btnModeWa', 'bg-purple-600 text-white font-extrabold'],
-        sosmed: ['btnModeSosmed', 'bg-fuchsia-600 text-white font-extrabold'],
+      const cardMap = {
+        katalog: 'border-purple-400 bg-purple-950/75 shadow-md',
+        wa: 'border-emerald-400 bg-emerald-950/75 shadow-md',
+        medsos: 'border-fuchsia-400 bg-fuchsia-950/75 shadow-md',
+        marketplace: 'border-amber-400 bg-amber-950/75 shadow-md',
       };
-      ['msba', 'wa', 'sosmed'].forEach((k) => {
-        const btn = document.getElementById(styles[k][0]);
-        if (!btn) return;
-        btn.className = k === mode
-          ? `px-2.5 py-2 rounded-xl ${styles[k][1]} text-xs transition`
-          : 'px-2.5 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white text-xs font-bold transition';
+      const btnMap = {
+        katalog: ['btnModeKatalog', 'bg-purple-600 text-white font-extrabold'],
+        wa: ['btnModeWa', 'bg-emerald-600 text-white font-extrabold'],
+        medsos: ['btnModeSosmed', 'bg-fuchsia-600 text-white font-extrabold'],
+        marketplace: ['btnModeMarketplace', 'bg-amber-500 text-slate-950 font-extrabold'],
+      };
+
+      ['katalog', 'wa', 'medsos', 'marketplace'].forEach((k) => {
+        const card = document.getElementById(`btnKanal-${k}`);
+        if (card) {
+          card.className = k === kanal
+            ? `rounded-2xl border p-3.5 text-left transition ${cardMap[k]}`
+            : 'rounded-2xl border border-slate-800 bg-slate-950/85 hover:border-slate-600 p-3.5 text-left transition';
+        }
+        const btn = document.getElementById(btnMap[k][0]);
+        if (btn) {
+          btn.className = k === kanal
+            ? `px-2.5 py-2 rounded-xl ${btnMap[k][1]} text-xs transition`
+            : 'px-2.5 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white text-xs font-bold transition';
+        }
       });
+
       buatCaptionOtomatis();
     }
 
@@ -1120,6 +1709,17 @@ Kalimat Tagline Siap Pakai:
       const d = ambilDataKalkulator();
       const unggul = document.getElementById('risetKeunggulanProduk')?.value.trim() || 'Kualitas juara & hemat';
       const masalah = document.getElementById('risetMasalahPelanggan')?.value.trim() || 'kebutuhan harian';
+      const namaToko = document.getElementById('jualNamaToko')?.value.trim() || 'Toko Berkah UMKM';
+      const rawWa = (document.getElementById('jualNomorWa')?.value || '6281234567890').replace(/[^0-9]/g, '');
+      const waClean = rawWa.startsWith('0') ? '62' + rawWa.slice(1) : (rawWa || '6281234567890');
+      const lencana = ambilDaftarLencanaAktif();
+      const barisLegal = lencana.length > 0 ? `\n✅ Legalitas Resmi: ${lencana.join(' | ')}` : '';
+
+      const pesanOrder = encodeURIComponent(`Halo ${namaToko}, saya mau pesan *${d.namaProduk}* (${formatRupiah(d.hargaPromo)}/unit). Apakah stok ready?`);
+      const linkWaOtomatis = `https://wa.me/${waClean}?text=${pesanOrder}`;
+      const btnLinkWa = document.getElementById('btnBukaLinkWaLangsung');
+      if (btnLinkWa) btnLinkWa.href = linkWaOtomatis;
+
       const box = document.getElementById('hasilCaptionBox');
       if (!box) return;
 
@@ -1127,48 +1727,71 @@ Kalimat Tagline Siap Pakai:
         ? `Harga Normal ${formatRupiah(d.hargaNormal)} → *Harga Promo Diskon ${d.diskon}%: ${formatRupiah(d.hargaPromo)}*`
         : `*Harga Spesial: ${formatRupiah(d.hargaPromo)}*`;
 
-      if (modeCaptionAktif === 'msba') {
+      if (modeCaptionAktif === 'katalog') {
         box.value =
-`[M - MASALAH]
-Sering kewalahan menghadapi ${masalah.split(',')[0].toLowerCase()} di rumah atau tempat usaha?
+`📖 KATALOG RESMI — ${namaToko.toUpperCase()}
+━━━━━━━━━━━━━━━━━━━━━━
+🏷️ Nama Produk: ${d.namaProduk}
+💰 ${infoHarga}
+📦 Paket Hemat 3 Unit: ${formatRupiah(d.hargaPromo * 3 * 0.95)} (Ekstra Hemat 5%)
+✨ Keunggulan: ${unggul}${barisLegal}
 
-[S - SOLUSI]
-Gunakan *${d.namaProduk}*! Dirancang praktis dengan keunggulan: ${unggul}.
-
-[B - BUKTI & PENAWARAN]
-✅ Sudah dipercaya pelanggan harian & warung sekitar
-✅ Kemasan rapi, higienis, dan takaran pas
-✅ ${infoHarga}
-
-[A - AJAKAN]
-👉 Balas chat sekarang untuk amankan kuota promo hari ini sebelum kehabisan! 🙏`;
+📲 Link Order Cepat WA Business:
+${linkWaOtomatis}`;
       } else if (modeCaptionAktif === 'wa') {
         box.value =
-`Halo Kak! 👋 Terima kasih sudah menghubungi kami.
-Untuk *${d.namaProduk}*, stok hari ini masih tersedia dan siap dikirim ya Kak!
+`💬 TEMPLATE AUTO-REPLY & CLOSING WA BUSINESS (${namaToko})
+━━━━━━━━━━━━━━━━━━━━━━
+Halo Kak! 👋 Terima kasih telah menghubungi *${namaToko}*.
+Stok *${d.namaProduk}* hari ini READY dan siap kirim!
 
-${infoHarga}
+${infoHarga}${barisLegal}
 
-✨ Kenapa banyak pelanggan repeat order?
+Kenapa pelanggan selalu repeat order?
 • ${unggul}
-• Bisa pesan satuan maupun paket hemat usaha/warung
-• Pengiriman cepat & aman sampai tujuan
+• Pengemasan aman & pengiriman cepat
 
-Mau saya bantu proses berapa unit hari ini, Kak? Cukup balas jumlah & alamat pengiriman ya! 🙏`;
+Silakan balas format order berikut ya Kak:
+• Nama:
+• Jumlah Pesanan:
+• Alamat Lengkap:
+
+🔗 Link Chat Langsung: ${linkWaOtomatis}`;
+      } else if (modeCaptionAktif === 'medsos') {
+        box.value =
+`[HOOK] Capek menghadapi ${masalah.split(',')[0].toLowerCase()} setiap hari? Saatnya beralih ke *${d.namaProduk}*! ✨
+
+[3 POIN UTAMA]
+1️⃣ ${unggul}
+2️⃣ Kemasan rapi & terpercaya${lencana.length > 0 ? ` (${lencana.join(', ')})` : ''}
+3️⃣ Penawaran spesial: ${infoHarga}
+
+[1 AJAKAN]
+👉 Klik link WhatsApp ini sekarang untuk amankan kuota promo hari ini:
+${linkWaOtomatis}
+
+#UMKMNaikKelas #KreasiAIStudioUMKM #ProdukLokal #PromoUMKM`;
       } else {
         box.value =
-`✨ Yang dicari-cari akhirnya hadir! ✨
-Kenalin *${d.namaProduk}*, solusi praktis andalan dari UMKM lokal! 🛍️
+`🛒 OPTIMASI JUDUL & DESKRIPSI MARKETPLACE (SHOPEE / TOKOPEDIA)
+━━━━━━━━━━━━━━━━━━━━━━
+📌 Judul Produk SEO:
+${d.namaProduk} - ${unggul.split(',')[0]} | Kemasan Higienis Siap Kirim
 
-${infoHarga}
-Keunggulan utama: ${unggul} 💛
+📝 Deskripsi Produk:
+Selamat datang di *${namaToko}*!
+Dapatkan *${d.namaProduk}* dengan penawaran terbaik (${infoHarga}).${barisLegal}
 
-👉 Yuk order sekarang sebelum kuota promo habis! Klik link WhatsApp di bio ya!
-#UMKMNaikKelas #KreasiAIStudioUMKM #ProdukLokal #PromoUMKM`;
+KEUNGGULAN PRODUK:
+✔ ${unggul}
+✔ Solusi tepat untuk ${masalah.toLowerCase()}
+✔ Stok selalu baru (Fresh Production) & packing rapi anti bocor/rusak
+
+Silakan langsung klik Beli Sekarang atau chat admin untuk pembelian grosir/reseller!`;
       }
     }
 
-    // Tahap 04: Submenu Navigasi & Review Konten (Views -> Beli)
+    // 6. Tahap 04: Review Konten (Views -> Beli) & Kalkulator Manajemen Produksi
     function pilihSubTabUkur(tab) {
       const isReview = tab === 'review';
       const btnReview = document.getElementById('subTabUkur-review');
@@ -1208,9 +1831,9 @@ Keunggulan utama: ${unggul} 💛
       document.getElementById('funnelValBeli').textContent = `${formatAngka(pembeli)} (${konversiTotal.toFixed(2)}%)`;
 
       document.getElementById('funnelBarViews').style.width = views > 0 ? '100%' : '0%';
-      document.getElementById('funnelBarInteraksi').style.width = views > 0 ? `${Math.min(100, Math.max(6, (interaksi / views) * 100 * 3))}%` : '0%';
-      document.getElementById('funnelBarChat').style.width = views > 0 ? `${Math.min(100, Math.max(5, (chatMasuk / views) * 100 * 6))}%` : '0%';
-      document.getElementById('funnelBarBeli').style.width = views > 0 ? `${Math.min(100, Math.max(4, (pembeli / views) * 100 * 12))}%` : '0%';
+      document.getElementById('funnelBarInteraksi').style.width = views > 0 ? `${Math.min(100, Math.max(6, engagementRate * 3))}%` : '0%';
+      document.getElementById('funnelBarChat').style.width = views > 0 ? `${Math.min(100, Math.max(5, chatRate * 6))}%` : '0%';
+      document.getElementById('funnelBarBeli').style.width = views > 0 ? `${Math.min(100, Math.max(4, konversiTotal * 12))}%` : '0%';
 
       document.getElementById('outEngagementRate').textContent = `${engagementRate.toFixed(1)}%`;
       document.getElementById('outChatRate').textContent = `${chatRate.toFixed(1)}%`;
@@ -1256,15 +1879,12 @@ Keunggulan utama: ${unggul} 💛
     function sinkronPembeliKeKalkulator() {
       const pembeli = Math.max(0, Number(document.getElementById('ukurPembeliClosing')?.value) || 0);
       const targetInput = document.getElementById('targetTerjual');
-      if (targetInput) {
-        targetInput.value = pembeli;
-      }
+      if (targetInput) targetInput.value = pembeli;
       hitungManajemenProduksi();
       pilihSubTabUkur('kalkulator');
       tampilkanNotif(`${formatAngka(pembeli)} pembeli berhasil dikirim ke Kalkulator Profit!`);
     }
 
-    // Tahap 04: Kalkulator Manajemen Produksi & Finansial
     function ambilDataKalkulator() {
       const batch = Math.max(1, Number(document.getElementById('jumlahBatch').value) || 1);
       const bahan = Math.max(0, Number(document.getElementById('biayaBahanBaku').value) || 0);
@@ -1336,20 +1956,13 @@ Keunggulan utama: ${unggul} 💛
     }
 
     function isiContohProduksi() {
-      sinkronNamaProduk('SAPIRCling Jerigen 1L');
-      document.getElementById('jumlahBatch').value = 50;
-      document.getElementById('biayaBahanBaku').value = 400000;
-      document.getElementById('biayaKemasan').value = 250000;
-      document.getElementById('biayaOperasional').value = 100000;
-      sinkronHargaDiskon(20000, 10);
-      document.getElementById('targetTerjual').value = 25;
-      document.getElementById('hariKerjaBulanan').value = 26;
-      perbaruiSemua();
-      tampilkanNotif('Contoh hitungan SAPIRCling Jerigen 1L berhasil dimuat!');
+      const katAktif = document.getElementById('globalKategoriProduk')?.value || 'Produk Rumah Tangga & Sabun';
+      terapkanPresetKategori(katAktif, true);
     }
 
     function perbaruiSemua() {
       buatStrategiRiset();
+      buatPromptAiOtomatis();
       buatStrukturKonten();
       hitungManajemenProduksi();
       renderPreviewPoster();
@@ -1360,6 +1973,9 @@ Keunggulan utama: ${unggul} 💛
     window.onload = function () {
       pilihTahap(1);
       pilihSubTabUkur('review');
+      pilihKanalJualanAktif('katalog');
+      pilihJenisPromptAi('video');
+      perbaruiTampilanStatusPilar();
       perbaruiSemua();
     };
   </script>
