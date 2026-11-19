@@ -112,6 +112,162 @@
           </div>
         </div>
 
+        <!-- Fitur Tombol Legalitas UMKM (NIB, P-IRT, Halal, Merek) -->
+        <div class="rounded-2xl border border-slate-800 bg-slate-950/75 p-3.5 space-y-2.5">
+          <div class="flex items-center justify-between gap-2">
+            <div>
+              <span class="block text-xs font-bold text-emerald-300">Legalitas Produk UMKM</span>
+              <span id="ringkasanLegalitas" class="text-[11px] text-slate-400">Belum ada legalitas dipilih</span>
+            </div>
+            <button
+              type="button"
+              id="btnTombolLegalitas"
+              onclick="togglePanelLegalitas()"
+              class="inline-flex items-center gap-1.5 rounded-xl border border-emerald-400/40 bg-emerald-500/15 hover:bg-emerald-500/25 px-3 py-2 text-xs font-bold text-emerald-200 transition"
+            >
+              <span>🛡️</span>
+              <span>Legalitas</span>
+            </button>
+          </div>
+
+          <div id="panelLegalitas" class="pt-2 border-t border-slate-800/90 space-y-2.5">
+            <div class="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                id="btnLeg-nib"
+                onclick="pilihDanBukaPanduanLegalitas('nib')"
+                class="rounded-xl border border-slate-800 bg-slate-900 hover:border-emerald-400/50 px-3 py-2 text-left text-xs font-semibold text-slate-200 transition"
+              >
+                <div class="flex items-center justify-between gap-1">
+                  <span class="font-bold text-white">📄 NIB</span>
+                  <span id="badgeLeg-nib" class="rounded-full bg-slate-800 px-1.5 py-0.5 text-[9px] font-bold text-slate-400">Panduan</span>
+                </div>
+                <div class="text-[10px] text-slate-400">Identitas Usaha OSS</div>
+              </button>
+              <button
+                type="button"
+                id="btnLeg-pirt"
+                onclick="pilihDanBukaPanduanLegalitas('pirt')"
+                class="rounded-xl border border-slate-800 bg-slate-900 hover:border-emerald-400/50 px-3 py-2 text-left text-xs font-semibold text-slate-200 transition"
+              >
+                <div class="flex items-center justify-between gap-1">
+                  <span class="font-bold text-white">🌿 P-IRT</span>
+                  <span id="badgeLeg-pirt" class="rounded-full bg-slate-800 px-1.5 py-0.5 text-[9px] font-bold text-slate-400">Panduan</span>
+                </div>
+                <div class="text-[10px] text-slate-400">Izin Edar Pangan</div>
+              </button>
+              <button
+                type="button"
+                id="btnLeg-halal"
+                onclick="pilihDanBukaPanduanLegalitas('halal')"
+                class="rounded-xl border border-slate-800 bg-slate-900 hover:border-emerald-400/50 px-3 py-2 text-left text-xs font-semibold text-slate-200 transition"
+              >
+                <div class="flex items-center justify-between gap-1">
+                  <span class="font-bold text-white">☪️ Halal</span>
+                  <span id="badgeLeg-halal" class="rounded-full bg-slate-800 px-1.5 py-0.5 text-[9px] font-bold text-slate-400">Panduan</span>
+                </div>
+                <div class="text-[10px] text-slate-400">Sertifikat BPJPH</div>
+              </button>
+              <button
+                type="button"
+                id="btnLeg-merek"
+                onclick="pilihDanBukaPanduanLegalitas('merek')"
+                class="rounded-xl border border-slate-800 bg-slate-900 hover:border-emerald-400/50 px-3 py-2 text-left text-xs font-semibold text-slate-200 transition"
+              >
+                <div class="flex items-center justify-between gap-1">
+                  <span class="font-bold text-white">™️ Merek</span>
+                  <span id="badgeLeg-merek" class="rounded-full bg-slate-800 px-1.5 py-0.5 text-[9px] font-bold text-slate-400">Panduan</span>
+                </div>
+                <div class="text-[10px] text-slate-400">Proteksi Brand DJKI</div>
+              </button>
+            </div>
+
+            <!-- Kotak Panduan & Detail Legalitas Aktif (NIB / P-IRT / Halal / Merek) -->
+            <div id="kotakPanduanLegalitas" class="hidden rounded-2xl border border-emerald-400/40 bg-slate-900/95 p-3 space-y-2.5 text-xs">
+              <div class="flex items-start justify-between gap-2">
+                <div>
+                  <div id="judulPanduanLeg" class="font-extrabold text-emerald-300"></div>
+                  <div id="lembagaPanduanLeg" class="text-[10px] text-slate-400"></div>
+                </div>
+                <button
+                  type="button"
+                  onclick="tutupPanduanLegalitas()"
+                  class="rounded-lg bg-slate-800 px-2 py-0.5 text-[11px] font-bold text-slate-300 hover:text-white"
+                >
+                  ✕
+                </button>
+              </div>
+              <p id="deskripsiPanduanLeg" class="text-[11px] text-slate-300 leading-relaxed"></p>
+              <div class="rounded-xl bg-slate-950/90 border border-slate-800 p-2.5 space-y-1 text-[11px]">
+                <div class="font-bold text-amber-300">Syarat &amp; Langkah Singkat:</div>
+                <div id="syaratLangkahPanduanLeg" class="text-slate-300 leading-relaxed"></div>
+              </div>
+
+              <!-- Input Nomor untuk NIB / P-IRT / Halal -->
+              <div id="wadahNomorLeg" class="space-y-1">
+                <label id="labelNomorLeg" for="inputNomorLegalitas" class="block text-[11px] font-bold text-slate-300">
+                  Nomor Dokumen (Opsional)
+                </label>
+                <input
+                  id="inputNomorLegalitas"
+                  type="text"
+                  oninput="simpanNomorLegalitas()"
+                  placeholder="Masukkan nomor jika sudah terbit"
+                  class="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-xs text-white placeholder:text-slate-500 focus:border-emerald-400 outline-none"
+                />
+              </div>
+
+              <!-- Upload Logo untuk Merek -->
+              <div id="wadahLogoLeg" class="hidden space-y-1.5">
+                <label for="inputLogoMerek" class="block text-[11px] font-bold text-slate-300">
+                  Logo Merek Produk (Opsional)
+                </label>
+                <div class="flex items-center gap-2">
+                  <input
+                    id="inputLogoMerek"
+                    type="file"
+                    accept="image/*"
+                    onchange="handleUploadLogoMerek(event)"
+                    class="block w-full text-[11px] text-slate-300 file:mr-2 file:rounded-lg file:border-0 file:bg-emerald-600 file:px-2.5 file:py-1.5 file:text-[11px] file:font-bold file:text-white hover:file:bg-emerald-500 cursor-pointer"
+                  />
+                  <button
+                    type="button"
+                    id="btnHapusLogoLeg"
+                    onclick="hapusLogoMerek()"
+                    class="hidden rounded-lg bg-rose-950/80 border border-rose-500/40 px-2.5 py-1.5 text-[11px] font-bold text-rose-200 hover:bg-rose-900 shrink-0"
+                  >
+                    Hapus
+                  </button>
+                </div>
+                <div id="previewLogoLegBox" class="hidden flex items-center gap-2 rounded-xl bg-slate-950 border border-slate-800 p-2">
+                  <img id="previewLogoLegImg" src="" alt="Logo Merek" class="h-8 w-8 rounded object-contain bg-white p-0.5" onerror="this.src='https://placehold.co/64x64/1e293b/e2e8f0?text=Logo'" />
+                  <span class="text-[11px] text-emerald-300 font-semibold">Logo merek siap ditempel ke poster</span>
+                </div>
+              </div>
+
+              <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
+                <button
+                  type="button"
+                  id="btnToggleAktifLeg"
+                  onclick="toggleAktifLegalitasTerpilih()"
+                  class="rounded-xl bg-emerald-600 hover:bg-emerald-500 px-3 py-2 text-xs font-extrabold text-white transition"
+                >
+                  ✅ Tandai Sudah Punya
+                </button>
+                <a
+                  id="linkPortalResmiLeg"
+                  href="https://oss.go.id"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="rounded-xl border border-slate-700 bg-slate-950 hover:bg-slate-800 px-3 py-2 text-xs font-bold text-emerald-200 transition"
+                >
+                  ↗ Portal Resmi
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <!-- Fokus Eksplorasi Luas -->
         <div class="space-y-2 pt-1">
           <span class="block text-xs font-bold text-slate-300">Mode Perluasan Hasil</span>
@@ -238,6 +394,7 @@
               <p class="text-[11px] text-slate-400 leading-relaxed">
                 Gunakan gambar yang dihasilkan untuk sampul katalog, thumbnail video pendek, status WhatsApp, atau materi promosi cetak UMKM.
               </p>
+              <div id="infoLegalitasPoster" class="text-[11px] font-semibold text-emerald-300"></div>
             </div>
           </div>
         </div>
@@ -277,11 +434,249 @@
     let modeLuasAktif = 'semua';
     let teksHasilTerakhir = '';
     let geminiApiKey = '';
+    let legalitasTerbukaKode = null;
+    let logoMerekDataUrl = '';
+    let hasilPosterTerakhirSrc = '';
+
+    const legalitasAktif = {
+      nib: false,
+      pirt: false,
+      halal: false,
+      merek: false,
+    };
+
+    const nomorLegalitas = {
+      nib: '',
+      pirt: '',
+      halal: '',
+    };
+
+    const DATA_LEGALITAS = {
+      nib: {
+        label: 'NIB',
+        judul: 'NIB (Nomor Induk Berusaha)',
+        lembaga: 'OSS RBA • Kementerian Investasi / BKPM',
+        deskripsi: 'Identitas resmi pelaku usaha UMKM agar legalitas dasar usaha tercatat dan memudahkan akses pembiayaan, perizinan lanjutan, serta kemitraan.',
+        syaratLangkah: 'Syarat: KTP, NPWP (jika ada), data usaha. Langkah: Daftar di oss.go.id → pilih skala UMK → isi KBLI & data usaha → terbitkan NIB.',
+        portal: 'https://oss.go.id',
+        placeholder: 'Contoh: 1234567890123',
+      },
+      pirt: {
+        label: 'P-IRT',
+        judul: 'P-IRT (Pangan Industri Rumah Tangga)',
+        lembaga: 'Dinas Kesehatan & BPOM',
+        deskripsi: 'Izin edar produk pangan olahan produksi rumahan agar lebih meyakinkan konsumen dan siap masuk ke toko lokal maupun katalog.',
+        syaratLangkah: 'Syarat: NIB aktif & pemenuhan standar keamanan pangan. Langkah: Ajukan melalui oss.go.id / SPP-IRT → ikuti penyuluhan keamanan pangan.',
+        portal: 'https://sppirt.pom.go.id',
+        placeholder: 'Contoh: P-IRT 2053201010456-29',
+      },
+      halal: {
+        label: 'Sertifikasi Halal',
+        lembaga: 'BPJPH • Kementerian Agama',
+        deskripsi: 'Jaminan kehalalan bahan baku dan proses produksi yang meningkatkan kepercayaan pembeli keluarga dan pasar luas.',
+        syaratLangkah: 'Syarat: NIB, daftar bahan & proses produksi. Langkah: Daftar di ptsp.halal.go.id → pilih jalur Self-Declare / Reguler → verifikasi & terbit sertifikat.',
+        portal: 'https://ptsp.halal.go.id',
+        placeholder: 'Contoh: ID32110001234560126',
+      },
+      merek: {
+        label: 'Merek Terdaftar',
+        judul: 'Perlindungan Merek Dagang',
+        lembaga: 'DJKI • Kementerian Hukum',
+        deskripsi: 'Melindungi nama brand dan logo produk UMKM agar identitas usaha aman saat berkembang dan dipromosikan secara luas.',
+        syaratLangkah: 'Syarat: Nama/logo merek & data pemohon. Langkah: Cek ketersediaan merek di PDKI → ajukan permohonan merek resmi melalui DJKI.',
+        portal: 'https://merek.dgip.go.id',
+        placeholder: '',
+      },
+    };
 
     try {
       geminiApiKey = localStorage.getItem('kreasi_umkm_gemini_key') || '';
     } catch (err) {
       geminiApiKey = '';
+    }
+
+    function togglePanelLegalitas() {
+      const panel = document.getElementById('panelLegalitas');
+      if (!panel) return;
+      panel.classList.toggle('hidden');
+      if (!panel.classList.contains('hidden') && !legalitasTerbukaKode) {
+        pilihDanBukaPanduanLegalitas('nib');
+      }
+    }
+
+    function pilihDanBukaPanduanLegalitas(kode) {
+      if (!(kode in DATA_LEGALITAS)) return;
+      const kotak = document.getElementById('kotakPanduanLegalitas');
+      const samaDanTerbuka = legalitasTerbukaKode === kode && kotak && !kotak.classList.contains('hidden');
+
+      if (samaDanTerbuka) {
+        tutupPanduanLegalitas();
+        return;
+      }
+
+      legalitasTerbukaKode = kode;
+      const info = DATA_LEGALITAS[kode];
+
+      if (kotak) kotak.classList.remove('hidden');
+      const judulEl = document.getElementById('judulPanduanLeg');
+      const lembagaEl = document.getElementById('lembagaPanduanLeg');
+      const descEl = document.getElementById('deskripsiPanduanLeg');
+      const syaratEl = document.getElementById('syaratLangkahPanduanLeg');
+      const linkEl = document.getElementById('linkPortalResmiLeg');
+      const wadahNomor = document.getElementById('wadahNomorLeg');
+      const wadahLogo = document.getElementById('wadahLogoLeg');
+      const inputNomor = document.getElementById('inputNomorLegalitas');
+
+      if (judulEl) judulEl.textContent = info.judul;
+      if (lembagaEl) lembagaEl.textContent = info.lembaga;
+      if (descEl) descEl.textContent = info.deskripsi;
+      if (syaratEl) syaratEl.textContent = info.syaratLangkah;
+      if (linkEl) linkEl.href = info.portal;
+
+      if (kode === 'merek') {
+        wadahNomor?.classList.add('hidden');
+        wadahLogo?.classList.remove('hidden');
+      } else {
+        wadahNomor?.classList.remove('hidden');
+        wadahLogo?.classList.add('hidden');
+        if (inputNomor) {
+          inputNomor.placeholder = info.placeholder;
+          inputNomor.value = nomorLegalitas[kode] || '';
+        }
+      }
+
+      perbaruiTampilanLegalitas();
+    }
+
+    function tutupPanduanLegalitas() {
+      legalitasTerbukaKode = null;
+      document.getElementById('kotakPanduanLegalitas')?.classList.add('hidden');
+      perbaruiTampilanLegalitas();
+    }
+
+    function simpanNomorLegalitas() {
+      if (!legalitasTerbukaKode || legalitasTerbukaKode === 'merek') return;
+      const val = (document.getElementById('inputNomorLegalitas')?.value || '').trim();
+      nomorLegalitas[legalitasTerbukaKode] = val;
+      if (val && !legalitasAktif[legalitasTerbukaKode]) {
+        legalitasAktif[legalitasTerbukaKode] = true;
+      }
+      perbaruiTampilanLegalitas();
+    }
+
+    function handleUploadLogoMerek(event) {
+      const file = event?.target?.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        logoMerekDataUrl = String(e?.target?.result || '');
+        if (logoMerekDataUrl) {
+          legalitasAktif.merek = true;
+          perbaruiTampilanLegalitas();
+          tampilkanToast('Logo merek berhasil dimuat.');
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function hapusLogoMerek() {
+      logoMerekDataUrl = '';
+      const inputFile = document.getElementById('inputLogoMerek');
+      if (inputFile) inputFile.value = '';
+      legalitasAktif.merek = false;
+      perbaruiTampilanLegalitas();
+      tampilkanToast('Logo merek dihapus.');
+    }
+
+    function toggleAktifLegalitasTerpilih() {
+      const kode = legalitasTerbukaKode || 'nib';
+      if (!(kode in legalitasAktif)) return;
+      legalitasAktif[kode] = !legalitasAktif[kode];
+      perbaruiTampilanLegalitas();
+      tampilkanToast(
+        legalitasAktif[kode]
+          ? `${DATA_LEGALITAS[kode].label} diaktifkan untuk hasil AI & poster.`
+          : `${DATA_LEGALITAS[kode].label} dinonaktifkan.`
+      );
+    }
+
+    function ambilDaftarLegalitas() {
+      const aktif = Object.keys(legalitasAktif)
+        .filter((k) => legalitasAktif[k])
+        .map((k) => {
+          const dasar = DATA_LEGALITAS[k].label;
+          const no = k !== 'merek' ? nomorLegalitas[k] : '';
+          return no ? `${dasar} (${no})` : dasar;
+        });
+      return aktif.join(', ');
+    }
+
+    function perbaruiTampilanLegalitas() {
+      Object.keys(legalitasAktif).forEach((kode) => {
+        const btn = document.getElementById(`btnLeg-${kode}`);
+        const badge = document.getElementById(`badgeLeg-${kode}`);
+        const isAktif = legalitasAktif[kode];
+        const isDipilih = legalitasTerbukaKode === kode;
+
+        if (btn) {
+          if (isAktif) {
+            btn.className = `rounded-xl border ${isDipilih ? 'border-emerald-300 ring-1 ring-emerald-300/60' : 'border-emerald-400'} bg-emerald-950/75 px-3 py-2 text-left text-xs font-bold text-emerald-100 shadow-sm transition`;
+          } else if (isDipilih) {
+            btn.className = 'rounded-xl border border-indigo-400 bg-indigo-950/60 px-3 py-2 text-left text-xs font-semibold text-indigo-100 transition';
+          } else {
+            btn.className = 'rounded-xl border border-slate-800 bg-slate-900 hover:border-emerald-400/50 px-3 py-2 text-left text-xs font-semibold text-slate-200 transition';
+          }
+        }
+
+        if (badge) {
+          badge.textContent = isAktif ? 'Aktif' : 'Panduan';
+          badge.className = isAktif
+            ? 'rounded-full bg-emerald-500/25 border border-emerald-400/50 px-1.5 py-0.5 text-[9px] font-extrabold text-emerald-200'
+            : 'rounded-full bg-slate-800 px-1.5 py-0.5 text-[9px] font-bold text-slate-400';
+        }
+      });
+
+      const btnToggleAktif = document.getElementById('btnToggleAktifLeg');
+      if (btnToggleAktif && legalitasTerbukaKode) {
+        const sudahAktif = legalitasAktif[legalitasTerbukaKode];
+        btnToggleAktif.textContent = sudahAktif ? '✓ Aktif (Klik untuk Lepas)' : '✅ Tandai Sudah Punya';
+        btnToggleAktif.className = sudahAktif
+          ? 'rounded-xl border border-emerald-400 bg-emerald-950/80 hover:bg-emerald-900/80 px-3 py-2 text-xs font-extrabold text-emerald-200 transition'
+          : 'rounded-xl bg-emerald-600 hover:bg-emerald-500 px-3 py-2 text-xs font-extrabold text-white transition';
+      }
+
+      const previewBox = document.getElementById('previewLogoLegBox');
+      const previewImg = document.getElementById('previewLogoLegImg');
+      const btnHapusLogo = document.getElementById('btnHapusLogoLeg');
+      if (logoMerekDataUrl) {
+        previewBox?.classList.remove('hidden');
+        btnHapusLogo?.classList.remove('hidden');
+        if (previewImg) previewImg.src = logoMerekDataUrl;
+      } else {
+        previewBox?.classList.add('hidden');
+        btnHapusLogo?.classList.add('hidden');
+      }
+
+      const ringkasan = document.getElementById('ringkasanLegalitas');
+      const tombolUtama = document.getElementById('btnTombolLegalitas');
+      const daftar = ambilDaftarLegalitas();
+
+      if (ringkasan) {
+        ringkasan.textContent = daftar ? `Aktif: ${daftar}` : 'Belum ada legalitas dipilih';
+      }
+      if (tombolUtama) {
+        tombolUtama.className = daftar
+          ? 'inline-flex items-center gap-1.5 rounded-xl border border-emerald-400 bg-emerald-600/30 hover:bg-emerald-600/40 px-3 py-2 text-xs font-bold text-emerald-100 transition'
+          : 'inline-flex items-center gap-1.5 rounded-xl border border-emerald-400/40 bg-emerald-500/15 hover:bg-emerald-500/25 px-3 py-2 text-xs font-bold text-emerald-200 transition';
+      }
+
+      const infoPoster = document.getElementById('infoLegalitasPoster');
+      if (infoPoster) {
+        infoPoster.textContent = daftar ? `Badge legalitas pada poster: ${daftar}` : '';
+      }
+      if (hasilPosterTerakhirSrc) {
+        renderKartuPoster(hasilPosterTerakhirSrc);
+      }
     }
 
     function tampilkanToast(pesan) {
@@ -369,10 +764,18 @@
     }
 
     function bersihkanInput() {
-      ['inputProduk', 'inputKeunggulan', 'inputTujuan'].forEach((id) => {
+      ['inputProduk', 'inputKeunggulan', 'inputTujuan', 'inputNomorLegalitas', 'inputLogoMerek'].forEach((id) => {
         const el = document.getElementById(id);
         if (el) el.value = '';
       });
+      logoMerekDataUrl = '';
+      Object.keys(legalitasAktif).forEach((k) => {
+        legalitasAktif[k] = false;
+      });
+      Object.keys(nomorLegalitas).forEach((k) => {
+        nomorLegalitas[k] = '';
+      });
+      perbaruiTampilanLegalitas();
       tampilkanToast('Kolom input dibersihkan.');
     }
 
@@ -430,6 +833,10 @@
 
     function susunPromptLuas(produk, keunggulan, tujuan, mode) {
       const konteksTujuan = tujuan || 'berbagai segmen pembeli umum, keluarga, pekerja, hingga reseller/komunitas lokal';
+      const infoLegalitas = ambilDaftarLegalitas();
+      const barisLegalitas = infoLegalitas
+        ? `\nLegalitas / Kredibilitas Produk: "${infoLegalitas}" (sertakan poin kepercayaan legalitas ini secara alami pada materi promosi & kepercayaan pembeli).`
+        : '';
       const fokusArahan = {
         semua: 'Buat perluasan seluas mungkin: (1) Multi-Sudut Pembeli (kebutuhan harian, hadiah/acara, dan peluang reseller/grosir), (2) Naskah Video Pendek (Reels/TikTok/Shorts) dengan hook berbeda, (3) Pesan WhatsApp & Katalog Siap Kirim, serta (4) Ide Jingle/Lagu Pendek & Kata Kunci Pencarian.',
         segmen: 'Fokus memperluas jangkauan ke 4 sudut audiens berbeda (pembeli hemat harian, keluarga/anak, segmen profesional/sibuk, dan reseller/dropshipper) lengkap dengan pendekatan bahasa yang pas untuk masing-masing.',
@@ -439,7 +846,7 @@
 
       return `Produk UMKM: "${produk}"
 Keunggulan Utama: "${keunggulan}"
-Target / Situasi: "${konteksTujuan}"
+Target / Situasi: "${konteksTujuan}"${barisLegalitas}
 
 ${fokusArahan}
 
@@ -633,20 +1040,8 @@ Format output menggunakan judul bagian yang jelas agar mudah dibaca dan disalin 
         }
 
         const imgSrc = `data:${part.inlineData.mimeType || 'image/png'};base64,${part.inlineData.data}`;
-        if (wadahImg) {
-          wadahImg.innerHTML = `
-            <img src="${imgSrc}" alt="Poster AI ${escapeHtml(produk)}" class="w-44 h-44 rounded-2xl object-cover border border-slate-700 shadow-lg shrink-0" onerror="this.src='https://placehold.co/300x300/1e293b/e2e8f0?text=Poster+AI'" />
-            <div class="space-y-2.5 text-xs text-slate-300 flex-1">
-              <div class="font-bold text-white">Poster AI: ${escapeHtml(produk)}</div>
-              <p class="text-[11px] text-slate-400 leading-relaxed">
-                Visual siap dipakai untuk katalog, status WhatsApp, media sosial, atau diunduh langsung ke perangkat Anda.
-              </p>
-              <a href="${imgSrc}" download="poster-${produk.toLowerCase().replace(/[^a-z0-9]+/g, '-') || 'umkm'}.png" class="inline-flex items-center gap-1.5 rounded-xl bg-fuchsia-600 hover:bg-fuchsia-500 px-3.5 py-2 text-xs font-bold text-white transition">
-                ⬇️ Unduh Gambar
-              </a>
-            </div>
-          `;
-        }
+        hasilPosterTerakhirSrc = imgSrc;
+        renderKartuPoster(imgSrc);
         if (!senyap) tampilkanToast('Gambar poster AI berhasil dibuat!');
       } catch (err) {
         if (wadahImg) {
@@ -662,8 +1057,33 @@ Format output menggunakan judul bagian yang jelas agar mudah dibaca dan disalin 
       }
     }
 
+    function renderKartuPoster(imgSrc) {
+      const wadahImg = document.getElementById('wadahGambarPoster');
+      const produk = (document.getElementById('inputProduk')?.value || '').trim() || 'Produk UMKM';
+      const daftarLegal = ambilDaftarLegalitas();
+      if (!wadahImg || !imgSrc) return;
+
+      wadahImg.innerHTML = `
+        <div class="relative w-44 h-44 shrink-0">
+          <img src="${imgSrc}" alt="Poster AI ${escapeHtml(produk)}" class="w-44 h-44 rounded-2xl object-cover border border-slate-700 shadow-lg" onerror="this.src='https://placehold.co/300x300/1e293b/e2e8f0?text=Poster+AI'" />
+          ${logoMerekDataUrl ? `<img src="${logoMerekDataUrl}" alt="Logo Merek" class="absolute top-2 left-2 h-9 w-9 rounded-lg bg-white/95 p-1 object-contain shadow" onerror="this.style.display='none'" />` : ''}
+        </div>
+        <div class="space-y-2.5 text-xs text-slate-300 flex-1">
+          <div class="font-bold text-white">Poster AI: ${escapeHtml(produk)}</div>
+          ${daftarLegal ? `<div id="infoLegalitasPoster" class="inline-block rounded-lg border border-emerald-400/40 bg-emerald-950/60 px-2.5 py-1 text-[11px] font-bold text-emerald-200">✓ ${escapeHtml(daftarLegal)}</div>` : '<div id="infoLegalitasPoster" class="text-[11px] font-semibold text-emerald-300"></div>'}
+          <p class="text-[11px] text-slate-400 leading-relaxed">
+            Visual siap dipakai untuk katalog, status WhatsApp, media sosial, atau diunduh langsung ke perangkat Anda.
+          </p>
+          <a href="${imgSrc}" download="poster-${produk.toLowerCase().replace(/[^a-z0-9]+/g, '-') || 'umkm'}.png" class="inline-flex items-center gap-1.5 rounded-xl bg-fuchsia-600 hover:bg-fuchsia-500 px-3.5 py-2 text-xs font-bold text-white transition">
+            ⬇️ Unduh Gambar
+          </a>
+        </div>
+      `;
+    }
+
     window.addEventListener('load', () => {
       perbaruiIndikatorApi();
+      perbaruiTampilanLegalitas();
       pilihModeLuas('semua');
     });
   </script>
