@@ -1109,6 +1109,7 @@ Gunakan bahasa Indonesia yang natural, hangat, persuasif, mudah dipahami pelaku 
           ? `Create a professional, clean, high-converting commercial promotional poster featuring the exact product shown in the uploaded image for Indonesian UMKM "${produk}". Highlighting ${keunggulan || 'quality and everyday value'}. Keep the product appearance, shape, packaging, and label faithful to the uploaded photo while placing it in an attractive studio setting with warm lighting and appealing layout.`
           : `Modern clean promotional poster visual for Indonesian UMKM product "${produk}". Highlighting ${keunggulan || 'quality and everyday value'}. Warm inviting studio lighting, clean composition, appealing commercial aesthetic.`;
         let imgSrc = '';
+        let serverErrorMsg = '';
 
         // Prioritaskan jalur server /api/gemini mode image
         try {
@@ -1122,59 +1123,65 @@ Gunakan bahasa Indonesia yang natural, hangat, persuasif, mudah dipahami pelaku 
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payloadServer),
           });
+          const dataServerImg = await resServerImg.json().catch(() => ({}));
           if (resServerImg.ok) {
-            const dataServerImg = await resServerImg.json();
             if (dataServerImg.imageUrl) {
               imgSrc = dataServerImg.imageUrl;
             } else if (dataServerImg.base64) {
               imgSrc = `data:${dataServerImg.mimeType || 'image/png'};base64,${dataServerImg.base64}`;
             }
+          } else {
+            serverErrorMsg = dataServerImg?.error || `Server error (${resServerImg.status})`;
           }
-        } catch (netErr) {}
+        } catch (netErr) {
+          serverErrorMsg = netErr.message;
+        }
 
         if (!imgSrc) {
           const apiKey = geminiApiKey.trim();
-          if (!apiKey) {
-            throw new Error('API Key belum aktif untuk membuat gambar poster.');
-          }
-          const urlImg = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent?key=${encodeURIComponent(apiKey)}`;
-          const userParts = [{ text: promptVisual }];
-          if (adaFotoProduk) {
-            userParts.push({
-              inlineData: {
-                mimeType: fotoProdukPosterMimeType,
-                data: fotoProdukPosterBase64,
-              },
-            });
-          }
-
-          const response = await panggilGeminiDenganRetry(urlImg, {
-            contents: [{
-              role: 'user',
-              parts: userParts
-            }],
-            generationConfig: {
-              responseModalities: ['IMAGE'],
-              imageConfig: { aspectRatio: '1:1' }
+          if (apiKey) {
+            const urlImg = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent?key=${encodeURIComponent(apiKey)}`;
+            const userParts = [{ text: promptVisual }];
+            if (adaFotoProduk) {
+              userParts.push({
+                inlineData: {
+                  mimeType: fotoProdukPosterMimeType,
+                  data: fotoProdukPosterBase64,
+                },
+              });
             }
-          });
 
-          const result = await response.json();
-          if (!response.ok) {
-            throw new Error(result?.error?.message || 'Gagal menghasilkan gambar poster.');
+            const response = await panggilGeminiDenganRetry(urlImg, {
+              contents: [{
+                role: 'user',
+                parts: userParts
+              }],
+              generationConfig: {
+                responseModalities: ['IMAGE'],
+                imageConfig: { aspectRatio: '1:1' }
+              }
+            });
+
+            const result = await response.json();
+            if (!response.ok) {
+              throw new Error(result?.error?.message || serverErrorMsg || 'Gagal menghasilkan gambar poster.');
+            }
+
+            const part = result?.candidates?.[0]?.content?.parts?.find((p) => p.inlineData);
+            if (!part?.inlineData?.data) {
+              throw new Error('Gambar tidak dikembalikan oleh model.');
+            }
+
+            imgSrc = `data:${part.inlineData.mimeType || 'image/png'};base64,${part.inlineData.data}`;
+          } else {
+            // Susun poster studio otomatis di kanvas jika kuota Gemini Image sedang dibatasi
+            imgSrc = await buatPosterKanvasOtomatis(produk, keunggulan, serverErrorMsg);
           }
-
-          const part = result?.candidates?.[0]?.content?.parts?.find((p) => p.inlineData);
-          if (!part?.inlineData?.data) {
-            throw new Error('Gambar tidak dikembalikan oleh model.');
-          }
-
-          imgSrc = `data:${part.inlineData.mimeType || 'image/png'};base64,${part.inlineData.data}`;
         }
 
         hasilPosterTerakhirSrc = imgSrc;
         renderKartuPoster(imgSrc);
-        if (!senyap) tampilkanToast('Gambar poster AI berhasil dibuat!');
+        if (!senyap) tampilkanToast('Gambar poster berhasil dibuat!');
       } catch (err) {
         if (!senyap && wadah) {
           wadah.innerHTML = `<div class="text-xs text-rose-300">Gagal membuat visual: ${escapeHtml(err.message)}</div>`;
@@ -1185,6 +1192,81 @@ Gunakan bahasa Indonesia yang natural, hangat, persuasif, mudah dipahami pelaku 
           btn.textContent = '🖼️ Buat Gambar Poster AI';
         }
       }
+    }
+
+    async function buatPosterKanvasOtomatis(produk, keunggulan, alasanFallback) {
+      const canvas = document.createElement('canvas');
+      canvas.width = 1080;
+      canvas.height = 1080;
+      const ctx = canvas.getContext('2d');
+
+      const grad = ctx.createLinearGradient(0, 0, 1080, 1080);
+      grad.addColorStop(0, '#0f172a');
+      grad.addColorStop(0.5, '#312e81');
+      grad.addColorStop(1, '#701a75');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 1080, 1080);
+
+      ctx.fillStyle = 'rgba(255,255,255,0.08)';
+      ctx.beginPath();
+      ctx.arc(540, 490, 320, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = '#a5b4fc';
+      ctx.font = '800 28px Inter, sans-serif';
+      ctx.fillText('KREASI AI STUDIO UMKM • KECAMATAN LIMO', 64, 84);
+
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '800 54px Inter, sans-serif';
+      ctx.fillText(produk.toUpperCase().slice(0, 24), 64, 156);
+
+      if (fotoProdukPosterBase64) {
+        await new Promise((resolve) => {
+          const img = new Image();
+          img.onload = () => {
+            const scale = Math.min(480 / img.width, 480 / img.height);
+            const dw = img.width * scale;
+            const dh = img.height * scale;
+            const dx = (1080 - dw) / 2;
+            const dy = 230 + (480 - dh) / 2;
+            ctx.save();
+            ctx.beginPath();
+            ctx.roundRect(dx, dy, dw, dh, 32);
+            ctx.clip();
+            ctx.drawImage(img, dx, dy, dw, dh);
+            ctx.restore();
+            resolve();
+          };
+          img.onerror = resolve;
+          img.src = `data:${fotoProdukPosterMimeType};base64,${fotoProdukPosterBase64}`;
+        });
+      }
+
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
+      ctx.beginPath();
+      ctx.roundRect(64, 780, 952, 220, 28);
+      ctx.fill();
+
+      ctx.fillStyle = '#fde047';
+      ctx.font = '800 36px Inter, sans-serif';
+      ctx.fillText((keunggulan || 'Kualitas Terpercaya • Pilihan Keluarga').slice(0, 44), 96, 855);
+
+      const daftarLegal = ambilDaftarLegalitasAktif();
+      ctx.fillStyle = '#6ee7b7';
+      ctx.font = '700 26px Inter, sans-serif';
+      ctx.fillText(
+        daftarLegal.length > 0 ? `Terjamin: ${daftarLegal.join(' • ')}` : 'Siap Order Sekarang • Produksi Segar UMKM',
+        96,
+        915
+      );
+
+      if (alasanFallback) {
+        ctx.fillStyle = '#94a3b8';
+        ctx.font = '500 18px Inter, sans-serif';
+        ctx.fillText(`Mode Studio Kanvas (${alasanFallback.slice(0, 62)})`, 96, 965);
+      }
+
+      return canvas.toDataURL('image/png');
     }
 
     window.addEventListener('DOMContentLoaded', () => {
