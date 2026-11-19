@@ -52,6 +52,7 @@
         >
           <span id="dotApi" class="h-2.5 w-2.5 rounded-full bg-slate-500"></span>
           <span id="labelApi">Atur API Key</span>
+          <span id="tandaAktifApi" class="hidden rounded-full bg-emerald-400/20 border border-emerald-300/50 px-2 py-0.5 text-[10px] font-extrabold text-emerald-200">✓ AKTIF</span>
         </button>
       </div>
     </header>
@@ -434,6 +435,7 @@
     let modeLuasAktif = 'semua';
     let teksHasilTerakhir = '';
     let geminiApiKey = '';
+    let serverApiSiap = false;
     let legalitasTerbukaKode = null;
     let logoMerekDataUrl = '';
     let hasilPosterTerakhirSrc = '';
@@ -691,16 +693,51 @@
     }
 
     function perbaruiIndikatorApi() {
-      const aktif = Boolean(geminiApiKey.trim());
+      const adaKeyLokal = Boolean(geminiApiKey.trim());
+      const aktif = adaKeyLokal || serverApiSiap;
       const dot = document.getElementById('dotApi');
       const label = document.getElementById('labelApi');
+      const tandaAktif = document.getElementById('tandaAktifApi');
       const btn = document.getElementById('btnStatusApi');
 
       if (dot) {
         dot.className = aktif
-          ? 'h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse'
+          ? 'h-2.5 w-2.5 rounded-full bg-emerald-400 animate-pulse shadow-sm shadow-emerald-400'
           : 'h-2.5 w-2.5 rounded-full bg-amber-400';
       }
+      if (label) {
+        if (adaKeyLokal) {
+          label.textContent = 'Gemini API Key Aktif';
+        } else if (serverApiSiap) {
+          label.textContent = 'Gemini API Server Aktif';
+        } else {
+          label.textContent = 'Atur / Cek API Key';
+        }
+      }
+      if (tandaAktif) {
+        tandaAktif.classList.toggle('hidden', !aktif);
+      }
+      if (btn) {
+        btn.className = aktif
+          ? 'self-start sm:self-center inline-flex items-center gap-2 rounded-2xl border border-emerald-400 bg-emerald-950/65 px-4 py-2.5 text-xs font-bold text-emerald-100 shadow-lg shadow-emerald-500/15 hover:bg-emerald-900/60 transition shrink-0'
+          : 'self-start sm:self-center inline-flex items-center gap-2 rounded-2xl border border-slate-700 bg-slate-900 px-4 py-2.5 text-xs font-bold text-slate-200 hover:border-emerald-400/60 transition shrink-0';
+      }
+    }
+
+    async function cekKoneksiServerApi() {
+      try {
+        const res = await fetch('/api/gemini', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt: '', mode: 'text' }),
+        });
+        const data = await res.json().catch(() => ({}));
+        serverApiSiap = res.status === 400 && Boolean(data?.error);
+      } catch (err) {
+        serverApiSiap = false;
+      }
+      perbaruiIndikatorApi();
+    }
       if (label) {
         label.textContent = aktif ? 'Gemini API Aktif' : 'Atur / Cek API Key';
       }
@@ -1137,6 +1174,7 @@ Format output menggunakan judul bagian yang jelas agar mudah dibaca dan disalin 
 
     window.addEventListener('load', () => {
       perbaruiIndikatorApi();
+      cekKoneksiServerApi();
       perbaruiTampilanLegalitas();
       pilihModeLuas('semua');
     });
