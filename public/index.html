@@ -942,26 +942,55 @@ Format output menggunakan judul bagian yang jelas agar mudah dibaca dan disalin 
           modeLuasAktif
         );
 
-        const apiKey = geminiApiKey.trim();
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${encodeURIComponent(apiKey)}`;
+        let teksOut = '';
+        let backendError = '';
 
-        const payload = {
-          contents: [{ parts: [{ text: prompt }] }],
-          systemInstruction: {
-            parts: [{
-              text: 'Anda adalah asisten kreatif & strategi pertumbuhan UMKM Indonesia. Ubah input singkat menjadi jawaban yang luas, praktis, membumi, dan bisa langsung dipakai ke berbagai segmen pasar serta kanal digital maupun offline.'
-            }]
+        // Prioritaskan jalur server /api/gemini (Railway GEMINI_API_KEY)
+        try {
+          const resServer = await fetch('/api/gemini', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt, mode: 'text' }),
+          });
+          const dataServer = await resServer.json().catch(() => ({}));
+          if (resServer.ok && dataServer.text) {
+            teksOut = dataServer.text;
+          } else if (dataServer.error) {
+            backendError = dataServer.error;
           }
-        };
-
-        const response = await panggilGeminiDenganRetry(url, payload);
-        const result = await response.json();
-
-        if (!response.ok) {
-          throw new Error(result?.error?.message || 'Gagal memanggil Gemini API. Periksa API Key Anda.');
+        } catch (netErr) {
+          backendError = '';
         }
 
-        const teksOut = result?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+        // Fallback ke API Key lokal browser jika server tidak mengembalikan hasil
+        if (!teksOut) {
+          const apiKey = geminiApiKey.trim();
+          if (!apiKey) {
+            throw new Error(
+              backendError || 'API Key belum aktif. Isi API Key di tombol "Atur / Cek API Key" atau periksa GEMINI_API_KEY di Railway.'
+            );
+          }
+
+          const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${encodeURIComponent(apiKey)}`;
+          const payload = {
+            contents: [{ parts: [{ text: prompt }] }],
+            systemInstruction: {
+              parts: [{
+                text: 'Anda adalah asisten kreatif & strategi pertumbuhan UMKM Indonesia. Ubah input singkat menjadi jawaban yang luas, praktis, membumi, dan bisa langsung dipakai ke berbagai segmen pasar serta kanal digital maupun offline.'
+              }]
+            }
+          };
+
+          const response = await panggilGeminiDenganRetry(url, payload);
+          const result = await response.json();
+
+          if (!response.ok) {
+            throw new Error(result?.error?.message || 'Gagal memanggil Gemini API. Periksa API Key Anda.');
+          }
+
+          teksOut = result?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+        }
+
         if (!teksOut) {
           throw new Error('Respons teks kosong dari Gemini API.');
         }
@@ -1014,32 +1043,57 @@ Format output menggunakan judul bagian yang jelas agar mudah dibaca dan disalin 
       }
 
       try {
-        const apiKey = geminiApiKey.trim();
-        const urlImg = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image:generateContent?key=${encodeURIComponent(apiKey)}`;
         const promptVisual = `Modern clean promotional poster visual for Indonesian UMKM product "${produk}". Highlighting ${keunggulan || 'quality and everyday value'}. Warm inviting studio lighting, clean composition, appealing commercial aesthetic.`;
+        let imgSrc = '';
 
-        const response = await panggilGeminiDenganRetry(urlImg, {
-          contents: [{
-            role: 'user',
-            parts: [{ text: promptVisual }]
-          }],
-          generationConfig: {
-            responseModalities: ['IMAGE'],
-            imageConfig: { aspectRatio: '1:1' }
+        // Prioritaskan jalur server /api/gemini mode image
+        try {
+          const resServerImg = await fetch('/api/gemini', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt: promptVisual, mode: 'image' }),
+          });
+          if (resServerImg.ok) {
+            const dataServerImg = await resServerImg.json();
+            if (dataServerImg.imageUrl) {
+              imgSrc = dataServerImg.imageUrl;
+            } else if (dataServerImg.base64) {
+              imgSrc = `data:${dataServerImg.mimeType || 'image/png'};base64,${dataServerImg.base64}`;
+            }
           }
-        });
+        } catch (netErr) {}
 
-        const result = await response.json();
-        if (!response.ok) {
-          throw new Error(result?.error?.message || 'Gagal menghasilkan gambar poster.');
+        if (!imgSrc) {
+          const apiKey = geminiApiKey.trim();
+          if (!apiKey) {
+            throw new Error('API Key belum aktif untuk membuat gambar poster.');
+          }
+          const urlImg = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image:generateContent?key=${encodeURIComponent(apiKey)}`;
+
+          const response = await panggilGeminiDenganRetry(urlImg, {
+            contents: [{
+              role: 'user',
+              parts: [{ text: promptVisual }]
+            }],
+            generationConfig: {
+              responseModalities: ['IMAGE'],
+              imageConfig: { aspectRatio: '1:1' }
+            }
+          });
+
+          const result = await response.json();
+          if (!response.ok) {
+            throw new Error(result?.error?.message || 'Gagal menghasilkan gambar poster.');
+          }
+
+          const part = result?.candidates?.[0]?.content?.parts?.find((p) => p.inlineData);
+          if (!part?.inlineData?.data) {
+            throw new Error('Gambar tidak dikembalikan oleh model.');
+          }
+
+          imgSrc = `data:${part.inlineData.mimeType || 'image/png'};base64,${part.inlineData.data}`;
         }
 
-        const part = result?.candidates?.[0]?.content?.parts?.find((p) => p.inlineData);
-        if (!part?.inlineData?.data) {
-          throw new Error('Gambar tidak dikembalikan oleh model.');
-        }
-
-        const imgSrc = `data:${part.inlineData.mimeType || 'image/png'};base64,${part.inlineData.data}`;
         hasilPosterTerakhirSrc = imgSrc;
         renderKartuPoster(imgSrc);
         if (!senyap) tampilkanToast('Gambar poster AI berhasil dibuat!');
