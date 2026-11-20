@@ -21,28 +21,96 @@
     };
   </script>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen antialiased selection:bg-indigo-500 selection:text-white">
+<body class="bg-[#090d1a] bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-950/60 via-[#0b1121] to-[#070a14] text-slate-100 min-h-screen antialiased selection:bg-indigo-500 selection:text-white">
   <!-- Notifikasi Toast -->
   <div id="toastBox" class="fixed bottom-5 right-5 z-50 hidden max-w-sm rounded-2xl border border-indigo-400/40 bg-slate-900/95 px-4 py-3 text-xs font-semibold text-indigo-100 shadow-2xl backdrop-blur"></div>
 
   <div class="mx-auto max-w-6xl px-4 py-6 sm:py-8 space-y-6">
     <!-- Header Simpel & Status API -->
-    <header class="rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-900 via-indigo-950/70 to-slate-900 p-5 sm:p-7 shadow-2xl">
-      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div class="space-y-1.5">
-          <div class="inline-flex items-center gap-2 rounded-full border border-indigo-400/30 bg-indigo-500/15 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-indigo-300">
-            <span>Kreasi AI Studio UMKM</span>
-            <span>•</span>
-            <span>Alumni WUB 2023</span>
-            <span>•</span>
-            <span>Kecamatan Limo</span>
+    <header class="rounded-3xl border border-indigo-400/20 bg-gradient-to-br from-slate-900/95 via-indigo-950/75 to-teal-950/40 p-5 sm:p-7 shadow-2xl backdrop-blur-sm">
+      <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+        <div class="space-y-3 max-w-3xl">
+          <!-- Baris Logo Sejajar di Bagian Atas Judul -->
+          <div class="flex flex-wrap items-center gap-2.5">
+            <!-- Logo 1: Jawara Depok - Jaringan Wirausaha + Sukses Bersama Kita Sukses -->
+            <label for="inputGantiLogoHeader" title="Klik untuk mengganti Logo Jawara Depok" class="cursor-pointer group relative inline-flex items-center justify-center rounded-xl border border-white/25 bg-white px-2.5 py-1.5 shadow-md hover:border-amber-400 transition">
+              <div id="wadahLogoHeaderDefault" class="flex items-center gap-2 select-none">
+                <svg viewBox="0 0 180 148" class="w-10 sm:w-11 h-auto" xmlns="http://www.w3.org/2000/svg" aria-label="Logo Jawara Depok Jaringan Wirausaha">
+                  <!-- Bintang 5 Figur Kolaborasi -->
+                  <polygon points="16,96 64,67 71,78 23,107" fill="#ea580c" />
+                  <polygon points="48,98 88,74 95,85 55,109" fill="#eab308" />
+                  <polygon points="28,74 66,51 73,62 35,85" fill="#dc2626" />
+                  <circle cx="84" cy="29" r="9" fill="#dc2626" />
+                  <polygon points="61,51 94,32 107,11 118,17 102,44 68,62" fill="#dc2626" />
+                  <circle cx="122" cy="24" r="9" fill="#facc15" />
+                  <polygon points="109,32 132,48 164,46 164,59 127,61 101,43" fill="#facc15" />
+                  <circle cx="152" cy="76" r="9" fill="#65a30d" />
+                  <polygon points="135,62 146,62 146,102 124,119 116,109 135,95" fill="#65a30d" />
+                  <circle cx="105" cy="112" r="9" fill="#0284c7" />
+                  <polygon points="72,108 103,92 126,105 119,116 102,106 79,119" fill="#0284c7" />
+                  <!-- Teks Jawara Depok -->
+                  <text x="90" y="135" text-anchor="middle" font-family="Inter, sans-serif" font-weight="900" font-size="16" fill="#0f172a" letter-spacing="0.4">JAWARA DEPOK</text>
+                  <text x="90" y="145" text-anchor="middle" font-family="Inter, sans-serif" font-weight="800" font-size="7.5" fill="#334155" letter-spacing="1.4">JARINGAN WIRAUSAHA</text>
+                </svg>
+                <div class="h-8 w-px bg-slate-200"></div>
+                <svg viewBox="0 0 155 96" class="w-11 sm:w-12 h-auto" xmlns="http://www.w3.org/2000/svg" aria-label="Sukses Bersama Kita Sukses">
+                  <text x="72" y="32" text-anchor="middle" font-family="Inter, sans-serif" font-weight="900" font-size="27" fill="#172554" letter-spacing="0.5">SUKSES</text>
+                  <rect x="10" y="38" width="124" height="17" rx="2" fill="#dc2626" />
+                  <text x="72" y="50" text-anchor="middle" font-family="Inter, sans-serif" font-weight="800" font-size="10.5" fill="#ffffff" letter-spacing="1.3">BERSAMA KITA</text>
+                  <text x="72" y="81" text-anchor="middle" font-family="Inter, sans-serif" font-weight="900" font-size="27" fill="#172554" letter-spacing="0.5">SUKSES</text>
+                  <!-- Ikon Jempol -->
+                  <circle cx="137" cy="14" r="9.5" fill="#dc2626" />
+                  <text x="137" y="17.5" text-anchor="middle" font-size="10" fill="#ffffff">👍</text>
+                </svg>
+              </div>
+              <img id="imgLogoHeaderCustom" src="" alt="Logo Jawara Depok" class="hidden w-12 sm:w-14 h-auto object-contain" />
+              <input id="inputGantiLogoHeader" type="file" accept="image/*" onchange="gantiLogoHeader(event)" class="hidden" />
+            </label>
+
+            <!-- Logo 2: WUB - Wirausaha Baru Kecamatan Limo -->
+            <label for="inputGantiLogoWub" title="Klik untuk mengganti Logo WUB Kecamatan Limo" class="cursor-pointer group relative inline-flex items-center justify-center rounded-full border border-white/25 bg-[#f8f7f4] p-1.5 shadow-md hover:border-amber-400 transition">
+              <div id="wadahLogoWubDefault" class="flex items-center justify-center select-none">
+                <svg viewBox="0 0 140 140" class="w-10 sm:w-11 h-10 sm:h-11" xmlns="http://www.w3.org/2000/svg" aria-label="Logo WUB Wirausaha Baru Kecamatan Limo">
+                  <circle cx="70" cy="70" r="67" fill="#f8f7f4" />
+                  <!-- Lingkaran Ikon Figur & Grafik -->
+                  <circle cx="70" cy="43" r="28" fill="none" stroke="#163a5f" stroke-width="4" />
+                  <circle cx="55" cy="34" r="5" fill="#163a5f" />
+                  <path d="M48,56 L48,44 C48,41 51,40 55,40 C58,40 60,41 60,44 L60,56 Z" fill="#163a5f" />
+                  <circle cx="67" cy="28" r="5" fill="#e67e22" />
+                  <path d="M60,62 L60,42 C60,37 64,35 70,35 L82,27 L78,24 L90,23 L87,34 L84,31 L71,40 C68,42 66,44 66,48 L66,62 Z" fill="#e67e22" />
+                  <rect x="70" y="48" width="5.5" height="14" fill="#163a5f" />
+                  <rect x="78" y="43" width="5.5" height="19" fill="#163a5f" />
+                  <rect x="86" y="37" width="5.5" height="25" fill="#163a5f" />
+                  <!-- Teks WUB Wirausaha Baru Kecamatan Limo -->
+                  <text x="70" y="96" text-anchor="middle" font-family="Inter, sans-serif" font-weight="900" font-size="27" fill="#163a5f" letter-spacing="0.5">WUB</text>
+                  <text x="70" y="109" text-anchor="middle" font-family="Inter, sans-serif" font-weight="800" font-size="9.5" fill="#e67e22" letter-spacing="0.4">WIRAUSAHA BARU</text>
+                  <text x="70" y="120" text-anchor="middle" font-family="Inter, sans-serif" font-weight="800" font-size="8.5" fill="#163a5f" letter-spacing="0.3">KECAMATAN LIMO</text>
+                </svg>
+              </div>
+              <img id="imgLogoWubCustom" src="" alt="Logo WUB Kecamatan Limo" class="hidden w-10 sm:w-11 h-10 sm:h-11 rounded-full object-contain" />
+              <input id="inputGantiLogoWub" type="file" accept="image/*" onchange="gantiLogoWub(event)" class="hidden" />
+            </label>
+
+            <div class="inline-flex flex-wrap items-center gap-2 rounded-full border border-indigo-400/30 bg-indigo-500/15 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-indigo-200">
+              <span>Kreasi AI Studio UMKM</span>
+              <span>•</span>
+              <span>Alumni WUB 2023</span>
+              <span>•</span>
+              <span>Kecamatan Limo</span>
+            </div>
           </div>
-          <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white">
-            Studio Konten &amp; Strategi UMKM
-          </h1>
-          <p class="text-xs sm:text-sm text-slate-300 max-w-2xl">
-            Cukup isi <strong class="text-white">3 kolom singkat</strong>. Gemini AI akan memecahnya menjadi banyak sudut pandang pembeli, naskah multi-kanal, skrip video, jingle/audio prompt, hingga visual poster agar bisa mengena ke berbagai lapisan pasar.
-          </p>
+
+          <div class="space-y-1.5">
+            <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white">
+              Studio Konten &amp; Strategi UMKM
+            </h1>
+            <p class="text-xs sm:text-sm font-bold italic text-amber-300">
+              "Belajar berbagi berkarya bersama satukan hati menggapai cita"
+            </p>
+            <p class="text-xs sm:text-sm text-slate-300 max-w-2xl">
+              Cukup isi <strong class="text-white">3 kolom singkat</strong>. Gemini AI akan memecahnya menjadi banyak sudut pandang pembeli, naskah multi-kanal, skrip video, jingle/audio prompt, hingga visual poster agar bisa mengena ke berbagai lapisan pasar.
+            </p>
+          </div>
         </div>
 
         <!-- Indikator Status Gemini API Key -->
@@ -50,7 +118,7 @@
           type="button"
           id="btnStatusApi"
           onclick="bukaModalApi()"
-          class="self-start sm:self-center inline-flex items-center gap-2 rounded-2xl border border-slate-700 bg-slate-900 px-4 py-2.5 text-xs font-bold text-slate-200 hover:border-emerald-400/60 transition shrink-0"
+          class="self-start inline-flex items-center gap-2 rounded-2xl border border-slate-700 bg-slate-900/90 px-4 py-2.5 text-xs font-bold text-slate-200 hover:border-emerald-400/60 transition shrink-0"
         >
           <span id="dotApi" class="h-2.5 w-2.5 rounded-full bg-slate-500"></span>
           <span id="labelApi">Atur API Key</span>
@@ -62,8 +130,8 @@
     <!-- Layout Utama: Input Super Simpel (Kiri) & Hasil Luas Multi-Sudut (Kanan) -->
     <main class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
       <!-- KOLOM KIRI: FORM INPUT 3 BARIS + PILIHAN JANGKAUAN -->
-      <section class="lg:col-span-5 rounded-3xl border border-slate-800 bg-slate-900/90 p-5 sm:p-6 shadow-xl space-y-4">
-        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+      <section class="lg:col-span-5 rounded-3xl border border-indigo-500/20 bg-slate-900/80 p-5 sm:p-6 shadow-xl backdrop-blur-sm space-y-4">
+        <div class="flex items-center justify-between gap-2">
           <div>
             <h2 class="text-base sm:text-lg font-extrabold text-white">1. Isi Singkat Produk Anda</h2>
             <p class="text-[11px] text-slate-400">Tidak perlu rumit—cukup garis besarnya saja.</p>
@@ -71,13 +139,13 @@
           <button
             type="button"
             onclick="bersihkanInput()"
-            class="rounded-xl border border-slate-700 bg-slate-800/80 px-3 py-1.5 text-[11px] font-semibold text-slate-300 hover:bg-slate-700 hover:text-white transition"
+            class="rounded-xl border border-slate-700 bg-slate-950 hover:bg-slate-800 px-3 py-1.5 text-xs font-bold text-slate-300 transition shrink-0"
           >
             Kosongkan
           </button>
         </div>
 
-        <div class="space-y-3.5">
+        <div class="space-y-3">
           <div>
             <label for="inputProduk" class="block text-xs font-bold text-indigo-300 mb-1">
               Nama &amp; Jenis Produk
@@ -85,7 +153,7 @@
             <input
               id="inputProduk"
               type="text"
-              placeholder="Contoh: Kopi Susu Gula Aren Botolan"
+              placeholder="Contoh: Minuman rempah jahe merah & serai botol 250ml"
               class="w-full rounded-2xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white placeholder:text-slate-500 focus:border-indigo-400 outline-none transition"
             />
           </div>
@@ -343,7 +411,7 @@
       <!-- KOLOM KANAN: HASIL GENERATE TERSTRUKTUR & LUAS -->
       <section class="lg:col-span-7 space-y-5">
         <!-- Kartu Teks Multi-Sudut -->
-        <div class="rounded-3xl border border-slate-800 bg-slate-900/90 p-5 sm:p-6 shadow-xl space-y-4">
+        <div class="rounded-3xl border border-indigo-500/20 bg-slate-900/80 p-5 sm:p-6 shadow-xl backdrop-blur-sm space-y-4">
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
             <div>
               <h2 class="text-base sm:text-lg font-extrabold text-white">2. Hasil Perluasan AI (Mengena ke Banyak Sisi)</h2>
@@ -372,7 +440,7 @@
         </div>
 
         <!-- Kartu Visual Poster AI Otomatis -->
-        <div class="rounded-3xl border border-slate-800 bg-slate-900/90 p-5 sm:p-6 shadow-xl space-y-4">
+        <div class="rounded-3xl border border-indigo-500/20 bg-slate-900/80 p-5 sm:p-6 shadow-xl backdrop-blur-sm space-y-4">
           <div class="flex flex-wrap items-center justify-between gap-2">
             <div>
               <h3 class="text-sm sm:text-base font-extrabold text-white">3. Konsep Visual / Poster AI</h3>
@@ -443,6 +511,255 @@
         </div>
       </section>
     </main>
+
+    <!-- 4. FITUR KALKULATOR USAHA & ALUR PRODUKSI UMKM -->
+    <section class="rounded-3xl border border-teal-400/25 bg-gradient-to-br from-slate-900/90 via-indigo-950/40 to-teal-950/40 p-5 sm:p-7 shadow-2xl space-y-5">
+      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-b border-slate-800/90 pb-4">
+        <div>
+          <div class="inline-flex items-center gap-1.5 rounded-full border border-teal-400/30 bg-teal-500/15 px-3 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-teal-200">
+            🧮 Manajemen Biaya &amp; Profit UMKM
+          </div>
+          <h2 class="text-lg sm:text-xl font-extrabold text-white mt-1">
+            4. Kalkulator Usaha &amp; Alur Produksi (HPP Bahan, Kemasan &amp; Profit)
+          </h2>
+          <p class="text-xs text-slate-300">
+            Hitung modal produksi per batch secara rinci mulai dari bahan baku, kemasan, tenaga kerja, hingga harga jual dan proyeksi untung bulanan.
+          </p>
+        </div>
+        <div class="flex flex-wrap items-center gap-2 shrink-0">
+          <button
+            type="button"
+            onclick="isiContohKalkulatorUsaha()"
+            class="rounded-xl border border-teal-400/40 bg-teal-500/15 hover:bg-teal-500/25 px-3.5 py-2 text-xs font-bold text-teal-200 transition"
+          >
+            ⚡ Isi Contoh Hitungan
+          </button>
+          <button
+            type="button"
+            onclick="resetKalkulatorUsaha()"
+            class="rounded-xl border border-slate-700 bg-slate-900 hover:bg-slate-800 px-3 py-2 text-xs font-semibold text-slate-300 transition"
+          >
+            Reset
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <!-- Input Alur Produksi (Kiri) -->
+        <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+          <div>
+            <label for="calcJumlahBatch" class="block text-xs font-bold text-teal-200 mb-1">
+              1. Hasil Produksi per Batch (Unit/Pcs)
+            </label>
+            <input
+              id="calcJumlahBatch"
+              type="number"
+              min="1"
+              placeholder="Contoh: 50"
+              oninput="hitungKalkulatorUsaha()"
+              class="w-full rounded-2xl border border-slate-700 bg-slate-950/90 px-4 py-2.5 text-sm font-semibold text-white placeholder:text-slate-500 focus:border-teal-400 outline-none"
+            />
+          </div>
+
+          <div>
+            <label for="calcBahanBaku" class="block text-xs font-bold text-indigo-200 mb-1">
+              2. Biaya Bahan Baku Utama &amp; Tambahan (Rp)
+            </label>
+            <input
+              id="calcBahanBaku"
+              type="number"
+              min="0"
+              placeholder="Contoh: 350000"
+              oninput="hitungKalkulatorUsaha()"
+              class="w-full rounded-2xl border border-slate-700 bg-slate-950/90 px-4 py-2.5 text-sm font-semibold text-white placeholder:text-slate-500 focus:border-teal-400 outline-none"
+            />
+          </div>
+
+          <div>
+            <label for="calcKemasan" class="block text-xs font-bold text-indigo-200 mb-1">
+              3. Biaya Kemasan, Botol/Pouch &amp; Stiker Label (Rp)
+            </label>
+            <input
+              id="calcKemasan"
+              type="number"
+              min="0"
+              placeholder="Contoh: 150000"
+              oninput="hitungKalkulatorUsaha()"
+              class="w-full rounded-2xl border border-slate-700 bg-slate-950/90 px-4 py-2.5 text-sm font-semibold text-white placeholder:text-slate-500 focus:border-teal-400 outline-none"
+            />
+          </div>
+
+          <div>
+            <label for="calcTenagaKerja" class="block text-xs font-bold text-indigo-200 mb-1">
+              4. Biaya Tenaga Kerja &amp; Pengemasan (Rp)
+            </label>
+            <input
+              id="calcTenagaKerja"
+              type="number"
+              min="0"
+              placeholder="Contoh: 100000"
+              oninput="hitungKalkulatorUsaha()"
+              class="w-full rounded-2xl border border-slate-700 bg-slate-950/90 px-4 py-2.5 text-sm font-semibold text-white placeholder:text-slate-500 focus:border-teal-400 outline-none"
+            />
+          </div>
+
+          <div>
+            <label for="calcEnergiOperasional" class="block text-xs font-bold text-indigo-200 mb-1">
+              5. Listrik, Gas, Air &amp; Transport Belanja (Rp)
+            </label>
+            <input
+              id="calcEnergiOperasional"
+              type="number"
+              min="0"
+              placeholder="Contoh: 50000"
+              oninput="hitungKalkulatorUsaha()"
+              class="w-full rounded-2xl border border-slate-700 bg-slate-950/90 px-4 py-2.5 text-sm font-semibold text-white placeholder:text-slate-500 focus:border-teal-400 outline-none"
+            />
+          </div>
+
+          <div>
+            <label for="calcPenyusutanLain" class="block text-xs font-bold text-indigo-200 mb-1">
+              6. Biaya Lain-lain / Penyusutan Alat / Admin (Rp)
+            </label>
+            <input
+              id="calcPenyusutanLain"
+              type="number"
+              min="0"
+              placeholder="Contoh: 25000"
+              oninput="hitungKalkulatorUsaha()"
+              class="w-full rounded-2xl border border-slate-700 bg-slate-950/90 px-4 py-2.5 text-sm font-semibold text-white placeholder:text-slate-500 focus:border-teal-400 outline-none"
+            />
+          </div>
+
+          <div>
+            <label for="calcHargaJual" class="block text-xs font-bold text-amber-300 mb-1">
+              7. Harga Jual Normal per Unit (Rp)
+            </label>
+            <input
+              id="calcHargaJual"
+              type="number"
+              min="0"
+              placeholder="Contoh: 20000"
+              oninput="hitungKalkulatorUsaha()"
+              class="w-full rounded-2xl border border-amber-400/40 bg-slate-950/90 px-4 py-2.5 text-sm font-bold text-white placeholder:text-slate-500 focus:border-amber-300 outline-none"
+            />
+          </div>
+
+          <div>
+            <label for="calcDiskonPromo" class="block text-xs font-bold text-fuchsia-300 mb-1">
+              8. Diskon Promo (%) — Opsional
+            </label>
+            <input
+              id="calcDiskonPromo"
+              type="number"
+              min="0"
+              max="95"
+              placeholder="Contoh: 10"
+              oninput="hitungKalkulatorUsaha()"
+              class="w-full rounded-2xl border border-fuchsia-400/35 bg-slate-950/90 px-4 py-2.5 text-sm font-semibold text-white placeholder:text-slate-500 focus:border-fuchsia-300 outline-none"
+            />
+          </div>
+
+          <div>
+            <label for="calcTargetHarian" class="block text-xs font-bold text-emerald-300 mb-1">
+              9. Target Penjualan per Hari (Unit)
+            </label>
+            <input
+              id="calcTargetHarian"
+              type="number"
+              min="0"
+              placeholder="Contoh: 20"
+              oninput="hitungKalkulatorUsaha()"
+              class="w-full rounded-2xl border border-emerald-400/35 bg-slate-950/90 px-4 py-2.5 text-sm font-semibold text-white placeholder:text-slate-500 focus:border-emerald-300 outline-none"
+            />
+          </div>
+
+          <div>
+            <label for="calcHariBulan" class="block text-xs font-bold text-emerald-300 mb-1">
+              10. Hari Aktif Jualan per Bulan
+            </label>
+            <input
+              id="calcHariBulan"
+              type="number"
+              min="1"
+              max="31"
+              placeholder="Contoh: 26"
+              oninput="hitungKalkulatorUsaha()"
+              class="w-full rounded-2xl border border-emerald-400/35 bg-slate-950/90 px-4 py-2.5 text-sm font-semibold text-white placeholder:text-slate-500 focus:border-emerald-300 outline-none"
+            />
+          </div>
+        </div>
+
+        <!-- Ringkasan Hasil Perhitungan Usaha (Kanan) -->
+        <div class="lg:col-span-5 rounded-2xl border border-slate-800 bg-slate-950/90 p-4 sm:p-5 space-y-4">
+          <div class="grid grid-cols-2 gap-3">
+            <div class="rounded-2xl border border-slate-800 bg-slate-900/95 p-3.5">
+              <div class="text-[11px] font-semibold text-slate-400">HPP per Unit</div>
+              <div id="resHppUnit" class="text-lg sm:text-xl font-extrabold text-amber-300 mt-0.5">Rp 0</div>
+              <div id="resTotalModalBatch" class="text-[10px] text-slate-400 mt-0.5">Modal batch: Rp 0</div>
+            </div>
+
+            <div class="rounded-2xl border border-slate-800 bg-slate-900/95 p-3.5">
+              <div class="text-[11px] font-semibold text-slate-400">Profit Bersih / Unit</div>
+              <div id="resProfitUnit" class="text-lg sm:text-xl font-extrabold text-emerald-300 mt-0.5">Rp 0</div>
+              <div id="resMarginPersen" class="text-[10px] text-slate-400 mt-0.5">Margin: 0,0%</div>
+            </div>
+
+            <div class="rounded-2xl border border-slate-800 bg-slate-900/95 p-3.5">
+              <div class="text-[11px] font-semibold text-slate-400">Harga Jual Aktif</div>
+              <div id="resHargaAktif" class="text-base sm:text-lg font-extrabold text-fuchsia-300 mt-0.5">Rp 0</div>
+              <div id="resSaranHarga" class="text-[10px] text-slate-400 mt-0.5">Saran +40%: Rp 0</div>
+            </div>
+
+            <div class="rounded-2xl border border-slate-800 bg-slate-900/95 p-3.5">
+              <div class="text-[11px] font-semibold text-slate-400">Titik Balik Modal (BEP)</div>
+              <div id="resBepUnit" class="text-base sm:text-lg font-extrabold text-cyan-300 mt-0.5">0 unit</div>
+              <div id="resStatusBep" class="text-[10px] text-slate-400 mt-0.5">Per batch produksi</div>
+            </div>
+          </div>
+
+          <!-- Komposisi Biaya Alur Produksi -->
+          <div class="rounded-2xl border border-slate-800 bg-slate-900/75 p-3.5 space-y-2 text-xs">
+            <div class="font-bold text-indigo-200">Rincian Porsi Biaya per Batch:</div>
+            <div class="flex justify-between text-[11px]">
+              <span class="text-slate-400">Bahan Baku &amp; Kemasan</span>
+              <span id="resBiayaMaterial" class="font-bold text-slate-200">Rp 0 (0%)</span>
+            </div>
+            <div class="flex justify-between text-[11px]">
+              <span class="text-slate-400">Tenaga Kerja, Energi &amp; Lainnya</span>
+              <span id="resBiayaProses" class="font-bold text-slate-200">Rp 0 (0%)</span>
+            </div>
+          </div>
+
+          <!-- Proyeksi Bulanan -->
+          <div class="rounded-2xl border border-emerald-400/30 bg-gradient-to-r from-emerald-950/60 to-teal-950/60 p-4 space-y-2">
+            <div class="text-[11px] font-extrabold uppercase tracking-wider text-emerald-300">
+              Proyeksi Omset &amp; Profit Bulanan
+            </div>
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-slate-300">Target Terjual / Bulan</span>
+              <span id="resTargetBulanan" class="font-extrabold text-white">0 unit</span>
+            </div>
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-slate-300">Estimasi Omset Bulanan</span>
+              <span id="resOmsetBulanan" class="font-extrabold text-amber-300">Rp 0</span>
+            </div>
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-slate-300">Estimasi Profit Bersih / Bulan</span>
+              <span id="resProfitBulanan" class="font-extrabold text-emerald-300">Rp 0</span>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onclick="salinRingkasanKalkulator()"
+            class="w-full rounded-xl border border-teal-400/40 bg-teal-600/25 hover:bg-teal-600/40 px-4 py-2.5 text-xs font-extrabold text-teal-100 transition"
+          >
+            📋 Salin Ringkasan HPP &amp; Profit Usaha
+          </button>
+        </div>
+      </div>
+    </section>
   </div>
 
   <!-- Modal Pengaturan API Key -->
@@ -716,6 +1033,191 @@
       legalitasAktif.merek = false;
       perbaruiTampilanLegalitas();
       tampilkanToast('Logo merek dihapus.');
+    }
+
+    function gantiLogoHeader(event) {
+      const file = event?.target?.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const dataUrl = String(e?.target?.result || '');
+        const defaultBox = document.getElementById('wadahLogoHeaderDefault');
+        const imgCustom = document.getElementById('imgLogoHeaderCustom');
+        if (imgCustom && dataUrl) {
+          imgCustom.src = dataUrl;
+          imgCustom.classList.remove('hidden');
+          defaultBox?.classList.add('hidden');
+          try {
+            localStorage.setItem('logo_header_jawara_depok', dataUrl);
+          } catch (err) {}
+          tampilkanToast('Logo header berhasil diperbarui!');
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function muatLogoHeaderTersimpan() {
+      try {
+        const saved = localStorage.getItem('logo_header_jawara_depok');
+        if (saved) {
+          const defaultBox = document.getElementById('wadahLogoHeaderDefault');
+          const imgCustom = document.getElementById('imgLogoHeaderCustom');
+          if (imgCustom) {
+            imgCustom.src = saved;
+            imgCustom.classList.remove('hidden');
+            defaultBox?.classList.add('hidden');
+          }
+        }
+        const savedWub = localStorage.getItem('logo_header_wub_limo');
+        if (savedWub) {
+          const defaultWub = document.getElementById('wadahLogoWubDefault');
+          const imgWub = document.getElementById('imgLogoWubCustom');
+          if (imgWub) {
+            imgWub.src = savedWub;
+            imgWub.classList.remove('hidden');
+            defaultWub?.classList.add('hidden');
+          }
+        }
+      } catch (e) {}
+    }
+
+    function gantiLogoWub(event) {
+      const file = event?.target?.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const dataUrl = String(e?.target?.result || '');
+        const defaultBox = document.getElementById('wadahLogoWubDefault');
+        const imgCustom = document.getElementById('imgLogoWubCustom');
+        if (imgCustom && dataUrl) {
+          imgCustom.src = dataUrl;
+          imgCustom.classList.remove('hidden');
+          defaultBox?.classList.add('hidden');
+          try {
+            localStorage.setItem('logo_header_wub_limo', dataUrl);
+          } catch (err) {}
+          tampilkanToast('Logo WUB Kecamatan Limo berhasil diperbarui!');
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Fitur Kalkulator Usaha & Alur Produksi
+    const formatIdr = (n) =>
+      new Intl.NumberFormat('id-ID', {
+        style: 'currency',
+        currency: 'IDR',
+        maximumFractionDigits: 0,
+      }).format(Number.isFinite(n) ? n : 0);
+
+    function hitungKalkulatorUsaha() {
+      const batch = Math.max(1, Number(document.getElementById('calcJumlahBatch')?.value) || 0);
+      const bahan = Math.max(0, Number(document.getElementById('calcBahanBaku')?.value) || 0);
+      const kemasan = Math.max(0, Number(document.getElementById('calcKemasan')?.value) || 0);
+      const tenaga = Math.max(0, Number(document.getElementById('calcTenagaKerja')?.value) || 0);
+      const energi = Math.max(0, Number(document.getElementById('calcEnergiOperasional')?.value) || 0);
+      const lain = Math.max(0, Number(document.getElementById('calcPenyusutanLain')?.value) || 0);
+      const hargaNormal = Math.max(0, Number(document.getElementById('calcHargaJual')?.value) || 0);
+      const diskon = Math.min(95, Math.max(0, Number(document.getElementById('calcDiskonPromo')?.value) || 0));
+      const targetHari = Math.max(0, Number(document.getElementById('calcTargetHarian')?.value) || 0);
+      const hariBulan = Math.max(1, Number(document.getElementById('calcHariBulan')?.value) || 26);
+
+      const biayaMaterial = bahan + kemasan;
+      const biayaProses = tenaga + energi + lain;
+      const totalModalBatch = biayaMaterial + biayaProses;
+      const hppUnit = batch > 0 ? totalModalBatch / batch : 0;
+      const hargaAktif = hargaNormal * (1 - diskon / 100);
+      const profitUnit = hargaAktif - hppUnit;
+      const marginPersen = hargaAktif > 0 ? (profitUnit / hargaAktif) * 100 : 0;
+      const saranHarga = hppUnit * 1.4;
+      const bepUnit = profitUnit > 0 ? Math.ceil(totalModalBatch / profitUnit) : 0;
+
+      const targetBulanan = targetHari * hariBulan;
+      const omsetBulanan = hargaAktif * targetBulanan;
+      const profitBulanan = profitUnit * targetBulanan;
+
+      const porsiMat = totalModalBatch > 0 ? (biayaMaterial / totalModalBatch) * 100 : 0;
+      const porsiProses = totalModalBatch > 0 ? (biayaProses / totalModalBatch) * 100 : 0;
+
+      document.getElementById('resHppUnit').textContent = formatIdr(hppUnit);
+      document.getElementById('resTotalModalBatch').textContent = `Modal batch: ${formatIdr(totalModalBatch)}`;
+      document.getElementById('resProfitUnit').textContent = formatIdr(profitUnit);
+      document.getElementById('resProfitUnit').className = profitUnit >= 0
+        ? 'text-lg sm:text-xl font-extrabold text-emerald-300 mt-0.5'
+        : 'text-lg sm:text-xl font-extrabold text-rose-400 mt-0.5';
+      document.getElementById('resMarginPersen').textContent = `Margin: ${marginPersen.toFixed(1)}%`;
+      document.getElementById('resHargaAktif').textContent = formatIdr(hargaAktif);
+      document.getElementById('resSaranHarga').textContent = `Saran +40%: ${formatIdr(saranHarga)}`;
+      document.getElementById('resBepUnit').textContent = profitUnit > 0 ? `${bepUnit} unit` : '-';
+      document.getElementById('resStatusBep').textContent = profitUnit > 0 ? 'Balik modal per batch' : 'Harga jual di bawah HPP';
+
+      document.getElementById('resBiayaMaterial').textContent = `${formatIdr(biayaMaterial)} (${porsiMat.toFixed(0)}%)`;
+      document.getElementById('resBiayaProses').textContent = `${formatIdr(biayaProses)} (${porsiProses.toFixed(0)}%)`;
+
+      document.getElementById('resTargetBulanan').textContent = `${targetBulanan} unit`;
+      document.getElementById('resOmsetBulanan').textContent = formatIdr(omsetBulanan);
+      document.getElementById('resProfitBulanan').textContent = formatIdr(profitBulanan);
+    }
+
+    function isiContohKalkulatorUsaha() {
+      document.getElementById('calcJumlahBatch').value = 50;
+      document.getElementById('calcBahanBaku').value = 350000;
+      document.getElementById('calcKemasan').value = 150000;
+      document.getElementById('calcTenagaKerja').value = 100000;
+      document.getElementById('calcEnergiOperasional').value = 50000;
+      document.getElementById('calcPenyusutanLain').value = 25000;
+      document.getElementById('calcHargaJual').value = 20000;
+      document.getElementById('calcDiskonPromo').value = 10;
+      document.getElementById('calcTargetHarian').value = 20;
+      document.getElementById('calcHariBulan').value = 26;
+      hitungKalkulatorUsaha();
+      tampilkanToast('Contoh hitungan produksi (50 unit/batch) berhasil dimuat!');
+    }
+
+    function resetKalkulatorUsaha() {
+      [
+        'calcJumlahBatch',
+        'calcBahanBaku',
+        'calcKemasan',
+        'calcTenagaKerja',
+        'calcEnergiOperasional',
+        'calcPenyusutanLain',
+        'calcHargaJual',
+        'calcDiskonPromo',
+        'calcTargetHarian',
+        'calcHariBulan',
+      ].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
+      });
+      hitungKalkulatorUsaha();
+      tampilkanToast('Kalkulator usaha dikosongkan.');
+    }
+
+    function salinRingkasanKalkulator() {
+      const produk = (document.getElementById('inputProduk')?.value || 'Produk UMKM').trim();
+      const hpp = document.getElementById('resHppUnit')?.textContent || 'Rp 0';
+      const modal = document.getElementById('resTotalModalBatch')?.textContent || 'Modal batch: Rp 0';
+      const harga = document.getElementById('resHargaAktif')?.textContent || 'Rp 0';
+      const profit = document.getElementById('resProfitUnit')?.textContent || 'Rp 0';
+      const bep = document.getElementById('resBepUnit')?.textContent || '0 unit';
+      const omsetBln = document.getElementById('resOmsetBulanan')?.textContent || 'Rp 0';
+      const profitBln = document.getElementById('resProfitBulanan')?.textContent || 'Rp 0';
+
+      const ringkasan = `RINGKASAN HPP & PROFIT USAHA — ${produk.toUpperCase()}
+• ${modal}
+• HPP per Unit: ${hpp}
+• Harga Jual Aktif: ${harga}
+• Profit Bersih / Unit: ${profit}
+• Titik Balik Modal (BEP): ${bep}
+• Estimasi Omset Bulanan: ${omsetBln}
+• Estimasi Profit Bulanan: ${profitBln}`;
+
+      navigator.clipboard?.writeText(ringkasan).then(() => {
+        tampilkanToast('Ringkasan HPP & profit usaha berhasil disalin!');
+      }).catch(() => {
+        tampilkanToast('Gagal menyalin otomatis.');
+      });
     }
 
     function handleUploadFotoProdukPoster(event) {
@@ -1270,6 +1772,7 @@ Gunakan bahasa Indonesia yang natural, hangat, persuasif, mudah dipahami pelaku 
     }
 
     window.addEventListener('DOMContentLoaded', () => {
+      muatLogoHeaderTersimpan();
       perbaruiStatusApi();
       cekStatusServerApi();
       perbaruiTampilanLegalitas();
