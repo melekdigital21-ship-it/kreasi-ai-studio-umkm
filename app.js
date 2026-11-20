@@ -30,8 +30,8 @@ app.post('/api/gemini', async (req, res) => {
         imageParts.push({
           inlineData: {
             mimeType: imageMimeType || 'image/png',
-            data: imageBase64
-          }
+            data: imageBase64,
+          },
         });
       }
 
@@ -47,9 +47,9 @@ app.post('/api/gemini', async (req, res) => {
             contents: [{ parts: imageParts }],
             generationConfig: {
               responseModalities: ['IMAGE'],
-              imageConfig: { aspectRatio: '1:1' }
-            }
-          })
+              imageConfig: { aspectRatio: '1:1' },
+            },
+          }),
         });
         const data = await response.json();
         if (response.ok) {
@@ -57,7 +57,7 @@ app.post('/api/gemini', async (req, res) => {
           if (part?.inlineData?.data) {
             return res.json({
               base64: part.inlineData.data,
-              mimeType: part.inlineData.mimeType || 'image/png'
+              mimeType: part.inlineData.mimeType || 'image/png',
             });
           }
         } else {
@@ -68,7 +68,7 @@ app.post('/api/gemini', async (req, res) => {
       return res.status(400).json({ error: lastError });
     }
 
-    // Mode Teks (Naskah Video, Copywriting & Promosi)
+    // Mode Teks (Perluasan Strategi, Naskah Video, Lirik Jingle & Copywriting)
     const urlTeks = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
     const response = await fetch(urlTeks, {
       method: 'POST',
@@ -76,9 +76,13 @@ app.post('/api/gemini', async (req, res) => {
       body: JSON.stringify({
         contents: [{ parts: [{ text: prompt }] }],
         systemInstruction: {
-          parts: [{ text: 'Anda adalah pakar digital marketing UMKM Indonesia. Berikan hasil naskah yang praktis, persuasif, terstruktur rapi, dan siap langsung dipakai jualan.' }]
-        }
-      })
+          parts: [
+            {
+              text: 'Anda adalah konsultan bisnis dan pakar digital marketing UMKM Indonesia. Berikan hasil yang luas, praktis, persuasif, terstruktur rapi, dan siap langsung dipakai jualan.',
+            },
+          ],
+        },
+      }),
     });
 
     const data = await response.json();
