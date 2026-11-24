@@ -1,0 +1,12 @@
+{
+  "name": "kreasi-ai-studio-umkm",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.22.3"
+  }
+}
