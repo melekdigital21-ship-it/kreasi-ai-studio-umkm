@@ -12,7 +12,7 @@
 <body class="bg-amber-50/70 text-gray-900 min-h-screen flex flex-col">
 
   <!-- HEADER / BAR NAVIGASI ATAS -->
-<header class="bg-white border-b-2 border-amber-200 sticky top-0 z-50 shadow-xs">
+  <header class="bg-white border-b-2 border-amber-200 sticky top-0 z-50 shadow-xs">
     <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
       <div class="flex items-center gap-2.5">
         <div class="w-10 h-10 rounded-xl bg-amber-500 text-white font-extrabold flex items-center justify-center text-lg shadow-xs">
@@ -122,40 +122,18 @@
   <!-- =========================================================
        2. KONTEN APLIKASI 1: KREASI AI STUDIO UMKM (HIDDEN AWALNYA)
        ========================================================= -->
-  <section id="view-kreasi" class="hidden w-full flex-col">
-  <div class="flex items-center justify-between px-4 py-2 bg-amber-100 border-b border-amber-200">
-    <span>Sedang membuka: <b>Kreasi AI Studio UMKM</b></span>
-    <button id="btn-kembali-kreasi" type="button" class="px-3 py-1.5 rounded-lg bg-amber-600 text-white font-semibold">
-      🏠 Halaman Utama
-    </button>
-  </div>
+  <section id="view-kreasi" class="hidden flex-1 flex flex-col w-full">
+    <div class="bg-amber-100 border-b border-amber-300 px-4 py-2.5 text-center text-sm font-bold text-amber-950">
+      Sedang membuka: 🎨 Kreasi AI Studio UMKM
+    </div>
+    <iframe 
+      id="frame-kreasi"
+      data-src="https://kreasi-ai-studio-umkm-production.up.railway.app/" 
+      class="w-full flex-1 min-h-[82vh] border-0 bg-white"
+      title="Kreasi AI Studio UMKM">
+    </iframe>
+  </section>
 
-  <iframe
-    id="frame-kreasi"
-    data-src="kreasi.html"
-    title="Kreasi AI Studio UMKM"
-    class="w-full border-0 bg-white block"
-    style="height: 85vh; -webkit-overflow-scrolling: touch;"
-    scrolling="yes"
-  ></iframe>
-</section>
-<section id="view-drama" class="hidden w-full flex-col">
-  <div class="flex items-center justify-between px-4 py-2 bg-amber-100 border-b border-amber-200">
-    <span>Sedang membuka: <b>Drama &amp; Iklan Video UMKM</b></span>
-    <button id="btn-kembali-drama" type="button" class="px-3 py-1.5 rounded-lg bg-amber-600 text-white font-semibold">
-      🏠 Halaman Utama
-    </button>
-  </div>
-
-  <iframe
-    id="frame-drama"
-    data-src="drama.html"
-    title="Drama & Iklan Video UMKM"
-    class="w-full border-0 bg-white block"
-    style="height: 85vh; -webkit-overflow-scrolling: touch;"
-    scrolling="yes"
-  ></iframe>
-</section>
   <!-- =========================================================
        3. KONTEN APLIKASI 2: DRAMA & IKLAN VIDEO UMKM (HIDDEN AWALNYA)
        ========================================================= -->
