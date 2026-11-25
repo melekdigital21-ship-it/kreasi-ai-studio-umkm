@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marketplace UMKM Kecamatan Limo</title>
+  <style>
+    :root {
+      --bg-lembut: #fffbeb;
+      --kartu: #ffffff;
+      --teks: #0f172a;
+      --muted: #475569;
+      --aksen: #d97706;
+      --aksen-gelap: #92400e;
+      --aksen-lembut: #fef3c7;
+      --garis: #fde68a;
+      --hijau: #15803d;
+      --hijau-bg: #dcfce7;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0 0 84px;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg-lembut);
+      color: var(--teks);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .wrap {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 14px 14px 28px;
+    }
+
+    .header-box {
+      background: var(--kartu);
+      border: 2px solid var(--garis);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 3px 10px rgba(217, 119, 6, 0.08);
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .badge-kec {
+      display: inline-block;
+      background: var(--aksen-lembut);
+      color: var(--aksen-gelap);
+      font-size: 13px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .btn-portal {
+      min-height: 38px;
+      padding: 6px 12px;
+      border-radius: 10px;
+      border: 1.5px solid var(--aksen);
+      background: var(--bg-lembut);
+      color: var(--aksen-gelap);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    h1 {
+      margin: 0 0 4px;
+      font-size: 24px;
+      line-height: 1.25;
+      color: var(--aksen-gelap);
+    }
+
+    .sub {
+      margin: 0;
+      font-size: 15px;
+      color: var(--muted);
+    }
+
+    .kelurahan-bar {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      margin-bottom: 12px;
+    }
+
+    .kel-btn {
+      flex: 0 0 auto;
+      min-height: 42px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1.5px solid var(--garis);
+      background: var(--kartu);
+      color: var(--teks);
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .kel-btn.aktif {
+      background: var(--aksen);
+      border-color: var(--aksen);
+      color: #ffffff;
+    }
+
+    .filter-panel {
+      background: var(--kartu);
+      border: 1.5px solid var(--garis);
+      border-radius: 14px;
+      padding: 12px;
+      margin-bottom: 14px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    @media (min-width: 640px) {
+      .filter-panel {
+        grid-template-columns: 2fr 1fr auto;
+        align-items: center;
+      }
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="file"],
+    select,
+    textarea {
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1.5px solid #94a3b8;
+      font-size: 16px;
+      font-family: inherit;
+      background-color: #ffffff !important;
+      color: #0f172a !important;
+      -webkit-text-fill-color: #0f172a !important;
+      opacity: 1 !important;
+    }
+
+    textarea {
+      min-height: 82px;
+      resize: vertical;
+    }
+
+    .btn-utama {
+      min-height: 44px;
+      padding: 10px 16px;
+      border-radius: 12px;
+      border: none;
+      background: var(--aksen);
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-utama:hover {
+      background: var(--aksen-gelap);
+    }
+
+    .btn-kedua {
+      min-height: 40px;
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: 1.5px solid var(--aksen);
+      background: var(--bg-lembut);
+      color: var(--aksen-gelap);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .produk-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    @media (min-width: 640px) {
+      .produk-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .produk-card {
+      background: var(--kartu);
+      border: 2px solid var(--garis);
+      border-radius: 16px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 10px;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+    }
+
+    .produk-foto {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 12px;
+      background: var(--aksen-lembut);
+      display: block;
+    }
+
+    .tag-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .tag-kel {
+      font-size: 12px;
+      font-weight: 800;
+      background: var(--aksen-lembut);
+      color: var(--aksen-gelap);
+      padding: 3px 9px;
+      border-radius: 999px;
+    }
+
+    .tag-kat {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .produk-judul {
+      margin: 6px 0 2px;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--teks);
+    }
+
+    .produk-toko {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .produk-desk {
+      margin: 0;
+      font-size: 14px;
+      color: #334155;
+    }
+
+    .produk-harga {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--hijau);
+    }
+
+    .aksi-card {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .panel-form {
+      background: var(--kartu);
+      border: 2px solid var(--garis);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 18px;
+    }
+
+    .panel-form h2 {
+      margin: 0 0 10px;
+      font-size: 19px;
+      color: var(--aksen-gelap);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    @media (min-width: 600px) {
+      .grid-2 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .field {
+      margin-bottom: 10px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .keranjang-box {
+      background: var(--kartu);
+      border: 2px solid var(--aksen);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 18px;
+    }
+
+    .keranjang-box h2 {
+      margin: 0 0 10px;
+      font-size: 19px;
+      color: var(--aksen-gelap);
+    }
+
+    .item-keranjang {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid #f1f5f9;
+      flex-wrap: wrap;
+    }
+
+    .bottom-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--kartu);
+      border-top: 2px solid var(--garis);
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      z-index: 40;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="header-box">
+      <div class="header-top">
+        <span class="badge-kec">KECAMATAN LIMO • WUB &amp; JAWARA DEPOK</span>
+        <button type="button" id="btnKembaliPortal" class="btn-portal">← Kembali ke Portal</button>
+      </div>
+      <h1>Marketplace UMKM Kecamatan Limo</h1>
+      <p class="sub">Etalase produk lokal dari Kelurahan Limo, Meruyung, Grogol, dan Krukut — pesan langsung ke penjual.</p>
+    </header>
+
+    <!-- FILTER KELURAHAN -->
+    <nav class="kelurahan-bar" aria-label="Filter Kelurahan Kecamatan Limo">
+      <button type="button" class="kel-btn aktif" data-kel="Semua">Semua Kelurahan</button>
+      <button type="button" class="kel-btn" data-kel="Limo">Kel. Limo</button>
+      <button type="button" class="kel-btn" data-kel="Meruyung">Kel. Meruyung</button>
+      <button type="button" class="kel-btn" data-kel="Grogol">Kel. Grogol</button>
+      <button type="button" class="kel-btn" data-kel="Krukut">Kel. Krukut</button>
+    </nav>
+
+    <!-- PENCARIAN & KATEGORI -->
+    <section class="filter-panel" aria-label="Pencarian dan Kategori">
+      <input id="inputCari" type="text" placeholder="Cari produk, merek, atau kelurahan (Limo, Meruyung, Grogol, Krukut)..." />
+      <select id="selectKategori">
+        <option value="Semua">Semua Kategori</option>
+        <option value="Kuliner & Minuman">Kuliner &amp; Minuman</option>
+        <option value="Kebersihan & Botani">Kebersihan &amp; Botani</option>
+        <option value="Fashion & Kerajinan">Fashion &amp; Kerajinan</option>
+        <option value="Jasa & Kebutuhan Harian">Jasa &amp; Kebutuhan Harian</option>
+      </select>
+      <button type="button" id="btnKeFormLapak" class="btn-utama">+ Tambah Produk UMKM</button>
+    </section>
+
+    <!-- DAFTAR PRODUK -->
+    <main>
+      <div id="daftarProduk" class="produk-grid"></div>
+    </main>
+
+    <!-- KERANJANG PESANAN -->
+    <section id="bagianKeranjang" class="keranjang-box" aria-label="Keranjang Belanja">
+      <h2>🛒 Keranjang Pesanan</h2>
+      <div id="isiKeranjang">Belum ada produk di keranjang.</div>
+      <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;justify-content:space-between;">
+        <strong id="totalKeranjang">Total: Rp 0</strong>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button type="button" id="btnKosongkanKeranjang" class="btn-kedua">Kosongkan</button>
+          <button type="button" id="btnCheckoutWA" class="btn-utama">Pesan via WhatsApp</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORM TAMBAH PRODUK / LAPAK KELURAHAN -->
+    <section id="bagianTambahLapak" class="panel-form" aria-label="Tambah Produk UMKM">
+      <h2>Tambah Produk UMKM Wilayah Kecamatan Limo</h2>
+      <p class="sub" style="margin-bottom:12px;">Pilih kelurahan asal usaha (Limo, Meruyung, Grogol, atau Krukut) agar mudah ditemukan pembeli sekitar.</p>
+
+      <div class="grid-2">
+        <div class="field">
+          <label for="kelurahanBaru">Kelurahan</label>
+          <select id="kelurahanBaru">
+            <option value="Limo">Limo</option>
+            <option value="Meruyung">Meruyung</option>
+            <option value="Grogol">Grogol</option>
+            <option value="Krukut">Krukut</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="kategoriBaru">Kategori Produk</label>
+          <select id="kategoriBaru">
+            <option value="Kuliner & Minuman">Kuliner &amp; Minuman</option>
+            <option value="Kebersihan & Botani">Kebersihan &amp; Botani</option>
+            <option value="Fashion & Kerajinan">Fashion &amp; Kerajinan</option>
+            <option value="Jasa & Kebutuhan Harian">Jasa &amp; Kebutuhan Harian</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="field">
+          <label for="namaProdukBaru">Nama Produk</label>
+          <input id="namaProdukBaru" type="text" placeholder="Contoh: Sabun Cuci Piring Lerak 500ml" />
+        </div>
+        <div class="field">
+          <label for="namaTokoBaru">Nama Usaha / Penjual</label>
+          <input id="namaTokoBaru" type="text" placeholder="Contoh: Lapak Limo Sejahtera" />
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="field">
+          <label for="hargaBaru">Harga (Rp)</label>
+          <input id="hargaBaru" type="number" min="0" placeholder="Contoh: 15000" />
+        </div>
+        <div class="field">
+          <label for="waBaru">Nomor WhatsApp Penjual (contoh: 6281234567890)</label>
+          <input id="waBaru" type="text" placeholder="628..." />
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="fotoBaru">Foto Produk (Opsional)</label>
+        <input id="fotoBaru" type="file" accept="image/*" />
+      </div>
+
+      <div class="field">
+        <label for="deskripsiBaru">Deskripsi Singkat &amp; Keunggulan</label>
+        <textarea id="deskripsiBaru" placeholder="Jelaskan manfaat produk, kemasan, atau area pengantaran di Kecamatan Limo..."></textarea>
+      </div>
+
+      <button type="button" id="btnSimpanProdukBaru" class="btn-utama">Simpan ke Etalase Marketplace</button>
+    </section>
+  </div>
+
+  <div class="bottom-bar">
+    <span id="ringkasBawah" style="font-weight:800;font-size:14px;">0 item • Rp 0</span>
+    <button type="button" id="btnLoncatKeranjang" class="btn-utama">Lihat Keranjang</button>
+  </div>
+
+  <script>
+    (function () {
+      const STORAGE_PRODUK = "marketplace_limo_produk_v1";
+      const STORAGE_KERANJANG = "marketplace_limo_keranjang_v1";
+
+      const produkAwal = [
+        {
+          id: "limo-1",
+          kelurahan: "Limo",
+          kategori: "Kebersihan & Botani",
+          namaProduk: "Sabun Cuci Piring Lerak Segar",
+          namaToko: "UMKM Limo Bersih",
+          harga: 15000,
+          wa: "6281200000001",
+          deskripsi: "Bersih kesat angkat minyak harian, aroma segar, ramah untuk keluarga sekitar Kelurahan Limo.",
+          foto: ""
+        },
+        {
+          id: "meruyung-1",
+          kelurahan: "Meruyung",
+          kategori: "Kuliner & Minuman",
+          namaProduk: "Bubur Sumsum & Jajanan Segar",
+          namaToko: "Dapur Meruyung",
+          harga: 12000,
+          wa: "6281200000002",
+          deskripsi: "Dibuat segar setiap hari di wilayah Meruyung, tekstur lembut dan rasa pas di lidah.",
+          foto: ""
+        },
+        {
+          id: "grogol-1",
+          kelurahan: "Grogol",
+          kategori: "Kuliner & Minuman",
+          namaProduk: "Sambal Rumahan & Lauk Siap Santap",
+          namaToko: "Warung Grogol",
+          harga: 22000,
+          wa: "6281200000003",
+          deskripsi: "Racikan bumbu rumahan khas Grogol, cocok jadi teman makan harian di rumah.",
+          foto: ""
+        },
+        {
+          id: "krukut-1",
+          kelurahan: "Krukut",
+          kategori: "Jasa & Kebutuhan Harian",
+          namaProduk: "Paket Kebutuhan Harian Keluarga Krukut",
+          namaToko: "Mitra Krukut Mandiri",
+          harga: 35000,
+          wa: "6281200000004",
+          deskripsi: "Paket hemat kebutuhan rumah tangga dan minuman segar area Krukut dan sekitarnya.",
+          foto: ""
+        }
+      ];
+
+      let daftarProduk = [];
+      try {
+        const tersimpan = JSON.parse(localStorage.getItem(STORAGE_PRODUK) || "null");
+        daftarProduk = Array.isArray(tersimpan) && tersimpan.length ? tersimpan : produkAwal.slice();
+      } catch (_) {
+        daftarProduk = produkAwal.slice();
+      }
+
+      let keranjang = [];
+      try {
+        keranjang = JSON.parse(localStorage.getItem(STORAGE_KERANJANG) || "[]") || [];
+      } catch (_) {
+        keranjang = [];
+      }
+
+      let kelurahanAktif = "Semua";
+      let fotoDataSementara = "";
+
+      function formatRp(n) {
+        return "Rp " + Math.round(Number(n) || 0).toLocaleString("id-ID");
+      }
+
+      function simpanProduk() {
+        try {
+          localStorage.setItem(STORAGE_PRODUK, JSON.stringify(daftarProduk));
+        } catch (_) {}
+      }
+
+      function simpanKeranjang() {
+        try {
+          localStorage.setItem(STORAGE_KERANJANG, JSON.stringify(keranjang));
+        } catch (_) {}
+      }
+
+      function renderProduk() {
+        const kataKunci = (document.getElementById("inputCari")?.value || "").trim().toLowerCase();
+        const kategoriPilih = document.getElementById("selectKategori")?.value || "Semua";
+        const wadah = document.getElementById("daftarProduk");
+        if (!wadah) return;
+
+        const hasilFilter = daftarProduk.filter((item) => {
+          const cocokKel = kelurahanAktif === "Semua" || item.kelurahan === kelurahanAktif;
+          const cocokKat = kategoriPilih === "Semua" || item.kategori === kategoriPilih;
+          const teksGabung = `${item.namaProduk} ${item.namaToko} ${item.kelurahan} ${item.deskripsi}`.toLowerCase();
+          const cocokCari = !kataKunci || teksGabung.includes(kataKunci);
+          return cocokKel && cocokKat && cocokCari;
+        });
+
+        if (!hasilFilter.length) {
+          wadah.innerHTML = `<div class="produk-card"><p class="produk-desk">Belum ada produk yang cocok dengan filter <strong>${kelurahanAktif}</strong>. Silakan tambah produk UMKM di form bawah.</p></div>`;
+          return;
+        }
+
+        wadah.innerHTML = hasilFilter.map((item) => {
+          const gambarHtml = item.foto
+            ? `<img class="produk-foto" src="${item.foto}" alt="${item.namaProduk}" />`
+            : `<div class="produk-foto" style="display:flex;align-items:center;justify-content:center;font-weight:800;color:#92400e;">Kel. ${item.kelurahan} • UMKM Limo</div>`;
+
+          const pesanLangsung = encodeURIComponent(
+            `Halo ${item.namaToko} (Kel. ${item.kelurahan}), saya ingin pesan *${item.namaProduk}* (${formatRp(item.harga)}) dari Marketplace UMKM Kecamatan Limo.`
+          );
+          const waHref = item.wa ? `https://wa.me/${item.wa.replace(/\D/g, "")}?text=${pesanLangsung}` : "#";
+
+          return `
+            <article class="produk-card">
+              <div>
+                ${gambarHtml}
+                <div class="tag-row">
+                  <span class="tag-kel">Kel. ${item.kelurahan}</span>
+                  <span class="tag-kat">${item.kategori}</span>
+                </div>
+                <h2 class="produk-judul">${item.namaProduk}</h2>
+                <div class="produk-toko">${item.namaToko}</div>
+                <p class="produk-desk">${item.deskripsi}</p>
+              </div>
+              <div>
+                <div class="produk-harga" style="margin-bottom:8px;">${formatRp(item.harga)}</div>
+                <div class="aksi-card">
+                  <button type="button" class="btn-kedua btn-tambah-keranjang" data-id="${item.id}">+ Keranjang</button>
+                  <a class="btn-utama" style="display:inline-flex;align-items:center;text-decoration:none;" href="${waHref}" target="_blank" rel="noopener noreferrer">Chat WA Penjual</a>
+                </div>
+              </div>
+            </article>
+          `;
+        }).join("");
+
+        wadah.querySelectorAll(".btn-tambah-keranjang").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const id = btn.dataset.id;
+            const prod = daftarProduk.find((p) => p.id === id);
+            if (!prod) return;
+            const ada = keranjang.find((k) => k.id === id);
+            if (ada) {
+              ada.qty += 1;
+            } else {
+              keranjang.push({
+                id: prod.id,
+                namaProduk: prod.namaProduk,
+                namaToko: prod.namaToko,
+                kelurahan: prod.kelurahan,
+                harga: prod.harga,
+                wa: prod.wa,
+                qty: 1
+              });
+            }
+            simpanKeranjang();
+            renderKeranjang();
+          });
+        });
+      }
+
+      function renderKeranjang() {
+        const isiEl = document.getElementById("isiKeranjang");
+        const totalEl = document.getElementById("totalKeranjang");
+        const bawahEl = document.getElementById("ringkasBawah");
+        if (!isiEl || !totalEl || !bawahEl) return;
+
+        if (!keranjang.length) {
+          isiEl.textContent = "Belum ada produk di keranjang.";
+          totalEl.textContent = "Total: Rp 0";
+          bawahEl.textContent = "0 item • Rp 0";
+          return;
+        }
+
+        let totalQty = 0;
+        let totalHarga = 0;
+
+        isiEl.innerHTML = keranjang.map((item, idx) => {
+          const sub = item.harga * item.qty;
+          totalQty += item.qty;
+          totalHarga += sub;
+          return `
+            <div class="item-keranjang">
+              <div>
+                <strong>${item.namaProduk}</strong> <span class="tag-kel">Kel. ${item.kelurahan}</span><br />
+                <small style="color:#475569;">${item.namaToko} • ${formatRp(item.harga)} × ${item.qty} = <strong>${formatRp(sub)}</strong></small>
+              </div>
+              <button type="button" class="btn-kedua btn-hapus-item" data-idx="${idx}">Hapus</button>
+            </div>
+          `;
+        }).join("");
+
+        totalEl.textContent = `Total: ${formatRp(totalHarga)}`;
+        bawahEl.textContent = `${totalQty} item • ${formatRp(totalHarga)}`;
+
+        isiEl.querySelectorAll(".btn-hapus-item").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const idx = Number(btn.dataset.idx);
+            keranjang.splice(idx, 1);
+            simpanKeranjang();
+            renderKeranjang();
+          });
+        });
+      }
+
+      document.querySelectorAll(".kel-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          kelurahanAktif = btn.dataset.kel || "Semua";
+          document.querySelectorAll(".kel-btn").forEach((b) => {
+            b.classList.toggle("aktif", b.dataset.kel === kelurahanAktif);
+          });
+          renderProduk();
+        });
+      });
+
+      document.getElementById("inputCari")?.addEventListener("input", renderProduk);
+      document.getElementById("selectKategori")?.addEventListener("change", renderProduk);
+
+      document.getElementById("btnKeFormLapak")?.addEventListener("click", () => {
+        document.getElementById("bagianTambahLapak")?.scrollIntoView({ behavior: "smooth" });
+      });
+
+      document.getElementById("btnLoncatKeranjang")?.addEventListener("click", () => {
+        document.getElementById("bagianKeranjang")?.scrollIntoView({ behavior: "smooth" });
+      });
+
+      document.getElementById("btnKosongkanKeranjang")?.addEventListener("click", () => {
+        keranjang = [];
+        simpanKeranjang();
+        renderKeranjang();
+      });
+
+      document.getElementById("btnCheckoutWA")?.addEventListener("click", () => {
+        if (!keranjang.length) {
+          alert("Keranjang masih kosong.");
+          return;
+        }
+        const totalHarga = keranjang.reduce((acc, it) => acc + it.harga * it.qty, 0);
+        const barisItem = keranjang.map((it) => `- ${it.namaProduk} (Kel. ${it.kelurahan}) x${it.qty} = ${formatRp(it.harga * it.qty)}`).join("\n");
+        const pesan = `Halo, saya ingin memesan produk dari Marketplace UMKM Kecamatan Limo:\n\n${barisItem}\n\nTotal: ${formatRp(totalHarga)}`;
+        const waTujuan = (keranjang[0].wa || "6281200000001").replace(/\D/g, "");
+        window.open(`https://wa.me/${waTujuan}?text=${encodeURIComponent(pesan)}`, "_blank", "noopener,noreferrer");
+      });
+
+      document.getElementById("fotoBaru")?.addEventListener("change", (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) {
+          fotoDataSementara = "";
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = () => {
+          fotoDataSementara = typeof reader.result === "string" ? reader.result : "";
+        };
+        reader.readAsDataURL(file);
+      });
+
+      document.getElementById("btnSimpanProdukBaru")?.addEventListener("click", () => {
+        const kelurahan = document.getElementById("kelurahanBaru")?.value || "Limo";
+        const kategori = document.getElementById("kategoriBaru")?.value || "Kuliner & Minuman";
+        const namaProduk = (document.getElementById("namaProdukBaru")?.value || "").trim();
+        const namaToko = (document.getElementById("namaTokoBaru")?.value || "UMKM Kecamatan Limo").trim();
+        const harga = Math.max(0, Number(document.getElementById("hargaBaru")?.value || 0));
+        const wa = (document.getElementById("waBaru")?.value || "6281200000001").trim();
+        const deskripsi = (document.getElementById("deskripsiBaru")?.value || "Produk lokal Kecamatan Limo.").trim();
+
+        if (!namaProduk) {
+          alert("Silakan isi nama produk terlebih dahulu.");
+          return;
+        }
+
+        daftarProduk.unshift({
+          id: "umkm-" + Date.now(),
+          kelurahan,
+          kategori,
+          namaProduk,
+          namaToko,
+          harga,
+          wa,
+          deskripsi,
+          foto: fotoDataSementara
+        });
+
+        simpanProduk();
+        renderProduk();
+
+        document.getElementById("namaProdukBaru").value = "";
+        document.getElementById("namaTokoBaru").value = "";
+        document.getElementById("hargaBaru").value = "";
+        document.getElementById("waBaru").value = "";
+        document.getElementById("deskripsiBaru").value = "";
+        const inpFoto = document.getElementById("fotoBaru");
+        if (inpFoto) inpFoto.value = "";
+        fotoDataSementara = "";
+
+        alert(`Produk "${namaProduk}" berhasil ditambahkan ke Kelurahan ${kelurahan}!`);
+      });
+
+      document.getElementById("btnKembaliPortal")?.addEventListener("click", () => {
+        if (window.parent && window.parent !== window) {
+          window.parent.postMessage({ action: "kembali-portal" }, "*");
+        } else {
+          window.location.href = "index.html";
+        }
+      });
+
+      renderProduk();
+      renderKeranjang();
+    })();
+  </script>
+</body>
+</html>
