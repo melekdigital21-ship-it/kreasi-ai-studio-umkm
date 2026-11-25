@@ -95,7 +95,7 @@ app.post("/api/generate", async (req, res) => {
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
-const fs = require("fs");
+
 
 app.use(express.json({ limit: "6mb" }));
 
@@ -106,7 +106,7 @@ const produkBawaan = [
   {
     id: "limo-1",
     kelurahan: "Limo",
-    kategori: "Kebersihan & Botani",
+    kategori:res.sendF "Kebersihan & Botani",
     namaProduk: "Sabun Cuci Piring Lerak Segar",
     namaToko: "UMKM Limo Bersih",
     harga: 15000,
