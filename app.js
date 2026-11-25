@@ -95,7 +95,114 @@ app.post("/api/generate", async (req, res) => {
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
+const fs = require("fs");
+const path = require("path");
 
+app.use(express.json({ limit: "6mb" }));
+
+const DATA_DIR = path.join(__dirname, "data");
+const PRODUK_FILE = path.join(DATA_DIR, "marketplace-limo.json");
+
+const produkBawaan = [
+  {
+    id: "limo-1",
+    kelurahan: "Limo",
+    kategori: "Kebersihan & Botani",
+    namaProduk: "Sabun Cuci Piring Lerak Segar",
+    namaToko: "UMKM Limo Bersih",
+    harga: 15000,
+    wa: "6281200000001",
+    deskripsi: "Bersih kesat angkat minyak harian, aroma segar, ramah untuk keluarga sekitar Kelurahan Limo.",
+    foto: ""
+  },
+  {
+    id: "meruyung-1",
+    kelurahan: "Meruyung",
+    kategori: "Kuliner & Minuman",
+    namaProduk: "Bubur Sumsum & Jajanan Segar",
+    namaToko: "Dapur Meruyung",
+    harga: 12000,
+    wa: "6281200000002",
+    deskripsi: "Dibuat segar setiap hari di wilayah Meruyung, tekstur lembut dan rasa pas di lidah.",
+    foto: ""
+  },
+  {
+    id: "grogol-1",
+    kelurahan: "Grogol",
+    kategori: "Kuliner & Minuman",
+    namaProduk: "Sambal Rumahan & Lauk Siap Santap",
+    namaToko: "Warung Grogol",
+    harga: 22000,
+    wa: "6281200000003",
+    deskripsi: "Racikan bumbu rumahan khas Grogol, cocok jadi teman makan harian di rumah.",
+    foto: ""
+  },
+  {
+    id: "krukut-1",
+    kelurahan: "Krukut",
+    kategori: "Jasa & Kebutuhan Harian",
+    namaProduk: "Paket Kebutuhan Harian Keluarga Krukut",
+    namaToko: "Mitra Krukut Mandiri",
+    harga: 35000,
+    wa: "6281200000004",
+    deskripsi: "Paket hemat kebutuhan rumah tangga dan minuman segar area Krukut dan sekitarnya.",
+    foto: ""
+  }
+];
+
+function bacaProdukServer() {
+  try {
+    if (!fs.existsSync(DATA_DIR)) {
+      fs.mkdirSync(DATA_DIR, { recursive: true });
+    }
+    if (!fs.existsSync(PRODUK_FILE)) {
+      fs.writeFileSync(PRODUK_FILE, JSON.stringify(produkBawaan, null, 2), "utf8");
+      return produkBawaan.slice();
+    }
+    const raw = fs.readFileSync(PRODUK_FILE, "utf8");
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) && parsed.length ? parsed : produkBawaan.slice();
+  } catch (_) {
+    return produkBawaan.slice();
+  }
+}
+
+function tulisProdukServer(daftar) {
+  if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+  }
+  fs.writeFileSync(PRODUK_FILE, JSON.stringify(daftar, null, 2), "utf8");
+}
+
+app.get("/api/marketplace-produk", (req, res) => {
+  res.json({ produk: bacaProdukServer() });
+});
+
+app.post("/api/marketplace-produk", (req, res) => {
+  const body = req.body || {};
+  const namaProduk = String(body.namaProduk || "").trim();
+  if (!namaProduk) {
+    return res.status(400).json({ error: "Nama produk wajib diisi." });
+  }
+
+  const produkBaru = {
+    id: String(body.id || "umkm-" + Date.now()),
+    kelurahan: String(body.kelurahan || "Limo").trim(),
+    kategori: String(body.kategori || "Kuliner & Minuman").trim(),
+    namaProduk,
+    namaToko: String(body.namaToko || "UMKM Kecamatan Limo").trim(),
+    harga: Math.max(0, Number(body.harga || 0)),
+    wa: String(body.wa || "6281200000001").replace(/\D/g, ""),
+    deskripsi: String(body.deskripsi || "Produk lokal Kecamatan Limo.").trim(),
+    foto: typeof body.foto === "string" ? body.foto : ""
+  };
+
+  const daftar = bacaProdukServer();
+  daftar.unshift(produkBaru);
+  tulisProdukServer(daftar);
+
+  res.status(201).json({ produk: produkBaru, semuaProduk: daftar });
+});
 app.listen(PORT, () => {
   console.log(`Server berjalan di http://localhost:${PORT}`);
 });
