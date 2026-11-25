@@ -1,23 +1,301 @@
-<script>
-  window.addEventListener('message', (event) => {
-    if (!event.data || event.data.action !== 'kembali-portal') return;
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal Digital UMKM Kecamatan Limo</title>
+  <link rel="stylesheet" href="studio-common.css" />
+  <style>
+    :root {
+      --bg-lembut: #fffbeb;
+      --kartu-bg: #ffffff;
+      --aksen-utama: #d97706;
+      --aksen-gelap: #92400e;
+      --teks-utama: #1f2937;
+      --teks-sekunder: #4b5563;
+      --garis-tipis: #fde68a;
+    }
 
-    // Sesuaikan selector ini dengan wrapper / iframe studio di index.html Anda
-    const iframeWrapper = document.getElementById('studioIframeWrapper') || document.querySelector('.studio-iframe-wrap');
-    const iframeEl = document.getElementById('studioIframe') || document.querySelector('iframe');
-    const berandaSection = document.getElementById('berandaPortal') || document.querySelector('.portal-home');
+    * {
+      box-sizing: border-box;
+    }
 
-    if (iframeWrapper) {
-      iframeWrapper.hidden = true;
-      iframeWrapper.style.display = 'none';
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-lembut);
+      color: var(--teks-utama);
+      line-height: 1.6;
+      font-size: 17px;
     }
-    if (iframeEl) {
-      iframeEl.src = 'about:blank';
+
+    .portal-shell {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 20px 16px 48px;
     }
-    if (berandaSection) {
-      berandaSection.hidden = false;
-      berandaSection.style.display = '';
+
+    .portal-header {
+      background: var(--kartu-bg);
+      border: 2px solid var(--garis-tipis);
+      border-radius: 18px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 14px rgba(217, 119, 6, 0.08);
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-</script>
+
+    .portal-badge {
+      display: inline-block;
+      background: #fef3c7;
+      color: var(--aksen-gelap);
+      font-weight: 700;
+      font-size: 14px;
+      padding: 5px 12px;
+      border-radius: 999px;
+      margin-bottom: 10px;
+    }
+
+    .portal-header h1 {
+      margin: 0 0 8px;
+      font-size: 26px;
+      line-height: 1.25;
+      color: var(--aksen-gelap);
+    }
+
+    .portal-header p {
+      margin: 0;
+      color: var(--teks-sekunder);
+      font-size: 16px;
+    }
+
+    #berandaPortal.portal-home {
+      display: block;
+    }
+
+    .studio-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    @media (min-width: 640px) {
+      .studio-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .studio-card {
+      background: var(--kartu-bg);
+      border: 2px solid var(--garis-tipis);
+      border-radius: 16px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 14px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+    }
+
+    .studio-card h2 {
+      margin: 0 0 6px;
+      font-size: 20px;
+      color: var(--teks-utama);
+    }
+
+    .studio-card p {
+      margin: 0;
+      font-size: 15px;
+      color: var(--teks-sekunder);
+    }
+
+    .btn-buka {
+      width: 100%;
+      min-height: 48px;
+      border: none;
+      border-radius: 12px;
+      background: var(--aksen-utama);
+      color: #ffffff;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-buka:hover {
+      background: var(--aksen-gelap);
+    }
+
+    #studioIframeWrapper {
+      display: none;
+      background: var(--kartu-bg);
+      border: 2px solid var(--garis-tipis);
+      border-radius: 18px;
+      padding: 14px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    }
+
+    .studio-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .studio-aktif-judul {
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--aksen-gelap);
+    }
+
+    .btn-kembali {
+      min-height: 44px;
+      padding: 8px 16px;
+      border-radius: 10px;
+      border: 2px solid var(--aksen-utama);
+      background: #fffbeb;
+      color: var(--aksen-gelap);
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-kembali:hover {
+      background: #fef3c7;
+    }
+
+    iframe#studioIframe {
+      width: 100%;
+      min-height: 78vh;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      background: #ffffff;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <div class="portal-shell">
+    <header class="portal-header">
+      <div class="portal-badge">Kecamatan Limo • WUB 2023 • Yayasan Ukhwah Ngaji Roso</div>
+      <h1>Portal Digital UMKM Kecamatan Limo</h1>
+      <p>Satu langkah kecil yang dikerjakan tuntas hari ini jauh lebih bernilai daripada rencana sempurna yang tertunda.</p>
+    </header>
+
+    <main id="berandaPortal" class="portal-home">
+      <section class="studio-grid" aria-label="Daftar Studio UMKM">
+        <article class="studio-card">
+          <div>
+            <h2>Kreasi AI Studio UMKM</h2>
+            <p>Riset, Buat, Jual, dan Ukur ide promosi usaha, caption jualan, serta materi pemasaran harian.</p>
+          </div>
+          <button type="button" class="btn-buka" data-src="kreasi.html" data-judul="Kreasi AI Studio UMKM">
+            Buka Kreasi AI Studio
+          </button>
+        </article>
+
+        <article class="studio-card">
+          <div>
+            <h2>Drama &amp; Iklan Video UMKM</h2>
+            <p>Susun naskah iklan pendek, adegan cerita produk, dan hook video untuk media sosial.</p>
+          </div>
+          <button type="button" class="btn-buka" data-src="drama.html" data-judul="Drama & Iklan Video UMKM">
+            Buka Drama &amp; Iklan
+          </button>
+        </article>
+
+        <article class="studio-card">
+          <div>
+            <h2>Studio Animasi</h2>
+            <p>Rancang konsep visual animasi dan adegan karakter untuk konten promosi usaha.</p>
+          </div>
+          <button type="button" class="btn-buka" data-src="animasi.html" data-judul="Studio Animasi">
+            Buka Studio Animasi
+          </button>
+        </article>
+
+        <article class="studio-card">
+          <div>
+            <h2>Studio Music Lab</h2>
+            <p>Buat lirik lagu, jingle usaha, dan konsep musik latar untuk produk serta kegiatan.</p>
+          </div>
+          <button type="button" class="btn-buka" data-src="musik.html" data-judul="Studio Music Lab">
+            Buka Studio Music Lab
+          </button>
+        </article>
+      </section>
+    </main>
+
+    <section id="studioIframeWrapper" hidden aria-label="Area Kerja Studio">
+      <div class="studio-bar">
+        <span id="judulStudioAktif" class="studio-aktif-judul">Studio Aktif</span>
+        <button type="button" id="btnKembaliPortal" class="btn-kembali">← Kembali ke Beranda Portal</button>
+      </div>
+      <iframe id="studioIframe" src="about:blank" title="Halaman Studio UMKM"></iframe>
+    </section>
+  </div>
+
+  <script src="studio-nav.js"></script>
+  <script>
+    (function () {
+      const berandaPortal = document.getElementById("berandaPortal");
+      const iframeWrapper = document.getElementById("studioIframeWrapper");
+      const iframeEl = document.getElementById("studioIframe");
+      const judulStudioAktif = document.getElementById("judulStudioAktif");
+      const btnKembaliPortal = document.getElementById("btnKembaliPortal");
+      const tombolBuka = document.querySelectorAll(".btn-buka[data-src]");
+
+      function tampilkanBeranda() {
+        if (iframeEl) {
+          iframeEl.src = "about:blank";
+        }
+        if (iframeWrapper) {
+          iframeWrapper.hidden = true;
+          iframeWrapper.style.display = "none";
+        }
+        if (berandaPortal) {
+          berandaPortal.hidden = false;
+          berandaPortal.style.display = "block";
+        }
+      }
+
+      function bukaStudio(src, judul) {
+        if (!src) return;
+        if (judulStudioAktif && judul) {
+          judulStudioAktif.textContent = judul;
+        }
+        if (berandaPortal) {
+          berandaPortal.hidden = true;
+          berandaPortal.style.display = "none";
+        }
+        if (iframeWrapper) {
+          iframeWrapper.hidden = false;
+          iframeWrapper.style.display = "block";
+        }
+        if (iframeEl) {
+          iframeEl.src = src;
+        }
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      tombolBuka.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          bukaStudio(btn.dataset.src, btn.dataset.judul);
+        });
+      });
+
+      if (btnKembaliPortal) {
+        btnKembaliPortal.addEventListener("click", tampilkanBeranda);
+      }
+
+      window.addEventListener("message", (event) => {
+        if (!event.data || event.data.action !== "kembali-portal") return;
+        tampilkanBeranda();
+      });
+
+      tampilkanBeranda();
+    })();
+  </script>
+</body>
+</html>
