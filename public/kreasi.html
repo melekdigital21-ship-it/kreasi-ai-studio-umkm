@@ -7,35 +7,6 @@
   <link rel="stylesheet" href="studio-common.css" />
   <style>
     :root {
-    :root {
-  --bg-utama: #f8fafc;
-  --kartu: #ffffff;
-  --teks: #0f172a;
-  --muted: #475569;
-    
-    }
-    input[type="text"],
-  input[type="number"],
-  input[type="password"],
-  select,
-  textarea {
-    width: 100%;
-    min-height: 44px;
-    padding: 10px 12px;
-    border-radius: 10px;
-    border: 1.5px solid #94a3b8;
-    font-size: 16px;
-    font-family: inherit;
-    background-color: #ffffff !important;
-    color: #0f172a !important;
-    -webkit-text-fill-color: #0f172a !important;
-    opacity: 1 !important;
-  }
-
-  textarea {
-    min-height: 96px;
-    resize: vertical;
-  }
       --bg-utama: #f8fafc;
       --kartu: #ffffff;
       --teks: #0f172a;
@@ -134,7 +105,7 @@
 
     .hero-banner {
       border-radius: 18px;
-      padding: 22px 18px;
+      padding: 20px 16px;
       text-align: center;
       background: linear-gradient(135deg, #eff6ff 0%, #fffbeb 55%, #fefce8 100%);
       border: 1px solid var(--garis);
@@ -143,7 +114,7 @@
     }
 
     .hero-banner h2 {
-      margin: 0 0 14px;
+      margin: 0 0 12px;
       font-size: 21px;
       line-height: 1.3;
       font-weight: 800;
@@ -169,7 +140,7 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 12px;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
     .tile-btn {
@@ -177,7 +148,7 @@
       align-items: center;
       gap: 10px;
       width: 100%;
-      min-height: 76px;
+      min-height: 74px;
       padding: 12px;
       border-radius: 16px;
       background: var(--kartu);
@@ -208,6 +179,78 @@
     .tile-btn.kuning .tile-icon { background: #fef9c3; }
     .tile-btn.hijau .tile-icon { background: #dcfce7; }
     .tile-btn.biru .tile-icon { background: #e0f2fe; }
+
+    .btn-legalitas-lebar {
+      width: 100%;
+      min-height: 52px;
+      border-radius: 14px;
+      border: 2px solid #d97706;
+      background: var(--kuning-bg);
+      color: var(--kuning-teks);
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      margin-bottom: 14px;
+    }
+
+    .legal-pills {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .legal-jenis-btn {
+      min-height: 42px;
+      border-radius: 10px;
+      border: 1.5px solid #cbd5e1;
+      background: #f8fafc;
+      color: var(--teks);
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .legal-jenis-btn.aktif {
+      border-color: var(--biru);
+      background: #e0f2fe;
+      color: var(--biru-gelap);
+    }
+
+    .link-izin-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .link-izin-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      min-height: 42px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid #bae6fd;
+      background: #f0f9ff;
+      color: var(--biru-gelap);
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .preview-logo-merek {
+      margin-top: 8px;
+      max-height: 90px;
+      max-width: 100%;
+      border-radius: 10px;
+      border: 1px solid var(--garis);
+      display: none;
+      object-fit: contain;
+      background: #ffffff;
+      padding: 4px;
+    }
 
     .quote-limo {
       background: var(--kuning-bg);
@@ -240,7 +283,7 @@
     }
 
     .panel-box h3 {
-      margin: 0 0 8px;
+      margin: 0 0 10px;
       font-size: 18px;
     }
 
@@ -258,19 +301,24 @@
     input[type="text"],
     input[type="number"],
     input[type="password"],
+    input[type="file"],
     select,
     textarea {
       width: 100%;
+      min-height: 44px;
       padding: 10px 12px;
       border-radius: 10px;
-      border: 1px solid #cbd5e1;
-      font-size: 15px;
+      border: 1.5px solid #94a3b8;
+      font-size: 16px;
       font-family: inherit;
-      background: #ffffff;
+      background-color: #ffffff !important;
+      color: #0f172a !important;
+      -webkit-text-fill-color: #0f172a !important;
+      opacity: 1 !important;
     }
 
     textarea {
-      min-height: 92px;
+      min-height: 96px;
       resize: vertical;
     }
 
@@ -391,6 +439,10 @@
         </button>
       </div>
 
+      <button type="button" class="btn-legalitas-lebar" data-buka-tab="legalitas">
+        📄 Legalitas Usaha: NIB • Halal • PIRT • Merek &amp; Logo
+      </button>
+
       <div class="quote-limo">
         <div class="tag-limo">☀️ SEMANGAT UMKM KECAMATAN LIMO</div>
         <p>“Kejujuran produk, ketekunan harian, dan satu langkah selesai hari ini adalah modal terkuat UMKM untuk tumbuh berkelanjutan.”</p>
@@ -430,7 +482,7 @@
       <div class="panel-box">
         <h3>Contoh Template Promosi UMKM</h3>
         <div class="contoh-item">
-          <strong>1. Produk Sabun &amp; Pembersih Rumah Tangga</strong>
+          <strong>1. Produk Kebersihan Rumah Tangga</strong>
           <p style="margin:6px 0 8px;font-size:14px;">Fokus pada bersih kesat, aroma segar, ramah di tangan, dan hemat dipakai harian.</p>
           <button type="button" class="btn-kedua btn-pakai-contoh" data-produk="Sabun Cuci Piring Lerak & Aroma Nanas Segar" data-manfaat="Bersih kesat angkat minyak, wangi segar, dan lembut di tangan." data-cta="Pesan sekarang via WA atau marketplace resmi kami.">Pakai Template Ini</button>
         </div>
@@ -442,7 +494,7 @@
       </div>
     </section>
 
-    <!-- TAB 4: BUAT KONTEN (HOOK + 3 POIN + 1 CTA) -->
+    <!-- TAB 4: BUAT KONTEN -->
     <section id="tab-buat" class="tab-view" hidden>
       <div class="panel-box">
         <h3>Buat Konten Promosi (Hook + 3 Poin + 1 CTA)</h3>
@@ -466,7 +518,55 @@
       </div>
     </section>
 
-    <!-- TAB 5: PROFIL & API KEY -->
+    <!-- TAB 5: LEGALITAS (NIB, HALAL, PIRT, MEREK, UPLOAD LOGO MEREK & LINK PERIZINAN) -->
+    <section id="tab-legalitas" class="tab-view" hidden>
+      <div class="panel-box">
+        <h3>Legalitas Usaha &amp; Logo Merek</h3>
+        <p style="margin:0 0 10px;font-size:14px;color:var(--muted);">Pilih jenis legalitas, isi nomor dokumen/sertifikat, unggah logo merek, dan buka portal resmi pengurusan perizinan.</p>
+
+        <div class="legal-pills" role="group" aria-label="Pilih Jenis Legalitas">
+          <button type="button" class="legal-jenis-btn aktif" data-legal="NIB">NIB</button>
+          <button type="button" class="legal-jenis-btn" data-legal="Halal">Halal</button>
+          <button type="button" class="legal-jenis-btn" data-legal="PIRT">PIRT</button>
+          <button type="button" class="legal-jenis-btn" data-legal="Merek">Merek</button>
+        </div>
+
+        <div class="field-group">
+          <label for="namaMerekLegal">Nama Merek / Usaha</label>
+          <input id="namaMerekLegal" type="text" placeholder="Contoh: SAPIRCling / Limo Klin / D'nisa Food" />
+        </div>
+
+        <div class="field-group">
+          <label id="labelNomorLegal" for="nomorLegal">Nomor NIB</label>
+          <input id="nomorLegal" type="text" placeholder="Masukkan nomor NIB / Sertifikat Halal / PIRT / Merek" />
+        </div>
+
+        <div class="field-group">
+          <label for="uploadLogoMerek">Upload Logo Merek (JPG/PNG)</label>
+          <input id="uploadLogoMerek" type="file" accept="image/*" />
+          <img id="previewLogoMerek" class="preview-logo-merek" alt="Pratinjau Logo Merek" />
+        </div>
+
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button type="button" id="btnSimpanLegalitas" class="btn-utama">Simpan Data Legalitas</button>
+          <button type="button" id="btnHapusLogoMerek" class="btn-kedua">Hapus Logo</button>
+        </div>
+
+        <div id="ringkasanLegalitas" class="hasil-box">Belum ada nomor legalitas tersimpan untuk pilihan aktif.</div>
+
+        <div style="margin-top:14px;">
+          <div style="font-size:14px;font-weight:800;margin-bottom:6px;">Link Pengurusan Perizinan Resmi:</div>
+          <div class="link-izin-grid">
+            <a class="link-izin-btn" href="https://oss.go.id/" target="_blank" rel="noopener noreferrer">OSS (NIB &amp; Izin Usaha)</a>
+            <a class="link-izin-btn" href="https://ptsp.halal.go.id/" target="_blank" rel="noopener noreferrer">BPJPH (Sertifikat Halal)</a>
+            <a class="link-izin-btn" href="https://sppirt.pom.go.id/" target="_blank" rel="noopener noreferrer">SPP-IRT (PIRT Pangan)</a>
+            <a class="link-izin-btn" href="https://dgip.go.id/" target="_blank" rel="noopener noreferrer">DJKI (Pendaftaran Merek)</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 6: PROFIL & API KEY -->
     <section id="tab-profil" class="tab-view" hidden>
       <div class="panel-box">
         <h3>Profil Usaha &amp; Pengaturan API Key</h3>
@@ -490,8 +590,8 @@
   <nav class="bottom-nav" aria-label="Navigasi Bawah">
     <button type="button" class="bnav-btn aktif" data-buka-tab="beranda">🏠<span>Beranda</span></button>
     <button type="button" class="bnav-btn" data-buka-tab="riset">🔍<span>Riset</span></button>
-    <button type="button" class="bnav-btn" data-buka-tab="contoh">💡<span>Contoh</span></button>
     <button type="button" class="bnav-btn" data-buka-tab="buat">✍️<span>Buat</span></button>
+    <button type="button" class="bnav-btn" data-buka-tab="legalitas">📄<span>Legalitas</span></button>
     <button type="button" class="bnav-btn" data-buka-tab="profil">👤<span>Profil</span></button>
   </nav>
 
@@ -508,6 +608,8 @@
 
       const STORAGE_KEY = "umkm_api_key_v1";
       const STORAGE_USAHA = "umkm_nama_usaha_v1";
+      const STORAGE_LEGAL = "umkm_legalitas_v1";
+      const STORAGE_LOGO = "umkm_logo_merek_v1";
 
       if (inputApiKey) inputApiKey.value = localStorage.getItem(STORAGE_KEY) || "";
       if (namaUsahaProfil) namaUsahaProfil.value = localStorage.getItem(STORAGE_USAHA) || "";
@@ -644,17 +746,13 @@
             body: JSON.stringify({ prompt, apiKey }),
           });
           const data = await res.json();
-          if (res.ok && data.text) {
-            hasilEl.textContent = data.text;
-          } else {
-            hasilEl.textContent =
-              `HOOK:\nKenalan dulu sama ${produk} yang bikin aktivitas makin praktis!\n\n` +
+          hasilEl.textContent = res.ok && data.text
+            ? data.text
+            : `HOOK:\nKenalan dulu sama ${produk} yang bikin aktivitas makin praktis!\n\n` +
               `3 POIN KEUNGGULAN:\n1. ${keunggulan || "Kualitas terjaga untuk kebutuhan sehari-hari"}\n` +
               `2. Mudah digunakan dan cocok untuk keluarga/usaha\n` +
               `3. Nilai manfaat sepadan dengan harganya\n\n` +
-              `CTA:\n${cta}\n\n` +
-              `(Catatan API: ${data.error || "periksa API Key di menu Profil"})`;
-          }
+              `CTA:\n${cta}`;
         } catch (_) {
           hasilEl.textContent =
             `HOOK:\n${produk} siap bantu kebutuhan harian Anda!\n\n` +
@@ -672,6 +770,97 @@
         } catch (_) {}
       });
 
+      /* Logika Legalitas */
+      let jenisLegalAktif = "NIB";
+      const labelNomorLegal = document.getElementById("labelNomorLegal");
+      const nomorLegal = document.getElementById("nomorLegal");
+      const namaMerekLegal = document.getElementById("namaMerekLegal");
+      const ringkasanLegalitas = document.getElementById("ringkasanLegalitas");
+      const previewLogoMerek = document.getElementById("previewLogoMerek");
+
+      function muatDataLegalitas() {
+        let data = {};
+        try {
+          data = JSON.parse(localStorage.getItem(STORAGE_LEGAL) || "{}");
+        } catch (_) {
+          data = {};
+        }
+        if (data.namaMerek && namaMerekLegal) namaMerekLegal.value = data.namaMerek;
+        const nomorPerJenis = data.nomorPerJenis || {};
+        if (nomorLegal) nomorLegal.value = nomorPerJenis[jenisLegalAktif] || "";
+
+        const logoData = localStorage.getItem(STORAGE_LOGO) || "";
+        if (previewLogoMerek) {
+          if (logoData) {
+            previewLogoMerek.src = logoData;
+            previewLogoMerek.style.display = "block";
+          } else {
+            previewLogoMerek.removeAttribute("src");
+            previewLogoMerek.style.display = "none";
+          }
+        }
+
+        const daftarRingkas = ["NIB", "Halal", "PIRT", "Merek"].map((k) => {
+          const val = nomorPerJenis[k] ? nomorPerJenis[k] : "Belum diisi";
+          return `• ${k}: ${val}`;
+        });
+        if (ringkasanLegalitas) {
+          ringkasanLegalitas.textContent =
+            `Merek/Usaha: ${data.namaMerek || "Belum diisi"}\n` +
+            `Jenis aktif: ${jenisLegalAktif}\n` +
+            daftarRingkas.join("\n") +
+            `\n• Logo Merek: ${logoData ? "Terpasang" : "Belum diunggah"}`;
+        }
+      }
+
+      document.querySelectorAll(".legal-jenis-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          jenisLegalAktif = btn.dataset.legal || "NIB";
+          document.querySelectorAll(".legal-jenis-btn").forEach((b) => {
+            b.classList.toggle("aktif", b.dataset.legal === jenisLegalAktif);
+          });
+          if (labelNomorLegal) labelNomorLegal.textContent = `Nomor ${jenisLegalAktif}`;
+          muatDataLegalitas();
+        });
+      });
+
+      document.getElementById("uploadLogoMerek")?.addEventListener("change", (e) => {
+        const file = e.target.files && e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = () => {
+          if (typeof reader.result === "string") {
+            try {
+              localStorage.setItem(STORAGE_LOGO, reader.result);
+            } catch (_) {}
+            muatDataLegalitas();
+          }
+        };
+        reader.readAsDataURL(file);
+      });
+
+      document.getElementById("btnHapusLogoMerek")?.addEventListener("click", () => {
+        localStorage.removeItem(STORAGE_LOGO);
+        const inp = document.getElementById("uploadLogoMerek");
+        if (inp) inp.value = "";
+        muatDataLegalitas();
+      });
+
+      document.getElementById("btnSimpanLegalitas")?.addEventListener("click", () => {
+        let data = {};
+        try {
+          data = JSON.parse(localStorage.getItem(STORAGE_LEGAL) || "{}");
+        } catch (_) {
+          data = {};
+        }
+        data.namaMerek = (namaMerekLegal?.value || "").trim();
+        data.nomorPerJenis = data.nomorPerJenis || {};
+        data.nomorPerJenis[jenisLegalAktif] = (nomorLegal?.value || "").trim();
+        localStorage.setItem(STORAGE_LEGAL, JSON.stringify(data));
+        muatDataLegalitas();
+      });
+
+      muatDataLegalitas();
       cekStatusApi();
     })();
   </script>
