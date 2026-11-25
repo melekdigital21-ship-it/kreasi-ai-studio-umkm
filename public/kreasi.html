@@ -18,6 +18,7 @@
       --kuning-border: #fde68a;
       --kuning-teks: #92400e;
       --hijau-bg: #dcfce7;
+      --hijau-teks: #166534;
       --garis: #e2e8f0;
     }
 
@@ -27,7 +28,7 @@
 
     body {
       margin: 0;
-      padding: 0 0 84px;
+      padding: 0 0 88px;
       font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
       background: var(--bg-utama);
       color: var(--teks);
@@ -36,7 +37,7 @@
     }
 
     .app-wrap {
-      max-width: 640px;
+      max-width: 680px;
       margin: 0 auto;
       padding: 12px 14px 24px;
     }
@@ -77,7 +78,7 @@
       border-radius: 999px;
       border: 1px solid #bbf7d0;
       background: var(--hijau-bg);
-      color: #166534;
+      color: var(--hijau-teks);
       font-size: 13px;
       font-weight: 700;
       cursor: pointer;
@@ -180,17 +181,234 @@
     .tile-btn.hijau .tile-icon { background: #dcfce7; }
     .tile-btn.biru .tile-icon { background: #e0f2fe; }
 
+    .btn-lebar-sekunder {
+      width: 100%;
+      min-height: 50px;
+      border-radius: 14px;
+      border: 2px solid #0284c7;
+      background: #f0f9ff;
+      color: var(--biru-gelap);
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+
     .btn-legalitas-lebar {
       width: 100%;
-      min-height: 52px;
+      min-height: 50px;
       border-radius: 14px;
       border: 2px solid #d97706;
       background: var(--kuning-bg);
       color: var(--kuning-teks);
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 800;
       cursor: pointer;
       margin-bottom: 14px;
+    }
+
+    .quote-limo {
+      background: var(--kuning-bg);
+      border: 1px solid var(--kuning-border);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .quote-limo .tag-limo {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--kuning-teks);
+      margin-bottom: 6px;
+    }
+
+    .quote-limo p {
+      margin: 0;
+      font-size: 15px;
+      color: #334155;
+    }
+
+    .panel-box {
+      background: var(--kartu);
+      border: 1px solid var(--garis);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+    }
+
+    .panel-box h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    .pilar-tabs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    .pilar-btn {
+      min-height: 40px;
+      border-radius: 10px;
+      border: 1.5px solid #cbd5e1;
+      background: #f8fafc;
+      color: var(--teks);
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .pilar-btn.aktif {
+      border-color: var(--biru);
+      background: #e0f2fe;
+      color: var(--biru-gelap);
+    }
+
+    .teori-box {
+      background: #f8fafc;
+      border: 1px solid var(--garis);
+      border-left: 4px solid var(--biru);
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+
+    .teori-box ul {
+      margin: 6px 0 0;
+      padding-left: 18px;
+    }
+
+    .teori-box li {
+      margin-bottom: 4px;
+    }
+
+    .field-group {
+      margin-bottom: 12px;
+    }
+
+    .field-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    @media (min-width: 540px) {
+      .grid-2 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="password"],
+    input[type="file"],
+    select,
+    textarea {
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1.5px solid #94a3b8;
+      font-size: 16px;
+      font-family: inherit;
+      background-color: #ffffff !important;
+      color: #0f172a !important;
+      -webkit-text-fill-color: #0f172a !important;
+      opacity: 1 !important;
+    }
+
+    textarea {
+      min-height: 92px;
+      resize: vertical;
+    }
+
+    .btn-utama {
+      min-height: 44px;
+      padding: 10px 16px;
+      border-radius: 12px;
+      border: none;
+      background: var(--biru);
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-kedua {
+      min-height: 44px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      background: #f1f5f9;
+      color: var(--teks);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .kpi-card {
+      background: #f8fafc;
+      border: 1px solid var(--garis);
+      border-radius: 12px;
+      padding: 10px 12px;
+    }
+
+    .kpi-card.highlight {
+      background: var(--hijau-bg);
+      border-color: #86efac;
+    }
+
+    .kpi-card.rugi {
+      background: #ffe4e6;
+      border-color: #fda4af;
+    }
+
+    .kpi-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--muted);
+    }
+
+    .kpi-val {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--teks);
+      margin-top: 2px;
+    }
+
+    .hasil-box {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 12px;
+      background: #f8fafc;
+      border: 1px solid var(--garis);
+      white-space: pre-wrap;
+      font-size: 15px;
+    }
+
+    .contoh-item {
+      border: 1px solid var(--garis);
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 10px;
+      background: var(--kuning-bg);
     }
 
     .legal-pills {
@@ -252,118 +470,6 @@
       padding: 4px;
     }
 
-    .quote-limo {
-      background: var(--kuning-bg);
-      border: 1px solid var(--kuning-border);
-      border-radius: 16px;
-      padding: 16px;
-      margin-bottom: 14px;
-    }
-
-    .quote-limo .tag-limo {
-      font-size: 13px;
-      font-weight: 800;
-      color: var(--kuning-teks);
-      margin-bottom: 6px;
-    }
-
-    .quote-limo p {
-      margin: 0;
-      font-size: 15px;
-      color: #334155;
-    }
-
-    .panel-box {
-      background: var(--kartu);
-      border: 1px solid var(--garis);
-      border-radius: 16px;
-      padding: 16px;
-      margin-bottom: 14px;
-      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
-    }
-
-    .panel-box h3 {
-      margin: 0 0 10px;
-      font-size: 18px;
-    }
-
-    .field-group {
-      margin-bottom: 12px;
-    }
-
-    .field-group label {
-      display: block;
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    input[type="text"],
-    input[type="number"],
-    input[type="password"],
-    input[type="file"],
-    select,
-    textarea {
-      width: 100%;
-      min-height: 44px;
-      padding: 10px 12px;
-      border-radius: 10px;
-      border: 1.5px solid #94a3b8;
-      font-size: 16px;
-      font-family: inherit;
-      background-color: #ffffff !important;
-      color: #0f172a !important;
-      -webkit-text-fill-color: #0f172a !important;
-      opacity: 1 !important;
-    }
-
-    textarea {
-      min-height: 96px;
-      resize: vertical;
-    }
-
-    .btn-utama {
-      min-height: 44px;
-      padding: 10px 16px;
-      border-radius: 12px;
-      border: none;
-      background: var(--biru);
-      color: #ffffff;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .btn-kedua {
-      min-height: 44px;
-      padding: 10px 14px;
-      border-radius: 12px;
-      border: 1px solid #cbd5e1;
-      background: #f1f5f9;
-      color: var(--teks);
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .hasil-box {
-      margin-top: 12px;
-      padding: 12px;
-      border-radius: 12px;
-      background: #f8fafc;
-      border: 1px solid var(--garis);
-      white-space: pre-wrap;
-      font-size: 15px;
-    }
-
-    .contoh-item {
-      border: 1px solid var(--garis);
-      border-radius: 12px;
-      padding: 12px;
-      margin-bottom: 10px;
-      background: var(--kuning-bg);
-    }
-
     .bottom-nav {
       position: fixed;
       left: 0;
@@ -413,14 +519,14 @@
       </div>
 
       <div class="hero-banner">
-        <h2>Kreasi AI Studio UMKM<br />Cepat &amp; Mudah di HP</h2>
-        <button type="button" id="btnMulaiBuat" class="btn-cta-gelap">Mulai Buat Konten Sekarang</button>
+        <h2>Pondasi Digital Marketing &amp; HPP<br />Teori, Praktik &amp; Hitung Untung</h2>
+        <button type="button" id="btnMulaiBuat" class="btn-cta-gelap">Mulai Praktik &amp; Buat Konten</button>
       </div>
 
       <div class="menu-grid-4">
         <button type="button" class="tile-btn" data-buka-tab="riset">
-          <span class="tile-icon">🔍</span>
-          <span>Riset Pasar<br />&amp; HPP</span>
+          <span class="tile-icon">📐</span>
+          <span>Pondasi &amp;<br />Praktik</span>
         </button>
 
         <button type="button" class="tile-btn kuning" data-buka-tab="contoh">
@@ -439,41 +545,54 @@
         </button>
       </div>
 
+      <button type="button" class="btn-lebar-sekunder" data-buka-tab="hpp">
+        🧮 Kalkulator HPP, Margin Produk &amp; Profit Bulanan
+      </button>
+
       <button type="button" class="btn-legalitas-lebar" data-buka-tab="legalitas">
         📄 Legalitas Usaha: NIB • Halal • PIRT • Merek &amp; Logo
       </button>
 
       <div class="quote-limo">
         <div class="tag-limo">☀️ SEMANGAT UMKM KECAMATAN LIMO</div>
-        <p>“Kejujuran produk, ketekunan harian, dan satu langkah selesai hari ini adalah modal terkuat UMKM untuk tumbuh berkelanjutan.”</p>
+        <p>“Pemasaran yang sehat bukan sekadar ramai ditonton, tetapi jelas HPP-nya, jujur mutunya, dan nyata keuntungan bersihnya.”</p>
       </div>
     </section>
 
-    <!-- TAB 2: RISET PASAR & HPP -->
+    <!-- TAB 2: PONDASI DIGITAL MARKETING (TEORI & PRAKTIK RISET - BUAT - JUAL - UKUR) -->
     <section id="tab-riset" class="tab-view" hidden>
       <div class="panel-box">
-        <h3>Riset Pembeli &amp; Hitung HPP Cepat</h3>
+        <h3>Pondasi Digital Marketing: Teori &amp; Praktik</h3>
+        <p style="margin:0 0 10px;font-size:14px;color:var(--muted);">Pilih pilar untuk memahami prinsip dasar sekaligus langsung mempraktikkannya pada produk Anda.</p>
+
+        <div class="pilar-tabs" role="group" aria-label="Pilar Digital Marketing">
+          <button type="button" class="pilar-btn aktif" data-pilar="riset">1. Riset</button>
+          <button type="button" class="pilar-btn" data-pilar="buat">2. Buat</button>
+          <button type="button" class="pilar-btn" data-pilar="jual">3. Jual</button>
+          <button type="button" class="pilar-btn" data-pilar="ukur">4. Ukur</button>
+        </div>
+
+        <div id="kotakTeoriPilar" class="teori-box"></div>
+
         <div class="field-group">
-          <label for="produkRiset">Nama Produk</label>
-          <input id="produkRiset" type="text" placeholder="Contoh: Sabun Cuci Piring Lerak / Sambal Rumahan" />
+          <label for="produkPondasi">Nama Produk Praktik</label>
+          <input id="produkPondasi" type="text" placeholder="Contoh: Sabun Cuci Piring Lerak / Sambal Rumahan" />
         </div>
         <div class="field-group">
-          <label for="targetPembeli">Target Pembeli Utama</label>
-          <input id="targetPembeli" type="text" value="Ibu rumah tangga & keluarga sekitar Limo/Depok" />
+          <label for="targetPondasi">Siapa Pembeli &amp; Masalah Utamanya?</label>
+          <input id="targetPondasi" type="text" placeholder="Contoh: Ibu rumah tangga butuh produk bersih kesat & hemat" />
         </div>
         <div class="field-group">
-          <label for="modalTotal">Total Modal Produksi (Rp)</label>
-          <input id="modalTotal" type="number" placeholder="Contoh: 150000" />
+          <label for="catatanPraktikPilar">Catatan Praktik / Angka Uji Coba Anda</label>
+          <textarea id="catatanPraktikPilar" placeholder="Contoh: Posting 3 video minggu ini, catat jumlah views, komentar/DM, dan pesanan masuk."></textarea>
         </div>
-        <div class="field-group">
-          <label for="jumlahUnit">Jumlah Produk Dihasilkan (unit/pcs)</label>
-          <input id="jumlahUnit" type="number" placeholder="Contoh: 20" />
-        </div>
+
         <div style="display:flex;gap:8px;flex-wrap:wrap;">
-          <button type="button" id="btnHitungRiset" class="btn-utama">Hitung HPP &amp; Ide Riset</button>
-          <button type="button" id="btnAnalisisRisetAI" class="btn-kedua">Analisis Riset AI</button>
+          <button type="button" id="btnSimpanPraktikPilar" class="btn-utama">Susun Rencana Praktik</button>
+          <button type="button" id="btnKirimKeKonten" class="btn-kedua">Lanjut ke Buat Konten →</button>
         </div>
-        <div id="hasilRiset" class="hasil-box">Masukkan modal dan jumlah produk untuk menghitung HPP per unit.</div>
+
+        <div id="hasilPraktikPilar" class="hasil-box">Pilih pilar di atas, isi data produk, lalu klik "Susun Rencana Praktik".</div>
       </div>
     </section>
 
@@ -483,12 +602,12 @@
         <h3>Contoh Template Promosi UMKM</h3>
         <div class="contoh-item">
           <strong>1. Produk Kebersihan Rumah Tangga</strong>
-          <p style="margin:6px 0 8px;font-size:14px;">Fokus pada bersih kesat, aroma segar, ramah di tangan, dan hemat dipakai harian.</p>
+          <p style="margin:6px 0 8px;font-size:14px;">Teori &amp; Praktik: Tunjukkan masalah minyak/noda membandel di 3 detik pertama, bukti hasil bersih kesat, lalu ajakan pesan yang jelas.</p>
           <button type="button" class="btn-kedua btn-pakai-contoh" data-produk="Sabun Cuci Piring Lerak & Aroma Nanas Segar" data-manfaat="Bersih kesat angkat minyak, wangi segar, dan lembut di tangan." data-cta="Pesan sekarang via WA atau marketplace resmi kami.">Pakai Template Ini</button>
         </div>
         <div class="contoh-item">
           <strong>2. Kuliner &amp; Minuman Segar Harian</strong>
-          <p style="margin:6px 0 8px;font-size:14px;">Fokus pada rasa khas, bahan segar, porsi pas, dan siap diantar sekitar Limo/Depok.</p>
+          <p style="margin:6px 0 8px;font-size:14px;">Teori &amp; Praktik: Tampilkan tekstur/kesegaran produk secara nyata, jam layanan/pengantaran area sekitar, dan promo/paket harian.</p>
           <button type="button" class="btn-kedua btn-pakai-contoh" data-produk="Kuliner & Minuman Segar UMKM Limo" data-manfaat="Dibuat segar tiap hari, rasa pas di lidah, harga bersahabat." data-cta="Chat sekarang untuk pemesanan hari ini.">Pakai Template Ini</button>
         </div>
       </div>
@@ -498,6 +617,14 @@
     <section id="tab-buat" class="tab-view" hidden>
       <div class="panel-box">
         <h3>Buat Konten Promosi (Hook + 3 Poin + 1 CTA)</h3>
+        <div class="teori-box">
+          <strong>Rumus Praktik Konten Efektif:</strong>
+          <ul>
+            <li><strong>Hook (0–3 detik):</strong> Kalimat pembuka yang menyentuh masalah atau rasa ingin tahu pembeli.</li>
+            <li><strong>3 Poin Utama:</strong> Manfaat nyata, keunggulan/bahan, dan bukti/kepercayaan.</li>
+            <li><strong>1 CTA Jelas:</strong> Satu langkah mudah (klik link, balas WA, atau sebutkan nama produk).</li>
+          </ul>
+        </div>
         <div class="field-group">
           <label for="namaProdukKonten">Nama Produk</label>
           <input id="namaProdukKonten" type="text" placeholder="Contoh: Sabun Lerak / Limo Klin / Cemilan UMKM" />
@@ -518,7 +645,81 @@
       </div>
     </section>
 
-    <!-- TAB 5: LEGALITAS (NIB, HALAL, PIRT, MEREK, UPLOAD LOGO MEREK & LINK PERIZINAN) -->
+    <!-- TAB 5: KALKULATOR HPP, MARGIN PRODUK & PROFIT BULANAN -->
+    <section id="tab-hpp" class="tab-view" hidden>
+      <div class="panel-box">
+        <h3>Kalkulator HPP, Margin &amp; Profit Bulanan</h3>
+        <p style="margin:0 0 12px;font-size:14px;color:var(--muted);">
+          Hitung biaya pokok per unit (HPP), margin keuntungan setiap produk terjual, serta proyeksi profit bersih dalam 1 bulan.
+        </p>
+
+        <div class="field-group">
+          <label for="namaProdukHpp">Nama Produk</label>
+          <input id="namaProdukHpp" type="text" placeholder="Contoh: Sabun Cuci Piring Lerak 500ml" />
+        </div>
+
+        <div class="grid-2">
+          <div class="field-group">
+            <label for="biayaBahanBatch">Total Biaya Bahan &amp; Kemasan per Batch (Rp)</label>
+            <input id="biayaBahanBatch" type="number" min="0" placeholder="Contoh: 200000" />
+          </div>
+          <div class="field-group">
+            <label for="jumlahUnitBatch">Jumlah Unit Dihasilkan per Batch (pcs/unit)</label>
+            <input id="jumlahUnitBatch" type="number" min="1" placeholder="Contoh: 40" />
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="field-group">
+            <label for="hargaJualUnit">Harga Jual per Unit (Rp)</label>
+            <input id="hargaJualUnit" type="number" min="0" placeholder="Contoh: 12000" />
+          </div>
+          <div class="field-group">
+            <label for="terjualPerHari">Rata-rata Unit Terjual per Hari</label>
+            <input id="terjualPerHari" type="number" min="0" step="any" placeholder="Contoh: 10" />
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="field-group">
+            <label for="hariJualBulan">Hari Jual Efektif dalam 1 Bulan</label>
+            <input id="hariJualBulan" type="number" min="1" max="31" value="26" />
+          </div>
+          <div class="field-group">
+            <label for="biayaTetapBulan">Biaya Operasional / Iklan / Ongkir Bulanan (Rp)</label>
+            <input id="biayaTetapBulan" type="number" min="0" value="0" placeholder="Contoh: 150000" />
+          </div>
+        </div>
+
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button type="button" id="btnHitungProfitLengkap" class="btn-utama">Hitung HPP, Margin &amp; Profit Bulanan</button>
+          <button type="button" id="btnResetHpp" class="btn-kedua">Reset Angka</button>
+        </div>
+
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-label">HPP per Unit</div>
+            <div id="kpiHppUnit" class="kpi-val">Rp 0</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Margin per Produk Terjual</div>
+            <div id="kpiMarginUnit" class="kpi-val">Rp 0 (0%)</div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-label">Omzet Estimasi / Bulan</div>
+            <div id="kpiOmzetBulan" class="kpi-val">Rp 0</div>
+          </div>
+          <div id="kpiProfitCard" class="kpi-card highlight">
+            <div class="kpi-label">Profit Bersih / Bulan</div>
+            <div id="kpiProfitBulan" class="kpi-val">Rp 0</div>
+          </div>
+        </div>
+
+        <div id="rincianHppProfit" class="hasil-box">Masukkan biaya bahan/kemasan, jumlah unit, harga jual, dan target terjual per hari untuk melihat rincian margin dan profit bulanan.</div>
+      </div>
+    </section>
+
+    <!-- TAB 6: LEGALITAS -->
     <section id="tab-legalitas" class="tab-view" hidden>
       <div class="panel-box">
         <h3>Legalitas Usaha &amp; Logo Merek</h3>
@@ -566,7 +767,7 @@
       </div>
     </section>
 
-    <!-- TAB 6: PROFIL & API KEY -->
+    <!-- TAB 7: PROFIL & API KEY -->
     <section id="tab-profil" class="tab-view" hidden>
       <div class="panel-box">
         <h3>Profil Usaha &amp; Pengaturan API Key</h3>
@@ -589,10 +790,10 @@
 
   <nav class="bottom-nav" aria-label="Navigasi Bawah">
     <button type="button" class="bnav-btn aktif" data-buka-tab="beranda">🏠<span>Beranda</span></button>
-    <button type="button" class="bnav-btn" data-buka-tab="riset">🔍<span>Riset</span></button>
+    <button type="button" class="bnav-btn" data-buka-tab="riset">📐<span>Pondasi</span></button>
     <button type="button" class="bnav-btn" data-buka-tab="buat">✍️<span>Buat</span></button>
+    <button type="button" class="bnav-btn" data-buka-tab="hpp">🧮<span>HPP</span></button>
     <button type="button" class="bnav-btn" data-buka-tab="legalitas">📄<span>Legalitas</span></button>
-    <button type="button" class="bnav-btn" data-buka-tab="profil">👤<span>Profil</span></button>
   </nav>
 
   <script src="studio-nav.js"></script>
@@ -668,6 +869,82 @@
         cekStatusApi();
       });
 
+      const materiPilar = {
+        riset: {
+          judul: "Teori Riset: Kenali Pembeli Sebelum Berjualan",
+          poin: [
+            "Pembeli tidak membeli sekadar barang, tetapi membeli solusi atas masalah atau keinginannya.",
+            "Catat pertanyaan paling sering muncul di chat, komentar yang diulang, dan kendala harga/kemasan.",
+            "Praktik: Tentukan 1 segmen pembeli paling dekat dan 1 manfaat utama yang paling mereka butuhkan."
+          ]
+        },
+        buat: {
+          judul: "Teori Buat: Pesan Singkat, Jelas & Mudah Dipahami",
+          poin: [
+            "Gunakan struktur Hook (3 detik pertama) + 3 Poin Keunggulan/Bukti + 1 Ajakan Bertindak (CTA).",
+            "Hindari bahasa terlalu teknis; gunakan kalimat percakapan sehari-hari yang jujur dan sesuai fakta produk.",
+            "Praktik: Buat minimal 1 konten harian yang menonjolkan pemakaian nyata atau testimoni jujur."
+          ]
+        },
+        jual: {
+          judul: "Teori Jual: Bangun Kepercayaan & Permudah Transaksi",
+          poin: [
+            "Orang membeli saat rasa percaya lebih besar daripada keraguan (kejelasan harga, stok, legalitas/mutu, dan respon cepat).",
+            "Sediakan jalur pesan yang jelas (WA, marketplace, atau titik ambil/antar) dan respon ramah tanpa bertele-tele.",
+            "Praktik: Siapkan jawaban cepat untuk pertanyaan harga, cara pesan, dan keunggulan utama produk."
+          ]
+        },
+        ukur: {
+          judul: "Teori Ukur: Evaluasi Angka Bukan Sekadar Perasaan",
+          poin: [
+            "Pantau 3 indikator utama: jangkauan/views, interaksi/chat masuk, serta konversi order dan margin/profit bersih.",
+            "Hentikan atau perbaiki konten/promo yang ramai ditonton tetapi sepi respon; gandakan yang menghasilkan order untung.",
+            "Praktik: Cek HPP per unit dan profit bulanan di Kalkulator HPP agar jualan tetap menguntungkan."
+          ]
+        }
+      };
+
+      let pilarAktif = "riset";
+      const kotakTeoriPilar = document.getElementById("kotakTeoriPilar");
+
+      function renderTeoriPilar() {
+        const item = materiPilar[pilarAktif] || materiPilar.riset;
+        if (!kotakTeoriPilar) return;
+        kotakTeoriPilar.innerHTML =
+          `<strong>${item.judul}</strong><ul>` +
+          item.poin.map((p) => `<li>${p}</li>`).join("") +
+          `</ul>`;
+      }
+
+      document.querySelectorAll(".pilar-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          pilarAktif = btn.dataset.pilar || "riset";
+          document.querySelectorAll(".pilar-btn").forEach((b) => {
+            b.classList.toggle("aktif", b.dataset.pilar === pilarAktif);
+          });
+          renderTeoriPilar();
+        });
+      });
+
+      document.getElementById("btnSimpanPraktikPilar")?.addEventListener("click", () => {
+        const produk = (document.getElementById("produkPondasi")?.value || "Produk UMKM").trim();
+        const target = (document.getElementById("targetPondasi")?.value || "Pembeli utama").trim();
+        const catatan = (document.getElementById("catatanPraktikPilar")?.value || "-").trim();
+        document.getElementById("hasilPraktikPilar").textContent =
+          `Rencana Praktik [${pilarAktif.toUpperCase()}]\n` +
+          `• Produk: ${produk}\n` +
+          `• Target & Masalah Pembeli: ${target}\n` +
+          `• Catatan Praktik / Uji Coba: ${catatan}`;
+      });
+
+      document.getElementById("btnKirimKeKonten")?.addEventListener("click", () => {
+        const produk = (document.getElementById("produkPondasi")?.value || "").trim();
+        const target = (document.getElementById("targetPondasi")?.value || "").trim();
+        if (produk) document.getElementById("namaProdukKonten").value = produk;
+        if (target) document.getElementById("keunggulanKonten").value = target;
+        bukaTab("buat");
+      });
+
       document.querySelectorAll(".btn-pakai-contoh").forEach((btn) => {
         btn.addEventListener("click", () => {
           document.getElementById("namaProdukKonten").value = btn.dataset.produk || "";
@@ -675,53 +952,6 @@
           document.getElementById("ctaKonten").value = btn.dataset.cta || "";
           bukaTab("buat");
         });
-      });
-
-      document.getElementById("btnHitungRiset")?.addEventListener("click", () => {
-        const produk = (document.getElementById("produkRiset")?.value || "Produk UMKM").trim();
-        const target = (document.getElementById("targetPembeli")?.value || "Pembeli lokal").trim();
-        const modal = Number(document.getElementById("modalTotal")?.value || 0);
-        const unit = Number(document.getElementById("jumlahUnit")?.value || 0);
-        const hasilEl = document.getElementById("hasilRiset");
-
-        if (modal > 0 && unit > 0) {
-          const hpp = Math.ceil(modal / unit);
-          const saranJual = Math.ceil((hpp * 1.4) / 500) * 500;
-          hasilEl.textContent =
-            `Produk: ${produk}\nTarget: ${target}\n` +
-            `HPP per unit: Rp ${hpp.toLocaleString("id-ID")}\n` +
-            `Saran harga jual awal (~40% margin): Rp ${saranJual.toLocaleString("id-ID")}`;
-        } else {
-          hasilEl.textContent =
-            `Produk: ${produk}\nTarget: ${target}\n` +
-            `Isi angka Modal Produksi dan Jumlah Unit agar HPP otomatis terhitung.`;
-        }
-      });
-
-      document.getElementById("btnAnalisisRisetAI")?.addEventListener("click", async () => {
-        const produk = (document.getElementById("produkRiset")?.value || "").trim();
-        const target = (document.getElementById("targetPembeli")?.value || "").trim();
-        const hasilEl = document.getElementById("hasilRiset");
-        if (!produk) {
-          hasilEl.textContent = "Isi nama produk terlebih dahulu untuk riset pasar.";
-          return;
-        }
-        hasilEl.textContent = "Menyiapkan ringkasan riset pasar...";
-        const prompt = `Berikan riset pasar singkat untuk UMKM di Indonesia. Produk: ${produk}. Target pembeli: ${target}. Tuliskan 3 kebutuhan utama pembeli dan 2 sudut promosi yang mudah dijalankan.`;
-        const apiKey = (localStorage.getItem(STORAGE_KEY) || "").trim();
-        try {
-          const res = await fetch("/api/generate", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ prompt, apiKey }),
-          });
-          const data = await res.json();
-          hasilEl.textContent = res.ok && data.text
-            ? data.text
-            : `Riset cepat untuk ${produk} (${target}):\n1. Pembeli mencari manfaat jelas & bukti hasil.\n2. Harga terjangkau dan kualitas konsisten mendorong repeat order.\n(Info API: ${data.error || "cek pengaturan API Key"})`;
-        } catch (_) {
-          hasilEl.textContent = `Riset cepat untuk ${produk} (${target}):\n1. Tonjolkan manfaat praktis harian.\n2. Sertakan testimoni/foto asli produk.`;
-        }
       });
 
       document.getElementById("btnGenerateKonten")?.addEventListener("click", async () => {
@@ -770,7 +1000,69 @@
         } catch (_) {}
       });
 
-      /* Logika Legalitas */
+      function formatRupiah(angka) {
+        const bulat = Math.round(Number(angka) || 0);
+        return "Rp " + bulat.toLocaleString("id-ID");
+      }
+
+      function hitungHppDanProfit() {
+        const namaProduk = (document.getElementById("namaProdukHpp")?.value || "Produk UMKM").trim();
+        const biayaBatch = Math.max(0, Number(document.getElementById("biayaBahanBatch")?.value || 0));
+        const unitBatch = Math.max(0, Number(document.getElementById("jumlahUnitBatch")?.value || 0));
+        const hargaJual = Math.max(0, Number(document.getElementById("hargaJualUnit")?.value || 0));
+        const terjualHari = Math.max(0, Number(document.getElementById("terjualPerHari")?.value || 0));
+        const hariBulan = Math.max(1, Math.min(31, Number(document.getElementById("hariJualBulan")?.value || 26)));
+        const biayaTetap = Math.max(0, Number(document.getElementById("biayaTetapBulan")?.value || 0));
+
+        const hppUnit = unitBatch > 0 ? biayaBatch / unitBatch : 0;
+        const marginUnit = hargaJual - hppUnit;
+        const marginPersen = hargaJual > 0 ? (marginUnit / hargaJual) * 100 : 0;
+
+        const unitBulan = terjualHari * hariBulan;
+        const omzetBulan = unitBulan * hargaJual;
+        const hppTerjualBulan = unitBulan * hppUnit;
+        const labaKotorBulan = unitBulan * marginUnit;
+        const profitBersihBulan = labaKotorBulan - biayaTetap;
+
+        document.getElementById("kpiHppUnit").textContent = formatRupiah(hppUnit);
+        document.getElementById("kpiMarginUnit").textContent = `${formatRupiah(marginUnit)} (${marginPersen.toFixed(1)}%)`;
+        document.getElementById("kpiOmzetBulan").textContent = formatRupiah(omzetBulan);
+
+        const kpiProfitEl = document.getElementById("kpiProfitBulan");
+        const kpiProfitCard = document.getElementById("kpiProfitCard");
+        kpiProfitEl.textContent = formatRupiah(profitBersihBulan);
+        if (kpiProfitCard) {
+          kpiProfitCard.classList.toggle("rugi", profitBersihBulan < 0);
+          kpiProfitCard.classList.toggle("highlight", profitBersihBulan >= 0);
+        }
+
+        document.getElementById("rincianHppProfit").textContent =
+          `Produk: ${namaProduk}\n` +
+          `• HPP per Unit: ${formatRupiah(hppUnit)} (dari ${formatRupiah(biayaBatch)} ÷ ${unitBatch || 0} unit)\n` +
+          `• Harga Jual per Unit: ${formatRupiah(hargaJual)}\n` +
+          `• Margin per Produk Terjual: ${formatRupiah(marginUnit)} (${marginPersen.toFixed(1)}% dari harga jual)\n` +
+          `• Estimasi Terjual 1 Bulan: ${unitBulan.toLocaleString("id-ID")} unit (${terjualHari}/hari × ${hariBulan} hari)\n` +
+          `• Omzet Kotor 1 Bulan: ${formatRupiah(omzetBulan)}\n` +
+          `• Total HPP Barang Terjual: ${formatRupiah(hppTerjualBulan)} | Biaya Bulanan Tambahan: ${formatRupiah(biayaTetap)}\n` +
+          `• Estimasi Profit Bersih 1 Bulan: ${formatRupiah(profitBersihBulan)}`;
+      }
+
+      ["biayaBahanBatch", "jumlahUnitBatch", "hargaJualUnit", "terjualPerHari", "hariJualBulan", "biayaTetapBulan", "namaProdukHpp"].forEach((id) => {
+        document.getElementById(id)?.addEventListener("input", hitungHppDanProfit);
+      });
+
+      document.getElementById("btnHitungProfitLengkap")?.addEventListener("click", hitungHppDanProfit);
+
+      document.getElementById("btnResetHpp")?.addEventListener("click", () => {
+        ["namaProdukHpp", "biayaBahanBatch", "jumlahUnitBatch", "hargaJualUnit", "terjualPerHari"].forEach((id) => {
+          const el = document.getElementById(id);
+          if (el) el.value = "";
+        });
+        document.getElementById("hariJualBulan").value = "26";
+        document.getElementById("biayaTetapBulan").value = "0";
+        hitungHppDanProfit();
+      });
+
       let jenisLegalAktif = "NIB";
       const labelNomorLegal = document.getElementById("labelNomorLegal");
       const nomorLegal = document.getElementById("nomorLegal");
@@ -860,6 +1152,8 @@
         muatDataLegalitas();
       });
 
+      renderTeoriPilar();
+      hitungHppDanProfit();
       muatDataLegalitas();
       cekStatusApi();
     })();
