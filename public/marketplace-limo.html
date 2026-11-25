@@ -602,7 +602,7 @@
               <div>
                 <div class="produk-harga" style="margin-bottom:8px;">${formatRp(item.harga)}</div>
                 <div class="aksi-card">
-                  <button type="button" class="btn-kedua btn-tambah-keranjang" data-id="${item.id}">+ Keranjang</button>
+                  <button type="button" class="btn-kedua btn-tambah-keranjang" data-id="${item.id}" data-aksi="keranjang">+ Keranjang</button>
                   <a class="btn-utama" style="display:inline-flex;align-items:center;text-decoration:none;" href="${waHref}" target="_blank" rel="noopener noreferrer">Chat WA Penjual</a>
                 </div>
               </div>
@@ -615,7 +615,7 @@
             const id = btn.dataset.id;
             const prod = daftarProduk.find((p) => p.id === id);
             if (!prod) return;
-            const ada = keranjang.find((k) => k.id === id);
+            const ada = keranjang.find((k) => String(k.id) === String(prod.id));
             if (ada) {
               ada.qty += 1;
             } else {
