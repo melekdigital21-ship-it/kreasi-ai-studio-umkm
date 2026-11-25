@@ -203,9 +203,6 @@ app.post("/api/marketplace-produk", (req, res) => {
 
   res.status(201).json({ produk: produkBaru, semuaProduk: daftar });
 });
-import fs from "fs";
-import path from "path";
-
 const MARKETPLACE_FILE = path.resolve("data/marketplace-limo.json");
 
 const PRODUK_BAWAAN_LIMO = [
@@ -216,7 +213,7 @@ const PRODUK_BAWAAN_LIMO = [
     namaProduk: "Sabun Cuci Piring Lerak Segar",
     namaToko: "UMKM Limo Bersih",
     harga: 15000,
-    wa: "083811782111",
+    wa: "628120000001",
     deskripsi: "Bersih kesat angkat minyak harian, ramah lingkungan untuk rumah tangga.",
     foto: ""
   },
