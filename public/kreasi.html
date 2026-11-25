@@ -3,199 +3,648 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kreasi AI Studio UMKM — Portal Digital UMKM Kecamatan Limo</title>
+  <title>Kreasi AI Studio UMKM</title>
   <link rel="stylesheet" href="studio-common.css" />
-  <script src="studio-nav.js" defer></script>
+  <style>
+    :root {
+      --bg-utama: #f8fafc;
+      --kartu: #ffffff;
+      --teks: #0f172a;
+      --muted: #475569;
+      --biru: #0284c7;
+      --biru-gelap: #0369a1;
+      --merah: #e11d48;
+      --kuning-bg: #fffbeb;
+      --kuning-border: #fde68a;
+      --kuning-teks: #92400e;
+      --hijau-bg: #dcfce7;
+      --garis: #e2e8f0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0 0 84px;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg-utama);
+      color: var(--teks);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .app-wrap {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 12px 14px 24px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .btn-icon-menu {
+      min-width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      border: 1px solid var(--garis);
+      background: var(--kartu);
+      color: var(--teks);
+      font-size: 20px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .brand-tag {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--biru-gelap);
+      text-align: center;
+      letter-spacing: 0.3px;
+    }
+
+    .api-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid #bbf7d0;
+      background: var(--hijau-bg);
+      color: #166534;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .api-pill.offline {
+      border-color: #fde68a;
+      background: var(--kuning-bg);
+      color: var(--kuning-teks);
+    }
+
+    .hero-greet h1 {
+      margin: 0 0 4px;
+      font-size: 26px;
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .hero-greet .sub-judul {
+      margin: 0 0 14px;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--biru);
+    }
+
+    .hero-banner {
+      border-radius: 18px;
+      padding: 22px 18px;
+      text-align: center;
+      background: linear-gradient(135deg, #eff6ff 0%, #fffbeb 55%, #fefce8 100%);
+      border: 1px solid var(--garis);
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+      margin-bottom: 16px;
+    }
+
+    .hero-banner h2 {
+      margin: 0 0 14px;
+      font-size: 21px;
+      line-height: 1.3;
+      font-weight: 800;
+      color: var(--teks);
+    }
+
+    .btn-cta-gelap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 10px 20px;
+      border-radius: 12px;
+      border: none;
+      background: #1e293b;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .menu-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .tile-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      min-height: 76px;
+      padding: 12px;
+      border-radius: 16px;
+      background: var(--kartu);
+      border: 2px solid var(--merah);
+      color: var(--teks);
+      text-align: left;
+      font-size: 15px;
+      font-weight: 800;
+      line-height: 1.25;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+    }
+
+    .tile-btn.kuning { border-color: #eab308; }
+    .tile-btn.hijau { border-color: #22c55e; }
+    .tile-btn.biru { border-color: #0284c7; }
+
+    .tile-icon {
+      flex: 0 0 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+      background: #ffe4e6;
+    }
+
+    .tile-btn.kuning .tile-icon { background: #fef9c3; }
+    .tile-btn.hijau .tile-icon { background: #dcfce7; }
+    .tile-btn.biru .tile-icon { background: #e0f2fe; }
+
+    .quote-limo {
+      background: var(--kuning-bg);
+      border: 1px solid var(--kuning-border);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .quote-limo .tag-limo {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--kuning-teks);
+      margin-bottom: 6px;
+    }
+
+    .quote-limo p {
+      margin: 0;
+      font-size: 15px;
+      color: #334155;
+    }
+
+    .panel-box {
+      background: var(--kartu);
+      border: 1px solid var(--garis);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+    }
+
+    .panel-box h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    .field-group {
+      margin-bottom: 12px;
+    }
+
+    .field-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="password"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      font-size: 15px;
+      font-family: inherit;
+      background: #ffffff;
+    }
+
+    textarea {
+      min-height: 92px;
+      resize: vertical;
+    }
+
+    .btn-utama {
+      min-height: 44px;
+      padding: 10px 16px;
+      border-radius: 12px;
+      border: none;
+      background: var(--biru);
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-kedua {
+      min-height: 44px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      background: #f1f5f9;
+      color: var(--teks);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .hasil-box {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 12px;
+      background: #f8fafc;
+      border: 1px solid var(--garis);
+      white-space: pre-wrap;
+      font-size: 15px;
+    }
+
+    .contoh-item {
+      border: 1px solid var(--garis);
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 10px;
+      background: var(--kuning-bg);
+    }
+
+    .bottom-nav {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 68px;
+      background: var(--kartu);
+      border-top: 1px solid var(--garis);
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      z-index: 50;
+    }
+
+    .bnav-btn {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .bnav-btn.aktif {
+      color: var(--biru);
+      border-top: 3px solid var(--biru);
+    }
+  </style>
 </head>
 <body>
-  <div class="studio-shell">
-    <aside class="sidebar" aria-label="Navigasi Kreasi AI Studio UMKM">
-      <div class="brand-box">
-        <div class="brand-title">KREASI AI STUDIO UMKM</div>
-        <div class="brand-sub">AI Creative &amp; Visual Studio</div>
+  <div class="app-wrap">
+    <div class="topbar">
+      <button type="button" id="btnKembaliInduk" class="btn-icon-menu" title="Kembali ke Portal">☰</button>
+      <div class="brand-tag">KREASI AI STUDIO UMKM<br />KECAMATAN LIMO</div>
+      <button type="button" id="btnStatusApi" class="api-pill offline">● Cek API...</button>
+    </div>
+
+    <!-- TAB 1: BERANDA -->
+    <section id="tab-beranda" class="tab-view">
+      <div class="hero-greet">
+        <h1>Selamat Datang,<br />Pelaku UMKM Depok!</h1>
+        <div class="sub-judul">Riset • Buat • Jual • Ukur</div>
       </div>
 
-      <div>
-        <div class="nav-group-label">Menu Utama</div>
-        <div class="nav-list">
-          <button type="button" class="nav-btn" data-panel="panel-dashboard">Dashboard</button>
-          <button type="button" class="nav-btn" data-panel="panel-poster">Poster Produk</button>
-          <button type="button" class="nav-btn" data-panel="panel-katalog">Foto Katalog</button>
-          <button type="button" class="nav-btn is-active" data-panel="panel-composer">AI Visual Composer</button>
+      <div class="hero-banner">
+        <h2>Kreasi AI Studio UMKM<br />Cepat &amp; Mudah di HP</h2>
+        <button type="button" id="btnMulaiBuat" class="btn-cta-gelap">Mulai Buat Konten Sekarang</button>
+      </div>
+
+      <div class="menu-grid-4">
+        <button type="button" class="tile-btn" data-buka-tab="riset">
+          <span class="tile-icon">🔍</span>
+          <span>Riset Pasar<br />&amp; HPP</span>
+        </button>
+
+        <button type="button" class="tile-btn kuning" data-buka-tab="contoh">
+          <span class="tile-icon">💡</span>
+          <span>Contoh<br />UMKM</span>
+        </button>
+
+        <button type="button" class="tile-btn hijau" data-buka-tab="buat">
+          <span class="tile-icon">✍️</span>
+          <span>Buat Konten<br />Jualan</span>
+        </button>
+
+        <button type="button" class="tile-btn biru" data-buka-tab="profil">
+          <span class="tile-icon">👤</span>
+          <span>Profil &amp;<br />API Key</span>
+        </button>
+      </div>
+
+      <div class="quote-limo">
+        <div class="tag-limo">☀️ SEMANGAT UMKM KECAMATAN LIMO</div>
+        <p>“Kejujuran produk, ketekunan harian, dan satu langkah selesai hari ini adalah modal terkuat UMKM untuk tumbuh berkelanjutan.”</p>
+      </div>
+    </section>
+
+    <!-- TAB 2: RISET PASAR & HPP -->
+    <section id="tab-riset" class="tab-view" hidden>
+      <div class="panel-box">
+        <h3>Riset Pembeli &amp; Hitung HPP Cepat</h3>
+        <div class="field-group">
+          <label for="produkRiset">Nama Produk</label>
+          <input id="produkRiset" type="text" placeholder="Contoh: Sabun Cuci Piring Lerak / Sambal Rumahan" />
+        </div>
+        <div class="field-group">
+          <label for="targetPembeli">Target Pembeli Utama</label>
+          <input id="targetPembeli" type="text" value="Ibu rumah tangga & keluarga sekitar Limo/Depok" />
+        </div>
+        <div class="field-group">
+          <label for="modalTotal">Total Modal Produksi (Rp)</label>
+          <input id="modalTotal" type="number" placeholder="Contoh: 150000" />
+        </div>
+        <div class="field-group">
+          <label for="jumlahUnit">Jumlah Produk Dihasilkan (unit/pcs)</label>
+          <input id="jumlahUnit" type="number" placeholder="Contoh: 20" />
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button type="button" id="btnHitungRiset" class="btn-utama">Hitung HPP &amp; Ide Riset</button>
+          <button type="button" id="btnAnalisisRisetAI" class="btn-kedua">Analisis Riset AI</button>
+        </div>
+        <div id="hasilRiset" class="hasil-box">Masukkan modal dan jumlah produk untuk menghitung HPP per unit.</div>
+      </div>
+    </section>
+
+    <!-- TAB 3: CONTOH UMKM -->
+    <section id="tab-contoh" class="tab-view" hidden>
+      <div class="panel-box">
+        <h3>Contoh Template Promosi UMKM</h3>
+        <div class="contoh-item">
+          <strong>1. Produk Sabun &amp; Pembersih Rumah Tangga</strong>
+          <p style="margin:6px 0 8px;font-size:14px;">Fokus pada bersih kesat, aroma segar, ramah di tangan, dan hemat dipakai harian.</p>
+          <button type="button" class="btn-kedua btn-pakai-contoh" data-produk="Sabun Cuci Piring Lerak & Aroma Nanas Segar" data-manfaat="Bersih kesat angkat minyak, wangi segar, dan lembut di tangan." data-cta="Pesan sekarang via WA atau marketplace resmi kami.">Pakai Template Ini</button>
+        </div>
+        <div class="contoh-item">
+          <strong>2. Kuliner &amp; Minuman Segar Harian</strong>
+          <p style="margin:6px 0 8px;font-size:14px;">Fokus pada rasa khas, bahan segar, porsi pas, dan siap diantar sekitar Limo/Depok.</p>
+          <button type="button" class="btn-kedua btn-pakai-contoh" data-produk="Kuliner & Minuman Segar UMKM Limo" data-manfaat="Dibuat segar tiap hari, rasa pas di lidah, harga bersahabat." data-cta="Chat sekarang untuk pemesanan hari ini.">Pakai Template Ini</button>
         </div>
       </div>
+    </section>
 
-      <div>
-        <div class="nav-group-label">Pengelolaan</div>
-        <div class="nav-list">
-          <button type="button" class="nav-btn" data-panel="panel-inspirasi">Inspirasi Desain</button>
-          <button type="button" class="nav-btn" data-panel="panel-proyek">Proyek Saya</button>
+    <!-- TAB 4: BUAT KONTEN (HOOK + 3 POIN + 1 CTA) -->
+    <section id="tab-buat" class="tab-view" hidden>
+      <div class="panel-box">
+        <h3>Buat Konten Promosi (Hook + 3 Poin + 1 CTA)</h3>
+        <div class="field-group">
+          <label for="namaProdukKonten">Nama Produk</label>
+          <input id="namaProdukKonten" type="text" placeholder="Contoh: Sabun Lerak / Limo Klin / Cemilan UMKM" />
         </div>
-      </div>
-    </aside>
-
-    <main class="main-area">
-      <div class="topbar">
-        <div class="topbar-left">
-          <button type="button" class="btn-back" data-back="index.html">← Kembali</button>
-          <span class="studio-badge">Studio: Kreasi AI Studio</span>
+        <div class="field-group">
+          <label for="keunggulanKonten">Keunggulan Utama Produk</label>
+          <textarea id="keunggulanKonten" placeholder="Contoh: Bersih kesat, wangi segar, harga terjangkau, cocok dipakai tiap hari."></textarea>
         </div>
-        <span class="brand-sub">Portal Digital UMKM Kecamatan Limo</span>
+        <div class="field-group">
+          <label for="ctaKonten">Ajakan Bertindak (CTA)</label>
+          <input id="ctaKonten" type="text" value="Hubungi kami sekarang untuk info & pemesanan!" />
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button type="button" id="btnGenerateKonten" class="btn-utama">Generate Konten</button>
+          <button type="button" id="btnSalinKonten" class="btn-kedua">Salin Hasil</button>
+        </div>
+        <div id="hasilKonten" class="hasil-box">Isi nama produk &amp; keunggulan lalu klik "Generate Konten".</div>
       </div>
+    </section>
 
-      <div class="content-wrap">
-        <!-- Panel Utama: AI Visual Composer -->
-        <section id="panel-composer" class="studio-panel">
-          <div class="kicker">Studio Kreatif Digital</div>
-          <h1>AI Visual Composer</h1>
-          <p class="subtitle">Susun arahan visual produk, poster promosi, dan foto katalog UMKM sebelum dihubungkan ke generator gambar AI.</p>
-
-          <div class="brief-card">
-            <div class="brief-header">Visual Composer Brief</div>
-
-            <div class="field-group">
-              <label for="kreasiDeskripsi">Deskripsi visual &amp; produk</label>
-              <textarea
-                id="kreasiDeskripsi"
-                placeholder="Contoh: foto produk sabun cuci piring di atas meja kayu bersih, pencahayaan pagi cerah, tampilan segar dan terpercaya untuk UMKM lokal"
-              ></textarea>
-            </div>
-
-            <div class="params-grid">
-              <div class="field-group">
-                <label for="kreasiGaya">Gaya visual &amp; pencahayaan</label>
-                <select id="kreasiGaya">
-                  <option value="cerah-bersih">Cerah, Bersih &amp; Segar</option>
-                  <option value="hangat-rumahan">Hangat &amp; Ramah Keluarga</option>
-                  <option value="modern-promo">Modern &amp; Siap Poster Promo</option>
-                </select>
-              </div>
-
-              <div class="field-group">
-                <label for="kreasiFormat">Rasio &amp; fokus keluaran</label>
-                <select id="kreasiFormat">
-                  <option value="feed-1-1">Feed Marketplace &amp; IG (1:1)</option>
-                  <option value="reels-9-16">Story, Reels &amp; TikTok (9:16)</option>
-                  <option value="banner-16-9">Banner Toko &amp; Header (16:9)</option>
-                </select>
-              </div>
-            </div>
-
-            <div id="hasilBriefKreasi" class="brief-card" style="display: none; background: #0f172a;"></div>
-
-            <div class="action-row">
-              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
-              <button type="button" class="btn btn-primary" id="btnBuatBriefKreasi">Buat Brief Visual</button>
-              <button type="button" class="btn btn-secondary" id="btnResetKreasi">Bersihkan</button>
-            </div>
-          </div>
-        </section>
-
-        <!-- Panel Dashboard -->
-        <section id="panel-dashboard" class="studio-panel" hidden>
-          <div class="kicker">Ringkasan Studio</div>
-          <h1>Dashboard Kreasi AI Studio</h1>
-          <p class="subtitle">Siapkan materi visual promosi usaha Anda secara cepat dan terstruktur.</p>
-
-          <div class="brief-card">
-            <div class="brief-header">Mulai Buat Visual Produk</div>
-            <p class="subtitle" style="margin: 0;">Fokus pada kejelasan produk, pencahayaan rapi, dan teks promo singkat yang mudah terbaca di layar HP.</p>
-            <div class="action-row">
-              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
-              <button type="button" class="btn btn-primary" onclick="aktifkanPanelStudio('panel-composer')">Buka AI Visual Composer</button>
-            </div>
-          </div>
-        </section>
-
-        <!-- Panel Poster Produk -->
-        <section id="panel-poster" class="studio-panel" hidden>
-          <div class="kicker">Promosi Cepat</div>
-          <h1>Poster Produk</h1>
-          <p class="subtitle">Rancang poster diskon, paket hemat, atau info stok terbaru untuk WhatsApp dan media sosial.</p>
-
-          <div class="brief-card">
-            <div class="brief-header">Komposisi Poster Efektif</div>
-            <p class="subtitle" style="margin: 0;">Satu fokus produk utama, judul promo singkat, dan informasi kontak/pemesanan yang jelas.</p>
-            <div class="action-row">
-              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
-              <button type="button" class="btn btn-primary" onclick="aktifkanPanelStudio('panel-composer')">Buat Brief Poster</button>
-            </div>
-          </div>
-        </section>
-
-        <!-- Panel Foto Katalog -->
-        <section id="panel-katalog" class="studio-panel" hidden>
-          <div class="kicker">Etalase Usaha</div>
-          <h1>Foto Katalog</h1>
-          <p class="subtitle">Standarkan tampilan foto katalog agar terlihat seragam di etalase maupun marketplace.</p>
-
-          <div class="brief-card">
-            <div class="brief-header">Standar Foto Katalog</div>
-            <p class="subtitle" style="margin: 0;">Gunakan latar belakang bersih dan pencahayaan merata agar detail kemasan atau makanan terlihat jelas.</p>
-            <div class="action-row">
-              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
-              <button type="button" class="btn btn-primary" onclick="aktifkanPanelStudio('panel-composer')">Susun Brief Katalog</button>
-            </div>
-          </div>
-        </section>
-
-        <!-- Panel Inspirasi Desain -->
-        <section id="panel-inspirasi" class="studio-panel" hidden>
-          <div class="kicker">Ide Visual</div>
-          <h1>Inspirasi Desain</h1>
-          <p class="subtitle">Contoh arahan visual untuk produk kebersihan rumah tangga, minuman segar, dan kuliner UMKM.</p>
-
-          <div class="brief-card">
-            <div class="brief-header">Contoh Arahan Visual</div>
-            <p class="subtitle" style="margin: 0;">"Kemasan Bersih &amp; Segar di Meja Kayu" &bull; "Paket Hemat Keluarga" &bull; "Menu Favorit Siap Santap".</p>
-            <div class="action-row">
-              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
-              <button type="button" class="btn btn-primary" onclick="aktifkanPanelStudio('panel-composer')">Terapkan di Composer</button>
-            </div>
-          </div>
-        </section>
-
-        <!-- Panel Proyek Saya -->
-        <section id="panel-proyek" class="studio-panel" hidden>
-          <div class="kicker">Arsip Lokal</div>
-          <h1>Proyek Saya</h1>
-          <p class="subtitle">Pantau draf brief visual yang sedang Anda siapkan.</p>
-
-          <div class="brief-card">
-            <div class="brief-header">Daftar Proyek Visual</div>
-            <p class="subtitle" style="margin: 0;">Belum ada proyek tersimpan di sesi ini. Mulai dari tab AI Visual Composer.</p>
-            <div class="action-row">
-              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
-              <button type="button" class="btn btn-primary" onclick="aktifkanPanelStudio('panel-composer')">Buat Visual Baru</button>
-            </div>
-          </div>
-        </section>
+    <!-- TAB 5: PROFIL & API KEY -->
+    <section id="tab-profil" class="tab-view" hidden>
+      <div class="panel-box">
+        <h3>Profil Usaha &amp; Pengaturan API Key</h3>
+        <div class="field-group">
+          <label for="namaUsahaProfil">Nama UMKM / Pengelola</label>
+          <input id="namaUsahaProfil" type="text" placeholder="Contoh: UMKM Limo - WUB 2023" />
+        </div>
+        <div class="field-group">
+          <label for="inputApiKey">Gemini API Key (Opsional jika server sudah pasang)</label>
+          <input id="inputApiKey" type="password" placeholder="AIza..." />
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button type="button" id="btnSimpanProfil" class="btn-utama">Simpan Pengaturan</button>
+          <button type="button" id="btnCekUlangApi" class="btn-kedua">Cek Status API</button>
+        </div>
+        <div id="infoProfil" class="hasil-box">Pengaturan disimpan lokal di browser HP/PC Anda.</div>
       </div>
-    </main>
+    </section>
   </div>
 
+  <nav class="bottom-nav" aria-label="Navigasi Bawah">
+    <button type="button" class="bnav-btn aktif" data-buka-tab="beranda">🏠<span>Beranda</span></button>
+    <button type="button" class="bnav-btn" data-buka-tab="riset">🔍<span>Riset</span></button>
+    <button type="button" class="bnav-btn" data-buka-tab="contoh">💡<span>Contoh</span></button>
+    <button type="button" class="bnav-btn" data-buka-tab="buat">✍️<span>Buat</span></button>
+    <button type="button" class="bnav-btn" data-buka-tab="profil">👤<span>Profil</span></button>
+  </nav>
+
+  <script src="studio-nav.js"></script>
   <script>
-    document.getElementById('btnBuatBriefKreasi')?.addEventListener('click', () => {
-      const deskripsi = document.getElementById('kreasiDeskripsi').value.trim();
-      const gaya = document.getElementById('kreasiGaya').selectedOptions[0].text;
-      const format = document.getElementById('kreasiFormat').selectedOptions[0].text;
-      const hasilBox = document.getElementById('hasilBriefKreasi');
+    (function () {
+      const views = document.querySelectorAll(".tab-view");
+      const navButtons = document.querySelectorAll("[data-buka-tab]");
+      const bnavButtons = document.querySelectorAll(".bnav-btn[data-buka-tab]");
+      const btnStatusApi = document.getElementById("btnStatusApi");
+      const inputApiKey = document.getElementById("inputApiKey");
+      const namaUsahaProfil = document.getElementById("namaUsahaProfil");
+      const infoProfil = document.getElementById("infoProfil");
 
-      hasilBox.style.display = 'flex';
-      hasilBox.innerHTML = `
-        <div class="brief-header">Ringkasan Brief Visual Siap Pakai</div>
-        <div><strong>Deskripsi &amp; Produk:</strong> ${deskripsi || 'Visual produk UMKM lokal dengan pencahayaan jelas dan menarik.'}</div>
-        <div><strong>Gaya &amp; Pencahayaan:</strong> ${gaya}</div>
-        <div><strong>Rasio &amp; Keluaran:</strong> ${format}</div>
-      `;
-    });
+      const STORAGE_KEY = "umkm_api_key_v1";
+      const STORAGE_USAHA = "umkm_nama_usaha_v1";
 
-    document.getElementById('btnResetKreasi')?.addEventListener('click', () => {
-      document.getElementById('kreasiDeskripsi').value = '';
-      const hasilBox = document.getElementById('hasilBriefKreasi');
-      hasilBox.style.display = 'none';
-      hasilBox.innerHTML = '';
-    });
+      if (inputApiKey) inputApiKey.value = localStorage.getItem(STORAGE_KEY) || "";
+      if (namaUsahaProfil) namaUsahaProfil.value = localStorage.getItem(STORAGE_USAHA) || "";
+
+      function bukaTab(namaTab) {
+        views.forEach((v) => {
+          v.hidden = v.id !== "tab-" + namaTab;
+        });
+        bnavButtons.forEach((b) => {
+          b.classList.toggle("aktif", b.dataset.bukaTab === namaTab);
+        });
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      navButtons.forEach((btn) => {
+        btn.addEventListener("click", () => bukaTab(btn.dataset.bukaTab));
+      });
+
+      document.getElementById("btnMulaiBuat")?.addEventListener("click", () => bukaTab("buat"));
+
+      document.getElementById("btnKembaliInduk")?.addEventListener("click", () => {
+        if (window.parent && window.parent !== window) {
+          window.parent.postMessage({ action: "kembali-portal" }, "*");
+        } else {
+          bukaTab("beranda");
+        }
+      });
+
+      async function cekStatusApi() {
+        const lokalKey = (localStorage.getItem(STORAGE_KEY) || "").trim();
+        try {
+          const res = await fetch("/api/status");
+          const data = await res.json();
+          if (data && (data.serverApiKeyActive || lokalKey)) {
+            btnStatusApi.textContent = "● ✓ API Aktif";
+            btnStatusApi.classList.remove("offline");
+            return;
+          }
+        } catch (_) {}
+        if (lokalKey) {
+          btnStatusApi.textContent = "● ✓ API Lokal";
+          btnStatusApi.classList.remove("offline");
+        } else {
+          btnStatusApi.textContent = "● Atur API Key";
+          btnStatusApi.classList.add("offline");
+        }
+      }
+
+      btnStatusApi?.addEventListener("click", () => bukaTab("profil"));
+      document.getElementById("btnCekUlangApi")?.addEventListener("click", cekStatusApi);
+
+      document.getElementById("btnSimpanProfil")?.addEventListener("click", () => {
+        localStorage.setItem(STORAGE_KEY, (inputApiKey?.value || "").trim());
+        localStorage.setItem(STORAGE_USAHA, (namaUsahaProfil?.value || "").trim());
+        infoProfil.textContent = "Tersimpan! Pengaturan profil & API Key sudah diperbarui.";
+        cekStatusApi();
+      });
+
+      document.querySelectorAll(".btn-pakai-contoh").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.getElementById("namaProdukKonten").value = btn.dataset.produk || "";
+          document.getElementById("keunggulanKonten").value = btn.dataset.manfaat || "";
+          document.getElementById("ctaKonten").value = btn.dataset.cta || "";
+          bukaTab("buat");
+        });
+      });
+
+      document.getElementById("btnHitungRiset")?.addEventListener("click", () => {
+        const produk = (document.getElementById("produkRiset")?.value || "Produk UMKM").trim();
+        const target = (document.getElementById("targetPembeli")?.value || "Pembeli lokal").trim();
+        const modal = Number(document.getElementById("modalTotal")?.value || 0);
+        const unit = Number(document.getElementById("jumlahUnit")?.value || 0);
+        const hasilEl = document.getElementById("hasilRiset");
+
+        if (modal > 0 && unit > 0) {
+          const hpp = Math.ceil(modal / unit);
+          const saranJual = Math.ceil((hpp * 1.4) / 500) * 500;
+          hasilEl.textContent =
+            `Produk: ${produk}\nTarget: ${target}\n` +
+            `HPP per unit: Rp ${hpp.toLocaleString("id-ID")}\n` +
+            `Saran harga jual awal (~40% margin): Rp ${saranJual.toLocaleString("id-ID")}`;
+        } else {
+          hasilEl.textContent =
+            `Produk: ${produk}\nTarget: ${target}\n` +
+            `Isi angka Modal Produksi dan Jumlah Unit agar HPP otomatis terhitung.`;
+        }
+      });
+
+      document.getElementById("btnAnalisisRisetAI")?.addEventListener("click", async () => {
+        const produk = (document.getElementById("produkRiset")?.value || "").trim();
+        const target = (document.getElementById("targetPembeli")?.value || "").trim();
+        const hasilEl = document.getElementById("hasilRiset");
+        if (!produk) {
+          hasilEl.textContent = "Isi nama produk terlebih dahulu untuk riset pasar.";
+          return;
+        }
+        hasilEl.textContent = "Menyiapkan ringkasan riset pasar...";
+        const prompt = `Berikan riset pasar singkat untuk UMKM di Indonesia. Produk: ${produk}. Target pembeli: ${target}. Tuliskan 3 kebutuhan utama pembeli dan 2 sudut promosi yang mudah dijalankan.`;
+        const apiKey = (localStorage.getItem(STORAGE_KEY) || "").trim();
+        try {
+          const res = await fetch("/api/generate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ prompt, apiKey }),
+          });
+          const data = await res.json();
+          hasilEl.textContent = res.ok && data.text
+            ? data.text
+            : `Riset cepat untuk ${produk} (${target}):\n1. Pembeli mencari manfaat jelas & bukti hasil.\n2. Harga terjangkau dan kualitas konsisten mendorong repeat order.\n(Info API: ${data.error || "cek pengaturan API Key"})`;
+        } catch (_) {
+          hasilEl.textContent = `Riset cepat untuk ${produk} (${target}):\n1. Tonjolkan manfaat praktis harian.\n2. Sertakan testimoni/foto asli produk.`;
+        }
+      });
+
+      document.getElementById("btnGenerateKonten")?.addEventListener("click", async () => {
+        const produk = (document.getElementById("namaProdukKonten")?.value || "").trim();
+        const keunggulan = (document.getElementById("keunggulanKonten")?.value || "").trim();
+        const cta = (document.getElementById("ctaKonten")?.value || "Hubungi kami sekarang!").trim();
+        const hasilEl = document.getElementById("hasilKonten");
+
+        if (!produk) {
+          hasilEl.textContent = "Silakan isi nama produk terlebih dahulu.";
+          return;
+        }
+
+        hasilEl.textContent = "Sedang menyusun konten promosi...";
+        const prompt = `Buatkan konten promosi UMKM singkat dalam bahasa Indonesia dengan format: HOOK, 3 POIN KEUNGGULAN, 1 CTA, dan CAPTION singkat. Produk: ${produk}. Keunggulan: ${keunggulan}. CTA: ${cta}.`;
+        const apiKey = (localStorage.getItem(STORAGE_KEY) || "").trim();
+
+        try {
+          const res = await fetch("/api/generate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ prompt, apiKey }),
+          });
+          const data = await res.json();
+          if (res.ok && data.text) {
+            hasilEl.textContent = data.text;
+          } else {
+            hasilEl.textContent =
+              `HOOK:\nKenalan dulu sama ${produk} yang bikin aktivitas makin praktis!\n\n` +
+              `3 POIN KEUNGGULAN:\n1. ${keunggulan || "Kualitas terjaga untuk kebutuhan sehari-hari"}\n` +
+              `2. Mudah digunakan dan cocok untuk keluarga/usaha\n` +
+              `3. Nilai manfaat sepadan dengan harganya\n\n` +
+              `CTA:\n${cta}\n\n` +
+              `(Catatan API: ${data.error || "periksa API Key di menu Profil"})`;
+          }
+        } catch (_) {
+          hasilEl.textContent =
+            `HOOK:\n${produk} siap bantu kebutuhan harian Anda!\n\n` +
+            `3 POIN KEUNGGULAN:\n1. ${keunggulan || "Praktis & bermanfaat"}\n2. Terjangkau\n3. Siap kirim\n\n` +
+            `CTA:\n${cta}`;
+        }
+      });
+
+      document.getElementById("btnSalinKonten")?.addEventListener("click", async () => {
+        const teks = document.getElementById("hasilKonten")?.textContent || "";
+        if (!teks.trim()) return;
+        try {
+          await navigator.clipboard.writeText(teks);
+          alert("Konten berhasil disalin.");
+        } catch (_) {}
+      });
+
+      cekStatusApi();
+    })();
   </script>
 </body>
 </html>

@@ -3,199 +3,591 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Drama &amp; Iklan Video UMKM — Portal Digital UMKM Kecamatan Limo</title>
+  <title>Studio Drama &amp; Video Iklan UMKM</title>
   <link rel="stylesheet" href="studio-common.css" />
-  <script src="studio-nav.js" defer></script>
+  <style>
+    :root {
+      --bg-utama: #f8fafc;
+      --kartu: #ffffff;
+      --teks: #0f172a;
+      --muted: #475569;
+      --biru: #0284c7;
+      --biru-gelap: #0369a1;
+      --merah: #e11d48;
+      --kuning-bg: #fffbeb;
+      --kuning-border: #fde68a;
+      --kuning-teks: #92400e;
+      --hijau: #16a34a;
+      --hijau-bg: #dcfce7;
+      --garis: #e2e8f0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0 0 84px;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg-utama);
+      color: var(--teks);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .app-wrap {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 12px 14px 24px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .btn-icon-menu {
+      min-width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      border: 1px solid var(--garis);
+      background: var(--kartu);
+      color: var(--teks);
+      font-size: 20px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .brand-tag {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--biru-gelap);
+      text-align: center;
+      letter-spacing: 0.3px;
+    }
+
+    .api-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: 1px solid #bbf7d0;
+      background: var(--hijau-bg);
+      color: #166534;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .api-pill.offline {
+      border-color: #fde68a;
+      background: var(--kuning-bg);
+      color: var(--kuning-teks);
+    }
+
+    .hero-greet h1 {
+      margin: 0 0 4px;
+      font-size: 26px;
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .hero-greet .sub-judul {
+      margin: 0 0 14px;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--biru);
+    }
+
+    .hero-banner {
+      position: relative;
+      border-radius: 18px;
+      padding: 22px 18px;
+      text-align: center;
+      background: linear-gradient(135deg, #fff7ed 0%, #eff6ff 55%, #fefce8 100%);
+      border: 1px solid var(--garis);
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+
+    .hero-banner h2 {
+      margin: 0 0 14px;
+      font-size: 21px;
+      line-height: 1.3;
+      font-weight: 800;
+      color: var(--teks);
+    }
+
+    .btn-cta-gelap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 46px;
+      padding: 10px 20px;
+      border-radius: 12px;
+      border: none;
+      background: #1e293b;
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .menu-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .tile-btn {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      min-height: 76px;
+      padding: 12px;
+      border-radius: 16px;
+      background: var(--kartu);
+      border: 2px solid var(--merah);
+      color: var(--teks);
+      text-align: left;
+      font-size: 15px;
+      font-weight: 800;
+      line-height: 1.25;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+    }
+
+    .tile-btn.kuning { border-color: #eab308; }
+    .tile-btn.hijau { border-color: #22c55e; }
+    .tile-btn.biru { border-color: #0284c7; }
+
+    .tile-icon {
+      flex: 0 0 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-size: 18px;
+      background: #ffe4e6;
+    }
+
+    .tile-btn.kuning .tile-icon { background: #fef9c3; }
+    .tile-btn.hijau .tile-icon { background: #dcfce7; }
+    .tile-btn.biru .tile-icon { background: #e0f2fe; }
+
+    .quote-limo {
+      background: var(--kuning-bg);
+      border: 1px solid var(--kuning-border);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .quote-limo .tag-limo {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--kuning-teks);
+      margin-bottom: 6px;
+    }
+
+    .quote-limo p {
+      margin: 0;
+      font-size: 15px;
+      color: #334155;
+    }
+
+    .panel-box {
+      background: var(--kartu);
+      border: 1px solid var(--garis);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+    }
+
+    .panel-box h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    .field-group {
+      margin-bottom: 12px;
+    }
+
+    .field-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      font-size: 15px;
+      font-family: inherit;
+      background: #ffffff;
+    }
+
+    textarea {
+      min-height: 92px;
+      resize: vertical;
+    }
+
+    .btn-utama {
+      min-height: 44px;
+      padding: 10px 16px;
+      border-radius: 12px;
+      border: none;
+      background: var(--biru);
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-kedua {
+      min-height: 44px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      background: #f1f5f9;
+      color: var(--teks);
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .hasil-box {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 12px;
+      background: #f8fafc;
+      border: 1px solid var(--garis);
+      white-space: pre-wrap;
+      font-size: 15px;
+    }
+
+    .contoh-item {
+      border: 1px solid var(--garis);
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 10px;
+      background: #fffbeb;
+    }
+
+    .bottom-nav {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 68px;
+      background: var(--kartu);
+      border-top: 1px solid var(--garis);
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      z-index: 50;
+    }
+
+    .bnav-btn {
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .bnav-btn.aktif {
+      color: var(--biru);
+      border-top: 3px solid var(--biru);
+    }
+  </style>
 </head>
 <body>
-  <div class="studio-shell">
-    <aside class="sidebar" aria-label="Navigasi Drama dan Iklan Video UMKM">
-      <div class="brand-box">
-        <div class="brand-title">DRAMA &amp; IKLAN VIDEO UMKM</div>
-        <div class="brand-sub">AI Video &amp; Story Studio</div>
+  <div class="app-wrap">
+    <div class="topbar">
+      <button type="button" id="btnKembaliInduk" class="btn-icon-menu" title="Kembali ke Portal">☰</button>
+      <div class="brand-tag">STUDIO DRAMA &amp; IKLAN<br />KECAMATAN LIMO</div>
+      <button type="button" id="btnStatusApi" class="api-pill offline">● Cek API...</button>
+    </div>
+
+    <!-- TAB 1: BERANDA -->
+    <section id="tab-beranda" class="tab-view">
+      <div class="hero-greet">
+        <h1>Selamat Datang,<br />Pelaku UMKM Depok!</h1>
+        <div class="sub-judul">Belajar Berbagi Berkarya Bersama</div>
       </div>
 
-      <div>
-        <div class="nav-group-label">Menu Utama</div>
-        <div class="nav-list">
-          <button type="button" class="nav-btn" data-panel="panel-dashboard">Dashboard</button>
-          <button type="button" class="nav-btn" data-panel="panel-naskah">Naskah Iklan</button>
-          <button type="button" class="nav-btn" data-panel="panel-drama">Drama UMKM</button>
-          <button type="button" class="nav-btn is-active" data-panel="panel-composer">AI Video Composer</button>
+      <div class="hero-banner">
+        <h2>Studio Drama &amp; Video<br />Iklan UMKM Depok</h2>
+        <button type="button" id="btnMulaiIklan" class="btn-cta-gelap">Mulai Buat Iklan Sekarang</button>
+      </div>
+
+      <div class="menu-grid-4">
+        <button type="button" class="tile-btn" data-buka-tab="naskah">
+          <span class="tile-icon">💬</span>
+          <span>Naskah<br />Drama AI</span>
+        </button>
+
+        <button type="button" class="tile-btn kuning" data-buka-tab="contoh">
+          <span class="tile-icon">💡</span>
+          <span>Contoh<br />UMKM</span>
+        </button>
+
+        <button type="button" class="tile-btn hijau" data-buka-tab="video">
+          <span class="tile-icon">🎥</span>
+          <span>Gabung<br />Video HP</span>
+        </button>
+
+        <button type="button" class="tile-btn biru" data-buka-tab="profil">
+          <span class="tile-icon">👤</span>
+          <span>Profil &amp;<br />API Key</span>
+        </button>
+      </div>
+
+      <div class="quote-limo">
+        <div class="tag-limo">☀️ SEMANGAT UMKM KECAMATAN LIMO</div>
+        <p>“Usaha kecil yang ditekuni dengan hati besar, doa, dan kebersamaan akan melahirkan berkah yang tak pernah putus. Teruslah belajar, berbagi ilmu, dan berkarya bersama!”</p>
+      </div>
+    </section>
+
+    <!-- TAB 2: NASKAH DRAMA AI -->
+    <section id="tab-naskah" class="tab-view" hidden>
+      <div class="panel-box">
+        <h3>Naskah Drama &amp; Iklan AI</h3>
+        <div class="field-group">
+          <label for="produkDrama">Nama Produk / Usaha</label>
+          <input id="produkDrama" type="text" placeholder="Contoh: Sabun Cuci Piring Lerak / Ayam Goreng / Minuman Segar" />
+        </div>
+        <div class="field-group">
+          <label for="tokohDrama">Tokoh &amp; Gaya Cerita</label>
+          <input id="tokohDrama" type="text" value="Arya & Maya, santai, akrab, 30 detik" />
+        </div>
+        <div class="field-group">
+          <label for="catatanDrama">Pesan Utama / Promo</label>
+          <textarea id="catatanDrama" placeholder="Contoh: Bersih kesat, wangi segar, harga ramah kantong, pesan lewat WA."></textarea>
+        </div>
+        <button type="button" id="btnBuatNaskah" class="btn-utama">Buat Naskah Iklan</button>
+        <div id="hasilNaskah" class="hasil-box">Isi nama produk lalu klik "Buat Naskah Iklan".</div>
+      </div>
+    </section>
+
+    <!-- TAB 3: CONTOH UMKM -->
+    <section id="tab-contoh" class="tab-view" hidden>
+      <div class="panel-box">
+        <h3>Contoh Ide Cerita UMKM</h3>
+        <div class="contoh-item">
+          <strong>1. Produk Kebersihan Rumah Tangga (30 Detik)</strong>
+          <p style="margin:6px 0 8px;font-size:14px;">Adegan wajan berminyak setelah masak, lalu dibilas cepat kesat dan harum segar tanpa bikin tangan perih.</p>
+          <button type="button" class="btn-kedua btn-pakai-contoh" data-produk="Sabun Cuci Piring Lerak & Harum Segar" data-pesan="Wajan berminyak langsung kesat dan wangi segar, praktis untuk ibu rumah tangga.">Pakai Contoh Ini</button>
+        </div>
+        <div class="contoh-item">
+          <strong>2. Kuliner &amp; Jajanan Harian (30 Detik)</strong>
+          <p style="margin:6px 0 8px;font-size:14px;">Dialog singkat saat jam makan siang tentang porsi pas, rasa gurih bikin nagih, dan stok fresh setiap hari.</p>
+          <button type="button" class="btn-kedua btn-pakai-contoh" data-produk="Menu Kuliner Harian UMKM Limo" data-pesan="Masakan hangat fresh tiap hari, porsi pas, cocok buat makan siang keluarga.">Pakai Contoh Ini</button>
         </div>
       </div>
+    </section>
 
-      <div>
-        <div class="nav-group-label">Pengelolaan</div>
-        <div class="nav-list">
-          <button type="button" class="nav-btn" data-panel="panel-inspirasi">Inspirasi Cerita</button>
-          <button type="button" class="nav-btn" data-panel="panel-proyek">Proyek Saya</button>
+    <!-- TAB 4: GABUNG VIDEO HP -->
+    <section id="tab-video" class="tab-view" hidden>
+      <div class="panel-box">
+        <h3>Panduan Susun &amp; Gabung Video di HP</h3>
+        <p style="margin:0 0 10px;font-size:15px;">Rekam 3 klip pendek (masing-masing 5–10 detik) lalu gabungkan di aplikasi edit HP (seperti CapCut):</p>
+        <ol style="margin:0 0 12px;padding-left:20px;font-size:15px;">
+          <li><strong>Klip 1 (Hook 3–5 detik):</strong> Masalah sehari-hari yang dekat dengan pembeli.</li>
+          <li><strong>Klip 2 (Solusi 8–12 detik):</strong> Tunjukkan produk dipakai &amp; hasilnya nyata.</li>
+          <li><strong>Klip 3 (Ajakan / CTA 5 detik):</strong> Sebutkan keunggulan singkat &amp; cara order.</li>
+        </ol>
+        <div class="field-group">
+          <label for="daftarScene">Daftar Klip / Prompt Singkat</label>
+          <textarea id="daftarScene" placeholder="Scene 1: ...&#10;Scene 2: ...&#10;Scene 3: ..."></textarea>
         </div>
+        <button type="button" id="btnSalinScene" class="btn-kedua">Salin Rencana Klip</button>
       </div>
-    </aside>
+    </section>
 
-    <main class="main-area">
-      <div class="topbar">
-        <div class="topbar-left">
-          <button type="button" class="btn-back" data-back="index.html">← Kembali</button>
-          <span class="studio-badge">Studio: Drama &amp; Iklan Video</span>
+    <!-- TAB 5: PROFIL & API KEY -->
+    <section id="tab-profil" class="tab-view" hidden>
+      <div class="panel-box">
+        <h3>Profil Usaha &amp; Pengaturan API Key</h3>
+        <div class="field-group">
+          <label for="namaUsahaProfil">Nama UMKM / Pengelola</label>
+          <input id="namaUsahaProfil" type="text" placeholder="Contoh: UMKM Kecamatan Limo" />
         </div>
-        <span class="brand-sub">Portal Digital UMKM Kecamatan Limo</span>
+        <div class="field-group">
+          <label for="inputApiKey">Gemini API Key (Opsional jika server sudah pasang)</label>
+          <input id="inputApiKey" type="password" placeholder="AIza..." />
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <button type="button" id="btnSimpanProfil" class="btn-utama">Simpan Pengaturan</button>
+          <button type="button" id="btnCekUlangApi" class="btn-kedua">Cek Status API</button>
+        </div>
+        <div id="infoProfil" class="hasil-box">Pengaturan disimpan lokal di browser HP/PC Anda.</div>
       </div>
-
-      <div class="content-wrap">
-        <!-- Panel Utama: AI Video Composer -->
-        <section id="panel-composer" class="studio-panel">
-          <div class="kicker">Studio Kreatif Digital</div>
-          <h1>AI Video Composer</h1>
-          <p class="subtitle">Susun naskah iklan pendek atau mini-drama produk UMKM sebelum dihubungkan ke generator video AI.</p>
-
-          <div class="brief-card">
-            <div class="brief-header">Video &amp; Drama Brief</div>
-
-            <div class="field-group">
-              <label for="dramaDeskripsi">Deskripsi alur cerita / iklan</label>
-              <textarea
-                id="dramaDeskripsi"
-                placeholder="Contoh: Ibu rumah tangga kewalahan mencuci piring berminyak setelah masak, lalu memakai sabun cuci piring beraroma segar dan piring langsung kesat berkilau"
-              ></textarea>
-            </div>
-
-            <div class="params-grid">
-              <div class="field-group">
-                <label for="dramaDurasi">Durasi &amp; format</label>
-                <select id="dramaDurasi">
-                  <option value="15-detik-reels">15 Detik (Reels / TikTok / Shorts)</option>
-                  <option value="30-detik-iklan">30 Detik (Iklan Produk &amp; WA Status)</option>
-                  <option value="60-detik-drama">60 Detik (Mini-Drama Cerita)</option>
-                </select>
-              </div>
-
-              <div class="field-group">
-                <label for="dramaSuasana">Suasana &amp; ajakan (CTA)</label>
-                <select id="dramaSuasana">
-                  <option value="hangat-solutif">Hangat &amp; Solutif (Ajak Coba Sekarang)</option>
-                  <option value="ceria-akrab">Ceria &amp; Akrab (Tanya / Pesan via WA)</option>
-                  <option value="menyentuh-inspiratif">Menyentuh &amp; Inspiratif (Bagikan &amp; Kunjungi Toko)</option>
-                </select>
-              </div>
-            </div>
-
-            <div id="hasilBriefDrama" class="brief-card" style="display: none; background: #0f172a;"></div>
-
-            <div class="action-row">
-              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
-              <button type="button" class="btn btn-primary" id="btnBuatBriefDrama">Buat Brief Video</button>
-              <button type="button" class="btn btn-secondary" id="btnResetDrama">Bersihkan</button>
-            </div>
-          </div>
-        </section>
-
-        <!-- Panel Dashboard -->
-        <section id="panel-dashboard" class="studio-panel" hidden>
-          <div class="kicker">Ringkasan Studio</div>
-          <h1>Dashboard Drama &amp; Iklan Video</h1>
-          <p class="subtitle">Pilih menu di samping atau mulai susun brief video promosi untuk usaha Anda.</p>
-
-          <div class="brief-card">
-            <div class="brief-header">Siap Produksi Konten Video</div>
-            <p class="subtitle" style="margin: 0;">Gunakan alur <strong>Riset, Buat, Jual, Ukur</strong> agar video promosi mudah dipahami calon pembeli di sekitar Limo dan Depok.</p>
-            <div class="action-row">
-              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
-              <button type="button" class="btn btn-primary" onclick="aktifkanPanelStudio('panel-composer')">Buka AI Video Composer</button>
-            </div>
-          </div>
-        </section>
-
-        <!-- Panel Naskah Iklan -->
-        <section id="panel-naskah" class="studio-panel" hidden>
-          <div class="kicker">Template Cepat</div>
-          <h1>Naskah Iklan Produk</h1>
-          <p class="subtitle">Struktur pembuka (Hook), manfaat utama, dan ajakan beli singkat.</p>
-
-          <div class="brief-card">
-            <div class="brief-header">Pola Naskah Iklan 3 Bagian</div>
-            <p class="subtitle" style="margin: 0;">1. Hook masalah sehari-hari &rarr; 2. Bukti keunggulan produk &rarr; 3. Ajakan pesan/order.</p>
-            <div class="action-row">
-              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
-              <button type="button" class="btn btn-primary" onclick="aktifkanPanelStudio('panel-composer')">Gunakan di Composer</button>
-            </div>
-          </div>
-        </section>
-
-        <!-- Panel Drama UMKM -->
-        <section id="panel-drama" class="studio-panel" hidden>
-          <div class="kicker">Cerita Berkarakter</div>
-          <h1>Mini-Drama UMKM</h1>
-          <p class="subtitle">Cerita ringan keseharian yang menyelipkan manfaat produk secara alami.</p>
-
-          <div class="brief-card">
-            <div class="brief-header">Tips Drama Pendek</div>
-            <p class="subtitle" style="margin: 0;">Jaga dialog tetap natural, singkat, dan fokus pada satu masalah utama pelanggan.</p>
-            <div class="action-row">
-              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
-              <button type="button" class="btn btn-primary" onclick="aktifkanPanelStudio('panel-composer')">Buat Cerita Drama</button>
-            </div>
-          </div>
-        </section>
-
-        <!-- Panel Inspirasi Cerita -->
-        <section id="panel-inspirasi" class="studio-panel" hidden>
-          <div class="kicker">Ide Siap Pakai</div>
-          <h1>Inspirasi Cerita</h1>
-          <p class="subtitle">Contoh ide video untuk produk pembersih rumah tangga dan kuliner lokal.</p>
-
-          <div class="brief-card">
-            <div class="brief-header">Ide Cerita Populer</div>
-            <p class="subtitle" style="margin: 0;">"Selesai Masak Nggak Pusing Lagi" &bull; "Persiapan Buka/Sarapan Praktis" &bull; "Cerita di Balik Dapur UMKM".</p>
-            <div class="action-row">
-              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
-              <button type="button" class="btn btn-primary" onclick="aktifkanPanelStudio('panel-composer')">Salin ke Composer</button>
-            </div>
-          </div>
-        </section>
-
-        <!-- Panel Proyek Saya -->
-        <section id="panel-proyek" class="studio-panel" hidden>
-          <div class="kicker">Arsip Lokal</div>
-          <h1>Proyek Saya</h1>
-          <p class="subtitle">Simpan atau tinjau kembali draf brief video yang sedang Anda susun.</p>
-
-          <div class="brief-card">
-            <div class="brief-header">Daftar Draf Video</div>
-            <p class="subtitle" style="margin: 0;">Belum ada proyek tersimpan di sesi ini. Buat brief baru di tab AI Video Composer.</p>
-            <div class="action-row">
-              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
-              <button type="button" class="btn btn-primary" onclick="aktifkanPanelStudio('panel-composer')">Buat Proyek Baru</button>
-            </div>
-          </div>
-        </section>
-      </div>
-    </main>
+    </section>
   </div>
 
+  <nav class="bottom-nav" aria-label="Navigasi Bawah">
+    <button type="button" class="bnav-btn aktif" data-buka-tab="beranda">🏠<span>Beranda</span></button>
+    <button type="button" class="bnav-btn" data-buka-tab="naskah">💬<span>Naskah</span></button>
+    <button type="button" class="bnav-btn" data-buka-tab="contoh">💡<span>Contoh</span></button>
+    <button type="button" class="bnav-btn" data-buka-tab="video">🎥<span>Video</span></button>
+    <button type="button" class="bnav-btn" data-buka-tab="profil">👤<span>Profil</span></button>
+  </nav>
+
+  <script src="studio-nav.js"></script>
   <script>
-    document.getElementById('btnBuatBriefDrama')?.addEventListener('click', () => {
-      const deskripsi = document.getElementById('dramaDeskripsi').value.trim();
-      const durasi = document.getElementById('dramaDurasi').selectedOptions[0].text;
-      const suasana = document.getElementById('dramaSuasana').selectedOptions[0].text;
-      const hasilBox = document.getElementById('hasilBriefDrama');
+    (function () {
+      const views = document.querySelectorAll(".tab-view");
+      const navButtons = document.querySelectorAll("[data-buka-tab]");
+      const bnavButtons = document.querySelectorAll(".bnav-btn[data-buka-tab]");
+      const btnStatusApi = document.getElementById("btnStatusApi");
+      const inputApiKey = document.getElementById("inputApiKey");
+      const namaUsahaProfil = document.getElementById("namaUsahaProfil");
+      const infoProfil = document.getElementById("infoProfil");
 
-      hasilBox.style.display = 'flex';
-      hasilBox.innerHTML = `
-        <div class="brief-header">Ringkasan Brief Video Siap Pakai</div>
-        <div><strong>Alur Cerita:</strong> ${deskripsi || 'Cerita singkat keunggulan produk UMKM lokal untuk media sosial.'}</div>
-        <div><strong>Durasi &amp; Format:</strong> ${durasi}</div>
-        <div><strong>Suasana &amp; CTA:</strong> ${suasana}</div>
-      `;
-    });
+      const STORAGE_KEY = "umkm_api_key_v1";
+      const STORAGE_USAHA = "umkm_nama_usaha_v1";
 
-    document.getElementById('btnResetDrama')?.addEventListener('click', () => {
-      document.getElementById('dramaDeskripsi').value = '';
-      const hasilBox = document.getElementById('hasilBriefDrama');
-      hasilBox.style.display = 'none';
-      hasilBox.innerHTML = '';
-    });
+      if (inputApiKey) inputApiKey.value = localStorage.getItem(STORAGE_KEY) || "";
+      if (namaUsahaProfil) namaUsahaProfil.value = localStorage.getItem(STORAGE_USAHA) || "";
+
+      function bukaTab(namaTab) {
+        views.forEach((v) => {
+          v.hidden = v.id !== "tab-" + namaTab;
+        });
+        bnavButtons.forEach((b) => {
+          b.classList.toggle("aktif", b.dataset.bukaTab === namaTab);
+        });
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      navButtons.forEach((btn) => {
+        btn.addEventListener("click", () => bukaTab(btn.dataset.bukaTab));
+      });
+
+      document.getElementById("btnMulaiIklan")?.addEventListener("click", () => bukaTab("naskah"));
+
+      document.getElementById("btnKembaliInduk")?.addEventListener("click", () => {
+        if (window.parent && window.parent !== window) {
+          window.parent.postMessage({ action: "kembali-portal" }, "*");
+        } else {
+          bukaTab("beranda");
+        }
+      });
+
+      async function cekStatusApi() {
+        const lokalKey = (localStorage.getItem(STORAGE_KEY) || "").trim();
+        try {
+          const res = await fetch("/api/status");
+          const data = await res.json();
+          if (data && (data.serverApiKeyActive || lokalKey)) {
+            btnStatusApi.textContent = "● ✓ API Aktif";
+            btnStatusApi.classList.remove("offline");
+            return;
+          }
+        } catch (_) {}
+        if (lokalKey) {
+          btnStatusApi.textContent = "● ✓ API Lokal";
+          btnStatusApi.classList.remove("offline");
+        } else {
+          btnStatusApi.textContent = "● Atur API Key";
+          btnStatusApi.classList.add("offline");
+        }
+      }
+
+      btnStatusApi?.addEventListener("click", () => bukaTab("profil"));
+      document.getElementById("btnCekUlangApi")?.addEventListener("click", cekStatusApi);
+
+      document.getElementById("btnSimpanProfil")?.addEventListener("click", () => {
+        localStorage.setItem(STORAGE_KEY, (inputApiKey?.value || "").trim());
+        localStorage.setItem(STORAGE_USAHA, (namaUsahaProfil?.value || "").trim());
+        infoProfil.textContent = "Tersimpan! Pengaturan profil & API Key sudah diperbarui.";
+        cekStatusApi();
+      });
+
+      document.querySelectorAll(".btn-pakai-contoh").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.getElementById("produkDrama").value = btn.dataset.produk || "";
+          document.getElementById("catatanDrama").value = btn.dataset.pesan || "";
+          bukaTab("naskah");
+        });
+      });
+
+      document.getElementById("btnBuatNaskah")?.addEventListener("click", async () => {
+        const produk = (document.getElementById("produkDrama")?.value || "").trim();
+        const tokoh = (document.getElementById("tokohDrama")?.value || "").trim();
+        const catatan = (document.getElementById("catatanDrama")?.value || "").trim();
+        const hasilEl = document.getElementById("hasilNaskah");
+
+        if (!produk) {
+          hasilEl.textContent = "Silakan isi nama produk atau usaha terlebih dahulu.";
+          return;
+        }
+
+        hasilEl.textContent = "Sedang menyusun naskah iklan...";
+        const prompt = `Buatkan naskah drama iklan pendek 30 detik dalam bahasa Indonesia yang ramah dan mudah dipraktikkan pelaku UMKM. Produk: ${produk}. Gaya/tokoh: ${tokoh}. Pesan utama: ${catatan}. Sertakan Hook, 3 adegan singkat (visual + dialog), dan CTA penutup.`;
+        const apiKey = (localStorage.getItem(STORAGE_KEY) || "").trim();
+
+        try {
+          const res = await fetch("/api/generate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ prompt, apiKey }),
+          });
+          const data = await res.json();
+          if (res.ok && data.text) {
+            hasilEl.textContent = data.text;
+            document.getElementById("daftarScene").value = data.text;
+          } else {
+            hasilEl.textContent =
+              `[Draf Cepat Lokal - ${produk}]\n` +
+              `• Hook: Masih bingung promosi ${produk} biar cepat dilirik? (${tokoh})\n` +
+              `• Adegan 1: Perlihatkan masalah sehari-hari.\n` +
+              `• Adegan 2: Tunjukkan keunggulan ${produk} (${catatan || "kualitas terpercaya"}).\n` +
+              `• CTA: Yuk order sekarang dan bagikan ke teman usaha!\n\n` +
+              `(Catatan server/API: ${data.error || "periksa API Key di menu Profil"})`;
+          }
+        } catch (_) {
+          hasilEl.textContent =
+            `[Draf Cepat Lokal - ${produk}]\n` +
+            `• Hook: Cerita singkat ${tokoh} tentang ${produk}.\n` +
+            `• Isi: ${catatan || "Tunjukkan manfaat utama produk dengan jelas."}\n` +
+            `• CTA: Ajak penonton menghubungi kontak usaha Anda.`;
+        }
+      });
+
+      document.getElementById("btnSalinScene")?.addEventListener("click", async () => {
+        const teks = document.getElementById("daftarScene")?.value || "";
+        if (!teks.trim()) return;
+        try {
+          await navigator.clipboard.writeText(teks);
+          alert("Rencana klip berhasil disalin.");
+        } catch (_) {}
+      });
+
+      cekStatusApi();
+    })();
   </script>
 </body>
 </html>
