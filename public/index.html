@@ -1,167 +1,23 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portal AI Studio UMKM — Kecamatan Limo</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-amber-50/70 text-gray-900 min-h-screen flex flex-col">
+<script>
+  window.addEventListener('message', (event) => {
+    if (!event.data || event.data.action !== 'kembali-portal') return;
 
-  <!-- === BERANDA UTAMA PORTAL (RINGAN DI HP) === -->
-  <main id="view-beranda" class="flex-1 w-full max-w-6xl mx-auto px-4 py-6 sm:py-8">
-    <header class="text-center mb-6 sm:mb-8">
-      <span class="inline-block px-3 py-1 rounded-full bg-amber-200 text-amber-900 text-[11px] sm:text-xs font-bold tracking-wide mb-2">
-        WUB KECAMATAN LIMO • KOTA DEPOK
-      </span>
-      <h1 class="text-2xl sm:text-4xl font-extrabold text-gray-900 leading-tight">
-        Portal AI Studio UMKM
-      </h1>
-      <p class="text-xs sm:text-base text-gray-600 mt-2 max-w-2xl mx-auto">
-        Belajar berbagi berkarya bersama satukan hati menggapai cita. Pilih studio yang ingin dibuka.
-      </p>
-    </header>
+    // Sesuaikan selector ini dengan wrapper / iframe studio di index.html Anda
+    const iframeWrapper = document.getElementById('studioIframeWrapper') || document.querySelector('.studio-iframe-wrap');
+    const iframeEl = document.getElementById('studioIframe') || document.querySelector('iframe');
+    const berandaSection = document.getElementById('berandaPortal') || document.querySelector('.portal-home');
 
-    <!-- 4 PILIHAN STUDIO -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-      <!-- 1. Kreasi AI Studio -->
-      <button
-        type="button"
-        onclick="bukaAplikasiPortal('kreasi')"
-        class="text-left bg-white active:bg-amber-50 hover:bg-amber-50 border-2 border-amber-200 hover:border-amber-500 rounded-2xl p-4 sm:p-5 shadow-sm transition flex flex-col justify-between"
-      >
-        <div>
-          <div class="w-11 h-11 rounded-xl bg-amber-100 text-xl flex items-center justify-center mb-2.5">🎨</div>
-          <h2 class="font-bold text-base sm:text-lg text-gray-900">Kreasi AI Studio</h2>
-          <p class="text-xs sm:text-sm text-gray-600 mt-1">
-            Naskah promosi, poster produk, ide jualan, dan materi digital marketing UMKM.
-          </p>
-        </div>
-        <span class="mt-3 inline-block text-xs font-bold text-amber-700">Buka Studio →</span>
-      </button>
-
-      <!-- 2. Studio Drama -->
-      <button
-        type="button"
-        onclick="bukaAplikasiPortal('drama')"
-        class="text-left bg-white active:bg-rose-50 hover:bg-rose-50 border-2 border-rose-200 hover:border-rose-500 rounded-2xl p-4 sm:p-5 shadow-sm transition flex flex-col justify-between"
-      >
-        <div>
-          <div class="w-11 h-11 rounded-xl bg-rose-100 text-xl flex items-center justify-center mb-2.5">🎭</div>
-          <h2 class="font-bold text-base sm:text-lg text-gray-900">Studio Drama</h2>
-          <p class="text-xs sm:text-sm text-gray-600 mt-1">
-            Skenario drama pendek dan iklan video produk UMKM yang menyentuh hati.
-          </p>
-        </div>
-        <span class="mt-3 inline-block text-xs font-bold text-rose-700">Buka Studio →</span>
-      </button>
-
-      <!-- 3. Studio Animasi -->
-      <button
-        type="button"
-        onclick="bukaAplikasiPortal('animasi')"
-        class="text-left bg-white active:bg-purple-50 hover:bg-purple-50 border-2 border-purple-200 hover:border-purple-500 rounded-2xl p-4 sm:p-5 shadow-sm transition flex flex-col justify-between"
-      >
-        <div>
-          <div class="w-11 h-11 rounded-xl bg-purple-100 text-xl flex items-center justify-center mb-2.5">🎬</div>
-          <h2 class="font-bold text-base sm:text-lg text-gray-900">Studio Animasi</h2>
-          <p class="text-xs sm:text-sm text-gray-600 mt-1">
-            Filosofi produk, cerita, dan storyboard 9 adegan animasi UMKM.
-          </p>
-        </div>
-        <span class="mt-3 inline-block text-xs font-bold text-purple-700">Buka Studio →</span>
-      </button>
-
-      <!-- 4. Studio Music Lab -->
-      <button
-        type="button"
-        onclick="bukaAplikasiPortal('musik')"
-        class="text-left bg-white active:bg-cyan-50 hover:bg-cyan-50 border-2 border-cyan-200 hover:border-cyan-500 rounded-2xl p-4 sm:p-5 shadow-sm transition flex flex-col justify-between"
-      >
-        <div>
-          <div class="w-11 h-11 rounded-xl bg-cyan-100 text-xl flex items-center justify-center mb-2.5">🎵</div>
-          <h2 class="font-bold text-base sm:text-lg text-gray-900">Studio Music Lab</h2>
-          <p class="text-xs sm:text-sm text-gray-600 mt-1">
-            Brief jingle UMKM, kerangka lirik lagu promosi, dan arahan produksi musik.
-          </p>
-        </div>
-        <span class="mt-3 inline-block text-xs font-bold text-cyan-700">Buka Studio →</span>
-      </button>
-    </div>
-  </main>
-
-  <!-- === VIEW 1: KREASI AI STUDIO === -->
-  <section id="view-kreasi" class="hidden flex-1 flex-col w-full bg-white">
-    <div class="flex items-center justify-between gap-2 px-3 sm:px-4 py-2 bg-amber-100 border-b border-amber-300">
-      <span class="text-xs sm:text-sm font-semibold text-gray-900 truncate">Studio: <b>Kreasi AI Studio</b></span>
-      <button type="button" onclick="kembaliKeBerandaPortal()" class="shrink-0 px-3 py-1.5 rounded-lg bg-amber-600 active:bg-amber-700 text-white text-xs sm:text-sm font-semibold">
-        🏠 Halaman Utama
-      </button>
-    </div>
-    <iframe
-      id="frame-kreasi"
-      data-src="kreasi.html"
-      title="Kreasi AI Studio"
-      class="w-full border-0 bg-white block"
-      style="height: 85vh; -webkit-overflow-scrolling: touch;"
-      scrolling="yes"
-    ></iframe>
-  </section>
-
-  <!-- === VIEW 2: STUDIO DRAMA === -->
-  <section id="view-drama" class="hidden flex-1 flex-col w-full bg-white">
-    <div class="flex items-center justify-between gap-2 px-3 sm:px-4 py-2 bg-amber-100 border-b border-amber-300">
-      <span class="text-xs sm:text-sm font-semibold text-gray-900 truncate">Studio: <b>Studio Drama</b></span>
-      <button type="button" onclick="kembaliKeBerandaPortal()" class="shrink-0 px-3 py-1.5 rounded-lg bg-amber-600 active:bg-amber-700 text-white text-xs sm:text-sm font-semibold">
-        🏠 Halaman Utama
-      </button>
-    </div>
-    <iframe
-      id="frame-drama"
-      data-src="https://drama-iklan-umkm-production.up.railway.app/"
-      title="Studio Drama"
-      class="w-full border-0 bg-white block"
-      style="height: 85vh; -webkit-overflow-scrolling: touch;"
-      scrolling="yes"
-    ></iframe>
-  </section>
-
-  <!-- === VIEW 3: STUDIO ANIMASI === -->
-  <section id="view-animasi" class="hidden flex-1 flex-col w-full bg-white">
-    <div class="flex items-center justify-between gap-2 px-3 sm:px-4 py-2 bg-amber-100 border-b border-amber-300">
-      <span class="text-xs sm:text-sm font-semibold text-gray-900 truncate">Studio: <b>Studio Animasi</b></span>
-      <button type="button" onclick="kembaliKeBerandaPortal()" class="shrink-0 px-3 py-1.5 rounded-lg bg-amber-600 active:bg-amber-700 text-white text-xs sm:text-sm font-semibold">
-        🏠 Halaman Utama
-      </button>
-    </div>
-    <iframe
-      id="frame-animasi"
-      data-src="animasi.html"
-      title="Studio Animasi"
-      class="w-full border-0 bg-white block"
-      style="height: 85vh; -webkit-overflow-scrolling: touch;"
-      scrolling="yes"
-    ></iframe>
-  </section>
-
-  <!-- === VIEW 4: STUDIO MUSIC LAB === -->
-  <section id="view-musik" class="hidden flex-1 flex-col w-full bg-white">
-    <div class="flex items-center justify-between gap-2 px-3 sm:px-4 py-2 bg-amber-100 border-b border-amber-300">
-      <span class="text-xs sm:text-sm font-semibold text-gray-900 truncate">Studio: <b>Studio Music Lab</b></span>
-      <button type="button" onclick="kembaliKeBerandaPortal()" class="shrink-0 px-3 py-1.5 rounded-lg bg-amber-600 active:bg-amber-700 text-white text-xs sm:text-sm font-semibold">
-        🏠 Halaman Utama
-      </button>
-    </div>
-    <iframe
-      id="frame-musik"
-      data-src="musik.html"
-      title="Studio Music Lab"
-      class="w-full border-0 bg-white block"
-      style="height: 85vh; -webkit-overflow-scrolling: touch;"
-      scrolling="yes"
-    ></iframe>
-  </section>
-
-  <script src="script.js"></script>
-</body>
-</html>
+    if (iframeWrapper) {
+      iframeWrapper.hidden = true;
+      iframeWrapper.style.display = 'none';
+    }
+    if (iframeEl) {
+      iframeEl.src = 'about:blank';
+    }
+    if (berandaSection) {
+      berandaSection.hidden = false;
+      berandaSection.style.display = '';
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>

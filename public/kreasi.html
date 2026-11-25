@@ -3,1647 +3,198 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kreasi AI Studio UMKM — Alumni WUB 2023 • Kecamatan Limo</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Poppins', 'sans-serif'],
-          },
-        },
-      },
-    };
-  </script>
-  <style>
-    /* Latar mozaik geometris warna-warni untuk banner utama */
-    .hero-mosaic {
-      background:
-        linear-gradient(135deg, rgba(15, 23, 42, 0.72), rgba(30, 41, 59, 0.65)),
-        conic-gradient(from 45deg at 20% 25%, #dc2626 0deg 90deg, #eab308 90deg 180deg, #16a34a 180deg 270deg, #0284c7 270deg 360deg);
-      background-size: 100% 100%, 140px 140px;
-    }
-
-    /* Scrollbar halus di dalam bingkai HP */
-    .hp-scroll::-webkit-scrollbar {
-      width: 4px;
-    }
-    .hp-scroll::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-      border-radius: 9999px;
-    }
-  </style>
+  <title>Kreasi AI Studio UMKM — Portal Digital UMKM Kecamatan Limo</title>
+  <link rel="stylesheet" href="studio-common.css" />
+  <script src="studio-nav.js" defer></script>
 </head>
-<body class="min-h-screen w-full bg-slate-200 text-slate-900 antialiased flex items-center justify-center sm:py-6 sm:px-4">
-  <!-- Notifikasi Toast -->
-  <div id="toastBox" class="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 hidden max-w-[380px] w-[90%] rounded-2xl bg-slate-900 px-4 py-3 text-sm font-bold text-white text-center shadow-2xl"></div>
-
-  <!-- Bingkai HP Vertikal Ramah Ibu-Ibu -->
-  <div class="w-full max-w-[430px] min-h-screen sm:min-h-[820px] sm:max-h-[860px] bg-white sm:rounded-[44px] sm:border-[10px] sm:border-slate-900 sm:shadow-2xl overflow-hidden flex flex-col">
-
-    <!-- Header Atas: Menu Garis Tiga (Kiri), Logo WUB Kecamatan Limo (Tengah), Tombol API Key (Kanan) -->
-    <header class="sticky top-0 z-30 border-b border-slate-100 bg-white/95 px-4 py-3 backdrop-blur shrink-0">
-      <div class="flex items-center justify-between gap-2">
-        <button
-          type="button"
-          onclick="lompatKe('bagianFormAI')"
-          title="Buka Form Konten AI"
-          class="p-2 text-sky-600 hover:bg-sky-50 rounded-xl transition shrink-0"
-        >
-          <svg class="w-7 h-7" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
-
-        <!-- Logo WUB - Wirausaha Baru Kecamatan Limo (Saja) -->
-        <label for="inputGantiLogoWub" title="Klik untuk mengganti Logo WUB" class="cursor-pointer inline-flex items-center justify-center rounded-full border border-slate-200 bg-[#f8f7f4] p-1 shadow-xs hover:border-sky-400 transition">
-          <div id="wadahLogoWubDefault" class="flex items-center justify-center select-none">
-            <svg viewBox="0 0 140 140" class="w-12 h-12" xmlns="http://www.w3.org/2000/svg" aria-label="Logo WUB Wirausaha Baru Kecamatan Limo">
-              <circle cx="70" cy="70" r="67" fill="#f8f7f4" />
-              <circle cx="70" cy="43" r="28" fill="none" stroke="#163a5f" stroke-width="4" />
-              <circle cx="55" cy="34" r="5" fill="#163a5f" />
-              <path d="M48,56 L48,44 C48,41 51,40 55,40 C58,40 60,41 60,44 L60,56 Z" fill="#163a5f" />
-              <circle cx="67" cy="28" r="5" fill="#e67e22" />
-              <path d="M60,62 L60,42 C60,37 64,35 70,35 L82,27 L78,24 L90,23 L87,34 L84,31 L71,40 C68,42 66,44 66,48 L66,62 Z" fill="#e67e22" />
-              <rect x="70" y="48" width="5.5" height="14" fill="#163a5f" />
-              <rect x="78" y="43" width="5.5" height="19" fill="#163a5f" />
-              <rect x="86" y="37" width="5.5" height="25" fill="#163a5f" />
-              <text x="70" y="96" text-anchor="middle" font-family="Poppins, sans-serif" font-weight="800" font-size="27" fill="#163a5f" letter-spacing="0.5">WUB</text>
-              <text x="70" y="109" text-anchor="middle" font-family="Poppins, sans-serif" font-weight="700" font-size="9.5" fill="#e67e22" letter-spacing="0.4">WIRAUSAHA BARU</text>
-              <text x="70" y="120" text-anchor="middle" font-family="Poppins, sans-serif" font-weight="700" font-size="8.5" fill="#163a5f" letter-spacing="0.3">KECAMATAN LIMO</text>
-            </svg>
-          </div>
-          <img id="imgLogoWubCustom" src="" alt="Logo WUB Kecamatan Limo" class="hidden w-12 h-12 rounded-full object-contain" onerror="this.src='https://placehold.co/96x96/f8f7f4/163a5f?text=WUB'" />
-          <input id="inputGantiLogoWub" type="file" accept="image/*" onchange="gantiLogoWub(event)" class="hidden" />
-        </label>
-
-        <!-- Tombol Status API Key -->
-        <button
-          type="button"
-          id="btnStatusApi"
-          onclick="bukaModalApi()"
-          title="Atur Gemini API Key"
-          class="relative inline-flex items-center gap-1 rounded-full bg-rose-50 border border-rose-200 px-3 py-2 text-xs font-bold text-rose-600 hover:bg-rose-100 transition shrink-0"
-        >
-          <span>🔑</span>
-          <span id="labelApi">API</span>
-          <span id="tandaAktifApi" class="hidden rounded-full bg-emerald-600 px-1.5 py-0.5 text-[10px] font-extrabold text-white">ON</span>
-        </button>
+<body>
+  <div class="studio-shell">
+    <aside class="sidebar" aria-label="Navigasi Kreasi AI Studio UMKM">
+      <div class="brand-box">
+        <div class="brand-title">KREASI AI STUDIO UMKM</div>
+        <div class="brand-sub">AI Creative &amp; Visual Studio</div>
       </div>
-    </header>
 
-    <!-- Area Konten Utama di Dalam Bingkai HP -->
-    <div id="areaScrollHp" class="hp-scroll flex-1 overflow-y-auto px-4 py-4 pb-24 space-y-5">
-
-      <!-- Sapaan, Banner Mozaik & 4 Kartu Aksi Cepat Berbingkai Warna -->
-      <section class="space-y-4">
-        <div>
-          <h1 class="text-2xl font-extrabold text-slate-900 leading-snug">
-            Selamat Datang,<br />Ibu Pelaku UMKM!
-          </h1>
-          <p class="text-xs italic font-semibold text-amber-700 mt-1">
-            "Belajar berbagi berkarya bersama satukan hati menggapai cita"
-          </p>
+      <div>
+        <div class="nav-group-label">Menu Utama</div>
+        <div class="nav-list">
+          <button type="button" class="nav-btn" data-panel="panel-dashboard">Dashboard</button>
+          <button type="button" class="nav-btn" data-panel="panel-poster">Poster Produk</button>
+          <button type="button" class="nav-btn" data-panel="panel-katalog">Foto Katalog</button>
+          <button type="button" class="nav-btn is-active" data-panel="panel-composer">AI Visual Composer</button>
         </div>
-
-        <!-- Banner Utama Mozaik Geometris -->
-        <div class="hero-mosaic rounded-2xl p-5 text-center text-white shadow-md space-y-2.5">
-          <div class="text-xl sm:text-2xl font-extrabold leading-snug drop-shadow">
-            Kreasi AI Studio UMKM — Kecamatan Limo
-          </div>
-          <p class="text-xs text-white/90 font-medium leading-relaxed">
-            Cukup isi 3 kolom singkat untuk buat promosi, poster, &amp; hitung modal untung.
-          </p>
-          <div>
-            <button
-              type="button"
-              onclick="lompatKe('bagianFormAI')"
-              class="inline-flex items-center justify-center rounded-full bg-slate-900/90 hover:bg-slate-950 px-5 py-2.5 text-xs font-bold text-white shadow transition"
-            >
-              Mulai Buat Konten
-            </button>
-          </div>
-        </div>
-
-        <!-- 4 Kartu Aksi Cepat Berbingkai Warna -->
-        <div class="grid grid-cols-2 gap-3">
-          <button
-            type="button"
-            onclick="lompatKe('bagianFormAI')"
-            class="flex items-center gap-2.5 rounded-2xl border-2 border-rose-500 bg-white p-3.5 text-left shadow-xs hover:bg-rose-50/40 active:scale-95 transition"
-          >
-            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-rose-100 text-xl text-rose-600">💬</span>
-            <span class="text-sm font-extrabold text-slate-900 leading-tight">Buat Teks<br />Promosi</span>
-          </button>
-
-          <button
-            type="button"
-            onclick="lompatKe('bagianPosterAI')"
-            class="flex items-center gap-2.5 rounded-2xl border-2 border-amber-400 bg-white p-3.5 text-left shadow-xs hover:bg-amber-50/40 active:scale-95 transition"
-          >
-            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-100 text-xl text-amber-500">🖼️</span>
-            <span class="text-sm font-extrabold text-slate-900 leading-tight">Poster &amp;<br />Foto AI</span>
-          </button>
-
-          <button
-            type="button"
-            onclick="lompatKe('bagianKalkulator')"
-            class="flex items-center gap-2.5 rounded-2xl border-2 border-lime-500 bg-white p-3.5 text-left shadow-xs hover:bg-lime-50/40 active:scale-95 transition"
-          >
-            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-lime-100 text-xl text-lime-600">🧮</span>
-            <span class="text-sm font-extrabold text-slate-900 leading-tight">Hitung<br />Modal &amp; HPP</span>
-          </button>
-
-          <button
-            type="button"
-            onclick="bukaPanelLegalitasDanLompat()"
-            class="flex items-center gap-2.5 rounded-2xl border-2 border-sky-500 bg-white p-3.5 text-left shadow-xs hover:bg-sky-50/40 active:scale-95 transition"
-          >
-            <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-sky-100 text-xl text-sky-600">🛡️</span>
-            <span class="text-sm font-extrabold text-slate-900 leading-tight">Izin &amp;<br />Legalitas</span>
-          </button>
-        </div>
-      </section>
-
-      <!-- 1. FORM INPUT 3 BARIS + LEGALITAS + MODE + GENERATE -->
-      <section id="bagianFormAI" class="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm space-y-4 scroll-mt-4">
-        <div class="flex items-center justify-between gap-2">
-          <div>
-            <h2 class="text-base font-extrabold text-slate-900">1. Isi Singkat Produk Anda</h2>
-            <p class="text-xs text-slate-500">Tulis bahasa sehari-hari saja, Bu.</p>
-          </div>
-          <button
-            type="button"
-            onclick="bersihkanInput()"
-            class="rounded-xl border border-slate-300 bg-slate-100 hover:bg-slate-200 px-3 py-2 text-xs font-bold text-slate-700 transition shrink-0"
-          >
-            Kosongkan
-          </button>
-        </div>
-
-        <div class="space-y-3">
-          <div>
-            <label for="inputProduk" class="block text-sm font-bold text-slate-800 mb-1">
-              Nama &amp; Jenis Produk
-            </label>
-            <input
-              id="inputProduk"
-              type="text"
-              placeholder="Contoh: Minuman jahe merah botol 250ml"
-              class="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-base text-slate-900 placeholder:text-slate-400 focus:border-sky-500 focus:bg-white outline-none transition"
-            />
-          </div>
-
-          <div>
-            <label for="inputKeunggulan" class="block text-sm font-bold text-slate-800 mb-1">
-              Keunggulan Utama Produk
-            </label>
-            <input
-              id="inputKeunggulan"
-              type="text"
-              placeholder="Contoh: Gula aren asli, segar, tanpa pengawet"
-              class="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-base text-slate-900 placeholder:text-slate-400 focus:border-sky-500 focus:bg-white outline-none transition"
-            />
-          </div>
-
-          <div>
-            <label for="inputTujuan" class="block text-sm font-bold text-slate-800 mb-1">
-              Target Pembeli (Boleh Kosong)
-            </label>
-            <input
-              id="inputTujuan"
-              type="text"
-              placeholder="Contoh: Ibu-ibu sekitar, arisan, pengajian"
-              class="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-base text-slate-900 placeholder:text-slate-400 focus:border-sky-500 focus:bg-white outline-none transition"
-            />
-          </div>
-        </div>
-
-        <!-- Panel Legalitas Produk UMKM -->
-        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-3.5 space-y-2.5">
-          <div class="flex items-center justify-between gap-2">
-            <div>
-              <span class="block text-sm font-bold text-emerald-800">Legalitas Produk UMKM</span>
-              <span id="ringkasanLegalitas" class="text-xs text-slate-500">Belum ada legalitas dipilih</span>
-            </div>
-            <button
-              type="button"
-              id="btnTombolLegalitas"
-              onclick="togglePanelLegalitas()"
-              class="inline-flex items-center gap-1 rounded-xl border border-emerald-400 bg-emerald-100 hover:bg-emerald-200 px-3 py-2 text-xs font-bold text-emerald-900 transition"
-            >
-              <span>🛡️</span>
-              <span>Pilih Izin</span>
-            </button>
-          </div>
-
-          <div id="panelLegalitas" class="hidden pt-2 border-t border-slate-200 space-y-2.5">
-            <div class="grid grid-cols-2 gap-2">
-              <button
-                type="button"
-                id="btnLeg-nib"
-                onclick="pilihDanBukaPanduanLegalitas('nib')"
-                class="rounded-xl border border-slate-200 bg-white hover:border-emerald-500 px-3 py-2 text-left text-xs font-semibold text-slate-800 transition"
-              >
-                <div class="flex items-center justify-between gap-1">
-                  <span class="font-bold text-slate-900">📄 NIB</span>
-                  <span id="badgeLeg-nib" class="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-bold text-slate-600">Panduan</span>
-                </div>
-                <div class="text-[11px] text-slate-500">Identitas Usaha OSS</div>
-              </button>
-              <button
-                type="button"
-                id="btnLeg-pirt"
-                onclick="pilihDanBukaPanduanLegalitas('pirt')"
-                class="rounded-xl border border-slate-200 bg-white hover:border-emerald-500 px-3 py-2 text-left text-xs font-semibold text-slate-800 transition"
-              >
-                <div class="flex items-center justify-between gap-1">
-                  <span class="font-bold text-slate-900">🌿 P-IRT</span>
-                  <span id="badgeLeg-pirt" class="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-bold text-slate-600">Panduan</span>
-                </div>
-                <div class="text-[11px] text-slate-500">Izin Edar Pangan</div>
-              </button>
-              <button
-                type="button"
-                id="btnLeg-halal"
-                onclick="pilihDanBukaPanduanLegalitas('halal')"
-                class="rounded-xl border border-slate-200 bg-white hover:border-emerald-500 px-3 py-2 text-left text-xs font-semibold text-slate-800 transition"
-              >
-                <div class="flex items-center justify-between gap-1">
-                  <span class="font-bold text-slate-900">☪️ Halal</span>
-                  <span id="badgeLeg-halal" class="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-bold text-slate-600">Panduan</span>
-                </div>
-                <div class="text-[11px] text-slate-500">Sertifikat BPJPH</div>
-              </button>
-              <button
-                type="button"
-                id="btnLeg-merek"
-                onclick="pilihDanBukaPanduanLegalitas('merek')"
-                class="rounded-xl border border-slate-200 bg-white hover:border-emerald-500 px-3 py-2 text-left text-xs font-semibold text-slate-800 transition"
-              >
-                <div class="flex items-center justify-between gap-1">
-                  <span class="font-bold text-slate-900">™️ Merek</span>
-                  <span id="badgeLeg-merek" class="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-bold text-slate-600">Panduan</span>
-                </div>
-                <div class="text-[11px] text-slate-500">Proteksi Brand DJKI</div>
-              </button>
-            </div>
-
-            <!-- Kotak Panduan & Detail Legalitas Aktif -->
-            <div id="kotakPanduanLegalitas" class="hidden rounded-2xl border border-emerald-400 bg-white p-3.5 space-y-2.5 text-xs shadow-xs">
-              <div class="flex items-start justify-between gap-2">
-                <div>
-                  <div id="judulPanduanLeg" class="font-extrabold text-sm text-emerald-700"></div>
-                  <div id="lembagaPanduanLeg" class="text-[11px] text-slate-500"></div>
-                </div>
-                <button
-                  type="button"
-                  onclick="tutupPanduanLegalitas()"
-                  class="rounded-lg bg-slate-100 px-2.5 py-1 text-xs font-bold text-slate-700 hover:bg-slate-200"
-                >
-                  ✕
-                </button>
-              </div>
-              <p id="deskripsiPanduanLeg" class="text-xs text-slate-700 leading-relaxed"></p>
-              <div class="rounded-xl bg-amber-50 border border-amber-200 p-2.5 space-y-1 text-xs">
-                <div class="font-bold text-amber-800">Syarat &amp; Langkah Singkat:</div>
-                <div id="syaratLangkahPanduanLeg" class="text-slate-700 leading-relaxed"></div>
-              </div>
-
-              <div id="wadahNomorLeg" class="space-y-1">
-                <label id="labelNomorLeg" for="inputNomorLegalitas" class="block text-xs font-bold text-slate-700">
-                  Nomor Dokumen (Opsional)
-                </label>
-                <input
-                  id="inputNomorLegalitas"
-                  type="text"
-                  oninput="simpanNomorLegalitas()"
-                  placeholder="Masukkan nomor jika sudah terbit"
-                  class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-emerald-500 outline-none"
-                />
-              </div>
-
-              <div id="wadahLogoLeg" class="hidden space-y-1.5">
-                <label for="inputLogoMerek" class="block text-xs font-bold text-slate-700">
-                  Logo Merek Produk (Opsional)
-                </label>
-                <div class="flex items-center gap-2">
-                  <input
-                    id="inputLogoMerek"
-                    type="file"
-                    accept="image/*"
-                    onchange="handleUploadLogoMerek(event)"
-                    class="block w-full text-xs text-slate-700 file:mr-2 file:rounded-lg file:border-0 file:bg-emerald-600 file:px-3 py-2 file:text-xs file:font-bold file:text-white hover:file:bg-emerald-500 cursor-pointer"
-                  />
-                  <button
-                    type="button"
-                    id="btnHapusLogoLeg"
-                    onclick="hapusLogoMerek()"
-                    class="hidden rounded-lg bg-rose-100 border border-rose-300 px-2.5 py-2 text-xs font-bold text-rose-700 shrink-0"
-                  >
-                    Hapus
-                  </button>
-                </div>
-                <div id="previewLogoLegBox" class="hidden flex items-center gap-2 rounded-xl bg-slate-50 border border-slate-200 p-2">
-                  <img id="previewLogoLegImg" src="" alt="Logo Merek" class="h-8 w-8 rounded object-contain bg-white p-0.5" onerror="this.src='https://placehold.co/64x64/e2e8f0/1e293b?text=Logo'" />
-                  <span class="text-xs text-emerald-700 font-semibold">Logo merek siap ditempel ke poster</span>
-                </div>
-              </div>
-
-              <div class="flex flex-wrap items-center justify-between gap-2 pt-1">
-                <button
-                  type="button"
-                  id="btnToggleAktifLeg"
-                  onclick="toggleAktifLegalitasTerpilih()"
-                  class="rounded-xl bg-emerald-600 hover:bg-emerald-500 px-3.5 py-2 text-xs font-extrabold text-white transition"
-                >
-                  ✅ Tandai Sudah Punya
-                </button>
-                <a
-                  id="linkPortalResmiLeg"
-                  href="https://oss.go.id"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="rounded-xl border border-slate-300 bg-white hover:bg-slate-50 px-3.5 py-2 text-xs font-bold text-emerald-700 transition"
-                >
-                  ↗ Portal Resmi
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 4 Mode Perluasan -->
-        <div class="space-y-2">
-          <span class="block text-sm font-bold text-slate-800">Pilih Jenis Hasil</span>
-          <div class="grid grid-cols-2 gap-2">
-            <button
-              type="button"
-              id="mode-semua"
-              onclick="pilihModeLuas('semua')"
-              class="rounded-xl border border-sky-600 bg-sky-600 px-3 py-2.5 text-xs font-bold text-white transition"
-            >
-              🌐 Paket Lengkap
-            </button>
-            <button
-              type="button"
-              id="mode-segmen"
-              onclick="pilihModeLuas('segmen')"
-              class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-xs font-bold text-slate-700 hover:border-slate-400 transition"
-            >
-              🎯 Target Pembeli
-            </button>
-            <button
-              type="button"
-              id="mode-konten"
-              onclick="pilihModeLuas('konten')"
-              class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-xs font-bold text-slate-700 hover:border-slate-400 transition"
-            >
-              🎬 WA &amp; Video
-            </button>
-            <button
-              type="button"
-              id="mode-kreatif"
-              onclick="pilihModeLuas('kreatif')"
-              class="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-xs font-bold text-slate-700 hover:border-slate-400 transition"
-            >
-              🎵 Jingle &amp; Poster
-            </button>
-          </div>
-        </div>
-
-        <!-- Tombol Generate Besar -->
-        <button
-          type="button"
-          id="btnGenerate"
-          onclick="generateLuasDenganGemini()"
-          class="w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-sky-600 via-indigo-600 to-fuchsia-600 hover:opacity-95 px-5 py-4 text-base font-extrabold text-white shadow-lg transition disabled:opacity-60"
-        >
-          <span id="iconGenerate">✨</span>
-          <span id="teksGenerate">Buat Promosi Otomatis</span>
-        </button>
-
-        <!-- Aksi Cepat Eksternal -->
-        <div class="grid grid-cols-2 gap-2">
-          <button
-            type="button"
-            onclick="bukaLayananLuar('https://gemini.google.com/app', 'AI Gemini')"
-            class="rounded-xl border border-slate-200 bg-slate-50 hover:bg-slate-100 px-3 py-2.5 text-xs font-bold text-slate-800 transition"
-          >
-            ↗ Buka Gemini Web
-          </button>
-          <button
-            type="button"
-            onclick="bukaLayananLuar('https://suno.com', 'Suno Musik')"
-            class="rounded-xl border border-emerald-200 bg-emerald-50 hover:bg-emerald-100 px-3 py-2.5 text-xs font-bold text-emerald-800 transition"
-          >
-            🎵 Buka Suno Musik
-          </button>
-        </div>
-      </section>
-
-      <!-- 2. HASIL PROMOSI SIAP PAKAI -->
-      <section id="bagianHasilAI" class="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm space-y-3 scroll-mt-4">
-        <div class="flex items-center justify-between gap-2 border-b border-slate-100 pb-3">
-          <div>
-            <h2 class="text-base font-extrabold text-slate-900">2. Hasil Promosi Siap Pakai</h2>
-            <p id="statusHasilTeks" class="text-xs text-slate-500">Belum ada hasil dibuat.</p>
-          </div>
-          <button
-            type="button"
-            onclick="salinHasil()"
-            class="rounded-xl border border-sky-200 bg-sky-50 hover:bg-sky-100 px-3.5 py-2 text-xs font-bold text-sky-700 transition shrink-0"
-          >
-            📋 Salin Teks
-          </button>
-        </div>
-
-        <div id="wadahHasilTerstruktur" class="space-y-3 min-h-[180px] rounded-2xl border border-slate-100 bg-slate-50 p-3.5">
-          <div class="flex flex-col items-center justify-center py-8 text-center space-y-2 px-2">
-            <div class="text-3xl">🌱</div>
-            <p class="text-sm font-bold text-slate-700">
-              Isi nama produk di atas lalu ketuk <span class="text-sky-600">Buat Promosi Otomatis</span>.
-            </p>
-            <p class="text-xs text-slate-500">
-              Otomatis dibuatkan teks WA, ide jualan ke berbagai pembeli, skrip video, dan lirik jingle.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- 3. FOTO & POSTER PRODUK AI -->
-      <section id="bagianPosterAI" class="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm space-y-3 scroll-mt-4">
-        <div>
-          <h3 class="text-base font-extrabold text-slate-900">3. Foto &amp; Poster Produk AI</h3>
-          <p class="text-xs text-slate-500">Unggah foto produk asli agar poster makin menarik.</p>
-        </div>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-          <label
-            for="inputUploadFotoProdukPoster"
-            class="cursor-pointer inline-flex items-center justify-center gap-1.5 rounded-xl border border-sky-200 bg-sky-50 hover:bg-sky-100 px-3.5 py-3 text-xs font-extrabold text-sky-700 transition"
-          >
-            <span>📷</span>
-            <span id="labelUploadFotoProduk">Upload Foto Produk</span>
-          </label>
-          <input
-            id="inputUploadFotoProdukPoster"
-            type="file"
-            accept="image/*"
-            onchange="handleUploadFotoProdukPoster(event)"
-            class="hidden"
-          />
-          <button
-            type="button"
-            id="btnGenerateGambar"
-            onclick="generatePosterVisual()"
-            class="rounded-xl border border-fuchsia-200 bg-fuchsia-50 hover:bg-fuchsia-100 px-3.5 py-3 text-xs font-extrabold text-fuchsia-700 transition"
-          >
-            🖼️ Buat Poster AI
-          </button>
-        </div>
-
-        <div id="wadahPreviewUploadProduk" class="hidden flex items-center justify-between gap-2 rounded-2xl border border-sky-200 bg-sky-50 px-3 py-2">
-          <div class="flex items-center gap-2.5 min-w-0">
-            <img
-              id="previewFotoProdukUploadImg"
-              src=""
-              alt="Foto Produk Diunggah"
-              class="h-11 w-11 rounded-xl object-cover border border-slate-200 bg-white shrink-0"
-              onerror="this.src='https://placehold.co/96x96/e2e8f0/1e293b?text=Produk'"
-            />
-            <div class="min-w-0">
-              <div id="namaFileFotoProdukUpload" class="text-xs font-bold text-slate-900 truncate">Foto produk siap</div>
-              <div class="text-[11px] text-slate-600">Siap dibuatkan poster AI.</div>
-            </div>
-          </div>
-          <button
-            type="button"
-            onclick="hapusFotoProdukPoster()"
-            class="rounded-xl border border-rose-200 bg-rose-50 px-2.5 py-1.5 text-xs font-bold text-rose-700 shrink-0"
-          >
-            Hapus
-          </button>
-        </div>
-
-        <div id="wadahGambarPoster" class="rounded-2xl border border-slate-100 bg-slate-50 p-4 flex flex-col items-center text-center gap-3">
-          <div class="w-40 h-40 rounded-2xl border border-dashed border-slate-300 bg-white flex items-center justify-center text-center p-3 text-xs text-slate-400">
-            Gambar poster akan muncul di sini
-          </div>
-          <div class="space-y-1 text-xs text-slate-600">
-            <div class="font-bold text-slate-900">Cocok untuk WA, Instagram &amp; Cetak</div>
-            <p class="text-xs text-slate-500">Bisa langsung diunduh lalu dibagikan ke grup WA atau status.</p>
-            <div id="infoLegalitasPoster" class="text-xs font-bold text-emerald-700"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 4. KALKULATOR MODAL & UNTUNG -->
-      <section id="bagianKalkulator" class="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm space-y-4 scroll-mt-4">
-        <div class="flex items-center justify-between gap-2 border-b border-slate-100 pb-3">
-          <div>
-            <h2 class="text-base font-extrabold text-slate-900">4. Kalkulator Modal &amp; Untung</h2>
-            <p class="text-xs text-slate-500">Hitung modal per pcs &amp; perkiraan untung bulanan.</p>
-          </div>
-          <div class="flex items-center gap-1.5 shrink-0">
-            <button
-              type="button"
-              onclick="isiContohKalkulatorUsaha()"
-              class="rounded-xl border border-lime-400 bg-lime-100 hover:bg-lime-200 px-3 py-2 text-xs font-extrabold text-lime-900 transition"
-            >
-              ⚡ Contoh
-            </button>
-            <button
-              type="button"
-              onclick="resetKalkulatorUsaha()"
-              class="rounded-xl border border-slate-200 bg-slate-100 hover:bg-slate-200 px-2.5 py-2 text-xs font-bold text-slate-600 transition"
-            >
-              Reset
-            </button>
-          </div>
-        </div>
-
-        <div class="space-y-3">
-          <div>
-            <label for="calcJumlahBatch" class="block text-xs font-bold text-slate-700 mb-1">
-              1. Jumlah Hasil Sekali Masak / Produksi (Pcs)
-            </label>
-            <input id="calcJumlahBatch" type="number" min="1" placeholder="Contoh: 50" oninput="hitungKalkulatorUsaha()" class="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-2.5 text-base font-semibold text-slate-900 outline-none focus:border-lime-500 focus:bg-white" />
-          </div>
-
-          <div class="grid grid-cols-2 gap-2.5">
-            <div>
-              <label for="calcBahanBaku" class="block text-xs font-bold text-slate-700 mb-1">
-                2. Bahan Baku (Rp)
-              </label>
-              <input id="calcBahanBaku" type="number" min="0" placeholder="350000" oninput="hitungKalkulatorUsaha()" class="w-full rounded-2xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-base font-semibold text-slate-900 outline-none focus:border-lime-500 focus:bg-white" />
-            </div>
-            <div>
-              <label for="calcKemasan" class="block text-xs font-bold text-slate-700 mb-1">
-                3. Kemasan &amp; Stiker (Rp)
-              </label>
-              <input id="calcKemasan" type="number" min="0" placeholder="150000" oninput="hitungKalkulatorUsaha()" class="w-full rounded-2xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-base font-semibold text-slate-900 outline-none focus:border-lime-500 focus:bg-white" />
-            </div>
-          </div>
-
-          <div class="grid grid-cols-2 gap-2.5">
-            <div>
-              <label for="calcTenagaKerja" class="block text-xs font-bold text-slate-700 mb-1">
-                4. Upah / Tenaga (Rp)
-              </label>
-              <input id="calcTenagaKerja" type="number" min="0" placeholder="100000" oninput="hitungKalkulatorUsaha()" class="w-full rounded-2xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-base font-semibold text-slate-900 outline-none focus:border-lime-500 focus:bg-white" />
-            </div>
-            <div>
-              <label for="calcEnergiOperasional" class="block text-xs font-bold text-slate-700 mb-1">
-                5. Gas/Listrik/Ongkir (Rp)
-              </label>
-              <input id="calcEnergiOperasional" type="number" min="0" placeholder="50000" oninput="hitungKalkulatorUsaha()" class="w-full rounded-2xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-base font-semibold text-slate-900 outline-none focus:border-lime-500 focus:bg-white" />
-            </div>
-          </div>
-
-          <div class="grid grid-cols-2 gap-2.5">
-            <div>
-              <label for="calcPenyusutanLain" class="block text-xs font-bold text-slate-700 mb-1">
-                6. Biaya Lainnya (Rp)
-              </label>
-              <input id="calcPenyusutanLain" type="number" min="0" placeholder="25000" oninput="hitungKalkulatorUsaha()" class="w-full rounded-2xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-base font-semibold text-slate-900 outline-none focus:border-lime-500 focus:bg-white" />
-            </div>
-            <div>
-              <label for="calcHargaJual" class="block text-xs font-bold text-amber-800 mb-1">
-                7. Harga Jual / Pcs (Rp)
-              </label>
-              <input id="calcHargaJual" type="number" min="0" placeholder="20000" oninput="hitungKalkulatorUsaha()" class="w-full rounded-2xl border border-amber-300 bg-amber-50/50 px-3.5 py-2.5 text-base font-bold text-slate-900 outline-none focus:border-amber-500 focus:bg-white" />
-            </div>
-          </div>
-
-          <div class="grid grid-cols-3 gap-2">
-            <div>
-              <label for="calcDiskonPromo" class="block text-xs font-bold text-slate-700 mb-1">
-                8. Diskon %
-              </label>
-              <input id="calcDiskonPromo" type="number" min="0" max="95" placeholder="0" oninput="hitungKalkulatorUsaha()" class="w-full rounded-2xl border border-slate-300 bg-slate-50 px-3 py-2 text-sm font-semibold text-slate-900 outline-none" />
-            </div>
-            <div>
-              <label for="calcTargetHarian" class="block text-xs font-bold text-slate-700 mb-1">
-                9. Laku/Hari
-              </label>
-              <input id="calcTargetHarian" type="number" min="0" placeholder="20" oninput="hitungKalkulatorUsaha()" class="w-full rounded-2xl border border-slate-300 bg-slate-50 px-3 py-2 text-sm font-semibold text-slate-900 outline-none" />
-            </div>
-            <div>
-              <label for="calcHariBulan" class="block text-xs font-bold text-slate-700 mb-1">
-                10. Hari/Bln
-              </label>
-              <input id="calcHariBulan" type="number" min="1" max="31" placeholder="26" oninput="hitungKalkulatorUsaha()" class="w-full rounded-2xl border border-slate-300 bg-slate-50 px-3 py-2 text-sm font-semibold text-slate-900 outline-none" />
-            </div>
-          </div>
-        </div>
-
-        <!-- Ringkasan Hasil Perhitungan -->
-        <div class="rounded-2xl border border-slate-200 bg-slate-50 p-3.5 space-y-3">
-          <div class="grid grid-cols-2 gap-2.5">
-            <div class="rounded-2xl border border-slate-200 bg-white p-3">
-              <div class="text-xs font-semibold text-slate-500">Modal / Pcs (HPP)</div>
-              <div id="resHppUnit" class="text-base font-extrabold text-amber-600 mt-0.5">Rp 0</div>
-              <div id="resTotalModalBatch" class="text-[11px] text-slate-400">Modal: Rp 0</div>
-            </div>
-
-            <div class="rounded-2xl border border-slate-200 bg-white p-3">
-              <div class="text-xs font-semibold text-slate-500">Untung / Pcs</div>
-              <div id="resProfitUnit" class="text-base font-extrabold text-emerald-600 mt-0.5">Rp 0</div>
-              <div id="resMarginPersen" class="text-[11px] text-slate-400">Margin: 0,0%</div>
-            </div>
-
-            <div class="rounded-2xl border border-slate-200 bg-white p-3">
-              <div class="text-xs font-semibold text-slate-500">Harga Jual Aktif</div>
-              <div id="resHargaAktif" class="text-base font-extrabold text-fuchsia-600 mt-0.5">Rp 0</div>
-              <div id="resSaranHarga" class="text-[11px] text-slate-400">Saran +40%: Rp 0</div>
-            </div>
-
-            <div class="rounded-2xl border border-slate-200 bg-white p-3">
-              <div class="text-xs font-semibold text-slate-500">Balik Modal</div>
-              <div id="resBepUnit" class="text-base font-extrabold text-sky-600 mt-0.5">0 unit</div>
-              <div id="resStatusBep" class="text-[11px] text-slate-400">Per produksi</div>
-            </div>
-          </div>
-
-          <div class="rounded-2xl border border-slate-200 bg-white p-3 space-y-1 text-xs">
-            <div class="flex justify-between">
-              <span class="text-slate-500">Bahan &amp; Kemasan</span>
-              <span id="resBiayaMaterial" class="font-bold text-slate-800">Rp 0 (0%)</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-slate-500">Upah, Gas &amp; Lainnya</span>
-              <span id="resBiayaProses" class="font-bold text-slate-800">Rp 0 (0%)</span>
-            </div>
-          </div>
-
-          <div class="rounded-2xl border border-emerald-200 bg-emerald-50 p-3.5 space-y-1.5 text-xs">
-            <div class="font-extrabold uppercase text-emerald-800">Perkiraan 1 Bulan</div>
-            <div class="flex justify-between">
-              <span class="text-slate-600">Target Terjual</span>
-              <span id="resTargetBulanan" class="font-extrabold text-slate-900">0 unit</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-slate-600">Perkiraan Pemasukan</span>
-              <span id="resOmsetBulanan" class="font-extrabold text-amber-700">Rp 0</span>
-            </div>
-            <div class="flex justify-between text-sm">
-              <span class="font-bold text-slate-800">Perkiraan Untung Bersih</span>
-              <span id="resProfitBulanan" class="font-extrabold text-emerald-700">Rp 0</span>
-            </div>
-          </div>
-
-          <button
-            type="button"
-            onclick="salinRingkasanKalkulator()"
-            class="w-full rounded-xl border border-lime-400 bg-lime-100 hover:bg-lime-200 px-4 py-3 text-xs font-extrabold text-lime-900 transition"
-          >
-            📋 Salin Ringkasan Modal &amp; Untung
-          </button>
-        </div>
-      </section>
-    </div>
-
-    <!-- Bilah Navigasi Bawah: 5 Kata Motivasi untuk UMKM Kecamatan Limo -->
-    <nav aria-label="Motivasi UMKM Kecamatan Limo" class="sticky bottom-0 z-40 border-t border-slate-200 bg-gradient-to-r from-sky-50 via-white to-amber-50 px-1.5 py-2 shrink-0">
-      <div class="grid grid-cols-5 gap-1 items-stretch text-center">
-        <button
-          type="button"
-          onclick="pilihMotivasiBawah('Semangat Berdaya! Ibu-ibu UMKM Kecamatan Limo hebat dan penuh karya.', 'bagianFormAI')"
-          class="flex flex-col items-center justify-center rounded-xl bg-sky-600 hover:bg-sky-500 px-1 py-2 text-white shadow-2xs active:scale-95 transition"
-        >
-          <span class="text-[10px] font-extrabold leading-tight">Semangat<br />Berdaya</span>
-        </button>
-
-        <button
-          type="button"
-          onclick="pilihMotivasiBawah('Usaha Terus Tumbuh! Langkah kecil konsisten membawa perubahan besar.', 'bagianKalkulator')"
-          class="flex flex-col items-center justify-center rounded-xl border border-rose-200 bg-rose-50 hover:bg-rose-100 px-1 py-2 text-rose-700 active:scale-95 transition"
-        >
-          <span class="text-[10px] font-extrabold leading-tight">Usaha Terus<br />Tumbuh</span>
-        </button>
-
-        <button
-          type="button"
-          onclick="pilihMotivasiBawah('Karya Penuh Berkah! Produk lokal Limo berkualitas untuk keluarga.', 'bagianPosterAI')"
-          class="flex flex-col items-center justify-center rounded-xl border border-amber-200 bg-amber-50 hover:bg-amber-100 px-1 py-2 text-amber-800 active:scale-95 transition"
-        >
-          <span class="text-[10px] font-extrabold leading-tight">Karya Penuh<br />Berkah</span>
-        </button>
-
-        <button
-          type="button"
-          onclick="pilihMotivasiBawah('Limo Maju Bersama! Saling dukung, saling menguatkan antar pelaku usaha.', 'bagianHasilAI')"
-          class="flex flex-col items-center justify-center rounded-xl border border-lime-300 bg-lime-50 hover:bg-lime-100 px-1 py-2 text-lime-800 active:scale-95 transition"
-        >
-          <span class="text-[10px] font-extrabold leading-tight">Limo Maju<br />Bersama</span>
-        </button>
-
-        <button
-          type="button"
-          onclick="pilihMotivasiBawah('Yakin Pasti Bisa! Terus belajar dan berkarya menggapai cita bersama.', 'atas')"
-          class="flex flex-col items-center justify-center rounded-xl border border-indigo-200 bg-indigo-50 hover:bg-indigo-100 px-1 py-2 text-indigo-700 active:scale-95 transition"
-        >
-          <span class="text-[10px] font-extrabold leading-tight">Yakin Pasti<br />Bisa</span>
-        </button>
       </div>
-    </nav>
-  </div>
 
-  <!-- Modal Pengaturan API Key -->
-  <div id="modalApi" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/70 p-4 backdrop-blur-xs">
-    <div class="w-full max-w-[380px] rounded-3xl border border-slate-200 bg-white p-5 shadow-2xl space-y-4">
-      <div class="flex items-center justify-between">
-        <h3 class="text-base font-extrabold text-slate-900">Pengaturan Gemini API Key</h3>
-        <button type="button" onclick="tutupModalApi()" class="rounded-lg bg-slate-100 px-2.5 py-1 text-xs font-bold text-slate-700 hover:bg-slate-200">✕</button>
+      <div>
+        <div class="nav-group-label">Pengelolaan</div>
+        <div class="nav-list">
+          <button type="button" class="nav-btn" data-panel="panel-inspirasi">Inspirasi Desain</button>
+          <button type="button" class="nav-btn" data-panel="panel-proyek">Proyek Saya</button>
+        </div>
       </div>
-      <p class="text-xs text-slate-600 leading-relaxed">
-        Tempel Gemini API Key Anda di bawah ini agar fitur AI aktif langsung di HP Anda. Belum punya? Ambil di{' '}
-        <a
-          href="https://aistudio.google.com/app/apikey"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="font-bold text-sky-600 underline hover:text-sky-700"
-        >
-          Google AI Studio
-        </a>.
-      </p>
-      <input
-        id="inputApiKey"
-        type="password"
-        placeholder="Tempel API Key (AIzaSy...) di sini"
-        class="w-full rounded-2xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm font-mono text-slate-900 focus:border-sky-500 outline-none"
-      />
-      <div class="flex items-center justify-end gap-2">
-        <button type="button" onclick="hapusApiKey()" class="rounded-xl bg-slate-100 hover:bg-rose-100 hover:text-rose-700 px-4 py-2.5 text-xs font-bold text-slate-700 transition">
-          Hapus
-        </button>
-        <button type="button" onclick="simpanApiKey()" class="rounded-xl bg-sky-600 hover:bg-sky-500 px-4 py-2.5 text-xs font-extrabold text-white transition">
-          Simpan &amp; Aktifkan
-        </button>
+    </aside>
+
+    <main class="main-area">
+      <div class="topbar">
+        <div class="topbar-left">
+          <button type="button" class="btn-back" data-back="index.html">← Kembali</button>
+          <span class="studio-badge">Studio: Kreasi AI Studio</span>
+        </div>
+        <span class="brand-sub">Portal Digital UMKM Kecamatan Limo</span>
       </div>
-    </div>
+
+      <div class="content-wrap">
+        <!-- Panel Utama: AI Visual Composer -->
+        <section id="panel-composer" class="studio-panel">
+          <div class="kicker">Studio Kreatif Digital</div>
+          <h1>AI Visual Composer</h1>
+          <p class="subtitle">Susun arahan visual produk, poster promosi, dan foto katalog UMKM sebelum dihubungkan ke generator gambar AI.</p>
+
+          <div class="brief-card">
+            <div class="brief-header">Visual Composer Brief</div>
+
+            <div class="field-group">
+              <label for="kreasiDeskripsi">Deskripsi visual &amp; produk</label>
+              <textarea
+                id="kreasiDeskripsi"
+                placeholder="Contoh: foto produk sabun cuci piring di atas meja kayu bersih, pencahayaan pagi cerah, tampilan segar dan terpercaya untuk UMKM lokal"
+              ></textarea>
+            </div>
+
+            <div class="params-grid">
+              <div class="field-group">
+                <label for="kreasiGaya">Gaya visual &amp; pencahayaan</label>
+                <select id="kreasiGaya">
+                  <option value="cerah-bersih">Cerah, Bersih &amp; Segar</option>
+                  <option value="hangat-rumahan">Hangat &amp; Ramah Keluarga</option>
+                  <option value="modern-promo">Modern &amp; Siap Poster Promo</option>
+                </select>
+              </div>
+
+              <div class="field-group">
+                <label for="kreasiFormat">Rasio &amp; fokus keluaran</label>
+                <select id="kreasiFormat">
+                  <option value="feed-1-1">Feed Marketplace &amp; IG (1:1)</option>
+                  <option value="reels-9-16">Story, Reels &amp; TikTok (9:16)</option>
+                  <option value="banner-16-9">Banner Toko &amp; Header (16:9)</option>
+                </select>
+              </div>
+            </div>
+
+            <div id="hasilBriefKreasi" class="brief-card" style="display: none; background: #0f172a;"></div>
+
+            <div class="action-row">
+              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
+              <button type="button" class="btn btn-primary" id="btnBuatBriefKreasi">Buat Brief Visual</button>
+              <button type="button" class="btn btn-secondary" id="btnResetKreasi">Bersihkan</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Panel Dashboard -->
+        <section id="panel-dashboard" class="studio-panel" hidden>
+          <div class="kicker">Ringkasan Studio</div>
+          <h1>Dashboard Kreasi AI Studio</h1>
+          <p class="subtitle">Siapkan materi visual promosi usaha Anda secara cepat dan terstruktur.</p>
+
+          <div class="brief-card">
+            <div class="brief-header">Mulai Buat Visual Produk</div>
+            <p class="subtitle" style="margin: 0;">Fokus pada kejelasan produk, pencahayaan rapi, dan teks promo singkat yang mudah terbaca di layar HP.</p>
+            <div class="action-row">
+              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
+              <button type="button" class="btn btn-primary" onclick="aktifkanPanelStudio('panel-composer')">Buka AI Visual Composer</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Panel Poster Produk -->
+        <section id="panel-poster" class="studio-panel" hidden>
+          <div class="kicker">Promosi Cepat</div>
+          <h1>Poster Produk</h1>
+          <p class="subtitle">Rancang poster diskon, paket hemat, atau info stok terbaru untuk WhatsApp dan media sosial.</p>
+
+          <div class="brief-card">
+            <div class="brief-header">Komposisi Poster Efektif</div>
+            <p class="subtitle" style="margin: 0;">Satu fokus produk utama, judul promo singkat, dan informasi kontak/pemesanan yang jelas.</p>
+            <div class="action-row">
+              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
+              <button type="button" class="btn btn-primary" onclick="aktifkanPanelStudio('panel-composer')">Buat Brief Poster</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Panel Foto Katalog -->
+        <section id="panel-katalog" class="studio-panel" hidden>
+          <div class="kicker">Etalase Usaha</div>
+          <h1>Foto Katalog</h1>
+          <p class="subtitle">Standarkan tampilan foto katalog agar terlihat seragam di etalase maupun marketplace.</p>
+
+          <div class="brief-card">
+            <div class="brief-header">Standar Foto Katalog</div>
+            <p class="subtitle" style="margin: 0;">Gunakan latar belakang bersih dan pencahayaan merata agar detail kemasan atau makanan terlihat jelas.</p>
+            <div class="action-row">
+              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
+              <button type="button" class="btn btn-primary" onclick="aktifkanPanelStudio('panel-composer')">Susun Brief Katalog</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Panel Inspirasi Desain -->
+        <section id="panel-inspirasi" class="studio-panel" hidden>
+          <div class="kicker">Ide Visual</div>
+          <h1>Inspirasi Desain</h1>
+          <p class="subtitle">Contoh arahan visual untuk produk kebersihan rumah tangga, minuman segar, dan kuliner UMKM.</p>
+
+          <div class="brief-card">
+            <div class="brief-header">Contoh Arahan Visual</div>
+            <p class="subtitle" style="margin: 0;">"Kemasan Bersih &amp; Segar di Meja Kayu" &bull; "Paket Hemat Keluarga" &bull; "Menu Favorit Siap Santap".</p>
+            <div class="action-row">
+              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
+              <button type="button" class="btn btn-primary" onclick="aktifkanPanelStudio('panel-composer')">Terapkan di Composer</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Panel Proyek Saya -->
+        <section id="panel-proyek" class="studio-panel" hidden>
+          <div class="kicker">Arsip Lokal</div>
+          <h1>Proyek Saya</h1>
+          <p class="subtitle">Pantau draf brief visual yang sedang Anda siapkan.</p>
+
+          <div class="brief-card">
+            <div class="brief-header">Daftar Proyek Visual</div>
+            <p class="subtitle" style="margin: 0;">Belum ada proyek tersimpan di sesi ini. Mulai dari tab AI Visual Composer.</p>
+            <div class="action-row">
+              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
+              <button type="button" class="btn btn-primary" onclick="aktifkanPanelStudio('panel-composer')">Buat Visual Baru</button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
   </div>
 
   <script>
-    // State aplikasi utama
-    let modeLuasAktif = 'semua';
-    let teksHasilTerakhir = '';
-    let geminiApiKey = '';
-    let logoHeaderMemori = '';
-    let legalitasTerbukaKode = null;
-    let logoMerekDataUrl = '';
-    let fotoProdukPosterBase64 = '';
-    let fotoProdukPosterMimeType = 'image/png';
-    let hasilPosterTerakhirSrc = '';
-
-    const legalitasAktif = {
-      nib: false,
-      pirt: false,
-      halal: false,
-      merek: false,
-    };
-
-    const nomorLegalitas = {
-      nib: '',
-      pirt: '',
-      halal: '',
-      merek: '',
-    };
-
-    // Data panduan izin & legalitas UMKM
-    const DATA_LEGALITAS_UMKM = {
-      nib: {
-        judul: 'NIB (Nomor Induk Berusaha)',
-        lembaga: 'OSS RBA (Kementerian Investasi / BKPM)',
-        deskripsi: 'Identitas resmi usaha agar mudah mengurus izin lanjutan dan ikut program UMKM.',
-        syaratLangkah: 'Siapkan KTP, alamat usaha, email & nomor WA aktif. Daftar gratis di oss.go.id → pilih skala UMK → isi bidang usaha → terbit NIB.',
-        labelNomor: 'Nomor NIB (Opsional)',
-        placeholderNomor: 'Contoh: 1209230045678',
-        url: 'https://oss.go.id',
-        singkatan: 'NIB',
-      },
-      pirt: {
-        judul: 'P-IRT (Pangan Industri Rumah Tangga)',
-        lembaga: 'Dinas Kesehatan & BPOM',
-        deskripsi: 'Izin edar untuk makanan atau minuman kemasan rumahan agar pembeli makin yakin.',
-        syaratLangkah: 'Pastikan sudah punya NIB, jaga kebersihan tempat produksi, dan cantumkan label kemasan sesuai aturan.',
-        labelNomor: 'Nomor P-IRT (Opsional)',
-        placeholderNomor: 'Contoh: P-IRT 2053273010123-28',
-        url: 'https://sppirt.pom.go.id',
-        singkatan: 'P-IRT',
-      },
-      halal: {
-        judul: 'Sertifikat Halal',
-        lembaga: 'BPJPH Kementerian Agama',
-        deskripsi: 'Jaminan kehalalan bahan dan cara masak/produksi untuk menenangkan pelanggan.',
-        syaratLangkah: 'Siapkan NIB, daftar bahan baku halal, dan ajukan melalui ptsp.halal.go.id bersama pendamping.',
-        labelNomor: 'Nomor Sertifikat Halal (Opsional)',
-        placeholderNomor: 'Contoh: ID32110001234560923',
-        url: 'https://ptsp.halal.go.id',
-        singkatan: 'HALAL',
-      },
-      merek: {
-        judul: 'Perlindungan Merek Dagang',
-        lembaga: 'DJKI Kementerian Hukum',
-        deskripsi: 'Melindungi nama dan logo dagang usaha agar tidak dipakai sembarangan pihak lain.',
-        syaratLangkah: 'Cek nama di pdki-indonesia.dgip.go.id, siapkan logo/nama usaha, lalu daftarkan di merek.dgip.go.id.',
-        labelNomor: 'Nomor / Nama Merek (Opsional)',
-        placeholderNomor: 'Contoh: DID2025012345',
-        url: 'https://merek.dgip.go.id',
-        singkatan: 'MEREK™',
-      },
-    };
-
-    // Helper aman untuk localStorage di lingkungan preview
-    function bacaStorageAman(key) {
-      try {
-        return localStorage.getItem(key) || '';
-      } catch (e) {
-        return '';
-      }
-    }
-
-    function tulisStorageAman(key, value) {
-      try {
-        if (value) {
-          localStorage.setItem(key, value);
-        } else {
-          localStorage.removeItem(key);
-        }
-      } catch (e) {}
-    }
-
-    geminiApiKey = bacaStorageAman('gemini_api_key_umkm');
-    logoHeaderMemori = bacaStorageAman('logo_header_wub_limo');
-
-    // Navigasi & Motivasi
-    function lompatKe(id) {
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-
-    function gulirKeAtas() {
-      document.getElementById('areaScrollHp')?.scrollTo({ top: 0, behavior: 'smooth' });
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function pilihMotivasiBawah(pesanMotivasi, target) {
-      tampilkanToast(pesanMotivasi);
-      if (target === 'atas') {
-        gulirKeAtas();
-      } else if (target) {
-        lompatKe(target);
-      }
-    }
-
-    function bukaPanelLegalitasDanLompat() {
-      document.getElementById('panelLegalitas')?.classList.remove('hidden');
-      lompatKe('bagianFormAI');
-    }
-
-    function tampilkanToast(pesan) {
-      const box = document.getElementById('toastBox');
-      if (!box) return;
-      box.textContent = pesan;
-      box.classList.remove('hidden');
-      clearTimeout(window.__toastTimer);
-      window.__toastTimer = setTimeout(() => {
-        box.classList.add('hidden');
-      }, 3600);
-    }
-
-    // Manajemen Gemini API Key
-    function perbaruiStatusApi() {
-      const btn = document.getElementById('btnStatusApi');
-      const label = document.getElementById('labelApi');
-      const tanda = document.getElementById('tandaAktifApi');
-      const keyTerpasang = Boolean(geminiApiKey.trim());
-
-      if (btn && label) {
-        if (keyTerpasang) {
-          btn.className = 'relative inline-flex items-center gap-1 rounded-full bg-emerald-50 border border-emerald-300 px-3 py-2 text-xs font-bold text-emerald-700 hover:bg-emerald-100 transition shrink-0';
-          label.textContent = 'API';
-          tanda?.classList.remove('hidden');
-        } else {
-          btn.className = 'relative inline-flex items-center gap-1 rounded-full bg-rose-50 border border-rose-200 px-3 py-2 text-xs font-bold text-rose-600 hover:bg-rose-100 transition shrink-0';
-          label.textContent = 'API';
-          tanda?.classList.add('hidden');
-        }
-      }
-    }
-
-    function bukaModalApi() {
-      const modal = document.getElementById('modalApi');
-      const input = document.getElementById('inputApiKey');
-      if (input) input.value = geminiApiKey;
-      if (modal) {
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-      }
-    }
-
-    function tutupModalApi() {
-      const modal = document.getElementById('modalApi');
-      if (modal) {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-      }
-    }
-
-    function simpanApiKey() {
-      const val = (document.getElementById('inputApiKey')?.value || '').trim();
-      geminiApiKey = val;
-      tulisStorageAman('gemini_api_key_umkm', val);
-      perbaruiStatusApi();
-      tutupModalApi();
-      tampilkanToast(val ? 'Gemini API Key tersimpan & aktif!' : 'API Key dikosongkan.');
-    }
-
-    function hapusApiKey() {
-      geminiApiKey = '';
-      tulisStorageAman('gemini_api_key_umkm', '');
-      const input = document.getElementById('inputApiKey');
-      if (input) input.value = '';
-      perbaruiStatusApi();
-      tampilkanToast('API Key dihapus.');
-    }
-
-    // Legalitas UMKM
-    function togglePanelLegalitas() {
-      document.getElementById('panelLegalitas')?.classList.toggle('hidden');
-    }
-
-    function pilihDanBukaPanduanLegalitas(kode) {
-      legalitasTerbukaKode = kode;
-      const data = DATA_LEGALITAS_UMKM[kode];
-      if (!data) return;
-
-      document.getElementById('panelLegalitas')?.classList.remove('hidden');
-      document.getElementById('judulPanduanLeg').textContent = data.judul;
-      document.getElementById('lembagaPanduanLeg').textContent = data.lembaga;
-      document.getElementById('deskripsiPanduanLeg').textContent = data.deskripsi;
-      document.getElementById('syaratLangkahPanduanLeg').textContent = data.syaratLangkah;
-      document.getElementById('linkPortalResmiLeg').href = data.url;
-
-      const wadahNomor = document.getElementById('wadahNomorLeg');
-      const wadahLogo = document.getElementById('wadahLogoLeg');
-      if (kode === 'merek') {
-        wadahNomor?.classList.add('hidden');
-        wadahLogo?.classList.remove('hidden');
-      } else {
-        wadahNomor?.classList.remove('hidden');
-        wadahLogo?.classList.add('hidden');
-        document.getElementById('labelNomorLeg').textContent = data.labelNomor;
-        const inputNomor = document.getElementById('inputNomorLegalitas');
-        inputNomor.placeholder = data.placeholderNomor;
-        inputNomor.value = nomorLegalitas[kode] || '';
-      }
-
-      document.getElementById('kotakPanduanLegalitas')?.classList.remove('hidden');
-      perbaruiTampilanLegalitas();
-    }
-
-    function tutupPanduanLegalitas() {
-      legalitasTerbukaKode = null;
-      document.getElementById('kotakPanduanLegalitas')?.classList.add('hidden');
-      perbaruiTampilanLegalitas();
-    }
-
-    function simpanNomorLegalitas() {
-      if (!legalitasTerbukaKode || legalitasTerbukaKode === 'merek') return;
-      const val = (document.getElementById('inputNomorLegalitas')?.value || '').trim();
-      nomorLegalitas[legalitasTerbukaKode] = val;
-      if (val) legalitasAktif[legalitasTerbukaKode] = true;
-      perbaruiTampilanLegalitas();
-    }
-
-    function handleUploadLogoMerek(event) {
-      const file = event?.target?.files?.[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        logoMerekDataUrl = String(e?.target?.result || '');
-        legalitasAktif.merek = true;
-        perbaruiTampilanLegalitas();
-        tampilkanToast('Logo merek berhasil diunggah!');
-      };
-      reader.readAsDataURL(file);
-    }
-
-    function hapusLogoMerek() {
-      logoMerekDataUrl = '';
-      document.getElementById('inputLogoMerek').value = '';
-      legalitasAktif.merek = false;
-      perbaruiTampilanLegalitas();
-      tampilkanToast('Logo merek dihapus.');
-    }
-
-    // Logo WUB Kecamatan Limo
-    function muatLogoHeaderTersimpan() {
-      if (logoHeaderMemori) {
-        document.getElementById('wadahLogoWubDefault')?.classList.add('hidden');
-        const imgWub = document.getElementById('imgLogoWubCustom');
-        if (imgWub) {
-          imgWub.src = logoHeaderMemori;
-          imgWub.classList.remove('hidden');
-        }
-      }
-    }
-
-    function gantiLogoWub(event) {
-      const file = event?.target?.files?.[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const dataUrl = String(e?.target?.result || '');
-        logoHeaderMemori = dataUrl;
-        const imgCustom = document.getElementById('imgLogoWubCustom');
-        if (imgCustom && dataUrl) {
-          imgCustom.src = dataUrl;
-          imgCustom.classList.remove('hidden');
-          document.getElementById('wadahLogoWubDefault')?.classList.add('hidden');
-          tulisStorageAman('logo_header_wub_limo', dataUrl);
-          tampilkanToast('Logo WUB berhasil diperbarui!');
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-
-    // Kalkulator Modal, HPP & Profit Bulanan
-    const formatIdr = (n) =>
-      new Intl.NumberFormat('id-ID', {
-        style: 'currency',
-        currency: 'IDR',
-        maximumFractionDigits: 0,
-      }).format(Number.isFinite(n) ? n : 0);
-
-    function hitungKalkulatorUsaha() {
-      const batch = Math.max(1, Number(document.getElementById('calcJumlahBatch')?.value) || 0);
-      const bahan = Math.max(0, Number(document.getElementById('calcBahanBaku')?.value) || 0);
-      const kemasan = Math.max(0, Number(document.getElementById('calcKemasan')?.value) || 0);
-      const tenaga = Math.max(0, Number(document.getElementById('calcTenagaKerja')?.value) || 0);
-      const energi = Math.max(0, Number(document.getElementById('calcEnergiOperasional')?.value) || 0);
-      const lain = Math.max(0, Number(document.getElementById('calcPenyusutanLain')?.value) || 0);
-      const hargaNormal = Math.max(0, Number(document.getElementById('calcHargaJual')?.value) || 0);
-      const diskon = Math.min(95, Math.max(0, Number(document.getElementById('calcDiskonPromo')?.value) || 0));
-      const targetHari = Math.max(0, Number(document.getElementById('calcTargetHarian')?.value) || 0);
-      const hariBulan = Math.max(1, Number(document.getElementById('calcHariBulan')?.value) || 26);
-
-      const biayaMaterial = bahan + kemasan;
-      const biayaProses = tenaga + energi + lain;
-      const totalModalBatch = biayaMaterial + biayaProses;
-      const hppUnit = batch > 0 ? totalModalBatch / batch : 0;
-      const hargaAktif = hargaNormal * (1 - diskon / 100);
-      const profitUnit = hargaAktif - hppUnit;
-      const marginPersen = hargaAktif > 0 ? (profitUnit / hargaAktif) * 100 : 0;
-      const saranHarga = hppUnit * 1.4;
-      const bepUnit = profitUnit > 0 ? Math.ceil(totalModalBatch / profitUnit) : 0;
-
-      const targetBulanan = targetHari * hariBulan;
-      const omsetBulanan = hargaAktif * targetBulanan;
-      const profitBulanan = profitUnit * targetBulanan;
-
-      const porsiMat = totalModalBatch > 0 ? (biayaMaterial / totalModalBatch) * 100 : 0;
-      const porsiProses = totalModalBatch > 0 ? (biayaProses / totalModalBatch) * 100 : 0;
-
-      document.getElementById('resHppUnit').textContent = formatIdr(hppUnit);
-      document.getElementById('resTotalModalBatch').textContent = `Modal: ${formatIdr(totalModalBatch)}`;
-      document.getElementById('resProfitUnit').textContent = formatIdr(profitUnit);
-      document.getElementById('resProfitUnit').className = profitUnit >= 0
-        ? 'text-base font-extrabold text-emerald-600 mt-0.5'
-        : 'text-base font-extrabold text-rose-600 mt-0.5';
-      document.getElementById('resMarginPersen').textContent = `Margin: ${marginPersen.toFixed(1)}%`;
-      document.getElementById('resHargaAktif').textContent = formatIdr(hargaAktif);
-      document.getElementById('resSaranHarga').textContent = `Saran +40%: ${formatIdr(saranHarga)}`;
-      document.getElementById('resBepUnit').textContent = profitUnit > 0 ? `${bepUnit} unit` : '-';
-      document.getElementById('resStatusBep').textContent = profitUnit > 0 ? 'Balik modal' : 'Di bawah modal';
-
-      document.getElementById('resBiayaMaterial').textContent = `${formatIdr(biayaMaterial)} (${porsiMat.toFixed(0)}%)`;
-      document.getElementById('resBiayaProses').textContent = `${formatIdr(biayaProses)} (${porsiProses.toFixed(0)}%)`;
-
-      document.getElementById('resTargetBulanan').textContent = `${targetBulanan} unit`;
-      document.getElementById('resOmsetBulanan').textContent = formatIdr(omsetBulanan);
-      document.getElementById('resProfitBulanan').textContent = formatIdr(profitBulanan);
-    }
-
-    function isiContohKalkulatorUsaha() {
-      document.getElementById('calcJumlahBatch').value = 50;
-      document.getElementById('calcBahanBaku').value = 350000;
-      document.getElementById('calcKemasan').value = 150000;
-      document.getElementById('calcTenagaKerja').value = 100000;
-      document.getElementById('calcEnergiOperasional').value = 50000;
-      document.getElementById('calcPenyusutanLain').value = 25000;
-      document.getElementById('calcHargaJual').value = 20000;
-      document.getElementById('calcDiskonPromo').value = 10;
-      document.getElementById('calcTargetHarian').value = 20;
-      document.getElementById('calcHariBulan').value = 26;
-      hitungKalkulatorUsaha();
-      tampilkanToast('Contoh hitungan dimuat!');
-    }
-
-    function resetKalkulatorUsaha() {
-      [
-        'calcJumlahBatch', 'calcBahanBaku', 'calcKemasan', 'calcTenagaKerja',
-        'calcEnergiOperasional', 'calcPenyusutanLain', 'calcHargaJual',
-        'calcDiskonPromo', 'calcTargetHarian', 'calcHariBulan',
-      ].forEach((id) => {
-        const el = document.getElementById(id);
-        if (el) el.value = '';
-      });
-      hitungKalkulatorUsaha();
-      tampilkanToast('Hitungan dikosongkan.');
-    }
-
-    function salinTeksAman(teks, pesanBerhasil) {
-      try {
-        const ta = document.createElement('textarea');
-        ta.value = teks;
-        ta.style.position = 'fixed';
-        ta.style.opacity = '0';
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand('copy');
-        document.body.removeChild(ta);
-        if (pesanBerhasil) tampilkanToast(pesanBerhasil);
-      } catch (e) {
-        tampilkanToast('Gagal menyalin otomatis.');
-      }
-    }
-
-    function salinRingkasanKalkulator() {
-      const produk = (document.getElementById('inputProduk')?.value || 'Produk UMKM').trim();
-      const ringkasan = `RINGKASAN MODAL & UNTUNG — ${produk.toUpperCase()}
-- ${document.getElementById('resTotalModalBatch')?.textContent}
-- Modal / Pcs (HPP): ${document.getElementById('resHppUnit')?.textContent}
-- Harga Jual Aktif: ${document.getElementById('resHargaAktif')?.textContent}
-- Untung / Pcs: ${document.getElementById('resProfitUnit')?.textContent}
-- Balik Modal: ${document.getElementById('resBepUnit')?.textContent}
-- Perkiraan Pemasukan / Bln: ${document.getElementById('resOmsetBulanan')?.textContent}
-- Perkiraan Untung / Bln: ${document.getElementById('resProfitBulanan')?.textContent}`;
-
-      salinTeksAman(ringkasan, 'Ringkasan modal & untung berhasil disalin!');
-    }
-
-    // Upload foto produk untuk poster
-    function handleUploadFotoProdukPoster(event) {
-      const file = event?.target?.files?.[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const dataUrl = String(e?.target?.result || '');
-        const match = dataUrl.match(/^data:(image\/[a-zA-Z0-9.+-]+);base64,(.+)$/);
-        if (!match) return;
-        fotoProdukPosterMimeType = match[1];
-        fotoProdukPosterBase64 = match[2];
-        document.getElementById('previewFotoProdukUploadImg').src = dataUrl;
-        document.getElementById('namaFileFotoProdukUpload').textContent = file.name;
-        document.getElementById('labelUploadFotoProduk').textContent = 'Ganti Foto';
-        document.getElementById('wadahPreviewUploadProduk')?.classList.remove('hidden');
-        tampilkanToast('Foto produk siap dibuatkan poster!');
-      };
-      reader.readAsDataURL(file);
-    }
-
-    function hapusFotoProdukPoster() {
-      fotoProdukPosterBase64 = '';
-      fotoProdukPosterMimeType = 'image/png';
-      document.getElementById('inputUploadFotoProdukPoster').value = '';
-      document.getElementById('labelUploadFotoProduk').textContent = 'Upload Foto Produk';
-      document.getElementById('wadahPreviewUploadProduk')?.classList.add('hidden');
-      tampilkanToast('Foto produk dihapus.');
-    }
-
-    // Status legalitas
-    function toggleAktifLegalitasTerpilih() {
-      if (!legalitasTerbukaKode) return;
-      legalitasAktif[legalitasTerbukaKode] = !legalitasAktif[legalitasTerbukaKode];
-      perbaruiTampilanLegalitas();
-      tampilkanToast(legalitasAktif[legalitasTerbukaKode] ? 'Izin diaktifkan!' : 'Izin dinonaktifkan.');
-    }
-
-    function ambilDaftarLegalitasAktif() {
-      const daftar = [];
-      ['nib', 'pirt', 'halal', 'merek'].forEach((k) => {
-        if (legalitasAktif[k]) {
-          const singkatan = DATA_LEGALITAS_UMKM[k].singkatan;
-          const no = k !== 'merek' ? nomorLegalitas[k] : '';
-          daftar.push(no ? `${singkatan} (${no})` : singkatan);
-        }
-      });
-      return daftar;
-    }
-
-    function perbaruiTampilanLegalitas() {
-      ['nib', 'pirt', 'halal', 'merek'].forEach((k) => {
-        const btn = document.getElementById(`btnLeg-${k}`);
-        const badge = document.getElementById(`badgeLeg-${k}`);
-        const aktif = legalitasAktif[k];
-        if (btn) {
-          btn.className = aktif
-            ? 'rounded-xl border border-emerald-500 bg-emerald-50 px-3 py-2 text-left text-xs font-bold text-emerald-950 transition'
-            : 'rounded-xl border border-slate-200 bg-white hover:border-emerald-500 px-3 py-2 text-left text-xs font-semibold text-slate-800 transition';
-        }
-        if (badge) {
-          badge.textContent = aktif ? '✓ Punya' : 'Panduan';
-          badge.className = aktif
-            ? 'rounded-full bg-emerald-600 px-2 py-0.5 text-[10px] font-bold text-white'
-            : 'rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-bold text-slate-600';
-        }
-      });
-
-      if (legalitasTerbukaKode) {
-        const btnToggle = document.getElementById('btnToggleAktifLeg');
-        const isAktif = legalitasAktif[legalitasTerbukaKode];
-        if (btnToggle) {
-          btnToggle.textContent = isAktif ? '🔄 Batalkan Status' : '✅ Tandai Sudah Punya';
-        }
-      }
-
-      const prevLogoBox = document.getElementById('previewLogoLegBox');
-      const prevLogoImg = document.getElementById('previewLogoLegImg');
-      const btnHapusLogo = document.getElementById('btnHapusLogoLeg');
-      if (logoMerekDataUrl) {
-        if (prevLogoImg) prevLogoImg.src = logoMerekDataUrl;
-        prevLogoBox?.classList.remove('hidden');
-        btnHapusLogo?.classList.remove('hidden');
-      } else {
-        prevLogoBox?.classList.add('hidden');
-        btnHapusLogo?.classList.add('hidden');
-      }
-
-      const daftar = ambilDaftarLegalitasAktif();
-      document.getElementById('ringkasanLegalitas').textContent =
-        daftar.length > 0 ? `Aktif: ${daftar.join(' • ')}` : 'Belum ada legalitas dipilih';
-      document.getElementById('infoLegalitasPoster').textContent =
-        daftar.length > 0 ? `🛡️ Legalitas Aktif: ${daftar.join(' • ')}` : '';
-      if (hasilPosterTerakhirSrc) renderKartuPoster(hasilPosterTerakhirSrc);
-    }
-
-    function pilihModeLuas(mode) {
-      modeLuasAktif = mode;
-      ['semua', 'segmen', 'konten', 'kreatif'].forEach((m) => {
-        const btn = document.getElementById(`mode-${m}`);
-        if (!btn) return;
-        btn.className = m === mode
-          ? 'rounded-xl border border-sky-600 bg-sky-600 px-3 py-2.5 text-xs font-bold text-white transition'
-          : 'rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-xs font-bold text-slate-700 hover:border-slate-400 transition';
-      });
-    }
-
-    function bersihkanInput() {
-      ['inputProduk', 'inputKeunggulan', 'inputTujuan'].forEach((id) => {
-        const el = document.getElementById(id);
-        if (el) el.value = '';
-      });
-      tampilkanToast('Kolom dikosongkan.');
-    }
-
-    function bukaLayananLuar(url, namaLayanan) {
-      if (teksHasilTerakhir) {
-        salinTeksAman(teksHasilTerakhir, `Teks disalin! Membuka ${namaLayanan}...`);
-      }
-      window.open(url, '_blank', 'noopener,noreferrer');
-    }
-
-    function salinHasil() {
-      if (!teksHasilTerakhir) {
-        tampilkanToast('Belum ada hasil untuk disalin.');
-        return;
-      }
-      salinTeksAman(teksHasilTerakhir, 'Hasil promosi berhasil disalin!');
-    }
-
-    function escapeHtml(str) {
-      return String(str)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
-    }
-
-    function renderHasilTerstruktur(teksMentah) {
-      const wadah = document.getElementById('wadahHasilTerstruktur');
-      if (!wadah) return;
-      const bagian = teksMentah.split(/\n(?=###\s)/g).filter((b) => b.trim());
-      if (bagian.length <= 1) {
-        wadah.innerHTML = `<div class="rounded-2xl border border-slate-200 bg-white p-4 text-sm text-slate-800 whitespace-pre-wrap leading-relaxed">${escapeHtml(teksMentah)}</div>`;
-        return;
-      }
-      wadah.innerHTML = bagian.map((blok) => {
-        const baris = blok.trim().split('\n');
-        const judul = baris[0].replace(/^###\s*/, '').trim();
-        const isi = baris.slice(1).join('\n').trim();
-        return `
-          <article class="rounded-2xl border border-slate-200 bg-white p-3.5 space-y-1.5 shadow-2xs">
-            <h3 class="text-sm font-extrabold text-sky-700">${escapeHtml(judul)}</h3>
-            <div class="text-sm text-slate-800 whitespace-pre-wrap leading-relaxed">${escapeHtml(isi)}</div>
-          </article>
-        `;
-      }).join('');
-    }
-
-    function bangunPromptPerluasan(produk, keunggulan, tujuan, mode) {
-      const targetInfo = tujuan ? tujuan : 'ibu rumah tangga, keluarga sekitar, arisan, pengajian, hingga reseller';
-      const unggulInfo = keunggulan ? keunggulan : 'kualitas bagus, praktis, dan harga bersahabat';
-      const daftarLegal = ambilDaftarLegalitasAktif();
-      const legalInfo = daftarLegal.length > 0
-        ? `Legalitas yang sudah dimiliki: ${daftarLegal.join(', ')}.`
-        : '';
-
-      const fokus = mode === 'segmen'
-        ? 'Fokuskan ke 5 kelompok pembeli berbeda (Rumahan, Pekerja, Acara/Arisan, Anak Muda, Reseller).'
-        : mode === 'konten'
-          ? 'Fokuskan ke pesan WhatsApp siap kirim, caption medsos, dan skrip video pendek 30 detik.'
-          : mode === 'kreatif'
-            ? 'Fokuskan ke lirik jingle iklan ceria, kalimat pembuka menarik, dan ide foto poster.'
-            : `Pecah menjadi 4 bagian jelas dengan pemisah "### ":
-### 1. Cara Menawarkan ke Berbagai Pembeli
-### 2. Pesan WhatsApp Siap Kirim
-### 3. Skrip Video Pendek 30 Detik
-### 4. Ide Jingle & Poster`;
-
-      return `Bantu pelaku UMKM Indonesia membuat materi promosi yang sederhana, hangat, dan mudah dipahami.
-Produk: ${produk}
-Keunggulan: ${unggulInfo}
-Target/Situasi: ${targetInfo}
-${legalInfo}
-
-${fokus}
-Gunakan bahasa Indonesia yang ramah dan langsung siap pakai.`;
-    }
-
-    // Draf contoh siap pakai saat API Key belum diisi agar pratinjau langsung terasa manfaatnya
-    function buatDrafPromosiContoh(produk, keunggulan, tujuan, mode) {
-      const targetInfo = tujuan || 'ibu-ibu sekitar, arisan, keluarga, dan pengajian di Kecamatan Limo';
-      const unggulInfo = keunggulan || 'kualitas terjaga, segar, dan harga bersahabat';
-      const daftarLegal = ambilDaftarLegalitasAktif();
-      const catatanLegal = daftarLegal.length > 0 ? `\nLegalitas usaha: ${daftarLegal.join(' • ')}.` : '';
-
-      const blokSegmen = `### 1. Cara Menawarkan ke Berbagai Pembeli
-- Keluarga & Ibu Rumah Tangga (${targetInfo}): Tekankan kepraktisan, rasa pas di lidah, dan keamanan untuk keluarga.
-- Acara Arisan & Pengajian: Tawarkan paket hemat atau pre-order khusus acara di wilayah Limo.
-- Reseller & Tetangga Dekat: Buka peluang titip jual atau ambil paket grosir dengan harga khusus.`;
-
-      const blokWa = `### 2. Pesan WhatsApp Siap Kirim
-Assalamualaikum Bu/Kak! Kabar gembira untuk warga sekitar Limo dan sekitarnya 🌸
-Kini hadir *${produk}* dengan keunggulan *${unggulInfo}*.${catatanLegal}
-Cocok sekali untuk teman santai di rumah maupun suguhan acara. Yuk pesan sekarang sebelum kehabisan!`;
-
-      const blokVideo = `### 3. Skrip Video Pendek 30 Detik
-- 0-8 detik (Pembuka): Tunjukkan produk *${produk}* dengan jelas sambil menyapa hangat: "Bingung cari pilihan yang pas buat keluarga di Limo?"
-- 8-22 detik (Keunggulan): Sorot *${unggulInfo}* dan proses pembuatan yang rapi.
-- 22-30 detik (Ajakan): Ajak penonton chat WA atau komentar untuk info pemesanan hari ini.`;
-
-      const blokKreatif = `### 4. Ide Jingle & Poster
-- Jingle Singkat: "${produk} pilihan bunda, ${unggulInfo} rasanya, bikin hari makin ceria, yuk order sekarang juga!"
-- Ide Poster: Foto produk terang di atas meja bersih, tulisan judul besar dan mudah dibaca dari HP, serta info kontak WA yang jelas.
-
-(Catatan: Ini contoh draf cepat. Tambahkan Gemini API Key di tombol API pojok kanan atas untuk hasil AI langsung.)`;
-
-      if (mode === 'segmen') return `${blokSegmen}\n\n(Catatan: Tambahkan Gemini API Key di tombol API untuk hasil AI langsung.)`;
-      if (mode === 'konten') return `${blokWa}\n\n${blokVideo}\n\n(Catatan: Tambahkan Gemini API Key di tombol API untuk hasil AI langsung.)`;
-      if (mode === 'kreatif') return blokKreatif;
-      return `${blokSegmen}\n\n${blokWa}\n\n${blokVideo}\n\n${blokKreatif}`;
-    }
-
-    // Panggilan Gemini API dengan exponential backoff
-    async function panggilGeminiDenganRetry(url, payload, maksCoba = 3) {
-      let delay = 1000;
-      for (let i = 0; i < maksCoba; i++) {
-        const res = await fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        });
-        if (res.ok) return res;
-        if (res.status === 429 || res.status >= 500) {
-          await new Promise((r) => setTimeout(r, delay));
-          delay *= 2;
-          continue;
-        }
-        return res;
-      }
-      throw new Error('Server sedang sibuk, coba lagi sebentar.');
-    }
-
-    async function generateLuasDenganGemini() {
-      const produk = (document.getElementById('inputProduk')?.value || '').trim();
-      const keunggulan = (document.getElementById('inputKeunggulan')?.value || '').trim();
-      const tujuan = (document.getElementById('inputTujuan')?.value || '').trim();
-
-      if (!produk) {
-        tampilkanToast('Isi nama produk terlebih dahulu ya, Bu.');
-        document.getElementById('inputProduk')?.focus();
-        return;
-      }
-
-      const btn = document.getElementById('btnGenerate');
-      const teksBtn = document.getElementById('teksGenerate');
-      const statusTeks = document.getElementById('statusHasilTeks');
-      if (btn) btn.disabled = true;
-      if (teksBtn) teksBtn.textContent = 'Sedang Membuat...';
-      if (statusTeks) statusTeks.textContent = 'Sedang menyusun teks promosi...';
-
-      const prompt = bangunPromptPerluasan(produk, keunggulan, tujuan, modeLuasAktif);
-
-      try {
-        let hasilTeks = '';
-        try {
-          const resServer = await fetch('/api/gemini', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ prompt, mode: 'text' }),
-          });
-          if (resServer.ok) {
-            const dataServer = await resServer.json();
-            hasilTeks = (dataServer.text || dataServer.result || dataServer.output || '').trim();
-          }
-        } catch (netErr) {}
-
-        const apiKey = geminiApiKey.trim();
-        if (!hasilTeks && apiKey) {
-          const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${encodeURIComponent(apiKey)}`;
-          const response = await panggilGeminiDenganRetry(url, {
-            contents: [{ parts: [{ text: prompt }] }],
-          });
-          const data = await response.json();
-          if (!response.ok) {
-            throw new Error(data?.error?.message || 'Gagal terhubung ke Gemini API.');
-          }
-          hasilTeks = (data?.candidates?.[0]?.content?.parts?.[0]?.text || '').trim();
-        }
-
-        if (!hasilTeks) {
-          hasilTeks = buatDrafPromosiContoh(produk, keunggulan, tujuan, modeLuasAktif);
-          if (statusTeks) statusTeks.textContent = `Draf cepat untuk "${produk}" (Atur API Key untuk AI penuh)`;
-          tampilkanToast('Draf promosi siap dipakai! Atur API Key untuk AI penuh.');
-        } else {
-          if (statusTeks) statusTeks.textContent = `Siap dipakai untuk "${produk}"`;
-          tampilkanToast('Promosi AI berhasil dibuat!');
-        }
-
-        teksHasilTerakhir = hasilTeks;
-        renderHasilTerstruktur(hasilTeks);
-        lompatKe('bagianHasilAI');
-
-        if (modeLuasAktif === 'semua' || modeLuasAktif === 'kreatif') {
-          generatePosterVisual(true);
-        }
-      } catch (err) {
-        const drafCadangan = buatDrafPromosiContoh(produk, keunggulan, tujuan, modeLuasAktif);
-        teksHasilTerakhir = drafCadangan;
-        renderHasilTerstruktur(drafCadangan);
-        if (statusTeks) statusTeks.textContent = `Draf cepat aktif (${err.message})`;
-        tampilkanToast('Menampilkan draf siap pakai. Periksa API Key jika perlu.');
-      } finally {
-        if (btn) btn.disabled = false;
-        if (teksBtn) teksBtn.textContent = 'Buat Promosi Otomatis';
-      }
-    }
-
-    function renderKartuPoster(imgSrc) {
-      const wadah = document.getElementById('wadahGambarPoster');
-      if (!wadah) return;
-      const daftarLegal = ambilDaftarLegalitasAktif();
-      const badgeLegalHtml = daftarLegal.length > 0
-        ? `<div class="flex flex-wrap justify-center gap-1 pt-1">${daftarLegal.map((l) => `<span class="rounded-full bg-emerald-100 border border-emerald-300 px-2.5 py-0.5 text-[11px] font-bold text-emerald-800">✓ ${escapeHtml(l)}</span>`).join('')}</div>`
-        : '';
-      const logoHtml = logoMerekDataUrl
-        ? `<img src="${logoMerekDataUrl}" alt="Logo Merek" class="absolute top-2 right-2 h-9 w-9 rounded-lg bg-white/95 p-1 object-contain shadow border border-slate-200" onerror="this.src='https://placehold.co/64x64/ffffff/1e293b?text=Logo'" />`
-        : '';
-
-      wadah.innerHTML = `
-        <div class="relative shrink-0">
-          <img src="${imgSrc}" alt="Poster Produk UMKM" class="w-44 h-44 rounded-2xl object-cover border border-slate-200 shadow" onerror="this.src='https://placehold.co/320x320/e2e8f0/1e293b?text=Poster+UMKM'" />
-          ${logoHtml}
-        </div>
-        <div class="space-y-2 text-xs text-slate-600">
-          <div class="font-bold text-sm text-slate-900">Poster Siap Dibagikan</div>
-          ${badgeLegalHtml}
-          <a href="${imgSrc}" download="poster-umkm.png" class="inline-flex items-center gap-1.5 rounded-xl bg-fuchsia-600 hover:bg-fuchsia-500 px-4 py-2.5 text-xs font-extrabold text-white transition">
-            ⬇️ Unduh Poster
-          </a>
-        </div>
+    document.getElementById('btnBuatBriefKreasi')?.addEventListener('click', () => {
+      const deskripsi = document.getElementById('kreasiDeskripsi').value.trim();
+      const gaya = document.getElementById('kreasiGaya').selectedOptions[0].text;
+      const format = document.getElementById('kreasiFormat').selectedOptions[0].text;
+      const hasilBox = document.getElementById('hasilBriefKreasi');
+
+      hasilBox.style.display = 'flex';
+      hasilBox.innerHTML = `
+        <div class="brief-header">Ringkasan Brief Visual Siap Pakai</div>
+        <div><strong>Deskripsi &amp; Produk:</strong> ${deskripsi || 'Visual produk UMKM lokal dengan pencahayaan jelas dan menarik.'}</div>
+        <div><strong>Gaya &amp; Pencahayaan:</strong> ${gaya}</div>
+        <div><strong>Rasio &amp; Keluaran:</strong> ${format}</div>
       `;
-    }
+    });
 
-    async function generatePosterVisual(senyap = false) {
-      const produk = (document.getElementById('inputProduk')?.value || '').trim();
-      const keunggulan = (document.getElementById('inputKeunggulan')?.value || '').trim();
-      if (!produk) {
-        if (!senyap) tampilkanToast('Isi nama produk terlebih dahulu.');
-        return;
-      }
-
-      const btn = document.getElementById('btnGenerateGambar');
-      if (btn) {
-        btn.disabled = true;
-        btn.textContent = '⏳ Membuat Poster...';
-      }
-
-      try {
-        const imgSrc = await buatPosterKanvasOtomatis(produk, keunggulan);
-        hasilPosterTerakhirSrc = imgSrc;
-        renderKartuPoster(imgSrc);
-        if (!senyap) tampilkanToast('Poster berhasil dibuat!');
-      } catch (err) {
-        if (!senyap) {
-          document.getElementById('wadahGambarPoster').innerHTML = `<div class="text-xs text-rose-700">${escapeHtml(err.message)}</div>`;
-        }
-      } finally {
-        if (btn) {
-          btn.disabled = false;
-          btn.textContent = '🖼️ Buat Poster AI';
-        }
-      }
-    }
-
-    async function buatPosterKanvasOtomatis(produk, keunggulan) {
-      const canvas = document.createElement('canvas');
-      canvas.width = 1080;
-      canvas.height = 1080;
-      const ctx = canvas.getContext('2d');
-
-      const grad = ctx.createLinearGradient(0, 0, 1080, 1080);
-      grad.addColorStop(0, '#0284c7');
-      grad.addColorStop(0.5, '#4f46e5');
-      grad.addColorStop(1, '#c026d3');
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, 1080, 1080);
-
-      ctx.fillStyle = '#ffffff';
-      ctx.font = '800 32px Poppins, sans-serif';
-      ctx.fillText('WUB KECAMATAN LIMO', 64, 86);
-
-      ctx.font = '800 56px Poppins, sans-serif';
-      ctx.fillText(produk.toUpperCase().slice(0, 24), 64, 158);
-
-      if (fotoProdukPosterBase64) {
-        await new Promise((resolve) => {
-          const img = new Image();
-          img.onload = () => {
-            const scale = Math.min(460 / img.width, 460 / img.height);
-            const dw = img.width * scale;
-            const dh = img.height * scale;
-            const dx = (1080 - dw) / 2;
-            const dy = 230 + (460 - dh) / 2;
-            ctx.save();
-            ctx.beginPath();
-            ctx.roundRect(dx, dy, dw, dh, 32);
-            ctx.clip();
-            ctx.drawImage(img, dx, dy, dw, dh);
-            ctx.restore();
-            resolve();
-          };
-          img.onerror = resolve;
-          img.src = `data:${fotoProdukPosterMimeType};base64,${fotoProdukPosterBase64}`;
-        });
-      }
-
-      if (logoMerekDataUrl) {
-        await new Promise((resolve) => {
-          const logoImg = new Image();
-          logoImg.onload = () => {
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.94)';
-            ctx.beginPath();
-            ctx.roundRect(876, 52, 140, 140, 24);
-            ctx.fill();
-            const scale = Math.min(112 / logoImg.width, 112 / logoImg.height);
-            const lw = logoImg.width * scale;
-            const lh = logoImg.height * scale;
-            ctx.drawImage(logoImg, 876 + (140 - lw) / 2, 52 + (140 - lh) / 2, lw, lh);
-            resolve();
-          };
-          logoImg.onerror = resolve;
-          logoImg.src = logoMerekDataUrl;
-        });
-      }
-
-      ctx.fillStyle = 'rgba(15, 23, 42, 0.88)';
-      ctx.beginPath();
-      ctx.roundRect(64, 770, 952, 230, 32);
-      ctx.fill();
-
-      ctx.fillStyle = '#fde047';
-      ctx.font = '800 36px Poppins, sans-serif';
-      ctx.fillText((keunggulan || 'Kualitas Terpercaya • Pilihan Keluarga').slice(0, 42), 96, 845);
-
-      const daftarLegal = ambilDaftarLegalitasAktif();
-      ctx.fillStyle = '#6ee7b7';
-      ctx.font = '700 28px Poppins, sans-serif';
-      ctx.fillText(daftarLegal.length > 0 ? `Legalitas: ${daftarLegal.join(' • ')}` : 'Siap Pesan Hari Ini!', 96, 915);
-
-      return canvas.toDataURL('image/png');
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-      muatLogoHeaderTersimpan();
-      perbaruiStatusApi();
-      perbaruiTampilanLegalitas();
-      hitungKalkulatorUsaha();
+    document.getElementById('btnResetKreasi')?.addEventListener('click', () => {
+      document.getElementById('kreasiDeskripsi').value = '';
+      const hasilBox = document.getElementById('hasilBriefKreasi');
+      hasilBox.style.display = 'none';
+      hasilBox.innerHTML = '';
     });
   </script>
 </body>

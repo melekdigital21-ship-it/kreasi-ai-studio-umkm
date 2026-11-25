@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Drama &amp; Iklan Video UMKM — Portal Digital UMKM Kecamatan Limo</title>
+  <link rel="stylesheet" href="studio-common.css" />
+  <script src="studio-nav.js" defer></script>
+</head>
+<body>
+  <div class="studio-shell">
+    <aside class="sidebar" aria-label="Navigasi Drama dan Iklan Video UMKM">
+      <div class="brand-box">
+        <div class="brand-title">DRAMA &amp; IKLAN VIDEO UMKM</div>
+        <div class="brand-sub">AI Video &amp; Story Studio</div>
+      </div>
+
+      <div>
+        <div class="nav-group-label">Menu Utama</div>
+        <div class="nav-list">
+          <button type="button" class="nav-btn" data-panel="panel-dashboard">Dashboard</button>
+          <button type="button" class="nav-btn" data-panel="panel-naskah">Naskah Iklan</button>
+          <button type="button" class="nav-btn" data-panel="panel-drama">Drama UMKM</button>
+          <button type="button" class="nav-btn is-active" data-panel="panel-composer">AI Video Composer</button>
+        </div>
+      </div>
+
+      <div>
+        <div class="nav-group-label">Pengelolaan</div>
+        <div class="nav-list">
+          <button type="button" class="nav-btn" data-panel="panel-inspirasi">Inspirasi Cerita</button>
+          <button type="button" class="nav-btn" data-panel="panel-proyek">Proyek Saya</button>
+        </div>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <div class="topbar">
+        <div class="topbar-left">
+          <button type="button" class="btn-back" data-back="index.html">← Kembali</button>
+          <span class="studio-badge">Studio: Drama &amp; Iklan Video</span>
+        </div>
+        <span class="brand-sub">Portal Digital UMKM Kecamatan Limo</span>
+      </div>
+
+      <div class="content-wrap">
+        <!-- Panel Utama: AI Video Composer -->
+        <section id="panel-composer" class="studio-panel">
+          <div class="kicker">Studio Kreatif Digital</div>
+          <h1>AI Video Composer</h1>
+          <p class="subtitle">Susun naskah iklan pendek atau mini-drama produk UMKM sebelum dihubungkan ke generator video AI.</p>
+
+          <div class="brief-card">
+            <div class="brief-header">Video &amp; Drama Brief</div>
+
+            <div class="field-group">
+              <label for="dramaDeskripsi">Deskripsi alur cerita / iklan</label>
+              <textarea
+                id="dramaDeskripsi"
+                placeholder="Contoh: Ibu rumah tangga kewalahan mencuci piring berminyak setelah masak, lalu memakai sabun cuci piring beraroma segar dan piring langsung kesat berkilau"
+              ></textarea>
+            </div>
+
+            <div class="params-grid">
+              <div class="field-group">
+                <label for="dramaDurasi">Durasi &amp; format</label>
+                <select id="dramaDurasi">
+                  <option value="15-detik-reels">15 Detik (Reels / TikTok / Shorts)</option>
+                  <option value="30-detik-iklan">30 Detik (Iklan Produk &amp; WA Status)</option>
+                  <option value="60-detik-drama">60 Detik (Mini-Drama Cerita)</option>
+                </select>
+              </div>
+
+              <div class="field-group">
+                <label for="dramaSuasana">Suasana &amp; ajakan (CTA)</label>
+                <select id="dramaSuasana">
+                  <option value="hangat-solutif">Hangat &amp; Solutif (Ajak Coba Sekarang)</option>
+                  <option value="ceria-akrab">Ceria &amp; Akrab (Tanya / Pesan via WA)</option>
+                  <option value="menyentuh-inspiratif">Menyentuh &amp; Inspiratif (Bagikan &amp; Kunjungi Toko)</option>
+                </select>
+              </div>
+            </div>
+
+            <div id="hasilBriefDrama" class="brief-card" style="display: none; background: #0f172a;"></div>
+
+            <div class="action-row">
+              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
+              <button type="button" class="btn btn-primary" id="btnBuatBriefDrama">Buat Brief Video</button>
+              <button type="button" class="btn btn-secondary" id="btnResetDrama">Bersihkan</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Panel Dashboard -->
+        <section id="panel-dashboard" class="studio-panel" hidden>
+          <div class="kicker">Ringkasan Studio</div>
+          <h1>Dashboard Drama &amp; Iklan Video</h1>
+          <p class="subtitle">Pilih menu di samping atau mulai susun brief video promosi untuk usaha Anda.</p>
+
+          <div class="brief-card">
+            <div class="brief-header">Siap Produksi Konten Video</div>
+            <p class="subtitle" style="margin: 0;">Gunakan alur <strong>Riset, Buat, Jual, Ukur</strong> agar video promosi mudah dipahami calon pembeli di sekitar Limo dan Depok.</p>
+            <div class="action-row">
+              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
+              <button type="button" class="btn btn-primary" onclick="aktifkanPanelStudio('panel-composer')">Buka AI Video Composer</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Panel Naskah Iklan -->
+        <section id="panel-naskah" class="studio-panel" hidden>
+          <div class="kicker">Template Cepat</div>
+          <h1>Naskah Iklan Produk</h1>
+          <p class="subtitle">Struktur pembuka (Hook), manfaat utama, dan ajakan beli singkat.</p>
+
+          <div class="brief-card">
+            <div class="brief-header">Pola Naskah Iklan 3 Bagian</div>
+            <p class="subtitle" style="margin: 0;">1. Hook masalah sehari-hari &rarr; 2. Bukti keunggulan produk &rarr; 3. Ajakan pesan/order.</p>
+            <div class="action-row">
+              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
+              <button type="button" class="btn btn-primary" onclick="aktifkanPanelStudio('panel-composer')">Gunakan di Composer</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Panel Drama UMKM -->
+        <section id="panel-drama" class="studio-panel" hidden>
+          <div class="kicker">Cerita Berkarakter</div>
+          <h1>Mini-Drama UMKM</h1>
+          <p class="subtitle">Cerita ringan keseharian yang menyelipkan manfaat produk secara alami.</p>
+
+          <div class="brief-card">
+            <div class="brief-header">Tips Drama Pendek</div>
+            <p class="subtitle" style="margin: 0;">Jaga dialog tetap natural, singkat, dan fokus pada satu masalah utama pelanggan.</p>
+            <div class="action-row">
+              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
+              <button type="button" class="btn btn-primary" onclick="aktifkanPanelStudio('panel-composer')">Buat Cerita Drama</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Panel Inspirasi Cerita -->
+        <section id="panel-inspirasi" class="studio-panel" hidden>
+          <div class="kicker">Ide Siap Pakai</div>
+          <h1>Inspirasi Cerita</h1>
+          <p class="subtitle">Contoh ide video untuk produk pembersih rumah tangga dan kuliner lokal.</p>
+
+          <div class="brief-card">
+            <div class="brief-header">Ide Cerita Populer</div>
+            <p class="subtitle" style="margin: 0;">"Selesai Masak Nggak Pusing Lagi" &bull; "Persiapan Buka/Sarapan Praktis" &bull; "Cerita di Balik Dapur UMKM".</p>
+            <div class="action-row">
+              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
+              <button type="button" class="btn btn-primary" onclick="aktifkanPanelStudio('panel-composer')">Salin ke Composer</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- Panel Proyek Saya -->
+        <section id="panel-proyek" class="studio-panel" hidden>
+          <div class="kicker">Arsip Lokal</div>
+          <h1>Proyek Saya</h1>
+          <p class="subtitle">Simpan atau tinjau kembali draf brief video yang sedang Anda susun.</p>
+
+          <div class="brief-card">
+            <div class="brief-header">Daftar Draf Video</div>
+            <p class="subtitle" style="margin: 0;">Belum ada proyek tersimpan di sesi ini. Buat brief baru di tab AI Video Composer.</p>
+            <div class="action-row">
+              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
+              <button type="button" class="btn btn-primary" onclick="aktifkanPanelStudio('panel-composer')">Buat Proyek Baru</button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById('btnBuatBriefDrama')?.addEventListener('click', () => {
+      const deskripsi = document.getElementById('dramaDeskripsi').value.trim();
+      const durasi = document.getElementById('dramaDurasi').selectedOptions[0].text;
+      const suasana = document.getElementById('dramaSuasana').selectedOptions[0].text;
+      const hasilBox = document.getElementById('hasilBriefDrama');
+
+      hasilBox.style.display = 'flex';
+      hasilBox.innerHTML = `
+        <div class="brief-header">Ringkasan Brief Video Siap Pakai</div>
+        <div><strong>Alur Cerita:</strong> ${deskripsi || 'Cerita singkat keunggulan produk UMKM lokal untuk media sosial.'}</div>
+        <div><strong>Durasi &amp; Format:</strong> ${durasi}</div>
+        <div><strong>Suasana &amp; CTA:</strong> ${suasana}</div>
+      `;
+    });
+
+    document.getElementById('btnResetDrama')?.addEventListener('click', () => {
+      document.getElementById('dramaDeskripsi').value = '';
+      const hasilBox = document.getElementById('hasilBriefDrama');
+      hasilBox.style.display = 'none';
+      hasilBox.innerHTML = '';
+    });
+  </script>
+</body>
+</html>
