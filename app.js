@@ -97,7 +97,6 @@ app.get("/", (req, res) => {
 });
 const fs = require("fs");
 
-
 app.use(express.json({ limit: "6mb" }));
 
 const DATA_DIR = path.join(__dirname, "data");
