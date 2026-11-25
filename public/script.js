@@ -1,52 +1,47 @@
-// Mengambil elemen-elemen halaman
-const viewBeranda = document.getElementById('view-beranda');
-const viewKreasi = document.getElementById('view-kreasi');
-const viewDrama = document.getElementById('view-drama');
-const btnBeranda = document.getElementById('btn-beranda');
-const footerUtama = document.getElementById('footer-utama');
+const DAFTAR_STUDIO = ['kreasi', 'drama', 'animasi', 'musik'];
 
-// Fungsi untuk membuka aplikasi sesuai tombol yang diklik
-function bukaAplikasi(namaAplikasi) {
-  // Sembunyikan halaman utama & footer
-  viewBeranda.classList.add('hidden');
-  footerUtama.classList.add('hidden');
-  
-  // Munculkan tombol kembali ke halaman utama di header
-  btnBeranda.classList.remove('hidden');
-
-  if (namaAplikasi === 'kreasi') {
-    viewDrama.classList.add('hidden');
-    viewKreasi.classList.remove('hidden');
-    
-    // Muat URL aplikasi hanya saat tombol diklik (hemat kuota & memori)
-    const frameKreasi = document.getElementById('frame-kreasi');
-    if (!frameKreasi.src) {
-      frameKreasi.src = frameKreasi.getAttribute('data-src');
-    }
-  } else if (namaAplikasi === 'drama') {
-    viewKreasi.classList.add('hidden');
-    viewDrama.classList.remove('hidden');
-
-    // Muat URL aplikasi hanya saat tombol diklik (hemat kuota & memori)
-    const frameDrama = document.getElementById('frame-drama');
-    if (!frameDrama.src) {
-      frameDrama.src = frameDrama.getAttribute('data-src');
-    }
+function bukaAplikasiPortal(nama) {
+  const beranda = document.getElementById('view-beranda');
+  if (beranda) {
+    beranda.classList.add('hidden');
   }
 
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  DAFTAR_STUDIO.forEach((item) => {
+    const section = document.getElementById(`view-${item}`);
+    if (section) {
+      section.classList.add('hidden');
+      section.classList.remove('flex');
+    }
+  });
+
+  const targetSection = document.getElementById(`view-${nama}`);
+  const targetFrame = document.getElementById(`frame-${nama}`);
+
+  if (targetFrame && !targetFrame.getAttribute('src') && targetFrame.dataset.src) {
+    targetFrame.setAttribute('src', targetFrame.dataset.src);
+  }
+
+  if (targetSection) {
+    targetSection.classList.remove('hidden');
+    targetSection.classList.add('flex');
+  }
+
+  window.scrollTo({ top: 0, behavior: 'instant' });
 }
 
-// Fungsi untuk kembali ke halaman utama sapaan UMKM Limo
-function tampilkanBeranda() {
-  // Sembunyikan kedua aplikasi & tombol kembali
-  viewKreasi.classList.add('hidden');
-  viewDrama.classList.add('hidden');
-  btnBeranda.classList.add('hidden');
+function kembaliKeBerandaPortal() {
+  DAFTAR_STUDIO.forEach((item) => {
+    const section = document.getElementById(`view-${item}`);
+    if (section) {
+      section.classList.add('hidden');
+      section.classList.remove('flex');
+    }
+  });
 
-  // Tampilkan kembali halaman utama & footer
-  viewBeranda.classList.remove('hidden');
-  footerUtama.classList.remove('hidden');
+  const beranda = document.getElementById('view-beranda');
+  if (beranda) {
+    beranda.classList.remove('hidden');
+  }
 
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scrollTo({ top: 0, behavior: 'instant' });
 }

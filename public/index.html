@@ -1,161 +1,167 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portal Digital UMKM Kecamatan Limo — WUB Limo Depok</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portal AI Studio UMKM — Kecamatan Limo</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <!-- Menghubungkan ke file style.css -->
-  <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-amber-50/70 text-gray-900 min-h-screen flex flex-col">
 
-  <!-- HEADER / BAR NAVIGASI ATAS -->
-  <header class="bg-white border-b-2 border-amber-200 sticky top-0 z-50 shadow-xs">
-    <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
-      <div class="flex items-center gap-2.5">
-        <div class="w-10 h-10 rounded-xl bg-amber-500 text-white font-extrabold flex items-center justify-center text-lg shadow-xs">
-          WUB
-        </div>
-        <div>
-          <span class="block font-extrabold text-base md:text-lg text-gray-900 leading-tight">
-            UMKM Kecamatan Limo
-          </span>
-          <span class="block text-xs font-semibold text-amber-700">
-            Kota Depok • Go Digital
-          </span>
-        </div>
-      </div>
+  <!-- === BERANDA UTAMA PORTAL (RINGAN DI HP) === -->
+  <main id="view-beranda" class="flex-1 w-full max-w-6xl mx-auto px-4 py-6 sm:py-8">
+    <header class="text-center mb-6 sm:mb-8">
+      <span class="inline-block px-3 py-1 rounded-full bg-amber-200 text-amber-900 text-[11px] sm:text-xs font-bold tracking-wide mb-2">
+        WUB KECAMATAN LIMO • KOTA DEPOK
+      </span>
+      <h1 class="text-2xl sm:text-4xl font-extrabold text-gray-900 leading-tight">
+        Portal AI Studio UMKM
+      </h1>
+      <p class="text-xs sm:text-base text-gray-600 mt-2 max-w-2xl mx-auto">
+        Belajar berbagi berkarya bersama satukan hati menggapai cita. Pilih studio yang ingin dibuka.
+      </p>
+    </header>
 
-      <!-- Tombol Kembali ke Beranda (Muncul otomatis saat aplikasi sedang dibuka) -->
-      <button 
-        id="btn-beranda" 
-        onclick="tampilkanBeranda()" 
-        class="hidden bg-amber-100 hover:bg-amber-200 active:scale-95 text-amber-950 font-bold text-sm md:text-base px-4 py-2.5 rounded-xl border border-amber-300 transition flex items-center gap-1.5 shadow-xs">
-        <span>🏠</span>
-        <span>Halaman Utama</span>
+    <!-- 4 PILIHAN STUDIO -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+      <!-- 1. Kreasi AI Studio -->
+      <button
+        type="button"
+        onclick="bukaAplikasiPortal('kreasi')"
+        class="text-left bg-white active:bg-amber-50 hover:bg-amber-50 border-2 border-amber-200 hover:border-amber-500 rounded-2xl p-4 sm:p-5 shadow-sm transition flex flex-col justify-between"
+      >
+        <div>
+          <div class="w-11 h-11 rounded-xl bg-amber-100 text-xl flex items-center justify-center mb-2.5">🎨</div>
+          <h2 class="font-bold text-base sm:text-lg text-gray-900">Kreasi AI Studio</h2>
+          <p class="text-xs sm:text-sm text-gray-600 mt-1">
+            Naskah promosi, poster produk, ide jualan, dan materi digital marketing UMKM.
+          </p>
+        </div>
+        <span class="mt-3 inline-block text-xs font-bold text-amber-700">Buka Studio →</span>
+      </button>
+
+      <!-- 2. Studio Drama -->
+      <button
+        type="button"
+        onclick="bukaAplikasiPortal('drama')"
+        class="text-left bg-white active:bg-rose-50 hover:bg-rose-50 border-2 border-rose-200 hover:border-rose-500 rounded-2xl p-4 sm:p-5 shadow-sm transition flex flex-col justify-between"
+      >
+        <div>
+          <div class="w-11 h-11 rounded-xl bg-rose-100 text-xl flex items-center justify-center mb-2.5">🎭</div>
+          <h2 class="font-bold text-base sm:text-lg text-gray-900">Studio Drama</h2>
+          <p class="text-xs sm:text-sm text-gray-600 mt-1">
+            Skenario drama pendek dan iklan video produk UMKM yang menyentuh hati.
+          </p>
+        </div>
+        <span class="mt-3 inline-block text-xs font-bold text-rose-700">Buka Studio →</span>
+      </button>
+
+      <!-- 3. Studio Animasi -->
+      <button
+        type="button"
+        onclick="bukaAplikasiPortal('animasi')"
+        class="text-left bg-white active:bg-purple-50 hover:bg-purple-50 border-2 border-purple-200 hover:border-purple-500 rounded-2xl p-4 sm:p-5 shadow-sm transition flex flex-col justify-between"
+      >
+        <div>
+          <div class="w-11 h-11 rounded-xl bg-purple-100 text-xl flex items-center justify-center mb-2.5">🎬</div>
+          <h2 class="font-bold text-base sm:text-lg text-gray-900">Studio Animasi</h2>
+          <p class="text-xs sm:text-sm text-gray-600 mt-1">
+            Filosofi produk, cerita, dan storyboard 9 adegan animasi UMKM.
+          </p>
+        </div>
+        <span class="mt-3 inline-block text-xs font-bold text-purple-700">Buka Studio →</span>
+      </button>
+
+      <!-- 4. Studio Music Lab -->
+      <button
+        type="button"
+        onclick="bukaAplikasiPortal('musik')"
+        class="text-left bg-white active:bg-cyan-50 hover:bg-cyan-50 border-2 border-cyan-200 hover:border-cyan-500 rounded-2xl p-4 sm:p-5 shadow-sm transition flex flex-col justify-between"
+      >
+        <div>
+          <div class="w-11 h-11 rounded-xl bg-cyan-100 text-xl flex items-center justify-center mb-2.5">🎵</div>
+          <h2 class="font-bold text-base sm:text-lg text-gray-900">Studio Music Lab</h2>
+          <p class="text-xs sm:text-sm text-gray-600 mt-1">
+            Brief jingle UMKM, kerangka lirik lagu promosi, dan arahan produksi musik.
+          </p>
+        </div>
+        <span class="mt-3 inline-block text-xs font-bold text-cyan-700">Buka Studio →</span>
       </button>
     </div>
-  </header>
-
-  <!-- =========================================================
-       1. HALAMAN UTAMA (TAMPIL AWAL SEBELUM TOMBOL DIKLIK)
-       ========================================================= -->
-  <main id="view-beranda" class="flex-1 max-w-3xl mx-auto w-full px-4 py-6 md:py-10">
-    
-    <!-- Kartu Sambutan, Motivasi & Inovasi -->
-    <section class="bg-white border-2 border-amber-200 rounded-3xl p-6 md:p-9 shadow-sm text-center mb-8">
-      <span class="inline-block bg-amber-100 text-amber-900 text-xs md:text-sm font-extrabold px-4 py-1.5 rounded-full mb-4 tracking-wide">
-        ✨ WIRAUSAHA BARU (WUB) & UMKM KECAMATAN LIMO
-      </span>
-
-      <h1 class="text-2xl md:text-4xl font-extrabold text-gray-900 leading-snug mb-4">
-        Selamat Datang, Sahabat Hebat UMKM Kecamatan Limo!
-      </h1>
-
-      <p class="text-base md:text-lg text-gray-700 leading-relaxed mb-5">
-        Dari dapur dan rumah kita di Limo, mari bawa karya lokal menembus pasar yang lebih luas. Jangan takut mencoba hal baru—teknologi AI hadir bukan untuk menggantikan ketulusan karya kita, melainkan menjadi asisten cerdas yang mempermudah promosi, mempercantik kemasan, dan melipatgandakan rezeki usaha.
-      </p>
-
-      <!-- Kotak Motivasi & Tagline -->
-      <div class="bg-amber-50 border-l-4 border-amber-500 p-4 md:p-5 rounded-r-2xl text-left mb-6">
-        <p class="text-sm md:text-base font-bold text-amber-950 mb-1">
-          💡 Semangat Inovasi Hari Ini:
-        </p>
-        <p class="text-base md:text-lg font-semibold text-amber-900 italic leading-relaxed">
-          "Belajar, berbagi, berkarya bersama, satukan hati menggapai cita."
-        </p>
-      </div>
-
-      <p class="text-base md:text-lg font-extrabold text-gray-800">
-        👇 Silakan pilih aplikasi di bawah ini untuk mulai berkarya:
-      </p>
-    </section>
-
-    <!-- TOMBOL NAVIGASI PILIHAN APLIKASI -->
-    <section class="grid grid-cols-1 md:grid-cols-2 gap-5">
-      
-      <!-- Tombol 1: Kreasi AI Studio UMKM -->
-      <button 
-        onclick="bukaAplikasi('kreasi')" 
-        class="group text-left bg-white hover:bg-amber-50 active:scale-[0.99] border-2 border-amber-300 hover:border-amber-500 rounded-3xl p-6 shadow-sm transition flex flex-col justify-between">
-        <div>
-          <div class="w-14 h-14 rounded-2xl bg-amber-500 text-white text-3xl flex items-center justify-center mb-4 shadow-xs">
-            🎨
-          </div>
-          <h2 class="text-xl md:text-2xl font-extrabold text-gray-900 mb-2 group-hover:text-amber-800">
-            1. Kreasi AI Studio UMKM
-          </h2>
-          <p class="text-base text-gray-600 leading-relaxed mb-5">
-            Buat caption jualan otomatis, konsep poster produk, hitung HPP & harga jual, hingga panduan legalitas usaha.
-          </p>
-        </div>
-        <div class="w-full bg-amber-500 group-hover:bg-amber-600 text-white font-bold text-base md:text-lg py-3.5 px-5 rounded-2xl text-center transition">
-          Buka Kreasi AI Studio →
-        </div>
-      </button>
-
-      <!-- Tombol 2: Drama & Iklan Video UMKM -->
-      <button 
-        onclick="bukaAplikasi('drama')" 
-        class="group text-left bg-white hover:bg-emerald-50/70 active:scale-[0.99] border-2 border-emerald-300 hover:border-emerald-500 rounded-3xl p-6 shadow-sm transition flex flex-col justify-between">
-        <div>
-          <div class="w-14 h-14 rounded-2xl bg-emerald-600 text-white text-3xl flex items-center justify-center mb-4 shadow-xs">
-            🎬
-          </div>
-          <h2 class="text-xl md:text-2xl font-extrabold text-gray-900 mb-2 group-hover:text-emerald-800">
-            2. Drama & Iklan Video UMKM
-          </h2>
-          <p class="text-base text-gray-600 leading-relaxed mb-5">
-            Susun naskah cerita promosi, adegan video iklan 10 detik, dan ide konten video pendek yang menarik pembeli.
-          </p>
-        </div>
-        <div class="w-full bg-emerald-600 group-hover:bg-emerald-700 text-white font-bold text-base md:text-lg py-3.5 px-5 rounded-2xl text-center transition">
-          Buka Drama & Iklan Video →
-        </div>
-      </button>
-
-    </section>
   </main>
 
-  <!-- =========================================================
-       2. KONTEN APLIKASI 1: KREASI AI STUDIO UMKM (HIDDEN AWALNYA)
-       ========================================================= -->
-  <section id="view-kreasi" class="hidden flex-1 flex flex-col w-full">
-    <div class="bg-amber-100 border-b border-amber-300 px-4 py-2.5 text-center text-sm font-bold text-amber-950">
-      Sedang membuka: 🎨 Kreasi AI Studio UMKM
+  <!-- === VIEW 1: KREASI AI STUDIO === -->
+  <section id="view-kreasi" class="hidden flex-1 flex-col w-full bg-white">
+    <div class="flex items-center justify-between gap-2 px-3 sm:px-4 py-2 bg-amber-100 border-b border-amber-300">
+      <span class="text-xs sm:text-sm font-semibold text-gray-900 truncate">Studio: <b>Kreasi AI Studio</b></span>
+      <button type="button" onclick="kembaliKeBerandaPortal()" class="shrink-0 px-3 py-1.5 rounded-lg bg-amber-600 active:bg-amber-700 text-white text-xs sm:text-sm font-semibold">
+        🏠 Halaman Utama
+      </button>
     </div>
-    <iframe 
+    <iframe
       id="frame-kreasi"
-      data-src="https://kreasi-ai-studio-umkm-production.up.railway.app/" 
-      class="w-full flex-1 min-h-[82vh] border-0 bg-white"
-      title="Kreasi AI Studio UMKM">
-    </iframe>
+      data-src="kreasi.html"
+      title="Kreasi AI Studio"
+      class="w-full border-0 bg-white block"
+      style="height: 85vh; -webkit-overflow-scrolling: touch;"
+      scrolling="yes"
+    ></iframe>
   </section>
 
-  <!-- =========================================================
-       3. KONTEN APLIKASI 2: DRAMA & IKLAN VIDEO UMKM (HIDDEN AWALNYA)
-       ========================================================= -->
-  <section id="view-drama" class="hidden flex-1 flex flex-col w-full">
-    <div class="bg-emerald-100 border-b border-emerald-300 px-4 py-2.5 text-center text-sm font-bold text-emerald-950">
-      Sedang membuka: 🎬 Drama & Iklan Video UMKM
+  <!-- === VIEW 2: STUDIO DRAMA === -->
+  <section id="view-drama" class="hidden flex-1 flex-col w-full bg-white">
+    <div class="flex items-center justify-between gap-2 px-3 sm:px-4 py-2 bg-amber-100 border-b border-amber-300">
+      <span class="text-xs sm:text-sm font-semibold text-gray-900 truncate">Studio: <b>Studio Drama</b></span>
+      <button type="button" onclick="kembaliKeBerandaPortal()" class="shrink-0 px-3 py-1.5 rounded-lg bg-amber-600 active:bg-amber-700 text-white text-xs sm:text-sm font-semibold">
+        🏠 Halaman Utama
+      </button>
     </div>
-    <iframe 
+    <iframe
       id="frame-drama"
-      data-src="https://drama-iklan-umkm-production.up.railway.app/" 
-      class="w-full flex-1 min-h-[82vh] border-0 bg-white"
-      title="Drama & Iklan Video UMKM">
-    </iframe>
+      data-src="https://drama-iklan-umkm-production.up.railway.app/"
+      title="Studio Drama"
+      class="w-full border-0 bg-white block"
+      style="height: 85vh; -webkit-overflow-scrolling: touch;"
+      scrolling="yes"
+    ></iframe>
   </section>
 
-  <!-- FOOTER SEDERHANA -->
-  <footer id="footer-utama" class="text-center py-5 px-4 text-xs md:text-sm text-gray-600 border-t border-amber-200/70 bg-white/60">
-    <p class="font-semibold text-gray-800">Komunitas UMKM Kecamatan Limo • Kota Depok</p>
-    <p class="mt-0.5">Belajar, Berbagi, Berkarya Bersama Satukan Hati Menggapai Cita</p>
-  </footer>
+  <!-- === VIEW 3: STUDIO ANIMASI === -->
+  <section id="view-animasi" class="hidden flex-1 flex-col w-full bg-white">
+    <div class="flex items-center justify-between gap-2 px-3 sm:px-4 py-2 bg-amber-100 border-b border-amber-300">
+      <span class="text-xs sm:text-sm font-semibold text-gray-900 truncate">Studio: <b>Studio Animasi</b></span>
+      <button type="button" onclick="kembaliKeBerandaPortal()" class="shrink-0 px-3 py-1.5 rounded-lg bg-amber-600 active:bg-amber-700 text-white text-xs sm:text-sm font-semibold">
+        🏠 Halaman Utama
+      </button>
+    </div>
+    <iframe
+      id="frame-animasi"
+      data-src="animasi.html"
+      title="Studio Animasi"
+      class="w-full border-0 bg-white block"
+      style="height: 85vh; -webkit-overflow-scrolling: touch;"
+      scrolling="yes"
+    ></iframe>
+  </section>
 
-  <!-- Menghubungkan ke file script.js -->
+  <!-- === VIEW 4: STUDIO MUSIC LAB === -->
+  <section id="view-musik" class="hidden flex-1 flex-col w-full bg-white">
+    <div class="flex items-center justify-between gap-2 px-3 sm:px-4 py-2 bg-amber-100 border-b border-amber-300">
+      <span class="text-xs sm:text-sm font-semibold text-gray-900 truncate">Studio: <b>Studio Music Lab</b></span>
+      <button type="button" onclick="kembaliKeBerandaPortal()" class="shrink-0 px-3 py-1.5 rounded-lg bg-amber-600 active:bg-amber-700 text-white text-xs sm:text-sm font-semibold">
+        🏠 Halaman Utama
+      </button>
+    </div>
+    <iframe
+      id="frame-musik"
+      data-src="musik.html"
+      title="Studio Music Lab"
+      class="w-full border-0 bg-white block"
+      style="height: 85vh; -webkit-overflow-scrolling: touch;"
+      scrolling="yes"
+    ></iframe>
+  </section>
+
   <script src="script.js"></script>
 </body>
 </html>
