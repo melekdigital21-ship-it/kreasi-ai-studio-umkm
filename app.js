@@ -96,7 +96,7 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 const fs = require("fs");
-const path = require("path");
+
 
 app.use(express.json({ limit: "6mb" }));
 
