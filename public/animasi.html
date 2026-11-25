@@ -3,199 +3,262 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Studio Animasi UMKM — Portal Digital UMKM Kecamatan Limo</title>
+  <title>Studio Animasi UMKM</title>
   <link rel="stylesheet" href="studio-common.css" />
-  <script src="studio-nav.js" defer></script>
+  <style>
+    :root {
+      --bg-lembut: #fffbeb;
+      --kartu: #ffffff;
+      --teks: #0f172a;
+      --muted: #475569;
+      --aksen: #d97706;
+      --aksen-gelap: #92400e;
+      --garis: #fde68a;
+      --hijau-bg: #dcfce7;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 12px 14px 32px;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg-lembut);
+      color: var(--teks);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .box {
+      max-width: 640px;
+      margin: 0 auto;
+      background: var(--kartu);
+      border: 2px solid var(--garis);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 3px 10px rgba(217, 119, 6, 0.08);
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .top-judul {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--aksen-gelap);
+    }
+
+    .status-api {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: var(--hijau-bg);
+      color: #166534;
+    }
+
+    .btn {
+      min-height: 44px;
+      padding: 9px 15px;
+      border-radius: 12px;
+      border: none;
+      background: var(--aksen);
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: var(--aksen-gelap);
+    }
+
+    .btn-balik {
+      background: #fef3c7;
+      color: var(--aksen-gelap);
+      border: 1.5px solid var(--aksen);
+    }
+
+    .btn-kedua {
+      background: #f1f5f9;
+      color: var(--teks);
+      border: 1px solid #cbd5e1;
+    }
+
+    .preset-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .preset-btn {
+      min-height: 36px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--garis);
+      background: #fffbeb;
+      color: var(--aksen-gelap);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin: 10px 0 4px;
+      font-size: 14px;
+    }
+
+    input[type="text"],
+    select,
+    textarea {
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1.5px solid #94a3b8;
+      font-size: 16px;
+      font-family: inherit;
+      background-color: #ffffff !important;
+      color: #0f172a !important;
+      -webkit-text-fill-color: #0f172a !important;
+      opacity: 1 !important;
+    }
+
+    textarea {
+      min-height: 92px;
+      resize: vertical;
+    }
+
+    .aksi-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .hasil {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 12px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      white-space: pre-wrap;
+      font-size: 15px;
+    }
+  </style>
 </head>
 <body>
-  <div class="studio-shell">
-    <aside class="sidebar" aria-label="Navigasi Studio Animasi UMKM">
-      <div class="brand-box">
-        <div class="brand-title">STUDIO ANIMASI UMKM</div>
-        <div class="brand-sub">AI Motion &amp; Animation Studio</div>
+  <div class="box">
+    <div class="top">
+      <div class="top-judul">🎬 Studio Animasi UMKM</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+        <span id="statusApiAnimasi" class="status-api">● Cek API...</span>
+        <button type="button" id="btnKembali" class="btn btn-balik">← Kembali ke Portal</button>
       </div>
+    </div>
 
-      <div>
-        <div class="nav-group-label">Menu Utama</div>
-        <div class="nav-list">
-          <button type="button" class="nav-btn" data-panel="panel-dashboard">Dashboard</button>
-          <button type="button" class="nav-btn" data-panel="panel-storyboard">Papan Cerita</button>
-          <button type="button" class="nav-btn" data-panel="panel-karakter">Karakter &amp; Aset</button>
-          <button type="button" class="nav-btn is-active" data-panel="panel-composer">AI Animation Composer</button>
-        </div>
-      </div>
+    <div class="preset-row">
+      <button type="button" class="preset-btn" data-gaya="2D kartun hangat warna kuning-oranye" data-alur="Tokoh warga Limo mengenalkan produk rumahan yang bersih dan praktis dengan cerita singkat 15 detik.">Contoh 1: Produk Rumah Tangga</button>
+      <button type="button" class="preset-btn" data-gaya="Animasi ceria ekspresif ramah keluarga" data-alur="Karakter menyapa pembeli saat jam makan siang, menonjolkan rasa segar dan porsi pas.">Contoh 2: Kuliner Harian</button>
+    </div>
 
-      <div>
-        <div class="nav-group-label">Pengelolaan</div>
-        <div class="nav-list">
-          <button type="button" class="nav-btn" data-panel="panel-inspirasi">Inspirasi Gerak</button>
-          <button type="button" class="nav-btn" data-panel="panel-proyek">Proyek Saya</button>
-        </div>
-      </div>
-    </aside>
+    <label for="karakterAnimasi">Karakter &amp; Gaya Visual Animasi</label>
+    <input id="karakterAnimasi" type="text" value="Karakter ramah 2D ceria warna hangat" />
 
-    <main class="main-area">
-      <div class="topbar">
-        <div class="topbar-left">
-          <button type="button" class="btn-back" data-back="index.html">← Kembali</button>
-          <span class="studio-badge">Studio: Studio Animasi</span>
-        </div>
-        <span class="brand-sub">Portal Digital UMKM Kecamatan Limo</span>
-      </div>
+    <label for="alurAnimasi">Cerita / Adegan Produk UMKM</label>
+    <textarea id="alurAnimasi" placeholder="Contoh: Karakter mengenalkan produk UMKM ke tetangga dengan cara singkat dan jelas."></textarea>
 
-      <div class="content-wrap">
-        <!-- Panel Utama: AI Animation Composer -->
-        <section id="panel-composer" class="studio-panel">
-          <div class="kicker">Studio Kreatif Digital</div>
-          <h1>AI Animation Composer</h1>
-          <p class="subtitle">Rancang gerakan karakter, objek produk, dan latar animasi sebelum proses render atau generasi AI.</p>
+    <div class="aksi-row">
+      <button type="button" id="btnBuatAnimasi" class="btn">Buat Storyboard &amp; Prompt Animasi</button>
+      <button type="button" id="btnSalinAnimasi" class="btn btn-kedua">Salin Hasil</button>
+    </div>
 
-          <div class="brief-card">
-            <div class="brief-header">Animation Composer Brief</div>
-
-            <div class="field-group">
-              <label for="animDeskripsi">Deskripsi adegan &amp; gerakan animasi</label>
-              <textarea
-                id="animDeskripsi"
-                placeholder="Contoh: karakter maskot ceria melambaikan tangan di samping botol sabun dengan gelembung lembut berkilau dan teks promo muncul halus"
-              ></textarea>
-            </div>
-
-            <div class="params-grid">
-              <div class="field-group">
-                <label for="animGaya">Gaya animasi &amp; transisi</label>
-                <select id="animGaya">
-                  <option value="2d-flat-halus">2D Flat Cerah &amp; Transisi Halus</option>
-                  <option value="3d-lucu-ringan">3D Karakter Ringan &amp; Ramah</option>
-                  <option value="motion-teks-promo">Motion Graphic &amp; Teks Promo</option>
-                </select>
-              </div>
-
-              <div class="field-group">
-                <label for="animFokus">Fokus gerakan &amp; nuansa</label>
-                <select id="animFokus">
-                  <option value="karakter-produk">Fokus Gerak Karakter &amp; Produk</option>
-                  <option value="latar-suasana">Fokus Latar &amp; Efek Suasana</option>
-                  <option value="alur-edukasi">Fokus Alur Edukasi Singkat</option>
-                </select>
-              </div>
-            </div>
-
-            <div id="hasilBriefAnimasi" class="brief-card" style="display: none; background: #0f172a;"></div>
-
-            <div class="action-row">
-              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
-              <button type="button" class="btn btn-primary" id="btnBuatBriefAnimasi">Buat Brief Animasi</button>
-              <button type="button" class="btn btn-secondary" id="btnResetAnimasi">Bersihkan</button>
-            </div>
-          </div>
-        </section>
-
-        <!-- Panel Dashboard -->
-        <section id="panel-dashboard" class="studio-panel" hidden>
-          <div class="kicker">Ringkasan Studio</div>
-          <h1>Dashboard Studio Animasi</h1>
-          <p class="subtitle">Buat animasi edukasi dan promosi produk yang menarik perhatian di layar ponsel.</p>
-
-          <div class="brief-card">
-            <div class="brief-header">Mulai Rancang Animasi</div>
-            <p class="subtitle" style="margin: 0;">Gunakan animasi singkat untuk menjelaskan cara pakai produk atau keunggulan layanan UMKM secara visual.</p>
-            <div class="action-row">
-              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
-              <button type="button" class="btn btn-primary" onclick="aktifkanPanelStudio('panel-composer')">Buka AI Animation Composer</button>
-            </div>
-          </div>
-        </section>
-
-        <!-- Panel Papan Cerita -->
-        <section id="panel-storyboard" class="studio-panel" hidden>
-          <div class="kicker">Urutan Adegan</div>
-          <h1>Papan Cerita (Storyboard)</h1>
-          <p class="subtitle">Atur pembuka, aksi utama, dan penutup sebelum membuat animasi penuh.</p>
-
-          <div class="brief-card">
-            <div class="brief-header">3 Tahap Adegan Animasi</div>
-            <p class="subtitle" style="margin: 0;">Adegan 1: Perkenalan &bull; Adegan 2: Aksi / Manfaat &bull; Adegan 3: Ajakan Bertindak.</p>
-            <div class="action-row">
-              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
-              <button type="button" class="btn btn-primary" onclick="aktifkanPanelStudio('panel-composer')">Susun di Composer</button>
-            </div>
-          </div>
-        </section>
-
-        <!-- Panel Karakter & Aset -->
-        <section id="panel-karakter" class="studio-panel" hidden>
-          <div class="kicker">Konsistensi Visual</div>
-          <h1>Karakter &amp; Aset</h1>
-          <p class="subtitle">Jaga konsistensi tokoh, warna brand, dan bentuk kemasan produk di setiap adegan.</p>
-
-          <div class="brief-card">
-            <div class="brief-header">Panduan Aset</div>
-            <p class="subtitle" style="margin: 0;">Gunakan warna utama yang konsisten agar penonton langsung mengenali brand Anda.</p>
-            <div class="action-row">
-              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
-              <button type="button" class="btn btn-primary" onclick="aktifkanPanelStudio('panel-composer')">Lanjut ke Composer</button>
-            </div>
-          </div>
-        </section>
-
-        <!-- Panel Inspirasi Gerak -->
-        <section id="panel-inspirasi" class="studio-panel" hidden>
-          <div class="kicker">Referensi Gerak</div>
-          <h1>Inspirasi Gerak</h1>
-          <p class="subtitle">Contoh gerakan sederhana yang efektif untuk konten promosi UMKM.</p>
-
-          <div class="brief-card">
-            <div class="brief-header">Contoh Gerakan Efektif</div>
-            <p class="subtitle" style="margin: 0;">Produk muncul dengan *zoom* halus, ikon centang manfaat berurutan, dan badge promo berkedip pelan.</p>
-            <div class="action-row">
-              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
-              <button type="button" class="btn btn-primary" onclick="aktifkanPanelStudio('panel-composer')">Terapkan di Composer</button>
-            </div>
-          </div>
-        </section>
-
-        <!-- Panel Proyek Saya -->
-        <section id="panel-proyek" class="studio-panel" hidden>
-          <div class="kicker">Arsip Lokal</div>
-          <h1>Proyek Saya</h1>
-          <p class="subtitle">Pantau draf brief animasi yang telah Anda susun.</p>
-
-          <div class="brief-card">
-            <div class="brief-header">Daftar Proyek Animasi</div>
-            <p class="subtitle" style="margin: 0;">Belum ada proyek tersimpan di sesi ini. Mulai dari tab AI Animation Composer.</p>
-            <div class="action-row">
-              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
-              <button type="button" class="btn btn-primary" onclick="aktifkanPanelStudio('panel-composer')">Buat Animasi Baru</button>
-            </div>
-          </div>
-        </section>
-      </div>
-    </main>
+    <div id="hasilAnimasi" class="hasil">Isi cerita animasi lalu klik "Buat Storyboard &amp; Prompt Animasi".</div>
   </div>
 
+  <script src="studio-nav.js"></script>
   <script>
-    document.getElementById('btnBuatBriefAnimasi')?.addEventListener('click', () => {
-      const deskripsi = document.getElementById('animDeskripsi').value.trim();
-      const gaya = document.getElementById('animGaya').selectedOptions[0].text;
-      const fokus = document.getElementById('animFokus').selectedOptions[0].text;
-      const hasilBox = document.getElementById('hasilBriefAnimasi');
+    (function () {
+      const STORAGE_KEY = "umkm_api_key_v1";
+      const statusEl = document.getElementById("statusApiAnimasi");
+      const hasilEl = document.getElementById("hasilAnimasi");
 
-      hasilBox.style.display = 'flex';
-      hasilBox.innerHTML = `
-        <div class="brief-header">Ringkasan Brief Animasi Siap Pakai</div>
-        <div><strong>Adegan &amp; Gerakan:</strong> ${deskripsi || 'Animasi promosi produk UMKM dengan gerakan halus dan jelas.'}</div>
-        <div><strong>Gaya Animasi:</strong> ${gaya}</div>
-        <div><strong>Fokus Gerak:</strong> ${fokus}</div>
-      `;
-    });
+      document.getElementById("btnKembali")?.addEventListener("click", () => {
+        if (window.parent && window.parent !== window) {
+          window.parent.postMessage({ action: "kembali-portal" }, "*");
+        } else {
+          window.location.href = "index.html";
+        }
+      });
 
-    document.getElementById('btnResetAnimasi')?.addEventListener('click', () => {
-      document.getElementById('animDeskripsi').value = '';
-      const hasilBox = document.getElementById('hasilBriefAnimasi');
-      hasilBox.style.display = 'none';
-      hasilBox.innerHTML = '';
-    });
+      document.querySelectorAll(".preset-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.getElementById("karakterAnimasi").value = btn.dataset.gaya || "";
+          document.getElementById("alurAnimasi").value = btn.dataset.alur || "";
+        });
+      });
+
+      async function cekApi() {
+        const lokalKey = (localStorage.getItem(STORAGE_KEY) || "").trim();
+        try {
+          const res = await fetch("/api/status");
+          const data = await res.json();
+          if (data && (data.serverApiKeyActive || lokalKey)) {
+            statusEl.textContent = "● ✓ API Aktif";
+            return;
+          }
+        } catch (_) {}
+        statusEl.textContent = lokalKey ? "● ✓ API Lokal" : "● Mode Cepat Lokal";
+      }
+
+      document.getElementById("btnBuatAnimasi")?.addEventListener("click", async () => {
+        const gaya = (document.getElementById("karakterAnimasi")?.value || "2D ceria").trim();
+        const alur = (document.getElementById("alurAnimasi")?.value || "").trim();
+        if (!alur) {
+          hasilEl.textContent = "Tuliskan dulu cerita atau adegan animasinya.";
+          return;
+        }
+        hasilEl.textContent = "Menyusun konsep storyboard animasi...";
+        const prompt = `Buatkan storyboard animasi pendek 3 adegan untuk UMKM di Indonesia dengan gaya: ${gaya}. Cerita: ${alur}. Sertakan visual, narasi singkat, dan prompt gambar per adegan.`;
+        const apiKey = (localStorage.getItem(STORAGE_KEY) || "").trim();
+
+        try {
+          const res = await fetch("/api/generate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ prompt, apiKey }),
+          });
+          const data = await res.json();
+          hasilEl.textContent = res.ok && data.text
+            ? data.text
+            : `Storyboard Animasi (${gaya}):\n• Scene 1 (Hook): Perkenalkan karakter & situasi sehari-hari.\n• Scene 2 (Aksi): ${alur}\n• Scene 3 (Penutup): Tampilkan produk & ajakan order singkat.\n• Prompt Gambar: ${gaya}, ${alur}, pencahayaan terang, komposisi bersih.`;
+        } catch (_) {
+          hasilEl.textContent = `Storyboard Animasi (${gaya}):\n• Scene 1: Pembuka menarik.\n• Scene 2: ${alur}\n• Scene 3: Ajakan menghubungi penjual.`;
+        }
+      });
+
+      document.getElementById("btnSalinAnimasi")?.addEventListener("click", async () => {
+        const teks = hasilEl?.textContent || "";
+        if (!teks.trim()) return;
+        try {
+          await navigator.clipboard.writeText(teks);
+          alert("Storyboard animasi berhasil disalin.");
+        } catch (_) {}
+      });
+
+      cekApi();
+    })();
   </script>
 </body>
 </html>

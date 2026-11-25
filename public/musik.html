@@ -3,199 +3,262 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kreasi Musik Lab UMKM — Portal Digital UMKM Kecamatan Limo</title>
+  <title>Studio Music Lab UMKM</title>
   <link rel="stylesheet" href="studio-common.css" />
-  <script src="studio-nav.js" defer></script>
+  <style>
+    :root {
+      --bg-lembut: #fffbeb;
+      --kartu: #ffffff;
+      --teks: #0f172a;
+      --muted: #475569;
+      --aksen: #d97706;
+      --aksen-gelap: #92400e;
+      --garis: #fde68a;
+      --hijau-bg: #dcfce7;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 12px 14px 32px;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg-lembut);
+      color: var(--teks);
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .box {
+      max-width: 640px;
+      margin: 0 auto;
+      background: var(--kartu);
+      border: 2px solid var(--garis);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 3px 10px rgba(217, 119, 6, 0.08);
+    }
+
+    .top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .top-judul {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--aksen-gelap);
+    }
+
+    .status-api {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: var(--hijau-bg);
+      color: #166534;
+    }
+
+    .btn {
+      min-height: 44px;
+      padding: 9px 15px;
+      border-radius: 12px;
+      border: none;
+      background: var(--aksen);
+      color: #ffffff;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: var(--aksen-gelap);
+    }
+
+    .btn-balik {
+      background: #fef3c7;
+      color: var(--aksen-gelap);
+      border: 1.5px solid var(--aksen);
+    }
+
+    .btn-kedua {
+      background: #f1f5f9;
+      color: var(--teks);
+      border: 1px solid #cbd5e1;
+    }
+
+    .preset-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .preset-btn {
+      min-height: 36px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--garis);
+      background: #fffbeb;
+      color: var(--aksen-gelap);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin: 10px 0 4px;
+      font-size: 14px;
+    }
+
+    input[type="text"],
+    select,
+    textarea {
+      width: 100%;
+      min-height: 44px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1.5px solid #94a3b8;
+      font-size: 16px;
+      font-family: inherit;
+      background-color: #ffffff !important;
+      color: #0f172a !important;
+      -webkit-text-fill-color: #0f172a !important;
+      opacity: 1 !important;
+    }
+
+    textarea {
+      min-height: 92px;
+      resize: vertical;
+    }
+
+    .aksi-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .hasil {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 12px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      white-space: pre-wrap;
+      font-size: 15px;
+    }
+  </style>
 </head>
 <body>
-  <div class="studio-shell">
-    <aside class="sidebar" aria-label="Navigasi Kreasi Musik Lab UMKM">
-      <div class="brand-box">
-        <div class="brand-title">KREASI MUSIK LAB UMKM</div>
-        <div class="brand-sub">AI Creative Studio</div>
+  <div class="box">
+    <div class="top">
+      <div class="top-judul">🎵 Studio Music Lab UMKM</div>
+      <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+        <span id="statusApiMusik" class="status-api">● Cek API...</span>
+        <button type="button" id="btnKembali" class="btn btn-balik">← Kembali ke Portal</button>
       </div>
+    </div>
 
-      <div>
-        <div class="nav-group-label">Menu Utama</div>
-        <div class="nav-list">
-          <button type="button" class="nav-btn" data-panel="panel-dashboard">Dashboard</button>
-          <button type="button" class="nav-btn" data-panel="panel-jingle">Jingle UMKM</button>
-          <button type="button" class="nav-btn" data-panel="panel-lirik">Lirik Lagu AI</button>
-          <button type="button" class="nav-btn is-active" data-panel="panel-composer">AI Music Composer</button>
-        </div>
-      </div>
+    <div class="preset-row">
+      <button type="button" class="preset-btn" data-genre="Ceria upbeat akustik / jingle iklan mudah diingat" data-tema="Jingle produk UMKM yang segar, bersih, dan ramah untuk keluarga.">Contoh 1: Jingle Iklan</button>
+      <button type="button" class="preset-btn" data-genre="Semangat pop-rock / reggae-rock penuh energi" data-tema="Lagu penyemangat wirausaha UMKM agar terus berkarya dan tumbuh.">Contoh 2: Lagu Semangat</button>
+    </div>
 
-      <div>
-        <div class="nav-group-label">Pengelolaan</div>
-        <div class="nav-list">
-          <button type="button" class="nav-btn" data-panel="panel-inspirasi">Inspirasi Musik</button>
-          <button type="button" class="nav-btn" data-panel="panel-proyek">Proyek Saya</button>
-        </div>
-      </div>
-    </aside>
+    <label for="genreMusik">Genre / Nuansa Musik</label>
+    <input id="genreMusik" type="text" value="Ceria upbeat akustik / jingle iklan mudah diingat" />
 
-    <main class="main-area">
-      <div class="topbar">
-        <div class="topbar-left">
-          <button type="button" class="btn-back" data-back="index.html">← Kembali</button>
-          <span class="studio-badge">Studio: Studio Music Lab</span>
-        </div>
-        <span class="brand-sub">Portal Digital UMKM Kecamatan Limo</span>
-      </div>
+    <label for="temaLagu">Nama Usaha / Pesan Lagu &amp; Jingle</label>
+    <textarea id="temaLagu" placeholder="Contoh: Jingle usaha rumahan yang ramah, segar, dan mudah diingat pembeli."></textarea>
 
-      <div class="content-wrap">
-        <!-- Panel Utama: AI Music Composer -->
-        <section id="panel-composer" class="studio-panel">
-          <div class="kicker">Studio Kreatif Digital</div>
-          <h1>AI Music Composer</h1>
-          <p class="subtitle">Buat arahan produksi musik sebelum integrasi mesin pembuat audio.</p>
+    <div class="aksi-row">
+      <button type="button" id="btnBuatLirik" class="btn">Buat Lirik &amp; Prompt Musik</button>
+      <button type="button" id="btnSalinMusik" class="btn btn-kedua">Salin Hasil</button>
+    </div>
 
-          <div class="brief-card">
-            <div class="brief-header">Music Composer Brief</div>
-
-            <div class="field-group">
-              <label for="musikDeskripsi">Deskripsi musik</label>
-              <textarea
-                id="musikDeskripsi"
-                placeholder="Contoh: musik pop ceria untuk iklan kopi lokal, gitar akustik, perkusi ringan, tempo sedang, nuansa hangat dan bersahabat"
-              ></textarea>
-            </div>
-
-            <div class="params-grid">
-              <div class="field-group">
-                <label for="musikTempo">Tempo</label>
-                <select id="musikTempo">
-                  <option value="lambat-hangat">Lambat &amp; Hangat (Balada / Santai)</option>
-                  <option value="sedang-ceria">Sedang &amp; Ceria (Pop / Akustik)</option>
-                  <option value="cepat-semangat">Cepat &amp; Bersemangat (Upbeat / Koplo / Pop-Rock)</option>
-                </select>
-              </div>
-
-              <div class="field-group">
-                <label for="musikFokus">Fokus audio</label>
-                <select id="musikFokus">
-                  <option value="jingle-produk">Jingle &amp; Hook Mudah Diingat</option>
-                  <option value="backsound-iklan">Backsound Iklan / Video UMKM</option>
-                  <option value="vokal-lirik">Vokal Utama &amp; Melodi Lagu</option>
-                </select>
-              </div>
-            </div>
-
-            <div id="hasilBriefMusik" class="brief-card" style="display: none; background: #0f172a;"></div>
-
-            <div class="action-row">
-              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
-              <button type="button" class="btn btn-primary" id="btnBuatBriefMusik">Buat Brief Musik</button>
-              <button type="button" class="btn btn-secondary" id="btnResetMusik">Bersihkan</button>
-            </div>
-          </div>
-        </section>
-
-        <!-- Panel Dashboard -->
-        <section id="panel-dashboard" class="studio-panel" hidden>
-          <div class="kicker">Ringkasan Studio</div>
-          <h1>Dashboard Kreasi Musik Lab</h1>
-          <p class="subtitle">Siapkan brief jingle, lirik, atau musik latar untuk promosi usaha dan kegiatan komunitas.</p>
-
-          <div class="brief-card">
-            <div class="brief-header">Mulai Produksi Audio</div>
-            <p class="subtitle" style="margin: 0;">Gunakan melodi yang ringan dan pesan singkat agar mudah diingat pendengar.</p>
-            <div class="action-row">
-              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
-              <button type="button" class="btn btn-primary" onclick="aktifkanPanelStudio('panel-composer')">Buka AI Music Composer</button>
-            </div>
-          </div>
-        </section>
-
-        <!-- Panel Jingle UMKM -->
-        <section id="panel-jingle" class="studio-panel" hidden>
-          <div class="kicker">Identitas Suara</div>
-          <h1>Jingle UMKM</h1>
-          <p class="subtitle">Buat jingle singkat yang menonjolkan nama brand dan manfaat utama produk Anda.</p>
-
-          <div class="brief-card">
-            <div class="brief-header">Struktur Jingle Efektif</div>
-            <p class="subtitle" style="margin: 0;">Sebutkan nama usaha di awal atau akhir bait, gunakan irama yang mudah ikut dinyanyikan, dan jaga durasi tetap ringkas.</p>
-            <div class="action-row">
-              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
-              <button type="button" class="btn btn-primary" onclick="aktifkanPanelStudio('panel-composer')">Susun Brief Jingle</button>
-            </div>
-          </div>
-        </section>
-
-        <!-- Panel Lirik Lagu AI -->
-        <section id="panel-lirik" class="studio-panel" hidden>
-          <div class="kicker">Penulisan Bait</div>
-          <h1>Lirik Lagu AI</h1>
-          <p class="subtitle">Rancang bagian Hook, Verse, Chorus, dan Outro sebelum dimasukkan ke generator musik.</p>
-
-          <div class="brief-card">
-            <div class="brief-header">Panduan Lirik Singkat</div>
-            <p class="subtitle" style="margin: 0;">Gunakan kalimat sehari-hari yang lugas, berima enak diucapkan, dan sesuai suasana lagu.</p>
-            <div class="action-row">
-              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
-              <button type="button" class="btn btn-primary" onclick="aktifkanPanelStudio('panel-composer')">Buat Brief Lirik &amp; Musik</button>
-            </div>
-          </div>
-        </section>
-
-        <!-- Panel Inspirasi Musik -->
-        <section id="panel-inspirasi" class="studio-panel" hidden>
-          <div class="kicker">Referensi Genre</div>
-          <h1>Inspirasi Musik</h1>
-          <p class="subtitle">Pilih nuansa genre sesuai karakter produk dan target audiens Anda.</p>
-
-          <div class="brief-card">
-            <div class="brief-header">Nuansa Populer</div>
-            <p class="subtitle" style="margin: 0;">Pop Ceria &amp; Akustik &bull; Reggae-Rock Santai &bull; Dangdut Koplo Semangat &bull; Pop Klasik Nostalgia.</p>
-            <div class="action-row">
-              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
-              <button type="button" class="btn btn-primary" onclick="aktifkanPanelStudio('panel-composer')">Terapkan di Composer</button>
-            </div>
-          </div>
-        </section>
-
-        <!-- Panel Proyek Saya -->
-        <section id="panel-proyek" class="studio-panel" hidden>
-          <div class="kicker">Arsip Lokal</div>
-          <h1>Proyek Saya</h1>
-          <p class="subtitle">Pantau draf brief musik yang sedang Anda siapkan.</p>
-
-          <div class="brief-card">
-            <div class="brief-header">Daftar Proyek Musik</div>
-            <p class="subtitle" style="margin: 0;">Belum ada proyek tersimpan di sesi ini. Mulai dari tab AI Music Composer.</p>
-            <div class="action-row">
-              <button type="button" class="btn btn-back" data-back="index.html">← Kembali</button>
-              <button type="button" class="btn btn-primary" onclick="aktifkanPanelStudio('panel-composer')">Buat Musik Baru</button>
-            </div>
-          </div>
-        </section>
-      </div>
-    </main>
+    <div id="hasilMusik" class="hasil">Isi tema lagu/jingle lalu klik "Buat Lirik &amp; Prompt Musik".</div>
   </div>
 
+  <script src="studio-nav.js"></script>
   <script>
-    document.getElementById('btnBuatBriefMusik')?.addEventListener('click', () => {
-      const deskripsi = document.getElementById('musikDeskripsi').value.trim();
-      const tempo = document.getElementById('musikTempo').selectedOptions[0].text;
-      const fokus = document.getElementById('musikFokus').selectedOptions[0].text;
-      const hasilBox = document.getElementById('hasilBriefMusik');
+    (function () {
+      const STORAGE_KEY = "umkm_api_key_v1";
+      const statusEl = document.getElementById("statusApiMusik");
+      const hasilEl = document.getElementById("hasilMusik");
 
-      hasilBox.style.display = 'flex';
-      hasilBox.innerHTML = `
-        <div class="brief-header">Ringkasan Brief Musik Siap Pakai</div>
-        <div><strong>Deskripsi Musik:</strong> ${deskripsi || 'Musik promosi UMKM lokal dengan melodi ramah dan mudah diingat.'}</div>
-        <div><strong>Tempo:</strong> ${tempo}</div>
-        <div><strong>Fokus Audio:</strong> ${fokus}</div>
-      `;
-    });
+      document.getElementById("btnKembali")?.addEventListener("click", () => {
+        if (window.parent && window.parent !== window) {
+          window.parent.postMessage({ action: "kembali-portal" }, "*");
+        } else {
+          window.location.href = "index.html";
+        }
+      });
 
-    document.getElementById('btnResetMusik')?.addEventListener('click', () => {
-      document.getElementById('musikDeskripsi').value = '';
-      const hasilBox = document.getElementById('hasilBriefMusik');
-      hasilBox.style.display = 'none';
-      hasilBox.innerHTML = '';
-    });
+      document.querySelectorAll(".preset-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.getElementById("genreMusik").value = btn.dataset.genre || "";
+          document.getElementById("temaLagu").value = btn.dataset.tema || "";
+        });
+      });
+
+      async function cekApi() {
+        const lokalKey = (localStorage.getItem(STORAGE_KEY) || "").trim();
+        try {
+          const res = await fetch("/api/status");
+          const data = await res.json();
+          if (data && (data.serverApiKeyActive || lokalKey)) {
+            statusEl.textContent = "● ✓ API Aktif";
+            return;
+          }
+        } catch (_) {}
+        statusEl.textContent = lokalKey ? "● ✓ API Lokal" : "● Mode Cepat Lokal";
+      }
+
+      document.getElementById("btnBuatLirik")?.addEventListener("click", async () => {
+        const genre = (document.getElementById("genreMusik")?.value || "Upbeat ceria").trim();
+        const tema = (document.getElementById("temaLagu")?.value || "").trim();
+        if (!tema) {
+          hasilEl.textContent = "Tuliskan dulu nama usaha atau pesan lagu/jinglenya.";
+          return;
+        }
+        hasilEl.textContent = "Menyusun lirik & prompt musik...";
+        const prompt = `Buatkan lirik jingle/lagu pendek berbahasa Indonesia untuk UMKM dengan nuansa: ${genre}. Tema: ${tema}. Sertakan bait singkat, chorus/hook yang mudah diingat, dan prompt musik untuk generator AI.`;
+        const apiKey = (localStorage.getItem(STORAGE_KEY) || "").trim();
+
+        try {
+          const res = await fetch("/api/generate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ prompt, apiKey }),
+          });
+          const data = await res.json();
+          hasilEl.textContent = res.ok && data.text
+            ? data.text
+            : `Jingle (${genre}):\n• Bait: ${tema}\n• Hook: Segar, dekat di hati, pilihan tepat setiap hari!\n• Prompt AI Musik: ${genre}, ${tema}, vokal ramah jelas.`;
+        } catch (_) {
+          hasilEl.textContent = `Jingle (${genre}):\n• Tema: ${tema}\n• Hook: Mudah diingat dan penuh semangat.`;
+        }
+      });
+
+      document.getElementById("btnSalinMusik")?.addEventListener("click", async () => {
+        const teks = hasilEl?.textContent || "";
+        if (!teks.trim()) return;
+        try {
+          await navigator.clipboard.writeText(teks);
+          alert("Lirik & prompt musik berhasil disalin.");
+        } catch (_) {}
+      });
+
+      cekApi();
+    })();
   </script>
 </body>
 </html>
