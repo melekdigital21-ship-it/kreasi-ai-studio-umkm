@@ -54,6 +54,35 @@
       display: none;
     }
 
+    .logo-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+
+    .logo-pair {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: #fffbeb;
+      border: 1px solid var(--garis-tipis);
+      border-radius: 12px;
+      padding: 6px 10px;
+    }
+
+    .logo-pair img {
+      height: 40px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+      border-radius: 6px;
+      background: #ffffff;
+      padding: 2px;
+    }
+
     .portal-badge {
       display: inline-block;
       background: #fef3c7;
@@ -62,7 +91,6 @@
       font-size: 13px;
       padding: 4px 10px;
       border-radius: 999px;
-      margin-bottom: 8px;
     }
 
     .portal-header h1 {
@@ -196,7 +224,13 @@
 <body>
   <div class="portal-shell">
     <header class="portal-header">
-      <div class="portal-badge">Kecamatan Limo • WUB 2023 • Yayasan Ukhwah Ngaji Roso</div>
+      <div class="logo-row">
+        <div class="logo-pair" aria-label="Logo WUB Kecamatan Limo dan Jawara Depok">
+          <img src="logo-wub.jpg" alt="Logo WUB Wirausaha Baru Kecamatan Limo" />
+          <img src="logo-jawara.jpg" alt="Logo Jawara Depok Jaringan Wirausaha" />
+        </div>
+        <div class="portal-badge">Kecamatan Limo • WUB 2023</div>
+      </div>
       <h1>Portal Digital UMKM Kecamatan Limo</h1>
       <p>Satu langkah kecil yang dikerjakan tuntas hari ini jauh lebih bernilai daripada rencana sempurna yang tertunda.</p>
     </header>
