@@ -476,7 +476,42 @@
     (function () {
       const STORAGE_PRODUK = "marketplace_limo_produk_v1";
       const STORAGE_KERANJANG = "marketplace_limo_keranjang_v1";
+async function muatProdukDariServer() {
+  try {
+    const res = await fetch("/api/marketplace-produk", { cache: "no-store" });
+    if (!res.ok) throw new Error("Gagal mengambil data produk");
+    const json = await res.json();
+    const list = Array.isArray(json) ? json : (json.produk || json.data || []);
+    if (list.length) {
+      daftarProduk = list;
+      try {
+        localStorage.setItem(STORAGE_PRODUK, JSON.stringify(daftarProduk));
+      } catch (_) {}
+    }
+  } catch (err) {
+    console.warn("Pakai data lokal sementara:", err);
+  }
+  renderProduk();
+}
 
+async function kirimProdukBaruKeServer(payloadProduk) {
+  const res = await fetch("/api/marketplace-produk", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payloadProduk)
+  });
+  const json = await res.json();
+  if (!res.ok || json.ok === false) {
+    throw new Error(json.error || "Gagal menyimpan produk ke server");
+  }
+  const produkBaru = json.produk || payloadProduk;
+  daftarProduk = [produkBaru, ...daftarProduk.filter((p) => String(p.id) !== String(produkBaru.id))];
+  try {
+    localStorage.setItem(STORAGE_PRODUK, JSON.stringify(daftarProduk));
+  } catch (_) {}
+  renderProduk();
+  return produkBaru;
+}
       const produkAwal = [
         {
           id: "limo-1",

@@ -203,6 +203,97 @@ app.post("/api/marketplace-produk", (req, res) => {
 
   res.status(201).json({ produk: produkBaru, semuaProduk: daftar });
 });
+import fs from "fs";
+import path from "path";
+
+const MARKETPLACE_FILE = path.resolve("data/marketplace-limo.json");
+
+const PRODUK_BAWAAN_LIMO = [
+  {
+    id: "limo-1",
+    kelurahan: "Limo",
+    kategori: "Kebersihan & Botani",
+    namaProduk: "Sabun Cuci Piring Lerak Segar",
+    namaToko: "UMKM Limo Bersih",
+    harga: 15000,
+    wa: "083811782111",
+    deskripsi: "Bersih kesat angkat minyak harian, ramah lingkungan untuk rumah tangga.",
+    foto: ""
+  },
+  {
+    id: "limo-2",
+    kelurahan: "Limo",
+    kategori: "Kebersihan & Botani",
+    namaProduk: "sabun lerak botol praktis 500 ml",
+    namaToko: "SAPIRCling Limo",
+    harga: 18000,
+    wa: "628120000002",
+    deskripsi: "Kemasan botol 500 ml praktis untuk cuci piring dan perlengkapan dapur.",
+    foto: ""
+  }
+];
+
+function bacaProdukMarketplace() {
+  try {
+    if (!fs.existsSync(MARKETPLACE_FILE)) {
+      fs.mkdirSync(path.dirname(MARKETPLACE_FILE), { recursive: true });
+      fs.writeFileSync(MARKETPLACE_FILE, JSON.stringify(PRODUK_BAWAAN_LIMO, null, 2), "utf8");
+      return [...PRODUK_BAWAAN_LIMO];
+    }
+    const raw = fs.readFileSync(MARKETPLACE_FILE, "utf8").trim();
+    if (!raw) return [...PRODUK_BAWAAN_LIMO];
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) && parsed.length ? parsed : [...PRODUK_BAWAAN_LIMO];
+  } catch (err) {
+    console.error("Gagal membaca data marketplace:", err);
+    return [...PRODUK_BAWAAN_LIMO];
+  }
+}
+
+function simpanProdukMarketplace(daftar) {
+  fs.mkdirSync(path.dirname(MARKETPLACE_FILE), { recursive: true });
+  fs.writeFileSync(MARKETPLACE_FILE, JSON.stringify(daftar, null, 2), "utf8");
+}
+
+app.get("/api/marketplace-produk", (req, res) => {
+  const produk = bacaProdukMarketplace();
+  res.json({ ok: true, produk, data: produk });
+});
+
+app.post("/api/marketplace-produk", (req, res) => {
+  const body = req.body || {};
+  const namaProduk = String(body.namaProduk || "").trim();
+  const namaToko = String(body.namaToko || "").trim();
+
+  if (!namaProduk || !namaToko) {
+    return res.status(400).json({
+      ok: false,
+      error: "Nama produk dan nama usaha/penjual wajib diisi."
+    });
+  }
+
+  const produkBaru = {
+    id: String(body.id || `limo-${Date.now()}`),
+    kelurahan: String(body.kelurahan || "Limo").trim(),
+    kategori: String(body.kategori || "Kuliner & Minuman").trim(),
+    namaProduk,
+    namaToko,
+    harga: Number(body.harga) || 0,
+    wa: String(body.wa || "").replace(/\D/g, ""),
+    deskripsi: String(body.deskripsi || "").trim(),
+    foto: String(body.foto || "").trim()
+  };
+
+  const daftar = bacaProdukMarketplace();
+  daftar.unshift(produkBaru);
+  simpanProdukMarketplace(daftar);
+
+  return res.status(201).json({
+    ok: true,
+    produk: produkBaru,
+    data: daftar
+  });
+});
 app.listen(PORT, () => {
   console.log(`Server berjalan di http://localhost:${PORT}`);
 });
