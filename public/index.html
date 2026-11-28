@@ -365,6 +365,9 @@
 <!-- Panel Baru: Game Tebak & Cocokkan Kartu Santai -->
 <section id="panel-hiburan-tebak" style="display:none;background:#fffbeb;border:2px solid #f59e0b;border-radius:18px;padding:20px;margin-top:18px;color:#1f2937;">
   <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px;">
+    <button type="button" id="toggle-suara-tebak" style="padding:8px 12px;border-radius:10px;border:1px solid #f59e0b;background:#fef3c7;color:#78350f;font-weight:700;cursor:pointer;">
+  🔊 Suara: ON
+</button>
     <div>
       <h3 style="margin:0;color:#92400e;">Tebak &amp; Cocokkan Kartu Santai UMKM Limo</h3>
       <small style="color:#4b5563;">Ketuk 2 kartu untuk mencocokkan pasangan • Santai tanpa batas waktu menegangkan</small>
@@ -991,11 +994,13 @@
       tampilkanBeranda();
     })();
   </script>
+  
   <script>
 (function () {
   const btnBuka = document.getElementById("buka-hiburan-tebak");
   const btnTutup = document.getElementById("tutup-hiburan-tebak");
   const btnAcak = document.getElementById("acak-ulang-tebak");
+  const btnSuara = document.getElementById("toggle-suara-tebak");
   const panel = document.getElementById("panel-hiburan-tebak");
   const papan = document.getElementById("papan-kartu-tebak");
   const elCocok = document.getElementById("cocok-tebak");
@@ -1026,6 +1031,56 @@
   let pasanganCocok = 0;
   let jumlahLangkah = 0;
   let kunciKlik = false;
+  let suaraAktif = true;
+
+  function mainkanNada(frekuensi, mulaiDetik, durasiDetik, tipeGelombang) {
+    if (!suaraAktif) return;
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return;
+    if (!window.__ctxHiburanLimo) {
+      window.__ctxHiburanLimo = new AudioCtx();
+    }
+    const ctx = window.__ctxHiburanLimo;
+    if (ctx.state === "suspended") {
+      ctx.resume();
+    }
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.type = tipeGelombang || "triangle";
+    osc.frequency.setValueAtTime(frekuensi, ctx.currentTime + mulaiDetik);
+
+    gain.gain.setValueAtTime(0.001, ctx.currentTime + mulaiDetik);
+    gain.gain.exponentialRampToValueAtTime(0.16, ctx.currentTime + mulaiDetik + 0.02);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + mulaiDetik + durasiDetik);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(ctx.currentTime + mulaiDetik);
+    osc.stop(ctx.currentTime + mulaiDetik + durasiDetik + 0.02);
+  }
+
+  function bunyiCocokLimo() {
+    mainkanNada(523.25, 0, 0.14, "triangle");
+    mainkanNada(659.25, 0.11, 0.14, "triangle");
+    mainkanNada(783.99, 0.22, 0.26, "triangle");
+  }
+
+  function bunyiMenangSemuaLimo() {
+    mainkanNada(523.25, 0, 0.14, "triangle");
+    mainkanNada(659.25, 0.12, 0.14, "triangle");
+    mainkanNada(783.99, 0.24, 0.14, "triangle");
+    mainkanNada(1046.5, 0.38, 0.38, "sine");
+  }
+
+  if (btnSuara) {
+    btnSuara.addEventListener("click", function () {
+      suaraAktif = !suaraAktif;
+      btnSuara.textContent = suaraAktif ? "🔊 Suara: ON" : "🔇 Suara: OFF";
+      if (suaraAktif) {
+        mainkanNada(659.25, 0, 0.12, "triangle");
+      }
+    });
+  }
 
   function acakArray(arr) {
     const salinan = arr.slice();
@@ -1041,8 +1096,8 @@
   function siapkanGameBaru() {
     const ganda = [];
     daftarPasangan.forEach((item, idx) => {
-      ganda.push({ unik: item.id + "-a-" + idx, id: item.id, ikon: item.ikon, label: item.label, terbuka: false, cocok: false });
-      ganda.push({ unik: item.id + "-b-" + idx, id: item.id, ikon: item.ikon, label: item.label, terbuka: false, cocok: false });
+      ganda.push({ unik: item.id + "-a-" + idx, id: item.id, ikon: item.ikon, label: item.label, terbuka: false, cocok: false, baruCocok: false });
+      ganda.push({ unik: item.id + "-b-" + idx, id: item.id, ikon: item.ikon, label: item.label, terbuka: false, cocok: false, baruCocok: false });
     });
     dekKartu = acakArray(ganda);
     kartuTerbuka = [];
@@ -1075,26 +1130,34 @@
       tombol.style.justifyContent = "center";
       tombol.style.gap = "6px";
       tombol.style.fontWeight = "700";
+      tombol.style.transition = "transform 220ms ease, background 220ms ease, box-shadow 220ms ease";
 
       if (kartu.cocok) {
         tombol.style.background = "#ecfdf5";
         tombol.style.border = "2px solid #10b981";
         tombol.style.color = "#065f46";
-        tombol.innerHTML = `<span style="font-size:28px;">${kartu.ikon}</span><span style="font-size:13px;">${kartu.label}</span>`;
+        tombol.style.transform = kartu.baruCocok ? "scale(1.05)" : "scale(1)";
+        tombol.style.boxShadow = kartu.baruCocok ? "0 0 0 4px rgba(16, 185, 129, 0.25)" : "none";
+        tombol.innerHTML = `<span style="font-size:28px;">${kartu.ikon}</span><span style="font-size:13px;">${kartu.label} ✨</span>`;
       } else if (kelihatan) {
         tombol.style.background = "#ffffff";
         tombol.style.border = "2px solid #d97706";
         tombol.style.color = "#92400e";
+        tombol.style.transform = "scale(1)";
+        tombol.style.boxShadow = "none";
         tombol.innerHTML = `<span style="font-size:28px;">${kartu.ikon}</span><span style="font-size:13px;">${kartu.label}</span>`;
       } else {
         tombol.style.background = "#fde68a";
         tombol.style.border = "2px solid #f59e0b";
         tombol.style.color = "#78350f";
+        tombol.style.transform = "scale(1)";
+        tombol.style.boxShadow = "none";
         tombol.innerHTML = `<span style="font-size:26px;">❓</span><span style="font-size:13px;">Ketuk Tebak</span>`;
       }
 
       tombol.addEventListener("click", function () {
         if (kunciKlik || kartu.terbuka || kartu.cocok) return;
+        mainkanNada(440, 0, 0.06, "sine");
         dekKartu[index].terbuka = true;
         kartuTerbuka.push(index);
         renderPapan();
@@ -1113,10 +1176,18 @@
             setTimeout(function () {
               dekKartu[idx1].cocok = true;
               dekKartu[idx2].cocok = true;
+              dekKartu[idx1].baruCocok = true;
+              dekKartu[idx2].baruCocok = true;
               pasanganCocok += 1;
               if (elCocok) elCocok.textContent = String(pasanganCocok);
               kartuTerbuka = [];
               kunciKlik = false;
+
+              if (pasanganCocok === daftarPasangan.length) {
+                bunyiMenangSemuaLimo();
+              } else {
+                bunyiCocokLimo();
+              }
 
               if (elPesan) {
                 if (pasanganCocok === daftarPasangan.length) {
@@ -1126,7 +1197,13 @@
                 }
               }
               renderPapan();
-            }, 320);
+
+              setTimeout(function () {
+                dekKartu[idx1].baruCocok = false;
+                dekKartu[idx2].baruCocok = false;
+                renderPapan();
+              }, 260);
+            }, 240);
           } else {
             setTimeout(function () {
               dekKartu[idx1].terbuka = false;
