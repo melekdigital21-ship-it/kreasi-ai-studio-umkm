@@ -16,6 +16,44 @@
 }
 
 body {
+  .logo-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.logo-pair {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.logo-pair img {
+  height: 34px;
+  width: auto;
+  max-width: 96px;
+  object-fit: contain;
+  display: block;
+}
+
+#fitur-video-flow textarea,
+#wadah-soal-game input[type="text"] {
+  box-sizing: border-box;
+  background: #ffffff;
+  color: #1f2937;
+}
+
+.opsi-game-btn {
+  transition: transform 0.12s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.opsi-game-btn:active {
+  transform: scale(0.99);
+}
   margin: 0;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   background: var(--bg-main);

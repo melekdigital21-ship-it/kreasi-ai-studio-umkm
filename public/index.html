@@ -287,6 +287,72 @@
             Buka Marketplace Limo
           </button>
         </article>
+ <!-- Kartu Studio Video terhubung ke proyek Google Flow -->
+<div class="feature-card" id="fitur-video-flow" style="background:#fffbeb;border:1px solid #f59e0b;border-radius:16px;padding:18px;margin-top:16px;">
+  <h3 style="margin-top:0;color:#92400e;">Studio Video (Google Flow)</h3>
+  <p style="margin-bottom:10px;color:#374151;">Buka langsung proyek video di Google Flow dan siapkan prompt adegan produk atau cerita UMKM dalam satu klik.</p>
+
+  <label for="prompt-video-flow" style="display:block;font-weight:600;margin-bottom:6px;color:#1f2937;">
+    Prompt Adegan Video
+  </label>
+  <textarea id="prompt-video-flow" rows="3" style="width:100%;padding:10px;border-radius:10px;border:1px solid #d1d5db;margin-bottom:10px;">2D flat vector animation in warm yellow and orange tones, friendly homemaker in a sunlit tidy kitchen holding a household product, smooth camera motion, clean lighting.</textarea>
+
+  <div style="display:flex;flex-wrap:wrap;gap:8px;">
+    <button type="button" id="salin-prompt-flow" style="padding:10px 14px;border-radius:10px;border:1px solid #d97706;background:#ffffff;color:#92400e;font-weight:600;cursor:pointer;">
+      Salin Prompt
+    </button>
+    <a href="https://flow.google.com/project/d22a5074-173a-43f5-941d-d3483b4e3b6d" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;padding:10px 16px;border-radius:10px;background:#d97706;color:#ffffff;font-weight:600;text-decoration:none;">
+      Buka Proyek di Google Flow
+    </a>
+  </div>
+</div>
+
+<!-- Kartu Menu Game Pondasi Riset - Buat - Jual - Ukur -->
+<div class="feature-card" id="menu-game-pondasi" style="background:#fffbeb;border:1px solid #f59e0b;border-radius:16px;padding:18px;margin-top:16px;">
+  <h3 style="margin-top:0;color:#92400e;">Game Pondasi UMKM</h3>
+  <p style="margin-bottom:12px;color:#374151;">Latihan seru &amp; pengisian soal <strong>Riset, Buat, Jual, dan Ukur</strong> (16 soal, skor maks. 320) lengkap dengan penghargaan tiap jawaban benar.</p>
+  <button type="button" id="buka-game-pondasi" style="padding:12px 18px;border-radius:12px;border:none;background:#d97706;color:#ffffff;font-weight:700;font-size:15px;cursor:pointer;">
+    Mulai Game Riset–Buat–Jual–Ukur
+  </button>
+</div>
+
+<!-- Panel Game Pondasi Digital Marketing (16 Soal + Penghargaan) -->
+<section id="panel-game-pondasi" style="display:none;background:#fffbeb;border:2px solid #f59e0b;border-radius:18px;padding:20px;margin-top:18px;color:#1f2937;">
+  <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px;">
+    <div>
+      <h3 style="margin:0;color:#92400e;">Game Pondasi Digital Marketing UMKM</h3>
+      <small style="color:#4b5563;">Pilar: Riset • Buat • Jual • Ukur (16 Soal • Skor Maks. 320 • Bonus Streak &amp; Pilar)</small>
+    </div>
+    <button type="button" id="tutup-game-pondasi" style="padding:8px 12px;border-radius:10px;border:1px solid #d1d5db;background:#ffffff;color:#374151;cursor:pointer;">
+      Tutup Game
+    </button>
+  </div>
+
+  <div id="status-game-pondasi" style="display:flex;flex-wrap:wrap;gap:12px;background:#fef3c7;padding:12px 14px;border-radius:12px;margin-bottom:14px;font-weight:600;">
+    <span>Soal: <strong id="nomor-soal-game">1</strong> / <strong id="total-soal-game">16</strong></span>
+    <span>Skor: <strong id="skor-game">0</strong> / 320</span>
+    <span>Streak Benar: <strong id="streak-game">0</strong></span>
+    <span>Piala/Badge: <strong id="badge-game">Pemula</strong></span>
+  </div>
+
+  <div id="wadah-soal-game" style="background:#ffffff;border:1px solid #fde68a;border-radius:14px;padding:16px;margin-bottom:14px;"></div>
+
+  <div id="penghargaan-game" style="min-height:46px;background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46;border-radius:12px;padding:12px 14px;margin-bottom:14px;display:none;"></div>
+
+  <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;">
+    <button type="button" id="btn-soal-sebelumnya" style="padding:10px 14px;border-radius:10px;border:1px solid #d1d5db;background:#ffffff;color:#1f2937;cursor:pointer;">
+      ← Sebelumnya
+    </button>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;">
+      <button type="button" id="btn-cek-jawaban" style="padding:10px 16px;border-radius:10px;border:none;background:#d97706;color:#ffffff;font-weight:700;cursor:pointer;">
+        Cek Jawaban &amp; Terima Penghargaan
+      </button>
+      <button type="button" id="btn-soal-berikutnya" style="padding:10px 16px;border-radius:10px;border:none;background:#059669;color:#ffffff;font-weight:700;cursor:pointer;">
+        Soal Berikutnya →
+      </button>
+    </div>
+  </div>
+</section>       
       </section>
     </main>
       </section>
