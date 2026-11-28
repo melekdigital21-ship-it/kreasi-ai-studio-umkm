@@ -352,7 +352,44 @@
       </button>
     </div>
   </div>
-</section>       
+</section> 
+ <!-- Menu Baru: Hiburan Tebak & Cocokkan Kartu Ibu-Ibu UMKM -->
+<article class="studio-card" id="menu-hiburan-tebak" style="background:#fffbeb;border:1px solid #f59e0b;border-radius:16px;padding:18px;margin-top:16px;">
+  <h3 style="margin-top:0;color:#92400e;">Hiburan Tebak &amp; Cocokkan Kartu</h3>
+  <p style="margin-bottom:12px;color:#374151;">Game santai pelepas penat buat ibu-ibu UMKM Limo: ketuk dan cocokkan pasangan kartu keseharian tanpa buru-buru.</p>
+  <button type="button" id="buka-hiburan-tebak" style="padding:12px 18px;border-radius:12px;border:none;background:#d97706;color:#ffffff;font-weight:700;font-size:15px;cursor:pointer;">
+    Main Tebak &amp; Cocokkan Kartu
+  </button>
+</article>
+
+<!-- Panel Baru: Game Tebak & Cocokkan Kartu Santai -->
+<section id="panel-hiburan-tebak" style="display:none;background:#fffbeb;border:2px solid #f59e0b;border-radius:18px;padding:20px;margin-top:18px;color:#1f2937;">
+  <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px;">
+    <div>
+      <h3 style="margin:0;color:#92400e;">Tebak &amp; Cocokkan Kartu Santai UMKM Limo</h3>
+      <small style="color:#4b5563;">Ketuk 2 kartu untuk mencocokkan pasangan • Santai tanpa batas waktu menegangkan</small>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button type="button" id="acak-ulang-tebak" style="padding:8px 12px;border-radius:10px;border:1px solid #d97706;background:#ffffff;color:#92400e;font-weight:600;cursor:pointer;">
+        Acak Ulang
+      </button>
+      <button type="button" id="tutup-hiburan-tebak" style="padding:8px 12px;border-radius:10px;border:1px solid #d1d5db;background:#ffffff;color:#374151;cursor:pointer;">
+        Tutup
+      </button>
+    </div>
+  </div>
+
+  <div style="display:flex;flex-wrap:wrap;gap:14px;background:#fef3c7;padding:12px 14px;border-radius:12px;margin-bottom:14px;font-weight:700;color:#78350f;">
+    <span>Cocok: <strong id="cocok-tebak">0</strong> / <strong id="total-pasang-tebak">6</strong> Pasang</span>
+    <span>Langkah Ketuk: <strong id="langkah-tebak">0</strong></span>
+  </div>
+
+  <div id="pesan-semangat-tebak" style="background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46;border-radius:12px;padding:12px 14px;margin-bottom:14px;font-weight:600;">
+    Yuk mulai santai! Ketuk satu kartu untuk menebak isinya, lalu cari pasangannya.
+  </div>
+
+  <div id="papan-kartu-tebak" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;"></div>
+</section>     
       </section>
     </main>
       </section>
@@ -954,5 +991,179 @@
       tampilkanBeranda();
     })();
   </script>
+  <script>
+(function () {
+  const btnBuka = document.getElementById("buka-hiburan-tebak");
+  const btnTutup = document.getElementById("tutup-hiburan-tebak");
+  const btnAcak = document.getElementById("acak-ulang-tebak");
+  const panel = document.getElementById("panel-hiburan-tebak");
+  const papan = document.getElementById("papan-kartu-tebak");
+  const elCocok = document.getElementById("cocok-tebak");
+  const elTotalPasang = document.getElementById("total-pasang-tebak");
+  const elLangkah = document.getElementById("langkah-tebak");
+  const elPesan = document.getElementById("pesan-semangat-tebak");
+
+  if (!btnBuka || !panel || !papan) return;
+
+  const daftarPasangan = [
+    { id: "sabun", ikon: "🫧", label: "Busa Bersih" },
+    { id: "piring", ikon: "🍽️", label: "Piring Kinclong" },
+    { id: "keranjang", ikon: "🧺", label: "Belanja Harian" },
+    { id: "minuman", ikon: "🍋", label: "Segar Kasturi" },
+    { id: "camilan", ikon: "🍪", label: "Kue Renyah" },
+    { id: "semangat", ikon: "💛", label: "Semangat Limo" }
+  ];
+
+  const quotesIbu = [
+    "Hebat, Bu! Tetap semangat dan jaga kesehatan di sela-sela aktivitas.",
+    "Pas ketemu! Rehat sebentar biar pikiran makin segar.",
+    "Cocok! Pelan-pelan melangkah, rezeki dan ilmu ikut mengalir.",
+    "Mantap! Senyum dulu sebelum lanjut beraktivitas lagi ya."
+  ];
+
+  let dekKartu = [];
+  let kartuTerbuka = [];
+  let pasanganCocok = 0;
+  let jumlahLangkah = 0;
+  let kunciKlik = false;
+
+  function acakArray(arr) {
+    const salinan = arr.slice();
+    for (let i = salinan.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const tmp = salinan[i];
+      salinan[i] = salinan[j];
+      salinan[j] = tmp;
+    }
+    return salinan;
+  }
+
+  function siapkanGameBaru() {
+    const ganda = [];
+    daftarPasangan.forEach((item, idx) => {
+      ganda.push({ unik: item.id + "-a-" + idx, id: item.id, ikon: item.ikon, label: item.label, terbuka: false, cocok: false });
+      ganda.push({ unik: item.id + "-b-" + idx, id: item.id, ikon: item.ikon, label: item.label, terbuka: false, cocok: false });
+    });
+    dekKartu = acakArray(ganda);
+    kartuTerbuka = [];
+    pasanganCocok = 0;
+    jumlahLangkah = 0;
+    kunciKlik = false;
+
+    if (elTotalPasang) elTotalPasang.textContent = String(daftarPasangan.length);
+    if (elCocok) elCocok.textContent = "0";
+    if (elLangkah) elLangkah.textContent = "0";
+    if (elPesan) {
+      elPesan.textContent = "Yuk mulai santai! Ketuk satu kartu untuk menebak isinya, lalu cari pasangannya.";
+    }
+    renderPapan();
+  }
+
+  function renderPapan() {
+    papan.innerHTML = "";
+    dekKartu.forEach((kartu, index) => {
+      const tombol = document.createElement("button");
+      tombol.type = "button";
+      const kelihatan = kartu.terbuka || kartu.cocok;
+      tombol.style.minHeight = "105px";
+      tombol.style.padding = "12px 8px";
+      tombol.style.borderRadius = "14px";
+      tombol.style.cursor = kartu.cocok ? "default" : "pointer";
+      tombol.style.display = "flex";
+      tombol.style.flexDirection = "column";
+      tombol.style.alignItems = "center";
+      tombol.style.justifyContent = "center";
+      tombol.style.gap = "6px";
+      tombol.style.fontWeight = "700";
+
+      if (kartu.cocok) {
+        tombol.style.background = "#ecfdf5";
+        tombol.style.border = "2px solid #10b981";
+        tombol.style.color = "#065f46";
+        tombol.innerHTML = `<span style="font-size:28px;">${kartu.ikon}</span><span style="font-size:13px;">${kartu.label}</span>`;
+      } else if (kelihatan) {
+        tombol.style.background = "#ffffff";
+        tombol.style.border = "2px solid #d97706";
+        tombol.style.color = "#92400e";
+        tombol.innerHTML = `<span style="font-size:28px;">${kartu.ikon}</span><span style="font-size:13px;">${kartu.label}</span>`;
+      } else {
+        tombol.style.background = "#fde68a";
+        tombol.style.border = "2px solid #f59e0b";
+        tombol.style.color = "#78350f";
+        tombol.innerHTML = `<span style="font-size:26px;">❓</span><span style="font-size:13px;">Ketuk Tebak</span>`;
+      }
+
+      tombol.addEventListener("click", function () {
+        if (kunciKlik || kartu.terbuka || kartu.cocok) return;
+        dekKartu[index].terbuka = true;
+        kartuTerbuka.push(index);
+        renderPapan();
+
+        if (kartuTerbuka.length === 2) {
+          jumlahLangkah += 1;
+          if (elLangkah) elLangkah.textContent = String(jumlahLangkah);
+          kunciKlik = true;
+
+          const idx1 = kartuTerbuka[0];
+          const idx2 = kartuTerbuka[1];
+          const k1 = dekKartu[idx1];
+          const k2 = dekKartu[idx2];
+
+          if (k1.id === k2.id) {
+            setTimeout(function () {
+              dekKartu[idx1].cocok = true;
+              dekKartu[idx2].cocok = true;
+              pasanganCocok += 1;
+              if (elCocok) elCocok.textContent = String(pasanganCocok);
+              kartuTerbuka = [];
+              kunciKlik = false;
+
+              if (elPesan) {
+                if (pasanganCocok === daftarPasangan.length) {
+                  elPesan.textContent = "MasyaAllah, semua pasangan berhasil dicocokkan dalam " + jumlahLangkah + " langkah! Selamat rehat sejenak, Bu.";
+                } else {
+                  elPesan.textContent = quotesIbu[pasanganCocok % quotesIbu.length];
+                }
+              }
+              renderPapan();
+            }, 320);
+          } else {
+            setTimeout(function () {
+              dekKartu[idx1].terbuka = false;
+              dekKartu[idx2].terbuka = false;
+              kartuTerbuka = [];
+              kunciKlik = false;
+              if (elPesan) {
+                elPesan.textContent = "Belum pas pasangannya—coba ketuk kartu lain dengan santai.";
+              }
+              renderPapan();
+            }, 650);
+          }
+        }
+      });
+
+      papan.appendChild(tombol);
+    });
+  }
+
+  btnBuka.addEventListener("click", function () {
+    panel.style.display = "block";
+    if (dekKartu.length === 0) {
+      siapkanGameBaru();
+    }
+    panel.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  if (btnAcak) {
+    btnAcak.addEventListener("click", siapkanGameBaru);
+  }
+
+  if (btnTutup) {
+    btnTutup.addEventListener("click", function () {
+      panel.style.display = "none";
+    });
+  }
+})();
+</script>
 </body>
 </html>
