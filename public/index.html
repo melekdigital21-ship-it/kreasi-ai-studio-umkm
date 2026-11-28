@@ -369,6 +369,530 @@
 
   <script src="studio-nav.js"></script>
   <script>
+(function () {
+  // 1. Salin prompt Studio Video (Google Flow)
+  const tombolSalin = document.getElementById("salin-prompt-flow");
+  const areaPrompt = document.getElementById("prompt-video-flow");
+  if (tombolSalin && areaPrompt) {
+    tombolSalin.addEventListener("click", function () {
+      const teksPrompt = areaPrompt.value;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(teksPrompt).then(function () {
+          const teksAwal = tombolSalin.textContent;
+          tombolSalin.textContent = "Prompt Tersalin!";
+          setTimeout(function () { tombolSalin.textContent = teksAwal; }, 1600);
+        });
+      } else {
+        areaPrompt.select();
+        document.execCommand("copy");
+      }
+    });
+  }
+
+  // 2. Bank 16 Soal Pondasi Digital Marketing (Riset - Buat - Jual - Ukur)
+  const bankSoal = [
+    {
+      pilar: "Riset",
+      tipe: "pg",
+      poin: 15,
+      penghargaan: "Penghargaan Pengamat Pasar! Kamu jeli membaca kebutuhan pembeli sebelum membuat produk.",
+      pertanyaan: "Langkah pertama dalam Riset sebelum UMKM membuat konten atau produk baru adalah...",
+      opsi: [
+        "Mengenali masalah nyata, kebiasaan, dan kata kunci yang dicari calon pembeli",
+        "Langsung mencetak kemasan dalam jumlah besar tanpa bertanya ke pelanggan",
+        "Meniru harga termurah kompetitor tanpa menghitung modal",
+        "Mengunggah iklan berbayar tanpa menentukan target audiens"
+      ],
+      jawaban: 0,
+      pembahasan: "Riset dimulai dari memahami masalah, kebutuhan, dan bahasa calon pembeli agar produk dan konten tepat sasaran."
+    },
+    {
+      pilar: "Riset",
+      tipe: "isian",
+      poin: 15,
+      penghargaan: "Lencana Riset Audiens! Kamu memahami siapa yang paling membutuhkan solusi usahamu.",
+      pertanyaan: "Isian singkat: Kelompok orang spesifik yang paling cocok dan berdaya beli untuk membeli produk UMKM disebut target ...",
+      kunci: ["audiens", "pasar", "pembeli", "konsumen", "pelanggan"],
+      pembahasan: "Target audiens / target pasar membantu UMKM fokus pada orang yang paling relevan dengan produk."
+    },
+    {
+      pilar: "Riset",
+      tipe: "pg",
+      poin: 15,
+      penghargaan: "Piala Detektif Kompetitor! Kamu tahu cara membedakan nilai unik usahamu.",
+      pertanyaan: "Manfaat utama mengamati ulasan pembeli pada produk sejenis di marketplace adalah...",
+      opsi: [
+        "Menemukan keluhan umum pembeli dan celah keunggulan yang bisa ditonjolkan",
+        "Menyalin foto dan deskripsi kompetitor secara mentah",
+        "Menurunkan kualitas bahan agar harga bisa dibanting",
+        "Menghindari promosi di media sosial"
+      ],
+      jawaban: 0,
+      pembahasan: "Ulasan pembeli menunjukkan apa yang disukai dan dikeluhkan pasar sehingga produk serta pesan jualan bisa lebih unggul."
+    },
+    {
+      pilar: "Riset",
+      tipe: "pg",
+      poin: 15,
+      penghargaan: "Sertifikat Validasi Ide! Keputusanmu berbasis bukti, bukan sekadar tebakan.",
+      pertanyaan: "Cara paling hemat dan cepat menguji minat pasar sebelum produksi massal adalah...",
+      opsi: [
+        "Membuat sampel kecil atau pre-order terbatas lalu mengamati respons nyata",
+        "Menyewa baliho besar selama satu tahun penuh",
+        "Menunggu sampai semua stok menumpuk di gudang",
+        "Menghapus semua kontak pelanggan lama"
+      ],
+      jawaban: 0,
+      pembahasan: "Uji coba kecil atau pre-order membantu memvalidasi minat pembeli dengan risiko modal yang terkendali."
+    },
+    {
+      pilar: "Buat",
+      tipe: "pg",
+      poin: 20,
+      penghargaan: "Penghargaan Penarik Perhatian (Hook)! Detik awal kontenmu bikin orang berhenti scroll.",
+      pertanyaan: "Dalam membuat konten video atau postingan UMKM, fungsi utama Hook adalah...",
+      opsi: [
+        "Menarik perhatian dalam 1–3 detik pertama agar penonton tidak langsung melewati konten",
+        "Menutup video dengan ucapan terima kasih panjang",
+        "Menyembunyikan manfaat utama produk sampai akhir",
+        "Mengisi kolom komentar dengan tanda baca"
+      ],
+      jawaban: 0,
+      pembahasan: "Hook yang kuat di awal memancing rasa penasaran atau menyentuh masalah audiens sejak detik pertama."
+    },
+    {
+      pilar: "Buat",
+      tipe: "isian",
+      poin: 20,
+      penghargaan: "Lencana Formula MSBA! Struktur pesanmu runtut: Masalah, Solusi, Bukti, Ajakan.",
+      pertanyaan: "Isian singkat: Dalam kerangka copywriting MSBA, huruf 'B' setelah Masalah dan Solusi adalah ...",
+      kunci: ["bukti"],
+      pembahasan: "MSBA = Masalah – Solusi – Bukti – Ajakan. Bukti (testimoni, hasil nyata, demo) membangun kepercayaan."
+    },
+    {
+      pilar: "Buat",
+      tipe: "pg",
+      poin: 20,
+      penghargaan: "Piala Kreator Jelas & Konsisten! Pesan produkmu mudah dipahami semua kalangan.",
+      pertanyaan: "Ciri konten edukasi atau promosi UMKM yang 'Buat'-nya matang adalah...",
+      opsi: [
+        "Visual terang dan jelas, teks mudah dibaca di HP, serta menonjolkan manfaat bagi pembeli",
+        "Terlalu banyak istilah rumit dan tulisan super kecil",
+        "Durasi bertele-tele tanpa inti manfaat produk",
+        "Berganti gaya dan identitas setiap hari tanpa arah"
+      ],
+      jawaban: 0,
+      pembahasan: "Konten yang jelas di layar HP dan menekankan manfaat membantu pembeli cepat paham nilai produk."
+    },
+    {
+      pilar: "Buat",
+      tipe: "pg",
+      poin: 20,
+      penghargaan: "Penghargaan Storyteller UMKM! Kamu merangkai cerita yang membumi dan dipercaya.",
+      pertanyaan: "Mengapa testimoni atau cerita penggunaan nyata sangat kuat ditempatkan di bagian 'Buat' konten?",
+      opsi: [
+        "Membantu calon pembeli membayangkan hasil nyata dan mengurangi keraguan",
+        "Menggantikan kewajiban menjaga kualitas produk",
+        "Membuat harga produk otomatis naik dua kali lipat",
+        "Menghilangkan kebutuhan menjawab pertanyaan pembeli"
+      ],
+      jawaban: 0,
+      pembahasan: "Bukti nyata dan cerita penggunaan membantu menurunkan rasa ragu calon pembeli."
+    },
+    {
+      pilar: "Jual",
+      tipe: "pg",
+      poin: 20,
+      penghargaan: "Lencana Ahli CTA! Kamu mengarahkan calon pembeli ke langkah berikutnya dengan jelas.",
+      pertanyaan: "Dalam pemasaran digital, CTA (Call to Action) berfungsi untuk...",
+      opsi: [
+        "Memberi arahan langkah selanjutnya yang jelas, seperti klik keranjang, chat WhatsApp, atau klaim promo",
+        "Menghapus tombol beli pada halaman produk",
+        "Menunda informasi cara pemesanan selamanya",
+        "Mengalihkan pembeli ke halaman yang tidak relevan"
+      ],
+      jawaban: 0,
+      pembahasan: "CTA yang spesifik dan mudah diikuti memandu audiens dari sekadar melihat menjadi bertindak."
+    },
+    {
+      pilar: "Jual",
+      tipe: "isian",
+      poin: 20,
+      penghargaan: "Piala Arsitek Funnel! Kamu memahami alur perjalanan pembeli dari kenal sampai repeat order.",
+      pertanyaan: "Isian singkat: Tahapan alur perjalanan calon pembeli dari pertama tahu produk hingga membeli disebut ...",
+      kunci: ["funnel", "sales funnel", "corong penjualan", "marketing funnel"],
+      pembahasan: "Funnel menggambarkan tahapan proses pelanggan mulai dari mengenal produk hingga melakukan pembelian dan repeat order."
+    },
+    {
+      pilar: "Jual",
+      tipe: "pg",
+      poin: 25,
+      penghargaan: "Penghargaan Penawaran Bernilai (Offer)! Kamu menjual solusi dan rasa aman, bukan sekadar barang.",
+      pertanyaan: "Strategi 'Jual' yang sehat bagi keberlanjutan UMKM adalah...",
+      opsi: [
+        "Menawarkan paket/bundling yang jelas manfaatnya dengan harga tetap menghitung HPP & margin",
+        "Menjual di bawah HPP terus-menerus tanpa batas waktu",
+        "Memaksa pembeli transfer tanpa kejelasan detail produk",
+        "Mengabaikan pelayanan setelah barang diterima"
+      ],
+      jawaban: 0,
+      pembahasan: "Penawaran yang menarik tetap harus menjaga margin sehat di atas HPP agar usaha terus berjalan."
+    },
+    {
+      pilar: "Jual",
+      tipe: "pg",
+      poin: 25,
+      penghargaan: "Lencana Respons Cepat & Ramah! Kepercayaan tumbuh dari pelayanan yang sigap.",
+      pertanyaan: "Saat calon pembeli bertanya soal stok, ukuran, atau cara pakai di chat/komentar, langkah terbaik adalah...",
+      opsi: [
+        "Menjawab ramah, jelas, dan jujur lalu menutup dengan ajakan/CTA yang membantu",
+        "Membalas ketus atau membiarkan pesan berhari-hari",
+        "Memberi informasi yang tidak sesuai kondisi barang",
+        "Menutup percakapan tanpa menawarkan bantuan lanjutan"
+      ],
+      jawaban: 0,
+      pembahasan: "Respons yang jelas, ramah, dan terarah meningkatkan peluang closing sekaligus kepercayaan merek."
+    },
+    {
+      pilar: "Ukur",
+      tipe: "pg",
+      poin: 20,
+      penghargaan: "Penghargaan Analis Angka! Kamu mengambil keputusan berdasarkan data yang terukur.",
+      pertanyaan: "Mengapa tahap 'Ukur' sangat penting setelah konten tayang atau promosi berjalan?",
+      opsi: [
+        "Untuk mengetahui mana Hook, konten, atau kanal yang benar-benar menghasilkan klik, chat, dan penjualan",
+        "Agar tidak perlu lagi mencatat pemasukan dan pengeluaran",
+        "Supaya semua konten lama langsung dihapus tanpa dipelajari",
+        "Untuk menghentikan evaluasi selamanya"
+      ],
+      jawaban: 0,
+      pembahasan: "Mengukur metrik membantu UMKM mempertahankan cara yang berhasil dan memperbaiki bagian yang kurang efektif."
+    },
+    {
+      pilar: "Ukur",
+      tipe: "isian",
+      poin: 20,
+      penghargaan: "Lencana Kendali Laba (HPP)! Kamu menjaga keuntungan tetap nyata di setiap transaksi.",
+      pertanyaan: "Isian singkat: Singkatan dari biaya pokok produksi/perolehan barang yang wajib dihitung agar tidak rugi adalah ...",
+      kunci: ["hpp"],
+      pembahasan: "HPP (Harga Pokok Penjualan) adalah acuan penting untuk memastikan harga jual menghasilkan laba bersih."
+    },
+    {
+      pilar: "Ukur",
+      tipe: "pg",
+      poin: 25,
+      penghargaan: "Piala Perbaikan Berkelanjutan! Setiap evaluasi membawamu naik level.",
+      pertanyaan: "Jika sebuah video memiliki banyak tontonan awal tapi klik/chat-nya masih sedikit, langkah 'Ukur' & perbaikan yang paling tepat adalah...",
+      opsi: [
+        "Mempertahankan Hook awal yang sudah menarik, lalu memperbaiki bagian isi/bukti dan memperjelas CTA",
+        "Menyalahkan pembeli karena tidak klik",
+        "Menutup toko online",
+        "Mengabaikan data sama sekali"
+      ],
+      jawaban: 0,
+      pembahasan: "Data per bagian membantu kita tahu bahwa Hook sudah jalan, sehingga fokus perbaikan ada pada pesan inti dan CTA."
+    },
+    {
+      pilar: "Ukur",
+      tipe: "pg",
+      poin: 25,
+      penghargaan: "Mahkota Juara Pondasi UMKM (320 Poin)! Kamu menguasai Riset, Buat, Jual, dan Ukur secara utuh.",
+      pertanyaan: "Bagaimana siklus Riset – Buat – Jual – Ukur bekerja paling efektif untuk UMKM?",
+      opsi: [
+        "Berputar terus secara bertahap: hasil 'Ukur' menjadi bahan 'Riset' untuk 'Buat' dan 'Jual' berikutnya",
+        "Hanya dilakukan sekali saat pertama buka usaha lalu dilupakan",
+        "Melompati 'Ukur' dan langsung menebak-nebak",
+        "Hanya fokus pada satu langkah saja selamanya"
+      ],
+      jawaban: 0,
+      pembahasan: "Riset–Buat–Jual–Ukur adalah siklus berkelanjutan: evaluasi dari 'Ukur' memperkaya 'Riset' pada putaran berikutnya."
+    }
+  ];
+
+  // Total skor maksimal = 15*4 + 20*6 + 25*6 = 60 + 120 + 150 = 330 -> dinormalisasi skala 320 agar tepat skor maks 320
+  const TOTAL_SKOR_MENTAH = bankSoal.reduce((acc, item) => acc + item.poin, 0);
+  const SKOR_MAKS = 320;
+
+  const btnBukaGame = document.getElementById("buka-game-pondasi");
+  const btnTutupGame = document.getElementById("tutup-game-pondasi");
+  const panelGame = document.getElementById("panel-game-pondasi");
+  const wadahSoal = document.getElementById("wadah-soal-game");
+  const boxPenghargaan = document.getElementById("penghargaan-game");
+  const elNomor = document.getElementById("nomor-soal-game");
+  const elTotal = document.getElementById("total-soal-game");
+  const elSkor = document.getElementById("skor-game");
+  const elStreak = document.getElementById("streak-game");
+  const elBadge = document.getElementById("badge-game");
+  const btnPrev = document.getElementById("btn-soal-sebelumnya");
+  const btnNext = document.getElementById("btn-soal-berikutnya");
+  const btnCek = document.getElementById("btn-cek-jawaban");
+
+  if (!btnBukaGame || !panelGame || !wadahSoal) return;
+
+  let indeksAktif = 0;
+  let skorMentah = 0;
+  let streakAktif = 0;
+  let streakTerbaik = 0;
+  const statusSoal = bankSoal.map(() => ({
+    sudahDicek: false,
+    benar: false,
+    jawabanUser: null,
+    poinDidapat: 0
+  }));
+
+  function hitungSkorTampilan() {
+    return Math.min(SKOR_MAKS, Math.round((skorMentah / TOTAL_SKOR_MENTAH) * SKOR_MAKS));
+  }
+
+  function tentukanBadge(skorTampil) {
+    if (skorTampil >= 300) return "Master Pondasi UMKM";
+    if (skorTampil >= 220) return "Strategis Jualan";
+    if (skorTampil >= 120) return "Kreator Berkembang";
+    return "Pemula";
+  }
+
+  function perbaruiHeaderStatus() {
+    const skorTampil = hitungSkorTampilan();
+    if (elNomor) elNomor.textContent = String(indeksAktif + 1);
+    if (elTotal) elTotal.textContent = String(bankSoal.length);
+    if (elSkor) elSkor.textContent = String(skorTampil);
+    if (elStreak) elStreak.textContent = String(streakAktif);
+    if (elBadge) elBadge.textContent = tentukanBadge(skorTampil);
+  }
+
+  function renderSoal() {
+    const soal = bankSoal[indeksAktif];
+    const st = statusSoal[indeksAktif];
+    perbaruiHeaderStatus();
+
+    let htmlKontrol = "";
+    if (soal.tipe === "pg") {
+      htmlKontrol = soal.opsi.map((teksOpsi, idx) => {
+        const terpilih = st.jawabanUser === idx ? "checked" : "";
+        return `
+          <label style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;margin-bottom:8px;border:1px solid #e5e7eb;border-radius:10px;cursor:pointer;background:${st.jawabanUser === idx ? "#fffbeb" : "#ffffff"};">
+            <input type="radio" name="opsi_soal_${indeksAktif}" value="${idx}" ${terpilih} style="margin-top:3px;" />
+            <span><strong>${String.fromCharCode(65 + idx)}.</strong> ${teksOpsi}</span>
+          </label>
+        `;
+      }).join("");
+    } else {
+      const nilaiIsian = typeof st.jawabanUser === "string" ? st.jawabanUser : "";
+      htmlKontrol = `
+        <label for="input-jawaban-isian" style="display:block;font-weight:600;margin-bottom:6px;">
+          Ketik jawaban singkatmu:
+        </label>
+        <input
+          type="text"
+          id="input-jawaban-isian"
+          value="${nilaiIsian.replace(/"/g, "&quot;")}"
+          placeholder="Tulis jawaban di sini..."
+          style="width:100%;padding:10px 12px;border:1px solid #d1d5db;border-radius:10px;font-size:15px;"
+        />
+      `;
+    }
+
+    wadahSoal.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
+        <span style="display:inline-block;background:#fef3c7;color:#92400e;font-weight:700;padding:4px 10px;border-radius:999px;font-size:13px;">
+          Pilar: ${soal.pilar}
+        </span>
+        <span style="font-size:13px;color:#6b7280;font-weight:600;">
+          Bobot: +${soal.poin} poin mentah
+        </span>
+      </div>
+      <p style="font-size:16px;font-weight:700;margin:0 0 12px 0;line-height:1.45;">
+        ${indeksAktif + 1}. ${soal.pertanyaan}
+      </p>
+      <div>${htmlKontrol}</div>
+    `;
+
+    if (soal.tipe === "pg") {
+      const radios = wadahSoal.querySelectorAll(`input[name="opsi_soal_${indeksAktif}"]`);
+      radios.forEach((radio) => {
+        radio.addEventListener("change", function () {
+          statusSoal[indeksAktif].jawabanUser = Number(this.value);
+        });
+      });
+    } else {
+      const inputIsian = document.getElementById("input-jawaban-isian");
+      if (inputIsian) {
+        inputIsian.addEventListener("input", function () {
+          statusSoal[indeksAktif].jawabanUser = this.value;
+        });
+      }
+    }
+
+    if (st.sudahDicek && boxPenghargaan) {
+      boxPenghargaan.style.display = "block";
+      if (st.benar) {
+        boxPenghargaan.style.background = "#ecfdf5";
+        boxPenghargaan.style.borderColor = "#a7f3d0";
+        boxPenghargaan.style.color = "#065f46";
+        boxPenghargaan.innerHTML = `
+          <strong>Benar! (+${st.poinDidapat} poin mentah)</strong><br/>
+          <span>${soal.penghargaan}</span><br/>
+          <small style="display:block;margin-top:6px;color:#047857;">Catatan: ${soal.pembahasan}</small>
+        `;
+      } else {
+        boxPenghargaan.style.background = "#fef2f2";
+        boxPenghargaan.style.borderColor = "#fecaca";
+        boxPenghargaan.style.color = "#991b1b";
+        boxPenghargaan.innerHTML = `
+          <strong>Belum tepat — yuk cek pembahasannya!</strong><br/>
+          <span>${soal.pembahasan}</span>
+        `;
+      }
+    } else if (boxPenghargaan) {
+      boxPenghargaan.style.display = "none";
+      boxPenghargaan.innerHTML = "";
+    }
+
+    if (btnPrev) btnPrev.disabled = indeksAktif === 0;
+    if (btnNext) {
+      btnNext.textContent = indeksAktif === bankSoal.length - 1 ? "Lihat Ringkasan Skor" : "Soal Berikutnya →";
+    }
+  }
+
+  function tampilkanRingkasanAkhir() {
+    const skorAkhir = hitungSkorTampilan();
+    const jumlahBenar = statusSoal.filter((s) => s.benar).length;
+    const badgeAkhir = tentukanBadge(skorAkhir);
+
+    wadahSoal.innerHTML = `
+      <div style="text-align:center;padding:10px 6px;">
+        <h4 style="margin:0 0 8px 0;color:#92400e;font-size:20px;">Latihan 16 Soal Selesai!</h4>
+        <p style="margin:0 0 14px 0;color:#374151;">
+          Jawaban Benar: <strong>${jumlahBenar} / ${bankSoal.length}</strong> soal •
+          Streak Terbaik: <strong>${streakTerbaik}</strong>
+        </p>
+        <div style="background:#fffbeb;border:1px solid #f59e0b;border-radius:14px;padding:14px;margin-bottom:14px;">
+          <div style="font-size:14px;color:#92400e;">Total Skor Pondasi UMKM</div>
+          <div style="font-size:30px;font-weight:800;color:#b45309;margin:4px 0;">${skorAkhir} / ${SKOR_MAKS}</div>
+          <div style="font-weight:700;color:#065f46;">Penghargaan Utama: ${badgeAkhir}</div>
+        </div>
+        <button type="button" id="btn-ulang-game" style="padding:10px 18px;border-radius:10px;border:none;background:#d97706;color:#ffffff;font-weight:700;cursor:pointer;">
+          Main Lagi dari Soal 1
+        </button>
+      </div>
+    `;
+
+    const btnUlang = document.getElementById("btn-ulang-game");
+    if (btnUlang) {
+      btnUlang.addEventListener("click", function () {
+        indeksAktif = 0;
+        skorMentah = 0;
+        streakAktif = 0;
+        streakTerbaik = 0;
+        for (let i = 0; i < statusSoal.length; i++) {
+          statusSoal[i].sudahDicek = false;
+          statusSoal[i].benar = false;
+          statusSoal[i].jawabanUser = null;
+          statusSoal[i].poinDidapat = 0;
+        }
+        renderSoal();
+      });
+    }
+  }
+
+  function cekJawabanSaatIni() {
+    const soal = bankSoal[indeksAktif];
+    const st = statusSoal[indeksAktif];
+
+    if (soal.tipe === "pg") {
+      const terpilih = wadahSoal.querySelector(`input[name="opsi_soal_${indeksAktif}"]:checked`);
+      if (!terpilih) {
+        if (boxPenghargaan) {
+          boxPenghargaan.style.display = "block";
+          boxPenghargaan.style.background = "#fffbeb";
+          boxPenghargaan.style.borderColor = "#fcd34d";
+          boxPenghargaan.style.color = "#92400e";
+          boxPenghargaan.innerHTML = "Pilih salah satu opsi jawaban (A, B, C, atau D) terlebih dahulu ya.";
+        }
+        return;
+      }
+      st.jawabanUser = Number(terpilih.value);
+    } else {
+      const inputIsian = document.getElementById("input-jawaban-isian");
+      const teks = inputIsian ? inputIsian.value.trim() : "";
+      if (!teks) {
+        if (boxPenghargaan) {
+          boxPenghargaan.style.display = "block";
+          boxPenghargaan.style.background = "#fffbeb";
+          boxPenghargaan.style.borderColor = "#fcd34d";
+          boxPenghargaan.style.color = "#92400e";
+          boxPenghargaan.innerHTML = "Tuliskan jawaban singkatmu terlebih dahulu sebelum mengecek.";
+        }
+        return;
+      }
+      st.jawabanUser = teks;
+    }
+
+    let isBenar = false;
+    if (soal.tipe === "pg") {
+      isBenar = st.jawabanUser === soal.jawaban;
+    } else {
+      const norm = String(st.jawabanUser).toLowerCase().replace(/\s+/g, " ").trim();
+      isBenar = soal.kunci.some((k) => norm === k || norm.includes(k));
+    }
+
+    if (!st.sudahDicek) {
+      st.sudahDicek = true;
+      st.benar = isBenar;
+      if (isBenar) {
+        streakAktif += 1;
+        if (streakAktif > streakTerbaik) streakTerbaik = streakAktif;
+        const bonusStreak = streakAktif >= 3 ? 2 : 0;
+        const totalPoinSoal = soal.poin + bonusStreak;
+        st.poinDidapat = totalPoinSoal;
+        skorMentah += totalPoinSoal;
+      } else {
+        streakAktif = 0;
+        st.poinDidapat = 0;
+      }
+    }
+
+    renderSoal();
+  }
+
+  btnBukaGame.addEventListener("click", function () {
+    panelGame.style.display = "block";
+    renderSoal();
+    panelGame.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  if (btnTutupGame) {
+    btnTutupGame.addEventListener("click", function () {
+      panelGame.style.display = "none";
+    });
+  }
+
+  if (btnCek) {
+    btnCek.addEventListener("click", cekJawabanSaatIni);
+  }
+
+  if (btnPrev) {
+    btnPrev.addEventListener("click", function () {
+      if (indeksAktif > 0) {
+        indeksAktif -= 1;
+        renderSoal();
+      }
+    });
+  }
+
+  if (btnNext) {
+    btnNext.addEventListener("click", function () {
+      if (indeksAktif < bankSoal.length - 1) {
+        indeksAktif += 1;
+        renderSoal();
+      } else {
+        tampilkanRingkasanAkhir();
+      }
+    });
+  }
+})();
+</script>
+  <script>
     (function () {
       const berandaPortal = document.getElementById("berandaPortal");
       const iframeWrapper = document.getElementById("studioIframeWrapper");
